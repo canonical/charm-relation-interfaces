@@ -45,6 +45,8 @@ Both the consumer and the provider need to adhere to a certain set of criterias 
 Exposes all endpoints the consumer should write metrics to. Should be placed in the **unit** databag for each 
 unit of the provider capable of receiving metrics over remote write.
 
+#### Example
+
 ```yaml
 related-units:
   some-consumer/0:
