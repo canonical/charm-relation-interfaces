@@ -2,7 +2,9 @@
 
 ## Usage
 
-...
+This relation interface describes the expected behavior of any charm claiming to be able to provide or consume Prometheus Remote Write data.
+
+In most cases, this will be accomplished using the [prometheus_remote_write library](https://charmhub.io/prometheus-k8s/libraries/prometheus_remote_write), although charm developers are free to provide alternative libraries as long as they fulfill the behavioral and schematic requirements described in this document.
 
 ## Direction
 
