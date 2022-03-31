@@ -36,8 +36,59 @@ Both the consumer and the provider need to adhere to a certain set of criterias 
 - Is expected to add any wanted topology labels to all metrics sent to the provider.
 - Is expected to be able to expose both single alert rules and alert rule groups over the relation data bag
 
-### Data Schema
+## Relation Data
 
-```mermaid
-...
+### Provider
+
+[\[JSON Schema\]](./schemas/provider.json)
+
+Exposes all endpoints the consumer should write metrics to. Should be placed in the **unit** databag for each 
+unit of the provider capable of receiving metrics over remote write.
+
+```yaml
+related-units:
+  some-consumer/0:
+    # ...
+    data:
+      # ...
+      remote_write: {
+        "url": "http://192.168.1.2:9090/api/v1/write"
+      }
 ```
+
+### Consumer
+
+[\[JSON Schema\]](./schemas/consumer.json)
+
+Exposes all alert rules relevant to the metrics being sent over. Expected to contain expressions without Juju topology injected, but with the topology available as labels. Should be placed in the **application** databag.
+
+#### Example
+```yaml
+application-data:
+  alert_rules: {
+    "groups": [
+      {
+        "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+        "rules": [
+          {
+            "alert": "ConsumerCharmUnavailable",
+            "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+            "for": "0m",
+            "labels": {
+              "severity": "critical",
+              "juju_model": "some-model",
+              "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+              "juju_application": "consumer-charm"
+            },
+            "annotations": {
+              "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+              "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+            }
+          }
+        ]
+      }
+    ]
+  }
+```
+
+
