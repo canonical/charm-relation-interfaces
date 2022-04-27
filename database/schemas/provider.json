@@ -1,0 +1,173 @@
+{
+    "$schema": "http://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "title": "Root Schema",
+    "description": "The root schema is the schema that comprises the entire JSON document.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "username",
+        "password",
+        "endpoints",
+        "tls",
+        "tls-ca"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "username": {
+            "title": "The username Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "relation-14"
+            ]
+        },
+        "password": {
+            "title": "The password Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "alphanum-32byte-random"
+            ]
+        },
+        "database": {
+            "title": "The database Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "myapp"
+            ]
+        },
+        "endpoints": {
+            "title": "The endpoints Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "array",
+            "default": [],
+            "items": {
+                "title": "A Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "type": "string",
+                "examples": [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            },
+            "examples": [
+                [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            ]
+        },
+        "read-only-endpoints": {
+            "title": "The read-only-endpoints Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "array",
+            "default": [],
+            "items": {
+                "title": "A Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "type": "string",
+                "examples": [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            },
+            "examples": [
+                [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            ]
+        },
+        "status": {
+            "title": "The status Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "ready",
+            "examples": [
+                "maintenance"
+            ]
+        },
+        "tls": {
+            "title": "The tls Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "boolean",
+            "default": false,
+            "examples": [
+                true
+            ]
+        },
+        "tls-ca": {
+            "title": "The tls-ca Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "base64-ca-here=="
+            ]
+        },
+        "replset": {
+            "title": "The replset Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "rs0"
+            ]
+        },
+        "uris": {
+            "title": "The uris Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "array",
+            "default": [],
+            "items": {
+                "title": "A Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "type": "string",
+                "default": "",
+                "examples": [
+                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
+                ]
+            },
+            "examples": [
+                [
+                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
+                ]
+            ]
+        },
+        "version": {
+            "title": "The version Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "8.0.27-18"
+            ]
+        }
+    },
+    "examples": [{
+        "username": "relation-14",
+        "password": "alphanum-32byte-random",
+        "database": "myapp",
+        "endpoints": [
+            "unit-1:port",
+            "unit-2:port"
+        ],
+        "read-only-endpoints": [
+            "unit-1:port",
+            "unit-2:port"
+        ],
+        "status": "maintenance",
+        "tls": true,
+        "tls-ca": "base64-ca-here==",
+        "replset": "rs0",
+        "uris": [
+            "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
+        ],
+        "version": "8.0.27-18"
+    }]
+}
