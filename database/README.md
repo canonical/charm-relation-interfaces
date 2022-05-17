@@ -23,20 +23,20 @@ Both the Consumer and the Provider need to adhere to criteria to be considered c
 
 ### Consumer
 
-- The consumer leader unit should provide a database name (in the `database` field).
-- If several Consumer units provide the `database` field, the value must be identical.
-- Different instances of the same Charm (juju applications) will have different relations. Each relation will have unique credentials.
-- Different relations names with the same interface name should be used if Consumer need access to multiple databases.
-- Different juju applications can have access to the same database name.
-- Consumer can provide `extra-user-roles` field if special privileges needed (e.g. `extra-user-roles=admin`).
+- Is expected that the Consumer leader unit provides a database name (in the `database` field).
+- Is expected to have the identical value of the `database` field if several Consumer units provide it in the relation.
+- Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
+- Is expected to have different relations names on Consumer with the same interface name if Consumer needs access to multiple database charms.
+- Is expected to allow multiple different Juju applications to access the same database name.
+- Is expected to add any `extra-user-roles` provided by the Consumer to the created user (e.g. `extra-user-roles=admin`).
 
 
 ### Provider
-- Provider should create application user inside database cluster and provide `username` and `password` fields.
-- Provider should provide the `endpoints` field with a comma-separated list of hosts, which can be used for database connection.
-- Provider should provide fields `tls` and `tls-ca` if TLS is configured.
-- Provider can provide database-specific fields `read-only-endpoints`, `replset`, `uris`.
-- Provider can provide database version field `version`.
+- Is expected that the Provider creates an application user inside the database cluster and provides `username` and `password` fields when Consumer provides the `database` field.
+- Is expected to provide the `endpoints` field with a comma-separated list of hosts, which can be used for database connection.
+- Is expected to provide fields `tls` and `tls-ca` if TLS is configured.
+- Is expected to provide optional database-specific fields,  like `read-only-endpoints`, `replset`, `uris`.
+- Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 
 ## Relation Data
 
