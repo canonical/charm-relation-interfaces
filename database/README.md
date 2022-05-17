@@ -14,7 +14,7 @@ flowchart TD
     Provider -- username, password, endpoints --> Consumer
 ```
 
-As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Consumer (application charm). The Consumer will be expected to provide a database name, and the Provider will provide new unique credentials, which can be used to access the actual database cluster.
+As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Consumer (application charm). The Consumer will be expected to provide a database name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the actual database cluster.
 
 ## Behavior
 
