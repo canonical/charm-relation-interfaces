@@ -3,6 +3,7 @@
 ## Usage
 
 This relation interface describes the expected behaviour of any charm claiming to be able to interact with a database.
+Our intent to have different interface names with `<database>-client` pattern (like `mongodb-client`) and the same validation rules for multiple databases (e.g. MySQL, PostgreSQL, MongoDB, etc).
 
 In most cases, this will be accomplished using the database provider library, although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
