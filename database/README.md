@@ -26,6 +26,7 @@ Both the Consumer and the Provider need to adhere to criteria to be considered c
 - If several Consumer units provide the `database` field, the value must be identical.
 - Different instances of the same Charm (juju applications) will have different relations. Each relation will have unique credentials.
 - Different relations names with the same interface name should be used if Consumer need access to multiple databases.
+- Different juju applications can have access to the same database name.
 - Consumer can provide `extra-user-roles` field if special privileges needed (e.g. `extra-user-roles=admin`).
 
 
