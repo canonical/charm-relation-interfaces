@@ -35,7 +35,6 @@ Both the Consumer and the Provider need to adhere to criteria to be considered c
 - Provider should provide fields `tls` and `tls-ca` if TLS is configured.
 - Provider can provide database-specific fields `read-only-endpoints`, `replset`, `uris`.
 - Provider can provide database version field `version`.
-- Provider can provide database status field `status` with values `ready` or `maintenance`.
 
 ## Relation Data
 
