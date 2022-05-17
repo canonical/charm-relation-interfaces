@@ -25,7 +25,7 @@ Both the Consumer and the Provider need to adhere to criteria to be considered c
 - The consumer leader unit should provide a database name (in the `database` field).
 - If several Consumer units provide the `database` field, the value must be identical.
 - Different instances of the same Charm (juju applications) will have different relations. Each relation will have unique credentials.
-- Different relations should be used if access to multiple databases is needed.
+- Different relations names with the same interface name should be used if Consumer need access to multiple databases.
 - Consumer can provide `extra-user-roles` field if special privileges needed (e.g. `extra-user-roles=admin`).
 
 
