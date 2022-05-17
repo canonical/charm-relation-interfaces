@@ -1,4 +1,4 @@
 providers:
-  - prometheus-k8s
-consumers:
-  - grafana-agent-k8s
+  - postgresql-k8s-operator
+  - mongodb-k8s-operator
+consumers: []
