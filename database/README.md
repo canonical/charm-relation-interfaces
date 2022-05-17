@@ -22,7 +22,7 @@ Both the Consumer and the Provider need to adhere to criteria to be considered c
 
 ### Consumer
 
-- At least one Consumer unit should provide one database name (in the `database` field).
+- The consumer leader unit should provide a database name (in the `database` field).
 - If several Consumer units provide the `database` field, the value must be identical.
 - Different instances of the same Charm (juju applications) will have different relations. Each relation will have unique credentials.
 - Different relations should be used if access to multiple databases is needed.
