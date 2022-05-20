@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "The root schema comprises the entire JSON document. It contains the data bucket content and format for the provider of the tls-certificates relation to provide certificates to the requirer.",
+  "examples": [
+    {
+      "chain": "adefeaef",
+      "ca": "aedafefewa",
+      "aabcd.com": {
+        "key": "afaefawfawfawfaafe.key",
+        "cert": "abavab.crt"
+      },
+      "blabla.com": {
+        "key": "blablabla.key",
+        "cert": "abavab.crt"
+      }
+    }
+  ],
+  "properties": {
+    "ca": {
+      "type": "string"
+    },
+    "chain": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "type": "string"
+      },
+      "cert": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "key",
+      "cert"
+    ]
+  },
+  "required": [
+    "ca",
+    "chain"
+  ]
+}

@@ -1,0 +1,10 @@
+providers:
+  - vault
+  - charm-vault-k8s
+consumers:
+  - keystone
+  - nova-cloud
+  - cinder
+  - neutron
+  - glance
+  - charm-ceph-dashboard

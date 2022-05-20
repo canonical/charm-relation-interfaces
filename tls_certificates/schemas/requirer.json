@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "The root schema comprises the entire JSON document. It contains the data bucket content and format for the requirer of the tls-certificates relation to ask TLS certificates to the provider.",
+  "examples": [
+    {
+      "unit_name": "web-app-0",
+      "sans": [
+        "canonical.com"
+      ],
+      "cert_requests": [
+        {
+          "common_name": "webapp.canonical.com"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "common_name": {
+      "type": "string",
+      "desctiption": "Server common name",
+      "examples": [
+        "canonical.com",
+        "ubuntu.com"
+      ],
+      "description": "Server common name"
+    },
+    "sans": {
+      "type": "array",
+      "description": "Server list of server SAN's (subject alternative names)",
+      "examples": [
+        [
+          "DNS Name=canonical.com",
+          "DNS Name=www.canonical.com",
+          "DNS Name=www.support.canonical.com"
+        ],
+        [
+          "DNS Name=ubuntu.com",
+          "DNS Name=www.ubuntu.com",
+          "DNS Name=www.support.ubuntu.com"
+        ]
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "cert_requests": {
+      "type": "array",
+      "description": "List of server cert requests",
+      "examples": [
+        [
+          {
+            "common_name": "abcd.canonical.com"
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "sans": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "common_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "common_name"
+        ]
+      }
+    },
+    "client_cert_requests": {
+      "type": "array",
+      "description": "List of client cert requests",
+      "examples": [
+        [
+          {
+            "common_name": "abcd.canonical.com"
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "sans": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "common_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "common_name"
+        ]
+      }
+    },
+    "application_cert_requests": {
+      "type": "array",
+      "description": "List of application cert requests",
+      "examples": [
+        [
+          {
+            "common_name": "abcd.canonical.com"
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "sans": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "common_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "common_name"
+        ]
+      }
+    },
+    "unit_name": {
+      "description": "Juju Unit name. Explicit set of unit_name needed to support use of this interface in cross model contexts.",
+      "examples": [
+        "whatever-operator-0",
+        "whatever-operator-1"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "unit_name"
+  ]
+}
