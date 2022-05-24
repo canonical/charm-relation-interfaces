@@ -18,16 +18,15 @@
   "properties": {
     "common_name": {
       "type": "string",
-      "desctiption": "Server common name",
+      "description": "Server common name",
       "examples": [
         "canonical.com",
         "ubuntu.com"
-      ],
-      "description": "Server common name"
+      ]
     },
     "sans": {
       "type": "array",
-      "description": "Server list of server SAN's (subject alternative names)",
+      "description": "List of server SAN's (subject alternative names)",
       "examples": [
         [
           "DNS Name=canonical.com",
