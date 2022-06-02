@@ -6,11 +6,19 @@
     {
       "cert_requests": [
         {
-          "common_name": "whatever.com"
+          "common_name": "canonical.com"
         }
       ]
     }
   ],
+  "properties": {
+    "common_name": {
+      "type": "string"
+    },
+    "sans": {
+      "type": "array"
+    }
+  },
   "anyOf": [
     {
       "required": [
