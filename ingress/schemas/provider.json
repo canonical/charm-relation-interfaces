@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://github.com/canonical/charm-relation-interfaces/ingress/schemas/provider.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "data": {
+                "url": "http://foo.bar:80/model_name-unit_name/0"
+            }
+        }
+    ],
+    "required": [
+        "data"
+    ],
+    "properties": {
+        "data": {
+            "$id": "#/properties/data",
+            "type": "string",
+            "title": "yaml-encoded application url",
+            "description": "url",
+            "default": null,
+            "examples": [
+                {
+                    "url": "http://192.168.1.2:9090/api/v1/write"
+                }
+            ]
+        }
+    },
+    "additionalProperties": false
+}
