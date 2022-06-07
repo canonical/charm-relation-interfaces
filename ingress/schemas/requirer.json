@@ -54,11 +54,8 @@
       "description": "The port the application wishes to be exposed.",
       "default": null,
       "examples": [
-        "prometheus-k8s"
-      ],
-      "host": "hostname",
-      "port": 4242,
-      "model": "model-name"
+        4242
+      ]
     },
     "additionalProperties": false
   }
