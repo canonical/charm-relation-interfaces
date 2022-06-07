@@ -22,7 +22,7 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 
 ### Provider
 
-- Can provide ingress for the remote units requesting it.
+- Is expected to provide ingress for remote units requesting it.
 - Is expected to respect the ingress parameters sent by the requirer via unit relation data: hostname, port and model name (namespace).
 - Is expected to publish the ingress url via relation data, as a mapping from unit names to urls.
 
