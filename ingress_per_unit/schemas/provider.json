@@ -7,29 +7,23 @@
     "default": {},
     "examples": [
         {
-          "data": {
             "urls": {
               "unit_name": "http://foo.bar:80/model_name-unit_name/0"
             }
-          }
         }
     ],
     "required": [
-        "data"
+        "urls"
     ],
     "properties": {
         "data": {
-            "$id": "#/properties/data",
+            "$id": "#/properties/urls",
             "type": "string",
-            "title": "yaml-encoded unit urls",
-            "description": "url",
+            "title": "URLs",
+            "description": "A yaml-encoded mapping from unit names to URLs for which ingress is provided.",
             "default": null,
             "examples": [
-                {
-                    "urls": {
-                        "unit_name": "http://foo.bar:80/model_name-unit_name/0"
-                    }
-                }
+                    "prometheus-k8s/0: http://foo.bar:80/model_name-prometheus-k8s/0\nprometheus-k8s/1: http://foo.bar:80/model_name-prometheus-k8s/1"
             ]
         }
     },
