@@ -25,6 +25,14 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 - Can provide ingress for the remote applications requesting it.
 - Is expected to respect the ingress parameters sent by the requirer: hostname, port and model name (namespace).
 - Is expected to publish the ingress url via relation data.
+- Will provide an ingress url with the following structure:
+    `http://[ingress hostname]:[ingress port]/[app-name]-[model-name]/`
+    where: 
+  - ingress hostname and url are the hostname and urls that the ingress is configured with
+  - app-name is the name of the application requesting ingress
+  - model-name is the name of the model the application requesting ingress is deployed into
+    
+  The structure of this URL is fixed in the generic ingress schema; specific ingress providers implementations may offer some way of customising it.    
 
 ### Requirer
 
@@ -42,9 +50,7 @@ Exposes a `url` field containing the url at which ingress is available. Should b
 
 ```yaml
 application_data: {
-  data: {
-    url: "http://foo.bar:80/model_name-unit_name/0"
-  }
+  url: "http://foo.bar:80/model_name-unit_name/0"
 }
 ```
 
@@ -57,12 +63,10 @@ Exposes the unit name, model name, hostname and port at which ingress should be 
 #### Example
 ```yaml
 application-data: {
-  data: {
-     name: "unit-name",
-     host: "hostname",
-     port: 4242,
-     model: "model-name"
-  }          
+ name: "unit-name",
+ host: "hostname",
+ port: 4242,
+ model: "model-name"
 }
 ```
 
