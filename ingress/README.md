@@ -22,12 +22,14 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 
 ### Provider
 
-- Can provide ingress for the remote applications requesting it.
+- Is expected to provide ingress for the remote applications requesting it.
 - Is expected to respect the ingress parameters sent by the requirer: hostname, port and model name (namespace).
 - Is expected to publish the ingress url via relation data.
-- Will provide an ingress url with the following structure:
-    `http://[ingress hostname]:[ingress port]/[app-name]-[model-name]/`
-    where: 
+  The url is expected to have the following structure:
+
+    > `http://[ingress hostname]:[ingress port]/[app-name]-[model-name]/`
+    
+  where: 
   - ingress hostname and url are the hostname and urls that the ingress is configured with
   - app-name is the name of the application requesting ingress
   - model-name is the name of the model the application requesting ingress is deployed into
