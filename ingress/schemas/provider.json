@@ -7,25 +7,21 @@
     "default": {},
     "examples": [
         {
-            "data": {
-                "url": "http://foo.bar:80/model_name-unit_name/0"
-            }
+            "url": "http://foo.bar:80/model_name-app_name"
         }
     ],
     "required": [
-        "data"
+        "url"
     ],
     "properties": {
-        "data": {
-            "$id": "#/properties/data",
+        "url": {
+            "$id": "#/properties/url",
             "type": "string",
-            "title": "yaml-encoded application url",
-            "description": "url",
+            "title": "application url",
+            "description": "The ingress url for the application",
             "default": null,
             "examples": [
-                {
-                    "url": "http://192.168.1.2:9090/api/v1/write"
-                }
+                "http://foo.bar:80/prom-model-prometheus-k8s"
             ]
         }
     },
