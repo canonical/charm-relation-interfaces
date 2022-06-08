@@ -14,7 +14,10 @@
     }
   ],
   "required": [
-    "data"
+    "name",
+    "host",
+    "port",
+    "model"
   ],
   "properties": {
     "name": {
