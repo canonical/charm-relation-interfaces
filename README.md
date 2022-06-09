@@ -7,7 +7,11 @@ that is made of:
 - JSON schemas for both the provider and the requirer data bucket content.
 - A charms.yaml file that contains the list of charms using the relation.
 
-Currently supported interfaces:
+## Interfaces
 
-- [`prometheus_remote_write`](prometheus_remote_write/README.md)
-- [`tls_certificates`](prometheus_remote_write/README.md)
+| Interface | Status |
+| :----- | :-------- |
+| [`ingress`](ingress/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square)|
+| [`ingress-per-unit`](ingress_per_unit/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
+| [`prometheus_remote_write`](prometheus_remote_write/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
+| [`tls_certificates`](prometheus_remote_write/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |

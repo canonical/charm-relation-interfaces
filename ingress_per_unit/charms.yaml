@@ -1,0 +1,5 @@
+providers:
+  - traefik-k8s
+consumers:
+  - traefik-route
+  - prometheus-k8s
