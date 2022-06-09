@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "The root schema comprises the entire JSON document. It contains the data bucket content and format for the requirer of the tls-certificates relation to ask TLS certificates to the provider.",
+  "examples": [
+    {
+      "cert_requests": [
+        {
+          "common_name": "canonical.com"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "common_name": {
+      "type": "string"
+    },
+    "sans": {
+      "type": "array"
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "cert_requests"
+      ],
+      "type": "object",
+      "properties": {
+        "cert_requests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sans": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "common_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "common_name"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "client_cert_requests"
+      ],
+      "properties": {
+        "client_cert_requests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sans": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "common_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "common_name"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
