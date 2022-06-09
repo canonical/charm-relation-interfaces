@@ -83,15 +83,6 @@
                 ]
             ]
         },
-        "status": {
-            "title": "The status Schema",
-            "description": "An explanation about the purpose of this instance.",
-            "type": "string",
-            "default": "ready",
-            "examples": [
-                "maintenance"
-            ]
-        },
         "tls": {
             "title": "The tls Schema",
             "description": "An explanation about the purpose of this instance.",
@@ -161,7 +152,6 @@
             "unit-1:port",
             "unit-2:port"
         ],
-        "status": "maintenance",
         "tls": true,
         "tls-ca": "base64-ca-here==",
         "replset": "rs0",
