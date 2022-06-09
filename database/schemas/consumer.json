@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "title": "Root Schema",
+    "description": "The root schema is the schema that comprises the entire JSON document.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "database"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "database": {
+            "title": "The database Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "myapp"
+            ]
+        },
+        "extra-user-roles": {
+            "title": "The extra-user-roles Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "type": "array",
+            "default": ["default"],
+            "items": {
+                "title": "A Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "type": "string",
+                "examples": [
+                    "default",
+                    "admin"
+                ]
+            },
+            "examples": [
+                [
+                    "default",
+                    "admin"
+                ]
+            ]
+        }
+    },
+    "examples": [{
+        "database": "myapp",
+        "extra-user-roles": [
+            "default",
+            "admin"
+        ]
+    }]
+}
