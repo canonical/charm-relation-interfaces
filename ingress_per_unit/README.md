@@ -42,10 +42,8 @@ Exposes a `urls` field containing a mapping from unit name to the url at which i
 
 ```yaml
 application_data: {
-  data: {
-    urls: { 
-      unit_name: "http://foo.bar:80/model_name-unit_name/0" 
-    }
+  urls: { 
+    unit_name: "http://foo.bar:80/model_name-unit_name/0" 
   }
 }
 ```
@@ -54,17 +52,15 @@ application_data: {
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Exposes the unit name, model name, hostname and port at which ingress should be provided. Should be placed in the **unit** databag of _each unit_ of the requirer application, encoded as yaml and nested in a "data" field.
+Exposes the unit name, model name, hostname and port at which ingress should be provided. Should be placed in the **unit** databag of _each unit_ of the requirer application.
 
 #### Example
 ```yaml
-application-data: {
-  data: {
-     name: "unit-name",
-     host: "hostname",
-     port: 4242,
-     model: "model-name"
-  }          
+unit-data: {
+ name: "unit-name",
+ host: "hostname",
+ port: 4242,
+ model: "model-name"
 }
 ```
 

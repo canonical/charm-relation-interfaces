@@ -1,4 +1,5 @@
 providers:
   - traefik-k8s
 consumers:
-  - spring-music
+  - traefik-route
+  - prometheus-k8s
