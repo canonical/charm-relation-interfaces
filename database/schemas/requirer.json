@@ -1,8 +1,8 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "$id": "http://example.com/example.json",
-    "title": "Root Schema",
-    "description": "The root schema is the schema that comprises the entire JSON document.",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/requirer.json",
+    "title": "`database` requirer schema",
+    "description": "The `database` root schema comprises the entire requirer databag for this interface.",
     "type": "object",
     "default": {},
     "required": [
@@ -11,8 +11,8 @@
     "additionalProperties": true,
     "properties": {
         "database": {
-            "title": "The database Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "title": "Database Name",
+            "description": "The database name requested by the requirer",
             "type": "string",
             "default": "",
             "examples": [
@@ -20,13 +20,13 @@
             ]
         },
         "extra-user-roles": {
-            "title": "The extra-user-roles Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "title": "Extra-user-roles",
+            "description": "Any extra user roles requested by the requirer",
             "type": "array",
             "default": ["default"],
             "items": {
-                "title": "A Schema",
-                "description": "An explanation about the purpose of this instance.",
+                "title": "Database User Role",
+                "description": "A database user role",
                 "type": "string",
                 "examples": [
                     "default",
