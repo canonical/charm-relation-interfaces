@@ -1,7 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/tls_certificates/schemas/provider.json",
   "type": "object",
-  "description": "The root schema comprises the entire JSON document. It contains the data bucket content and format for the provider of the tls-certificates relation to provide certificates to the requirer.",
+  "title": "`tls_certificates` provider root schema",
+  "description": "The `tls_certificates` root schema comprises the entire provider databag for this interface.",
   "example": [
     {
       "whatever.com": {
@@ -15,13 +17,22 @@
   ],
   "properties": {
     "ca": {
-      "type": "string"
+      "$id": "#/properties/ca",
+      "type": "string",
+      "title": "CA",
+      "description": "The CA Certificate"
     },
     "chain": {
-      "type": "string"
+      "$id": "#/properties/chain",
+      "type": "string",
+      "title": "Chain",
+      "description": "The Chain Certificate"
     },
     "unit_name": {
-      "type": "string"
+      "$id": "#/properties/unit_name",
+      "type": "string",
+      "title": "Unit Name",
+      "description": "The name of the unit"
     }
   },
   "patternProperties": {

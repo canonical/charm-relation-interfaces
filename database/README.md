@@ -11,59 +11,38 @@ In most cases, this will be accomplished using the database provider library, al
 
 ```mermaid
 flowchart TD
-    Consumer -- database, extra-user-roles --> Provider
-    Provider -- username, password, endpoints --> Consumer
+    Requirer -- database, extra-user-roles --> Provider
+    Provider -- username, password, endpoints --> Requirer
 ```
 
-As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Consumer (application charm). The Consumer will be expected to provide a database name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the actual database cluster.
+As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Requirer (application charm). The Requirer will be expected to provide a database name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the actual database cluster.
 
 ## Behavior
 
-Both the Consumer and the Provider need to adhere to criteria to be considered compatible with the interface.
-
-### Consumer
-
-- Is expected that the Consumer leader unit provides a database name (in the `database` field).
-- Is expected to have the identical value of the `database` field if several Consumer units provide it in the relation.
-- Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
-- Is expected to have different relations names on Consumer with the same interface name if Consumer needs access to multiple database charms.
-- Is expected to allow multiple different Juju applications to access the same database name.
-- Is expected to add any `extra-user-roles` provided by the Consumer to the created user (e.g. `extra-user-roles=admin`).
-
+Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
 
 ### Provider
-- Is expected that the Provider creates an application user inside the database cluster and provides `username` and `password` fields when Consumer provides the `database` field.
+- Is expected to create an application user inside the database cluster when the requirer provides the `database` field.
+- Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
 - Is expected to provide the `endpoints` field with a comma-separated list of hosts, which can be used for database connection.
 - Is expected to provide fields `tls` and `tls-ca` if TLS is configured.
 - Is expected to provide optional database-specific fields,  like `read-only-endpoints`, `replset`, `uris`.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 
+### Requirer
+
+- Is expected to provide a database name in the `database` field.
+- Is expected to provide indentical values in the `database` field if several requirer units provide it in the relation.
+- Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
+- Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
+- Is expected to allow multiple different Juju applications to access the same database name.
+- Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
+
 ## Relation Data
-
-### Consumer
-
-[\[JSON Schema\]](./schemas/provider.json)
-
-Consumer provides database name in `database` unit. Should be placed in the **unit** databag
-in at least one unit of the Consumer.
-
-#### Example
-
-```yaml
-  relation-info:
-  - endpoint: database
-    related-endpoint: database
-    application-data: {}
-    related-units:
-      worker-a/0:
-        in-scope: true
-        data:
-          database: myappA
-```
 
 ### Provider
 
-[\[JSON Schema\]](./schemas/consumer.json)
+[\[JSON Schema\]](./schemas/provider.json)
 
 Provider provides credentials, endpoints, TLS info and database-specific fields. It should be placed in the **application** databag.
 
@@ -80,4 +59,25 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
       replset: mongodb-k8s
       uris: mongodb://relation-68:Dy0k2UTfyNt2B13cfe412K7YGs07S4U7@mongodb-k8s-1.mongodb-k8s-endpoints,mongodb-k8s-0.mongodb-k8s-endpoints/myappB?replicaSet=mongodb-k8s&authSource=admin
       username: relation-68
+```
+
+### Requirer
+
+[\[JSON Schema\]](./schemas/requirer.json)
+
+Requirer provides database name in `database` unit. Should be placed in the **unit** databag
+in at least one unit of the Requirer.
+
+#### Example
+
+```yaml
+  relation-info:
+  - endpoint: database
+    related-endpoint: database
+    application-data: {}
+    related-units:
+      worker-a/0:
+        in-scope: true
+        data:
+          database: myappA
 ```

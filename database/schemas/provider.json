@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "$id": "http://example.com/example.json",
-    "title": "Root Schema",
-    "description": "The root schema is the schema that comprises the entire JSON document.",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/provider.json",
+    "title": "`database` provider schema",
+    "description": "The `database` root schema comprises the entire provider databag for this interface.",
     "type": "object",
     "default": {},
     "required": [
@@ -15,8 +15,9 @@
     "additionalProperties": true,
     "properties": {
         "username": {
-            "title": "The username Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/username",
+            "title": "Database User Username",
+            "description": "Username for connecting to the requested database",
             "type": "string",
             "default": "",
             "examples": [
@@ -24,8 +25,9 @@
             ]
         },
         "password": {
-            "title": "The password Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/password",
+            "title": "Database User Password",
+            "description": "Password for connecting to the requested database",
             "type": "string",
             "default": "",
             "examples": [
@@ -33,8 +35,9 @@
             ]
         },
         "database": {
-            "title": "The database Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/database",
+            "title": "Database Name",
+            "description": "The database name delivered by the provider. Might not be the same as requested by the requirer",
             "type": "string",
             "default": "",
             "examples": [
@@ -42,13 +45,15 @@
             ]
         },
         "endpoints": {
-            "title": "The endpoints Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/endpoints",
+            "title": "Database Endpoints",
+            "description": "A list of database endpoints used to connect to the database",
             "type": "array",
             "default": [],
             "items": {
-                "title": "A Schema",
-                "description": "An explanation about the purpose of this instance.",
+                "$id": "#/properties/endpoints/endpoint",
+                "title": "Database Endpoint",
+                "description": "A database endpoint used to connect to the databaase",
                 "type": "string",
                 "examples": [
                     "unit-1:port",
@@ -63,13 +68,15 @@
             ]
         },
         "read-only-endpoints": {
-            "title": "The read-only-endpoints Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/read-only-endpoints",
+            "title": "Read-Only Database Endpoints",
+            "description": "A list of endpoints used to connect to the database in read-only mode.",
             "type": "array",
             "default": [],
             "items": {
-                "title": "A Schema",
-                "description": "An explanation about the purpose of this instance.",
+                "$id": "#/properties/read-only-endpoints/endpoint",
+                "title": "Database Endpoint",
+                "description": "An endpoint used to connect to the database in read-only mode.",
                 "type": "string",
                 "examples": [
                     "unit-1:port",
@@ -84,8 +91,9 @@
             ]
         },
         "tls": {
-            "title": "The tls Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/tls",
+            "title": "TLS",
+            "description": "Indicates whether the database requires connection over TLS",
             "type": "boolean",
             "default": false,
             "examples": [
@@ -93,8 +101,9 @@
             ]
         },
         "tls-ca": {
-            "title": "The tls-ca Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/tls-ca",
+            "title": "TLS CA",
+            "description": "A base64 representation of the TLS CA",
             "type": "string",
             "default": "",
             "examples": [
@@ -102,8 +111,9 @@
             ]
         },
         "replset": {
-            "title": "The replset Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/replset",
+            "title": "ReplSet",
+            "description": "The name of the replication set",
             "type": "string",
             "default": "",
             "examples": [
@@ -111,13 +121,15 @@
             ]
         },
         "uris": {
-            "title": "The uris Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/uris",
+            "title": "URIs",
+            "description": "A list of URIs used to connect to the database.",
             "type": "array",
             "default": [],
             "items": {
-                "title": "A Schema",
-                "description": "An explanation about the purpose of this instance.",
+                "$id": "#/properties/uris/uri",
+                "title": "URI",
+                "description": "A URI used to connect to the database.",
                 "type": "string",
                 "default": "",
                 "examples": [
@@ -131,8 +143,9 @@
             ]
         },
         "version": {
-            "title": "The version Schema",
-            "description": "An explanation about the purpose of this instance.",
+            "$id": "#/properties/version",
+            "title": "Version",
+            "description": "The version of the database engine",
             "type": "string",
             "default": "",
             "examples": [

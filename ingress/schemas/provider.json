@@ -1,9 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://github.com/canonical/charm-relation-interfaces/ingress/schemas/provider.json",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/ingress/schemas/provider.json",
     "type": "object",
-    "title": "The root schema",
-    "description": "The root schema comprises the entire JSON document.",
+    "title": "`ingress` provider schema",
+    "description": "The `ingress` root schema comprises the entire provider databag for this interface.",
     "default": {},
     "examples": [
         {
@@ -17,7 +17,7 @@
         "url": {
             "$id": "#/properties/url",
             "type": "string",
-            "title": "application url",
+            "title": "Ingress URL",
             "description": "The ingress url for the application",
             "default": null,
             "examples": [

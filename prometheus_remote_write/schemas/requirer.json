@@ -1,9 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://github.com/canonical/charm-relation-interfaces/prometheus_remote_write/schemas/consumer.json",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/prometheus_remote_write/schemas/requirer.json",
     "type": "object",
-    "title": "The root schema",
-    "description": "The root schema comprises the entire JSON document.",
+    "title": "`prometheus_remote_write` requirer root schema",
+    "description": "The `prometheus_remote_write` root schema comprises the entire requirer databag for this interface.",
     "default": {},
     "examples": [
         {
@@ -40,8 +40,8 @@
         "alert_rules": {
             "$id": "#/properties/alert_rules",
             "type": "object",
-            "title": "The alert_rules schema",
-            "description": "An explanation about the purpose of this instance.",
+            "title": "Alert Rules",
+            "description": "Alert rules provided by the requirer",
             "default": {},
             "examples": [
                 {
@@ -76,8 +76,8 @@
                 "groups": {
                     "$id": "#/properties/groups",
                     "type": "array",
-                    "title": "The groups schema",
-                    "description": "An explanation about the purpose of this instance.",
+                    "title": "Alert rule groups",
+                    "description": "A list of alert rule groups provided by the requirer",
                     "default": [],
                     "examples": [
                         [
@@ -110,8 +110,8 @@
                             {
                                 "$id": "#/properties/groups/items/anyOf/0",
                                 "type": "object",
-                                "title": "The first anyOf schema",
-                                "description": "An explanation about the purpose of this instance.",
+                                "title": "Alert rule group",
+                                "description": "A group of alert rules provided by the requirer",
                                 "default": {},
                                 "examples": [
                                     {
@@ -143,8 +143,8 @@
                                     "name": {
                                         "$id": "#/properties/groups/items/anyOf/0/properties/name",
                                         "type": "string",
-                                        "title": "The name schema",
-                                        "description": "An explanation about the purpose of this instance.",
+                                        "title": "Name",
+                                        "description": "The name of the alert rule group.",
                                         "default": "",
                                         "examples": [
                                             "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts"
@@ -153,8 +153,8 @@
                                     "rules": {
                                         "$id": "#/properties/groups/items/anyOf/0/properties/rules",
                                         "type": "array",
-                                        "title": "The rules schema",
-                                        "description": "An explanation about the purpose of this instance.",
+                                        "title": "Rules",
+                                        "description": "A list of alert rules provided by the requirer.",
                                         "default": [],
                                         "examples": [
                                             [
@@ -182,7 +182,9 @@
                                                 {
                                                     "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0",
                                                     "default": {},
-                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "title": "Alert Rule",
+                                                    "type": "object",
+                                                    "description": "An alert rule provided by the requirer",
                                                     "examples": [
                                                         {
                                                             "alert": "ConsumerCharmUnavailable",
@@ -205,14 +207,12 @@
                                                         "expr",
                                                         "labels"
                                                     ],
-                                                    "title": "",
-                                                    "type": "object",
                                                     "properties": {
                                                         "alert": {
                                                             "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/alert",
                                                             "type": "string",
-                                                            "title": "The alert schema",
-                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "title": "Alert",
+                                                            "description": "Name of the alert rule.",
                                                             "default": "",
                                                             "examples": [
                                                                 "ConsumerCharmUnavailable"
@@ -221,8 +221,8 @@
                                                         "expr": {
                                                             "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/expr",
                                                             "type": "string",
-                                                            "title": "The expr schema",
-                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "title": "Expression",
+                                                            "description": "The expression used to evaluate whether the alert is firing.",
                                                             "default": "",
                                                             "examples": [
                                                                 "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1"
@@ -231,8 +231,8 @@
                                                         "for": {
                                                             "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/for",
                                                             "type": "string",
-                                                            "title": "The for schema",
-                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "title": "For",
+                                                            "description": "The duration for which an alert expression needs to fulfilled before an alert is fired.",
                                                             "default": "",
                                                             "examples": [
                                                                 "0m"
@@ -241,7 +241,9 @@
                                                         "labels": {
                                                             "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels",
                                                             "default": {},
-                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "type": "object",
+                                                            "title": "Labels",
+                                                            "description": "A list of labels applied to the alert rule",
                                                             "examples": [
                                                                 {
                                                                     "severity": "critical",
@@ -251,29 +253,27 @@
                                                                 }
                                                             ],
                                                             "required": [
-                                                                "severity",
-                                                                "juju_model_uuid",
-                                                                "juju_model",
-                                                                "juju_application"
+                                                                "severity"
                                                             ],
-                                                            "title": "The labels schema",
-                                                            "type": "object",
                                                             "properties": {
                                                                 "severity": {
                                                                     "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/severity",
                                                                     "type": "string",
-                                                                    "title": "The severity schema",
-                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "title": "Severity",
+                                                                    "description": "The severity of this alert.",
                                                                     "default": "",
                                                                     "examples": [
-                                                                        "critical"
+                                                                        "critical",
+                                                                        "error",
+                                                                        "warn",
+                                                                        "info"
                                                                     ]
                                                                 },
                                                                 "juju_model": {
                                                                     "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_model",
                                                                     "type": "string",
-                                                                    "title": "The juju_model schema",
-                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "title": "Juju Model",
+                                                                    "description": "The name of the Juju model the alert applies to.",
                                                                     "default": "",
                                                                     "examples": [
                                                                         "some-model"
@@ -282,8 +282,8 @@
                                                                 "juju_model_uuid": {
                                                                     "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_model_uuid",
                                                                     "type": "string",
-                                                                    "title": "The juju_model_uuid schema",
-                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "title": "Juju Model UUID",
+                                                                    "description": "The UUID of the Juju model the alert applies to.",
                                                                     "default": "",
                                                                     "examples": [
                                                                         "00000000-0000-0000-0000-000000000000"
@@ -292,8 +292,8 @@
                                                                 "juju_application": {
                                                                     "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_application",
                                                                     "type": "string",
-                                                                    "title": "The juju_application schema",
-                                                                    "description": "An explanation about the purpose of this instance.",
+                                                                    "title": "Juju Application",
+                                                                    "description": "The name of the Juju application the alert applies to.",
                                                                     "default": "",
                                                                     "examples": [
                                                                         "consumer-charm"
@@ -305,7 +305,8 @@
                                                         "annotations": {
                                                             "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/annotations",
                                                             "default": {},
-                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "title": "Annotations",
+                                                            "description": "A list of annotations to include whenever the alert rule fires.",
                                                             "examples": [
                                                                 {
                                                                     "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
@@ -313,8 +314,6 @@
                                                                 }
                                                             ],
                                                             "required": [],
-                                                            "title": "The annotations schema",
-                                                            "type": "object",
                                                             "type": [
                                                                 "object",
                                                                 "null"

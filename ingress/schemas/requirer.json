@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://github.com/canonical/charm-relation-interfaces/ingress/schemas/consumer.json",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/ingress/schemas/requirer.json",
   "type": "object",
-  "title": "The root schema",
-  "description": "The root schema comprises the entire JSON document.",
+  "title": "`ingress` requirer schema",
+  "description": "The `ingress` root schema comprises the entire requirer databag for this interface.",
   "default": {},
   "examples": [
     {
@@ -23,7 +23,7 @@
     "name": {
       "$id": "#/properties/name",
       "type": "string",
-      "title": "application name",
+      "title": "Application Name",
       "description": "The name of the application requesting ingress.",
       "default": null,
       "examples": [
@@ -33,8 +33,8 @@
     "model": {
       "$id": "#/properties/model",
       "type": "string",
-      "title": "model name",
-      "description": "The name of the model the application requesting ingress is in.",
+      "title": "Model Name",
+      "description": "The name of the model the application requesting ingress resides in.",
       "default": null,
       "examples": [
         "my-model"
@@ -43,7 +43,7 @@
     "host": {
       "$id": "#/properties/host",
       "type": "string",
-      "title": "hostname",
+      "title": "Hostname",
       "description": "Hostname the application wishes to be exposed.",
       "default": null,
       "examples": [
@@ -53,7 +53,7 @@
     "port": {
       "$id": "#/properties/port",
       "type": "integer",
-      "title": "port",
+      "title": "Port",
       "description": "The port the application wishes to be exposed.",
       "default": null,
       "examples": [

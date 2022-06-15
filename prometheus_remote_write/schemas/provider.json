@@ -1,9 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://github.com/canonical/charm-relation-interfaces/prometheus_remote_write/schemas/provider.json",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/prometheus_remote_write/schemas/provider.json",
     "type": "object",
-    "title": "The root schema",
-    "description": "The root schema comprises the entire JSON document.",
+    "title": "`prometheus_remote_write` provider root schema",
+    "description": "The `prometheus_remote_write` root schema comprises the entire provider databag for this interface.",
     "default": {},
     "examples": [
         {
@@ -19,8 +19,8 @@
         "remote_write": {
             "$id": "#/properties/remote_write",
             "type": "object",
-            "title": "The remote_write schema",
-            "description": "An explanation about the purpose of this instance.",
+            "title": "Remote Write",
+            "description": "Configuration of the remote write provider",
             "default": {},
             "examples": [
                 {
@@ -34,8 +34,8 @@
                 "url": {
                     "$id": "#/properties/remote_write/properties/url",
                     "type": "string",
-                    "title": "The url schema",
-                    "description": "An explanation about the purpose of this instance.",
+                    "title": "URL",
+                    "description": "The URL the requirer should target with remote write operations.",
                     "default": "",
                     "examples": [
                         "http://192.168.1.2:9090/api/v1/write"
