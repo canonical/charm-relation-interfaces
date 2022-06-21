@@ -1,4 +1,4 @@
-# `ingress`
+# `k8s-service`
 
 ## Usage
 
