@@ -61,6 +61,7 @@ application_data: {
 [\[JSON Schema\]](./schemas/requirer.json)
 
 Exposes the unit name, model name, hostname and port at which ingress should be provided. Should be placed in the **application** databag.
+Depending on the library being used (and the provider charm), additional configuration keys may be supported. 
 
 #### Example
 ```yaml
@@ -71,5 +72,3 @@ application-data: {
  model: "model-name"
 }
 ```
-
-

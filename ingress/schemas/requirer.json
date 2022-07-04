@@ -60,6 +60,6 @@
         4242
       ]
     },
-    "additionalProperties": false
+    "additionalProperties": true
   }
 }
