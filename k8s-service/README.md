@@ -4,7 +4,8 @@
 
 This relation interface describes the expected behavior of any charm claiming to be able to provide or consume a Kubernetes Service (k8s service). With K8s Service referring to the [Service abstraction](https://kubernetes.io/docs/concepts/services-networking/service/ ) defined in the Kubernetes API.
 
-The vast majority of charms using this interface are currently using serialized-data-interface. However this approach is deprecated and a new library will have to be implemented for any future usage.
+> #### ⚠️ SDI Deprecation
+> The vast majority of charms using this interface are currently using serialized-data-interface. However this approach is deprecated and a new library will have to be implemented for any future usage.
 
 ## Direction
 The `k8s-service` interface implements a provider/requirer pattern.
