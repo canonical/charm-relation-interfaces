@@ -8,7 +8,7 @@ The vast majority of charms using this interface are currently using serialized-
 
 ## Direction
 The `k8s-service` interface implements a provider/requirer pattern.
-The consumer is a charm that wishes to consume a k8s service, and the provider is a charm able to provide it.
+The requirer is a charm that wishes to consume a k8s service, and the provider is a charm able to provide it.
 
 ```mermaid
 flowchart TD
