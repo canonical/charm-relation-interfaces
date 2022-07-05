@@ -13,7 +13,7 @@
     ],
     "required": [
         "service-name",
-	"service-port"
+        "service-port"
     ],
     "properties": {
         "service-name": {
