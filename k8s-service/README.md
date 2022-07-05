@@ -23,7 +23,7 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 ### Provider
 
 - Is expected to provide `service-name` and `service-port` needed to access the K8s service.
-- Is expected to provide the `service-name` as not only the service resource name itself but also with its corresponding namespace i.e. `<service-name>.<namespace>`, for example `kfp-api.kubeflow`.
+- Is expected to provide a `service-name` formatted as `<resource-name>.<namespace>`, for example `kfp-api.kubeflow`.
 
 ### Requirer
 
