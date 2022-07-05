@@ -3,7 +3,7 @@
     "$id": "https://canonical.github.io/charm-relation-interfaces/k8s-service/schemas/provider.json",
     "type": "object",
     "title": "`k8s-service` provider schema",
-    "description": "The `k8s-service` root schema comprises the entire provider databag for this interface.",
+    "description": "The `k8s-service` root schema comprises the entire provider application databag for this interface.",
     "default": {},
     "examples": [
         {
