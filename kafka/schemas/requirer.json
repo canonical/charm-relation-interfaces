@@ -1,51 +1,88 @@
 {
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/requirer.json",
-    "title": "`database` requirer schema",
-    "description": "The `database` root schema comprises the entire requirer databag for this interface.",
-    "type": "object",
-    "default": {},
-    "required": [
-        "database"
-    ],
-    "additionalProperties": true,
-    "properties": {
-        "database": {
-            "title": "Database Name",
-            "description": "The database name requested by the requirer",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "myapp"
-            ]
-        },
-        "extra-user-roles": {
-            "title": "Extra-user-roles",
-            "description": "Any extra user roles requested by the requirer",
-            "type": "array",
-            "default": ["default"],
-            "items": {
-                "title": "Database User Role",
-                "description": "A database user role",
-                "type": "string",
-                "examples": [
-                    "default",
-                    "admin"
-                ]
-            },
-            "examples": [
-                [
-                    "default",
-                    "admin"
-                ]
-            ]
-        }
-    },
-    "examples": [{
-        "database": "myapp",
-        "extra-user-roles": [
-            "default",
+   "$schema":"https://json-schema.org/draft/2019-09/schema",
+   "$id":"https://canonical.github.io/charm-relation-interfaces/kafka/schemas/requirer.json",
+   "title":"`kafka` requirer schema",
+   "description":"The `kafka` root schema comprises the entire requirer databag for this interface.",
+   "type":"object",
+   "default":{
+      
+   },
+   "required":[
+      "uri",
+      "role"
+   ],
+   "if":{
+       "properties": {"role": {"const": "producer"}}
+   },
+   "then":{
+       "required": ["topic"]
+   },
+   "if":{
+       "properties": {"role": {"const": "consumer"}}
+   },
+   "then":{
+       "required": ["topic", "group"]
+   },
+   "additionalProperties":true,
+   "properties":{
+      "username":{
+         "title":"Application username",
+         "description":"The application username requested by the requirer",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "alice"
+         ]
+      },
+      "password":{
+         "title":"Application password",
+         "description":"The application password requested by the requirer",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "correcthorsebatterystaple"
+         ]
+      },
+      "role":{
+         "title":"Application client role",
+         "description":"The application role requested by the requirer",
+         "type":"string",
+         "default":"admin",
+         "enum":[
+            "producer",
+            "consumer",
             "admin"
-        ]
-    }]
+         ]
+      },
+      "topic":{
+         "title":"Kafka topic name",
+         "description":"The topic name access requested by the requirer",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "topic-1",
+            "appname-*"
+         ]
+      },
+      "group":{
+         "title":"Kafka consumer group name",
+         "description":"The consumer group name requested by the requirer",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "group-1",
+            "appname-*"
+         ]
+      }
+   },
+   "examples":[
+      {
+         "uri":"10.141.78.111:1234",
+         "role": "consumer",
+         "username": "user123",
+         "password": "Dy0k2UTfyNt2B13cfe412K7YGs07S4U7",
+         "topic": "special-topic",
+         "group": "group-A"
+      }
+   ]
 }

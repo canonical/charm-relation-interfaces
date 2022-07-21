@@ -1,176 +1,149 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/provider.json",
-    "title": "`database` provider schema",
-    "description": "The `database` root schema comprises the entire provider databag for this interface.",
-    "type": "object",
-    "default": {},
-    "required": [
-        "username",
-        "password",
-        "endpoints",
-        "tls",
-        "tls-ca"
-    ],
-    "additionalProperties": true,
-    "properties": {
-        "username": {
-            "$id": "#/properties/username",
-            "title": "Database User Username",
-            "description": "Username for connecting to the requested database",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "relation-14"
+   "$schema":"https://json-schema.org/draft/2019-09/schema",
+   "$id":"https://canonical.github.io/charm-relation-interfaces/kafka/schemas/provider.json",
+   "title":"`kafka` provider schema",
+   "description":"The `kafka` root schema comprises the entire provider databag for this interface.",
+   "type":"object",
+   "default":{
+      
+   },
+   "required":[
+      "username",
+      "password",
+      "bootstrap-servers",
+      "host",
+      "port",
+      "tls"
+   ],
+   "if":{
+      "properties":{
+         "tls":{
+            "const":true
+         }
+      }
+   },
+   "then":{
+      "required":[
+         "tls-ca"
+      ]
+   },
+   "additionalProperties":true,
+   "properties":{
+      "username":{
+         "title":"Kafka SASL/SCRAM username",
+         "description":"Username for connecting to the Kafka cluster",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "relation-14"
+         ]
+      },
+      "password":{
+         "title":"Kafka SASL/SCRAM password",
+         "description":"Password for connecting to the Kafka cluster",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "alphanum-32byte-random"
+         ]
+      },
+      "tls":{
+         "title":"TLS",
+         "description":"Indicates whether the database requies connection over TLS",
+         "type":"boolean",
+         "default":false,
+         "examples":[
+            true
+         ]
+      },
+      "tls-ca":{
+         "title":"TLS CA",
+         "description":"A base64 representation of the TLS CA",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "base64-ca-here=="
+         ]
+      },
+      "bootstrap-servers":{
+         "title":"Kafka bootstrap-servers",
+         "description":"A comma-seperated list of host:ip for each Kafka broker",
+         "type":"array",
+         "default":"",
+         "items":{
+            "title":"Kafka bootstrap-server",
+            "description":"A bootstrap-server connection uri for a single broker",
+            "type":"string",
+            "examples":[
+               "10.141.78.155:9092",
+               "10.141.78.62:9092",
+               "10.141.78.186:9092"
             ]
-        },
-        "password": {
-            "$id": "#/properties/password",
-            "title": "Database User Password",
-            "description": "Password for connecting to the requested database",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "alphanum-32byte-random"
+         },
+         "examples":[
+            "10.141.78.155:9092",
+            "10.141.78.62:9092",
+            "10.141.78.186:9092"
+         ]
+      },
+      "host":{
+         "title":"Kafka broker hosts",
+         "description":"A comma-seperated list of host for each Kafka broker",
+         "type":"array",
+         "default":"",
+         "items":{
+            "title":"Kafka broker host",
+            "description":"A host IP for a single broker",
+            "type":"string",
+            "examples":[
+               "10.141.78.155",
+               "10.141.78.62",
+               "10.141.78.186"
             ]
-        },
-        "database": {
-            "$id": "#/properties/database",
-            "title": "Database Name",
-            "description": "The database name delivered by the provider. Might not be the same as requested by the requirer",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "myapp"
-            ]
-        },
-        "endpoints": {
-            "$id": "#/properties/endpoints",
-            "title": "Database Endpoints",
-            "description": "A list of database endpoints used to connect to the database",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/endpoints/endpoint",
-                "title": "Database Endpoint",
-                "description": "A database endpoint used to connect to the databaase",
-                "type": "string",
-                "examples": [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            },
-            "examples": [
-                [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            ]
-        },
-        "read-only-endpoints": {
-            "$id": "#/properties/read-only-endpoints",
-            "title": "Read-Only Database Endpoints",
-            "description": "A list of endpoints used to connect to the database in read-only mode.",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/read-only-endpoints/endpoint",
-                "title": "Database Endpoint",
-                "description": "An endpoint used to connect to the database in read-only mode.",
-                "type": "string",
-                "examples": [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            },
-            "examples": [
-                [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            ]
-        },
-        "tls": {
-            "$id": "#/properties/tls",
-            "title": "TLS",
-            "description": "Indicates whether the database requires connection over TLS",
-            "type": "boolean",
-            "default": false,
-            "examples": [
-                true
-            ]
-        },
-        "tls-ca": {
-            "$id": "#/properties/tls-ca",
-            "title": "TLS CA",
-            "description": "A base64 representation of the TLS CA",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "base64-ca-here=="
-            ]
-        },
-        "replset": {
-            "$id": "#/properties/replset",
-            "title": "ReplSet",
-            "description": "The name of the replication set",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "rs0"
-            ]
-        },
-        "uris": {
-            "$id": "#/properties/uris",
-            "title": "URIs",
-            "description": "A list of URIs used to connect to the database.",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/uris/uri",
-                "title": "URI",
-                "description": "A URI used to connect to the database.",
-                "type": "string",
-                "default": "",
-                "examples": [
-                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-                ]
-            },
-            "examples": [
-                [
-                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-                ]
-            ]
-        },
-        "version": {
-            "$id": "#/properties/version",
-            "title": "Version",
-            "description": "The version of the database engine",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "8.0.27-18"
-            ]
-        }
-    },
-    "examples": [{
-        "username": "relation-14",
-        "password": "alphanum-32byte-random",
-        "database": "myapp",
-        "endpoints": [
-            "unit-1:port",
-            "unit-2:port"
-        ],
-        "read-only-endpoints": [
-            "unit-1:port",
-            "unit-2:port"
-        ],
-        "tls": true,
-        "tls-ca": "base64-ca-here==",
-        "replset": "rs0",
-        "uris": [
-            "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-        ],
-        "version": "8.0.27-18"
-    }]
+         },
+         "examples":[
+            "10.141.78.155",
+            "10.141.78.62",
+            "10.141.78.186"
+         ]
+      },
+      "port":{
+         "title":"Kafka broker port",
+         "description":"The common broker port for the Kafka cluster",
+         "type":"integer",
+         "default":9092,
+         "examples":[
+            9092
+         ]
+      },
+      "zookeeper":{
+         "title":"ZooKeeper uri",
+         "description":"A comma-seperated list of ZooKeeper server uris, and Kafka cluster zNode",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
+         ]
+      }
+   },
+   "examples":[
+      {
+         "username":"relation-14",
+         "password":"alphanum-32byte-random",
+         "bootstrap-servers":[
+            "10.141.78.155:9092",
+            "10.141.78.62:9092",
+            "10.141.78.186:9092"
+         ],
+         "host":[
+            "10.141.78.155",
+            "10.141.78.62",
+            "10.141.78.186"
+         ],
+         "port":9092,
+         "tls":true,
+         "tls-ca":"base-64-ca-here==",
+         "zookeeper":"10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
+      }
+   ]
 }
