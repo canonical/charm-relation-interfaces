@@ -34,7 +34,7 @@ certificates and/or remove the pre-existing certificates from the relation data.
 
 ### Requirer
 
-[\[JSON Schema\]](./schemas/requirer.json)
+[\[JSON Schema\]](schemasequirer.json)
 
 The requirer specifies a set of client or server common names for which it requires certificates.
 
@@ -53,7 +53,7 @@ The requirer specifies a set of client or server common names for which it requi
 
 ### Provider
 
-[\[JSON Schema\]](./schemas/provider.json)
+[\[JSON Schema\]](schemasrovider.json)
 
 The provider replies with certificates for each of the requested domain.
 

@@ -56,7 +56,7 @@ related-units:
     data:
       # ...
       remote_write: {
-        "url": "http://192.168.1.2:9090/api/v1/write"
+        "url": "http://192.168.1.2:9090/api/v0/write"
       }
 ```
 
