@@ -8,9 +8,7 @@
     "required": [
         "username",
         "password",
-        "endpoints",
-        "tls",
-        "tls-ca"
+        "endpoints"
     ],
     "additionalProperties": true,
     "properties": {
@@ -90,58 +88,6 @@
                 ]
             ]
         },
-        "tls": {
-            "$id": "#/properties/tls",
-            "title": "TLS",
-            "description": "Indicates whether the database requires connection over TLS",
-            "type": "boolean",
-            "default": false,
-            "examples": [
-                true
-            ]
-        },
-        "tls-ca": {
-            "$id": "#/properties/tls-ca",
-            "title": "TLS CA",
-            "description": "A base64 representation of the TLS CA",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "base64-ca-here=="
-            ]
-        },
-        "replset": {
-            "$id": "#/properties/replset",
-            "title": "ReplSet",
-            "description": "The name of the replication set",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "rs0"
-            ]
-        },
-        "uris": {
-            "$id": "#/properties/uris",
-            "title": "URIs",
-            "description": "A list of URIs used to connect to the database.",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/uris/uri",
-                "title": "URI",
-                "description": "A URI used to connect to the database.",
-                "type": "string",
-                "default": "",
-                "examples": [
-                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-                ]
-            },
-            "examples": [
-                [
-                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-                ]
-            ]
-        },
         "version": {
             "$id": "#/properties/version",
             "title": "Version",
@@ -164,12 +110,6 @@
         "read-only-endpoints": [
             "unit-1:port",
             "unit-2:port"
-        ],
-        "tls": true,
-        "tls-ca": "base64-ca-here==",
-        "replset": "rs0",
-        "uris": [
-            "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
         ],
         "version": "8.0.27-18"
     }]

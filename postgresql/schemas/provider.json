@@ -1,0 +1,116 @@
+{
+    "$schema": "http://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/provider.json",
+    "title": "`database` provider schema",
+    "description": "The `database` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "username",
+        "password",
+        "endpoints"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "username": {
+            "$id": "#/properties/username",
+            "title": "Database User Username",
+            "description": "Username for connecting to the requested database",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "relation-14"
+            ]
+        },
+        "password": {
+            "$id": "#/properties/password",
+            "title": "Database User Password",
+            "description": "Password for connecting to the requested database",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "alphanum-32byte-random"
+            ]
+        },
+        "database": {
+            "$id": "#/properties/database",
+            "title": "Database Name",
+            "description": "The database name delivered by the provider. Might not be the same as requested by the requirer",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "myapp"
+            ]
+        },
+        "endpoints": {
+            "$id": "#/properties/endpoints",
+            "title": "Database Endpoints",
+            "description": "A list of database endpoints used to connect to the database",
+            "type": "array",
+            "default": [],
+            "items": {
+                "$id": "#/properties/endpoints/endpoint",
+                "title": "Database Endpoint",
+                "description": "A database endpoint used to connect to the databaase",
+                "type": "string",
+                "examples": [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            },
+            "examples": [
+                [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            ]
+        },
+        "read-only-endpoints": {
+            "$id": "#/properties/read-only-endpoints",
+            "title": "Read-Only Database Endpoints",
+            "description": "A list of endpoints used to connect to the database in read-only mode.",
+            "type": "array",
+            "default": [],
+            "items": {
+                "$id": "#/properties/read-only-endpoints/endpoint",
+                "title": "Database Endpoint",
+                "description": "An endpoint used to connect to the database in read-only mode.",
+                "type": "string",
+                "examples": [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            },
+            "examples": [
+                [
+                    "unit-1:port",
+                    "unit-2:port"
+                ]
+            ]
+        },
+        "version": {
+            "$id": "#/properties/version",
+            "title": "Version",
+            "description": "The version of the database engine",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "8.0.27-18"
+            ]
+        }
+    },
+    "examples": [{
+        "username": "relation-14",
+        "password": "alphanum-32byte-random",
+        "database": "myapp",
+        "endpoints": [
+            "unit-1:port",
+            "unit-2:port"
+        ],
+        "read-only-endpoints": [
+            "unit-1:port",
+            "unit-2:port"
+        ],
+        "version": "8.0.27-18"
+    }]
+}
