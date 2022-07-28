@@ -1,9 +1,9 @@
-# `mysql-client`
+# `postgresql_client`
 
 ## Usage
 
-This relation interface describes the expected behaviour of any charm claiming to be able to interact with a MySQL database.
-Our intent to have different interface names with `<database>-client` pattern (like `mongodb-client`) and the same validation rules for multiple databases (e.g. MySQL, PostgreSQL, MongoDB, etc).
+This relation interface describes the expected behaviour of any charm claiming to be able to interact with a PostgreSQL database.
+Our intent to have different interface names with `<database>_client` pattern (like `mongodb_client`) and the same validation rules for multiple databases (e.g. MySQL, PostgreSQL, MongoDB, etc).
 
 In most cases, this will be accomplished using the database provider library, although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
@@ -53,8 +53,8 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
     related-endpoint: database
     application-data:
       database: myappB
-      endpoints: mysql-k8s-primary:5432
-      read-only-endpoints: mysql-k8s-replicas:5432
+      endpoints: postgresql-k8s-primary:5432
+      read-only-endpoints: postgresql-k8s-replicas:5432
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
       username: relation-68
 ```

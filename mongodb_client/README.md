@@ -1,9 +1,9 @@
-# `postgresql-client`
+# `mongodb_client`
 
 ## Usage
 
-This relation interface describes the expected behaviour of any charm claiming to be able to interact with a PostgreSQL database.
-Our intent to have different interface names with `<database>-client` pattern (like `mongodb-client`) and the same validation rules for multiple databases (e.g. MySQL, PostgreSQL, MongoDB, etc).
+This relation interface describes the expected behaviour of any charm claiming to be able to interact with a MongoDB database.
+Our intent to have different interface names with `<database>_client` pattern (like `mongodb_client`) and the same validation rules for multiple databases (e.g. MySQL, PostgreSQL, MongoDB, etc).
 
 In most cases, this will be accomplished using the database provider library, although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
@@ -24,8 +24,9 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ### Provider
 - Is expected to create an application user inside the database cluster when the requirer provides the `database` field.
 - Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
-- Is expected to provide the `endpoints` field with has address of Primary, which can be used for Read/Write queries.
-- Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
+- Is expected to provide the `endpoints` field with a comma-separated list of hosts, which can be used for database connection.
+- Is expected to provide optional `replset` field with Replica Set name which is needed for proper connection to MongoDB if sharding is disabled.
+- Is expected to provide optional `uris` field with URI which can be passed to MongoDB client libraries as it is (not needed to construct it on client side).
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 
 ### Requirer
@@ -53,9 +54,10 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
     related-endpoint: database
     application-data:
       database: myappB
-      endpoints: postgresql-k8s-primary:5432
-      read-only-endpoints: postgresql-k8s-replicas:5432
+      endpoints: mongodb-k8s-1.mongodb-k8s-endpoints,mongodb-k8s-0.mongodb-k8s-endpoints
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
+      replset: mongodb-k8s
+      uris: mongodb://relation-68:Dy0k2UTfyNt2B13cfe412K7YGs07S4U7@mongodb-k8s-1.mongodb-k8s-endpoints,mongodb-k8s-0.mongodb-k8s-endpoints/myappB?replicaSet=mongodb-k8s&authSource=admin
       username: relation-68
 ```
 
