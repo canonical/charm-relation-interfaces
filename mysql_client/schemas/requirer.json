@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/requirer.json",
-    "title": "`database` requirer schema",
-    "description": "The `database` root schema comprises the entire requirer databag for this interface.",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/mysql_client/schemas/requirer.json",
+    "title": "`mysql_client` requirer schema",
+    "description": "The `mysql_client` root schema comprises the entire requirer databag for this interface.",
     "type": "object",
     "default": {},
     "required": [
@@ -22,30 +22,15 @@
         "extra-user-roles": {
             "title": "Extra-user-roles",
             "description": "Any extra user roles requested by the requirer",
-            "type": "array",
-            "default": ["default"],
-            "items": {
-                "title": "Database User Role",
-                "description": "A database user role",
-                "type": "string",
-                "examples": [
-                    "default",
-                    "admin"
-                ]
-            },
+            "type": "string",
+            "default": "default",
             "examples": [
-                [
-                    "default",
-                    "admin"
-                ]
+                "default,admin"
             ]
         }
     },
     "examples": [{
         "database": "myapp",
-        "extra-user-roles": [
-            "default",
-            "admin"
-        ]
+        "extra-user-roles": "default,admin"
     }]
 }

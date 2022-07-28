@@ -1,8 +1,8 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/provider.json",
-    "title": "`database` provider schema",
-    "description": "The `database` root schema comprises the entire provider databag for this interface.",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/mysql_client/schemas/provider.json",
+    "title": "`mysql_client` provider schema",
+    "description": "The `mysql_client` root schema comprises the entire provider databag for this interface.",
     "type": "object",
     "default": {},
     "required": [
@@ -46,46 +46,20 @@
             "$id": "#/properties/endpoints",
             "title": "Database Endpoints",
             "description": "A list of database endpoints used to connect to the database",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/endpoints/endpoint",
-                "title": "Database Endpoint",
-                "description": "A database endpoint used to connect to the databaase",
-                "type": "string",
-                "examples": [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            },
+            "type": "string",
+            "default": "",
             "examples": [
-                [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
+                "unit-1:port,unit-2:port"
             ]
         },
         "read-only-endpoints": {
             "$id": "#/properties/read-only-endpoints",
             "title": "Read-Only Database Endpoints",
             "description": "A list of endpoints used to connect to the database in read-only mode.",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/read-only-endpoints/endpoint",
-                "title": "Database Endpoint",
-                "description": "An endpoint used to connect to the database in read-only mode.",
-                "type": "string",
-                "examples": [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            },
+            "type": "string",
+            "default": "",
             "examples": [
-                [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
+                "unit-1:port,unit-2:port"
             ]
         },
         "version": {
@@ -103,14 +77,8 @@
         "username": "relation-14",
         "password": "alphanum-32byte-random",
         "database": "myapp",
-        "endpoints": [
-            "unit-1:port",
-            "unit-2:port"
-        ],
-        "read-only-endpoints": [
-            "unit-1:port",
-            "unit-2:port"
-        ],
+        "endpoints": "unit-1:port,unit-2:port",
+        "read-only-endpoints": "unit-1:port,unit-2:port",
         "version": "8.0.27-18"
     }]
 }

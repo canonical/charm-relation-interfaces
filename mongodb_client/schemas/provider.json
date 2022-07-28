@@ -1,8 +1,8 @@
 {
-    "$schema": "http://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/database/schemas/provider.json",
-    "title": "`database` provider schema",
-    "description": "The `database` root schema comprises the entire provider databag for this interface.",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/mongodb_client/schemas/provider.json",
+    "title": "`mongodb_client` provider schema",
+    "description": "The `mongodb_client` root schema comprises the entire provider databag for this interface.",
     "type": "object",
     "default": {},
     "required": [
@@ -46,23 +46,10 @@
             "$id": "#/properties/endpoints",
             "title": "Database Endpoints",
             "description": "A list of database endpoints used to connect to the database",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/endpoints/endpoint",
-                "title": "Database Endpoint",
-                "description": "A database endpoint used to connect to the databaase",
-                "type": "string",
-                "examples": [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
-            },
+            "type": "string",
+            "default": "",
             "examples": [
-                [
-                    "unit-1:port",
-                    "unit-2:port"
-                ]
+                "unit-1:port,unit-2:port"
             ]
         },
         "replset": {
@@ -79,22 +66,10 @@
             "$id": "#/properties/uris",
             "title": "URIs",
             "description": "A list of URIs used to connect to the database.",
-            "type": "array",
-            "default": [],
-            "items": {
-                "$id": "#/properties/uris/uri",
-                "title": "URI",
-                "description": "A URI used to connect to the database.",
-                "type": "string",
-                "default": "",
-                "examples": [
-                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-                ]
-            },
+            "type": "string",
+            "default": "",
             "examples": [
-                [
-                    "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-                ]
+                "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
             ]
         },
         "version": {
@@ -112,14 +87,9 @@
         "username": "relation-14",
         "password": "alphanum-32byte-random",
         "database": "myapp",
-        "endpoints": [
-            "unit-1:port",
-            "unit-2:port"
-        ],
+        "endpoints": "unit-1:port,unit-2:port",
         "replset": "rs0",
-        "uris": [
-            "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
-        ],
+        "uris": "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0",
         "version": "8.0.27-18"
     }]
 }
