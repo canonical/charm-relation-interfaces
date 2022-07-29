@@ -11,7 +11,7 @@ This relation interface describes the expected behavior of any charm claiming to
 ## Direction
 
 ```mermaid
-flowchart TD
+flowchart LR
     Requirer -- role, topic, group --> Provider
     Provider -- username, password, uris, endpoints, zookeeper_uris --> Requirer
 ```
@@ -58,7 +58,7 @@ Provider provides application credentials and server connection uris. It should 
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides client connection uri, and optionally provides user-specified credentials, appliation role and topic. It should be placed in the **application** databag.
+Requirer provides application role and topic. It should be placed in the **application** databag.
 Requirer provides consumer group name if the requirer sets it's role as consumer. It should be placed in the **unit** databag.
 
 #### Example
