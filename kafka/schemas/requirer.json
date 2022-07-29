@@ -25,24 +25,6 @@
    },
    "additionalProperties":true,
    "properties":{
-      "username":{
-         "title":"Application username",
-         "description":"The application username requested by the requirer",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "alice"
-         ]
-      },
-      "password":{
-         "title":"Application password",
-         "description":"The application password requested by the requirer",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "correcthorsebatterystaple"
-         ]
-      },
       "role":{
          "title":"Application client role",
          "description":"The application role requested by the requirer",
@@ -79,8 +61,6 @@
       {
          "uri":"10.141.78.111:1234",
          "role": "consumer",
-         "username": "user123",
-         "password": "Dy0k2UTfyNt2B13cfe412K7YGs07S4U7",
          "topic": "special-topic",
          "group": "group-A"
       }

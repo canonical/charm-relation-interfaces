@@ -10,23 +10,9 @@
    "required":[
       "username",
       "password",
-      "bootstrap-servers",
-      "host",
-      "port",
-      "tls"
+      "uris",
+      "endpoints"
    ],
-   "if":{
-      "properties":{
-         "tls":{
-            "const":true
-         }
-      }
-   },
-   "then":{
-      "required":[
-         "tls-ca"
-      ]
-   },
    "additionalProperties":true,
    "properties":{
       "username":{
@@ -47,25 +33,7 @@
             "alphanum-32byte-random"
          ]
       },
-      "tls":{
-         "title":"TLS",
-         "description":"Indicates whether the database requies connection over TLS",
-         "type":"boolean",
-         "default":false,
-         "examples":[
-            true
-         ]
-      },
-      "tls-ca":{
-         "title":"TLS CA",
-         "description":"A base64 representation of the TLS CA",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "base64-ca-here=="
-         ]
-      },
-      "bootstrap-servers":{
+      "uris":{
          "title":"Kafka bootstrap-servers",
          "description":"A comma-seperated list of host:ip for each Kafka broker",
          "type":"array",
@@ -86,9 +54,9 @@
             "10.141.78.186:9092"
          ]
       },
-      "host":{
+      "endpoints":{
          "title":"Kafka broker hosts",
-         "description":"A comma-seperated list of host for each Kafka broker",
+         "description":"A comma-seperated list of host IPs for each Kafka broker",
          "type":"array",
          "default":"",
          "items":{
@@ -107,16 +75,7 @@
             "10.141.78.186"
          ]
       },
-      "port":{
-         "title":"Kafka broker port",
-         "description":"The common broker port for the Kafka cluster",
-         "type":"integer",
-         "default":9092,
-         "examples":[
-            9092
-         ]
-      },
-      "zookeeper":{
+      "zookeeper-uris":{
          "title":"ZooKeeper uri",
          "description":"A comma-seperated list of ZooKeeper server uris, and Kafka cluster zNode",
          "type":"string",
@@ -130,20 +89,17 @@
       {
          "username":"relation-14",
          "password":"alphanum-32byte-random",
-         "bootstrap-servers":[
+         "uris":[
             "10.141.78.155:9092",
             "10.141.78.62:9092",
             "10.141.78.186:9092"
          ],
-         "host":[
+         "endpoints":[
             "10.141.78.155",
             "10.141.78.62",
             "10.141.78.186"
          ],
-         "port":9092,
-         "tls":true,
-         "tls-ca":"base-64-ca-here==",
-         "zookeeper":"10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
+         "zookeeper_uris":"10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
       }
    ]
 }
