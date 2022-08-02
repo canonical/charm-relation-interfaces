@@ -7,7 +7,7 @@
 | [`database`](database/README.md)                               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`ingress`](ingress/README.md)                                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`ingress-per-unit`](ingress_per_unit/README.md)               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
-| [`kafka-client`](kafka-client/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
+| [`kafka_client`](kafka-client/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`k8s-service`](k8s-service/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`prometheus_remote_write`](prometheus_remote_write/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`tls_certificates`](tls_certificates/README.md)               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
