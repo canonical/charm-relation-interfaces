@@ -12,8 +12,8 @@ This relation interface describes the expected behavior of any charm claiming to
 
 ```mermaid
 flowchart LR
-    Requirer -- role, topic, group --> Provider
-    Provider -- username, password, uris, endpoints, zookeeper_uris --> Requirer
+    Requirer -- extra-user-roles, topic, group --> Provider
+    Provider -- username, password, uris, endpoints, zookeeper-uris --> Requirer
 ```
 
 ## Behavior
@@ -24,12 +24,12 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 - Is expected to create an application `username` and `password` inside the kafka cluster when the requirer relates to the kafka cluster.
 - Is expected to provide the `uris` field with a comma-seperated list of broker uris, which can be used for cluster connection.
 - Is expected to provide the `endpoints` field with a comma-seperated list of broker IP addresses.
-- Can optionally provide the `zookeeper_uris` field with a comma-seperated list of ZooKeeper server uris and Kafka cluster zNode, if the requirer `role` is set to `admin`
+- Can optionally provide the `zookeeper-uris` field with a comma-seperated list of ZooKeeper server uris and Kafka cluster zNode, if the requirer `extra-user-roles` is set to `admin`
 
 ### Requirer
-- Can optionally provide the `role` field specifying the expected role of the client application (e.g `role=producer`, `role=consumer`, `role=admin`).
-- Can optionally provide the `topic` field specifying the topic that the requirer charm needs permissions to create (for `role=producer`), or consume (for `role=consumer`). If `role` is set, this field is expected.
-- Can optionally provide the desired consumer group for a requirer unit in the `group` field. If `role=consumer`, this field is expected.
+- Is expected to provide the `role` field specifying a comma-seperated list of roles for the client application (between `admin`, `consumer` and `producer`).
+- Can optionally provide the `topic` field specifying the topic that the requirer charm needs permissions to create (for `extra-user-roles=producer`), or consume (for `extra-user-roles=consumer`).
+- Can optionally provide the desired consumer group for a requirer unit in the `group` field. If `extra-user-roles=consumer`, this field is expected.
 
 ## Relation Data
 
@@ -50,7 +50,7 @@ Provider provides application credentials and server connection uris. It should 
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
       uris: 10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092
       endpoints: 10.141.78.155,10.141.78.62,10.141.78.186
-      zookeeper_uris: 10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/kafka
+      zookeeper-uris: 10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/kafka
 
 ```
 
@@ -68,7 +68,7 @@ Requirer provides consumer group name if the requirer sets it's role as consumer
   - endpoint: kafka_client
     related-endpoint: kafka_client
     application-data:
-        role: consumer
+        extra-user-roles: consumer,producer
         topic: special-topic
     related-units:
         worker/0:

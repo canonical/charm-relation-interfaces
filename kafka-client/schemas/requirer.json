@@ -8,8 +8,7 @@
       
    },
    "required":[
-      "uri",
-      "role"
+      "extra-user-roles"
    ],
    "if":{
        "properties": {"role": {"const": "producer"}}
@@ -25,14 +24,25 @@
    },
    "additionalProperties":true,
    "properties":{
-      "role":{
-         "title":"Application client role",
-         "description":"The application role requested by the requirer",
-         "type":"string",
-         "default":"admin",
-         "enum":[
-            "producer",
+      "extra-user-roles":{
+         "title":"Application client roles",
+         "description":"A comma-seperated list of application roles requested by the requirer",
+         "type":"array",
+         "default":"",
+         "items":{
+            "title":"Client role",
+            "description":"A single permission role for the client",
+            "type":"string",
+            "enum":[
+               "consumer",
+               "producer",
+               "admin"
+            ]
+         },
+         "examples":[
             "consumer",
+            "producer",
+            "consumer/producer",
             "admin"
          ]
       },
@@ -59,8 +69,7 @@
    },
    "examples":[
       {
-         "uri":"10.141.78.111:1234",
-         "role": "consumer",
+         "extra-user-roles": "consumer",
          "topic": "special-topic",
          "group": "group-A"
       }
