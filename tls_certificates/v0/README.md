@@ -14,27 +14,23 @@ One of these, in this case the `provider`, will be expected to create TLS certif
 Both the requirer and the provider need to adhere to a certain set of criteria to be considered 
 compatible with the interface.
 
-### On relation joined
+### Requirer
 
-The requirer:
-- Shall provide its unit name
-- Shall provide a list of certificate requests 
+- Is expected to provide its unit name
+- Is expected to provide a list of certificate requests 
 
-The Provider:
-- Shall provide its CA certificate
-- Shall provide its CA chain
-- Shall provide certificates and private keys for each certificate request.
+### Provider
 
-### On relation changed
-
-If the requirer's data bucket changes, the provider is expected to overwrite the existing 
-certificates and/or remove the pre-existing certificates from the relation data.
+- Is expected to provide its CA certificate
+- Is expected to provide its CA chain
+- Is expected to provide certificates and private keys for each certificate request.
+- Is expected to overwrite the existing certificates and/or remove the pre-existing certificates from the relation data.
 
 ## Relation Data
 
 ### Requirer
 
-[\[JSON Schema\]](schemasequirer.json)
+[\[JSON Schema\]](./schemas/requirer.json)
 
 The requirer specifies a set of client or server common names for which it requires certificates.
 
@@ -53,7 +49,7 @@ The requirer specifies a set of client or server common names for which it requi
 
 ### Provider
 
-[\[JSON Schema\]](schemasrovider.json)
+[\[JSON Schema\]](./schemas/provider.json)
 
 The provider replies with certificates for each of the requested domain.
 

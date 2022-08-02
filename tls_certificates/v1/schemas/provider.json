@@ -46,11 +46,13 @@
             "$id": "#/properties/certificates/items/chain",
             "type": "string"
           }
-        }
+        },
+        "additionalProperties": true
       }
     }
   },
   "required": [
     "certificates"
-  ]
+  ],
+  "additionalProperties": true
 }
