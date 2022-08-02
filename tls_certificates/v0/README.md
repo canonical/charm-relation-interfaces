@@ -65,18 +65,3 @@ The provider replies with certificates for each of the requested domain.
   }
 }
 ```
-
-## Example Implementations
-
-### providers
-  - vault
-  - charm-vault-k8s
-  - tls-certificates-operator
-
-### Requirers
-  - keystone
-  - nova-cloud
-  - cinder
-  - neutron
-  - glance
-  - charm-ceph-dashboard
