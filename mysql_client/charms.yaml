@@ -1,0 +1,4 @@
+providers:
+  - mysql-operator
+  - mysql-k8s-operator
+consumers: []
