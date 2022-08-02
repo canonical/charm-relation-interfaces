@@ -27,7 +27,7 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 - Can optionally provide the `zookeeper-uris` field with a comma-seperated list of ZooKeeper server uris and Kafka cluster zNode, if the requirer `extra-user-roles` is set to `admin`
 
 ### Requirer
-- Is expected to provide the `role` field specifying a comma-seperated list of roles for the client application (between `admin`, `consumer` and `producer`).
+- Is expected to provide the `extra-user-roles` field specifying a comma-separated list of roles for the client application (between `admin`, `consumer` and `producer`).
 - Can optionally provide the `topic` field specifying the topic that the requirer charm needs permissions to create (for `extra-user-roles=producer`), or consume (for `extra-user-roles=consumer`).
 - Can optionally provide the desired consumer group for a requirer unit in the `group` field. If `extra-user-roles=consumer`, this field is expected.
 
