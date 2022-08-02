@@ -1,8 +1,8 @@
 {
    "$schema":"https://json-schema.org/draft/2019-09/schema",
-   "$id":"https://canonical.github.io/charm-relation-interfaces/kafka/schemas/provider.json",
+   "$id":"https://canonical.github.io/charm-relation-interfaces/kafka_client/schemas/provider.json",
    "title":"`kafka` provider schema",
-   "description":"The `kafka` root schema comprises the entire provider databag for this interface.",
+   "description":"The `kafka_client` root schema comprises the entire provider databag for this interface.",
    "type":"object",
    "default":{
       
@@ -36,43 +36,19 @@
       "uris":{
          "title":"Kafka bootstrap-servers",
          "description":"A comma-seperated list of host:ip for each Kafka broker",
-         "type":"array",
+         "type":"string",
          "default":"",
-         "items":{
-            "title":"Kafka bootstrap-server",
-            "description":"A bootstrap-server connection uri for a single broker",
-            "type":"string",
-            "examples":[
-               "10.141.78.155:9092",
-               "10.141.78.62:9092",
-               "10.141.78.186:9092"
-            ]
-         },
          "examples":[
-            "10.141.78.155:9092",
-            "10.141.78.62:9092",
-            "10.141.78.186:9092"
+            "10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092"
          ]
       },
       "endpoints":{
          "title":"Kafka broker hosts",
          "description":"A comma-seperated list of host IPs for each Kafka broker",
-         "type":"array",
+         "type":"string",
          "default":"",
-         "items":{
-            "title":"Kafka broker host",
-            "description":"A host IP for a single broker",
-            "type":"string",
-            "examples":[
-               "10.141.78.155",
-               "10.141.78.62",
-               "10.141.78.186"
-            ]
-         },
          "examples":[
-            "10.141.78.155",
-            "10.141.78.62",
-            "10.141.78.186"
+            "10.141.78.155,10.141.78.62,10.141.78.186"
          ]
       },
       "zookeeper-uris":{
@@ -90,14 +66,10 @@
          "username":"relation-14",
          "password":"alphanum-32byte-random",
          "uris":[
-            "10.141.78.155:9092",
-            "10.141.78.62:9092",
-            "10.141.78.186:9092"
+            "10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092"
          ],
          "endpoints":[
-            "10.141.78.155",
-            "10.141.78.62",
-            "10.141.78.186"
+            "10.141.78.155,10.141.78.62,10.141.78.186"
          ],
          "zookeeper_uris":"10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
       }

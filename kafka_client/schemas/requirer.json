@@ -1,8 +1,8 @@
 {
    "$schema":"https://json-schema.org/draft/2019-09/schema",
-   "$id":"https://canonical.github.io/charm-relation-interfaces/kafka/schemas/requirer.json",
+   "$id":"https://canonical.github.io/charm-relation-interfaces/kafka_client/schemas/requirer.json",
    "title":"`kafka` requirer schema",
-   "description":"The `kafka` root schema comprises the entire requirer databag for this interface.",
+   "description":"The `kafka_client` root schema comprises the entire requirer databag for this interface.",
    "type":"object",
    "default":{
       
@@ -11,39 +11,54 @@
       "extra-user-roles"
    ],
    "if":{
-       "properties": {"role": {"const": "producer"}}
+      "properties":{
+         "extra-user-roles":{
+            "pattern":"producer"
+         }
+      }
    },
    "then":{
-       "required": ["topic"]
+      "required":[
+         "topic"
+      ]
    },
    "if":{
-       "properties": {"role": {"const": "consumer"}}
+      "properties":{
+         "extra-user-roles":{
+            "pattern":"consumer"
+         }
+      }
    },
    "then":{
-       "required": ["topic", "group"]
+      "required":[
+         "topic",
+         "group"
+      ]
    },
    "additionalProperties":true,
    "properties":{
       "extra-user-roles":{
          "title":"Application client roles",
          "description":"A comma-seperated list of application roles requested by the requirer",
-         "type":"array",
+         "type":"string",
          "default":"",
-         "items":{
-            "title":"Client role",
-            "description":"A single permission role for the client",
-            "type":"string",
-            "enum":[
-               "consumer",
-               "producer",
-               "admin"
-            ]
-         },
+         "enum":[
+            "consumer",
+            "producer",
+            "admin",
+            "consumer,producer",
+            "consumer,admin",
+            "producer,admin",
+            "consumer,producer,admin"
+         ],
          "examples":[
             "consumer",
             "producer",
-            "consumer/producer",
-            "admin"
+            "admin",
+            "consumer,producer",
+            "consumer,admin",
+            "producer,admin",
+            "consumer,producer,admin"
          ]
       },
       "topic":{
@@ -69,9 +84,9 @@
    },
    "examples":[
       {
-         "extra-user-roles": "consumer",
-         "topic": "special-topic",
-         "group": "group-A"
+         "extra-user-roles":"consumer",
+         "topic":"special-topic",
+         "group":"group-A"
       }
    ]
 }
