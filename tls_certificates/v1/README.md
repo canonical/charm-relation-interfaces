@@ -19,7 +19,7 @@ compatible with the interface.
 - Is expected to generate (or use an existing) private-key
 - Is expected to provide a list of CSR's for which it requires certificates
 
-### The Provider
+### Provider
 
 - Is expected to provide its CA certificate for each CSR
 - Is expected to provide its CA chain for each CSR
