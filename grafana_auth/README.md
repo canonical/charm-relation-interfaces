@@ -6,9 +6,19 @@ This relation interface describes the expected behavior of any charm claiming to
 
 The interface will consist of a `provider` and a `requirer`. The `provider` is expected to allow configurable authentication to `Grafana`, while the `requirer` should be able to consume the relation and configure the authentication mode to authenticate to `Grafana`.
 
+## Direction
+`grafana-auth` interface implements a provider/requirer pattern.
+The `provider` is expected to allow configurable authentication to `Grafana`.
+The `requirer` should be able to consume the relation and configure the authentication mode to authenticate to `Grafana`.
+
+```mermaid
+flowchart TD
+    Provider -- grafana-auth--> Requirer
+```
+
 ## Behavior
 
-Both the Requirer and the provider need to adhere to a certain set of criterias to be considered compatible with the interface.
+Both the Requirer and the provider need to adhere to a certain set of criteria to be considered compatible with the interface.
 
 ### Provider
 
@@ -16,7 +26,7 @@ Both the Requirer and the provider need to adhere to a certain set of criterias 
 
 ### Requirer
 
-- Is expected to provide the prefered authentication mode with the required configuration towards the provider using a top-level key in the application databag to group the whole authentication config together.
+- Is expected to provide the preferred authentication mode with the required configuration towards the provider using a top-level key in the application databag to group the whole authentication config together.
 
 ## Relation Data
 
