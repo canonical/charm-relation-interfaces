@@ -7,6 +7,7 @@ This relation interface describes the expected behavior of any charm claiming to
 The interface will consist of a `provider` and a `requirer`. The `provider` is expected to allow configurable authentication to `Grafana`, while the `requirer` should be able to consume the relation and configure the authentication mode to authenticate to `Grafana`.
 
 ## Direction
+
 `grafana-auth` interface implements a provider/requirer pattern.
 The `provider` is expected to allow configurable authentication to `Grafana`.
 The `requirer` should be able to consume the relation and configure the authentication mode to authenticate to `Grafana`.
@@ -22,7 +23,8 @@ Both the Requirer and the provider need to adhere to a certain set of criteria t
 
 ### Provider
 
-- Is expected to allow configuration of authentication mode to `Grafana` as specified by the `requirer`. The modes that can be used are listed in Grafana's [official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/)
+- Is expected to allow configuration of authentication mode to `Grafana` as specified by the `requirer`. The modes and their configurations are described in Grafana's [official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/)
+- Is expected to authenticate the `requirer` charm to `Grafana`
 
 ### Requirer
 
@@ -31,10 +33,23 @@ Both the Requirer and the provider need to adhere to a certain set of criteria t
 ## Relation Data
 
 ### Provider
+
 [\[JSON Schema\]](./schemas/provider.json)
 
+The `provider` returns a `url` that the `requirer` charm uses as needed.
+
+#### Example
+
+```json
+{
+  "url": "https://grafana.example.com/"
+}
+```
+
 ### Requirer
+
 [\[JSON Schema\]](./schemas/requirer.json)
+
 The requirer provides the authentication mode and its configuration.
 - Possible modes: 
   - azuread
@@ -48,3 +63,17 @@ The requirer provides the authentication mode and its configuration.
   - github
   - anonymous
   - basic
+
+#### Example
+
+```json
+{
+  "auth": {
+    "proxy": {
+      "header_name": "X-WEBAUTH-USER",
+      "header_property": "username",
+      "auto_sign_up": false,
+    }
+  }
+}
+```
