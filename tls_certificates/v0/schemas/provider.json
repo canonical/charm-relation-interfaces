@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "$id": "https://canonical.github.io/charm-relation-interfaces/tls_certificates/schemas/provider.json",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/tls_certificates/v0/schemas/provider.json",
   "type": "object",
   "title": "`tls_certificates` provider root schema",
   "description": "The `tls_certificates` root schema comprises the entire provider databag for this interface.",
