@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "$id": "https://canonical.github.io/charm-relation-interfaces/tls_certificates/schemas/requirer.json",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/tls_certificates/v0/schemas/requirer.json",
   "type": "object",
   "title": "`tls_certificates` requirer root schema",
   "description": "The `tls_certificates` root schema comprises the entire requirer databag for this interface.",

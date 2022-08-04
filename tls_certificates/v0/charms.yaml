@@ -1,0 +1,10 @@
+providers:
+  - vault
+  - tls-certificates-operator
+requirers:
+  - keystone
+  - nova-cloud
+  - cinder
+  - neutron
+  - glance
+  - charm-ceph-dashboard
