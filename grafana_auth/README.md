@@ -26,7 +26,7 @@ Both the `requirer` and the `provider` need to adhere to a certain set of criter
 ### Requirer
 
 - Is expected to allow configuration of authentication mode to `Grafana` as specified by the `provider`. The modes and their configurations are described in Grafana's [official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/)
-- Is expected configure Grafanas authentication as described by the `provider`.
+- Is expected to configure Grafanas authentication as described by the `provider`.
 - Is expected to advertise its publicly reachable URL to the `provider`.
 
 ## Relation Data
