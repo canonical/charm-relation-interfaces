@@ -5,6 +5,7 @@
 | Interface                                                      | Status                                                                               |
 |:---------------------------------------------------------------| :--------                                                                            |
 | [`database`](database/README.md)                               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
+| [`grafana-auth`](grafana_auth/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`ingress`](ingress/README.md)                                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`ingress_per_unit`](ingress_per_unit/README.md)               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
 | [`kafka_client`](kafka-client/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange?style=flat-square) |
