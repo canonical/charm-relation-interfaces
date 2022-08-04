@@ -21,7 +21,8 @@ Both the `requirer` and the `provider` need to adhere to a certain set of criter
 
 ### Provider
 
-- Is expected to provide the preferred authentication mode with the required configuration towards the `requirer` using a top-level key in the application databag to group the whole authentication config.
+- Is expected to provide the `requirer` with the configuration for the preferred authentication mode.
+- Is expected to group any authentication config in a top-level key in the application databag.
 
 ### Requirer
 
