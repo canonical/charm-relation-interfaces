@@ -7,7 +7,7 @@ This relation interface describes the expected behavior of any charm claiming to
 ## Direction
 
 The interface will consist of a provider and a requirer.
-The `provider` is expected to allow configurable authentication to `Grafana`. and the `requirer` should be able to consume the relation and configure the authentication mode to authenticate to `Grafana`.
+The `requirer` is expected to allow configurable authentication to `Grafana`. and the `requirer` should be able to consume the relation and configure the authentication mode to authenticate to `Grafana`.
 
 ```mermaid
 flowchart TD
@@ -21,12 +21,13 @@ Both the `requirer` and the `provider` need to adhere to a certain set of criter
 
 ### Provider
 
-- Is expected to allow configuration of authentication mode to `Grafana` as specified by the `requirer`. The modes and their configurations are described in Grafana's [official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/)
-- Is expected to authenticate the `requirer` charm to `Grafana`
+- Is expected to provide the preferred authentication mode with the required configuration towards the `requirer` using a top-level key in the application databag to group the whole authentication config.
 
 ### Requirer
 
-- Is expected to provide the preferred authentication mode with the required configuration towards the `provider` using a top-level key in the application databag to group the whole authentication config.
+- Is expected to allow configuration of authentication mode to `Grafana` as specified by the `provider`. The modes and their configurations are described in Grafana's [official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/)
+- Is expected configure Grafanas authentication as described by the `provider`.
+- Is expected to advertise its publicly reachable URL to the `provider`.
 
 ## Relation Data
 
@@ -34,33 +35,9 @@ Both the `requirer` and the `provider` need to adhere to a certain set of criter
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-The `provider` returns a `url` that the `requirer` charm uses as needed.
-
-#### Example
-
-```json
-{
-  "url": "https://grafana.example.com/"
-}
-```
-
-### Requirer
-
-[\[JSON Schema\]](./schemas/requirer.json)
-
-The requirer provides the authentication mode and its configuration.
-- Possible modes: 
-  - azuread
-  - generic_oauth
-  - google
-  - jwt
-  - gitlab
-  - ldap
-  - okta
+The `provider` provides the authentication mode and its configuration.
+- Supported modes:
   - proxy
-  - github
-  - anonymous
-  - basic
 
 #### Example
 
@@ -73,5 +50,18 @@ The requirer provides the authentication mode and its configuration.
       "auto_sign_up": false,
     }
   }
+}
+```
+
+### Requirer
+
+[\[JSON Schema\]](./schemas/requirer.json)
+The `provider` returns a `url` that the `requirer` charm uses as needed.
+
+#### Example
+
+```json
+{
+  "url": "https://grafana.example.com/"
 }
 ```
