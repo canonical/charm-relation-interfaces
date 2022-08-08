@@ -11,8 +11,8 @@ The `requirer` is expected to allow configurable authentication to `Grafana`. an
 
 ```mermaid
 flowchart TD
-    Provider -- grafana-url--> Requirer
-    Requirer -- grafana-auth-config--> Provider
+    Requirer -- grafana-url--> Provider
+    Provider -- grafana-auth-config--> Requirer
 ```
 
 ## Behavior
