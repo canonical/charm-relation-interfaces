@@ -22,7 +22,7 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 
 ### Provider
 - Is expected to create an application `username` and `password` inside the kafka cluster when the requirer relates to the kafka cluster, using the SASL/SCRAM mechanism, stored in ZooKeeper.
-- Is expected to delete an application `username` and `password` the kafka cluster when the relation is removed.
+- Is expected to delete an application `username` and `password` from the kafka cluster when the relation is removed.
 - Is expected to provide the `uris` field with a comma-seperated list of broker uris, which can be used for cluster connection.
 - Is expected to provide the `endpoints` field with a comma-seperated list of broker hostnames / IP addresses.
 - Can optionally provide the `zookeeper-uris` field with a comma-seperated list of ZooKeeper server uris and Kafka cluster zNode, if the requirer `extra-user-roles` is set to `admin`
