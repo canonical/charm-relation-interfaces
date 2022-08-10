@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/grafana_auth/schemas/requirer.json",
+    "type": "object",
+    "title": "`grafana_auth` requirer schema",
+    "description": "The `grafana_auth` root schema comprises the entire consumer databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "url": "https://grafana.example.com/"
+        }
+    ],
+    "required": [
+        "url"
+    ],
+    "properties": {
+        "url": {
+            "$id": "#/properties/url",
+            "type": "string"
+        }
+    },
+    "additionalProperties": true
+}
