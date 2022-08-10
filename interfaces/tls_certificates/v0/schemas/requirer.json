@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/tls_certificates/v0/schemas/requirer.json",
+  "type": "object",
+  "title": "`tls_certificates` requirer root schema",
+  "description": "The `tls_certificates` root schema comprises the entire requirer databag for this interface.",
+  "examples": [
+    {
+      "cert_requests": [
+        {
+          "common_name": "canonical.com"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "common_name": {
+      "type": "string"
+    },
+    "sans": {
+      "type": "array"
+    }
+  },
+  "anyOf": [
+    {
+      "type": "object",
+      "$id": "#/properties/anyOf/0",
+      "title": "Cert Requests Schema",
+      "description": "The Cert Requests Schema",
+      "required": [
+        "cert_requests"
+      ],
+      "properties": {
+        "cert_requests": {
+          "type": "array",
+          "$id": "#/properties/anyOf/0/cert_requests",
+          "title": "Cert Requests",
+          "description": "A list of cert requests",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sans": {
+                "type": "array",
+                "$id": "$/properties/anyOf/0/cert_requests/sans",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "common_name": {
+                "type": "string",
+                "$id": "$/properties/anyOf/0/cert_requests/common_name",
+                "title": "Common Name",
+                "description": "Common Name to include in the certificate"
+              }
+            },
+            "required": [
+              "common_name"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "client_cert_requests"
+      ],
+      "properties": {
+        "client_cert_requests": {
+          "type": "array",
+          "$id": "#/properties/anyOf/0/client_cert_requests",
+          "title": "Client Cert Requests",
+          "description": "A list of client cert requests",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sans": {
+                "type": "array",
+                "$id": "$/properties/anyOf/0/client_cert_requests/sans",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "common_name": {
+                "type": "string",
+                "$id": "$/properties/anyOf/0/client_cert_requests/common_name",
+                "title": "Common Name",
+                "description": "Common Name to include in the certificate"
+              }
+            },
+            "required": [
+              "common_name"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

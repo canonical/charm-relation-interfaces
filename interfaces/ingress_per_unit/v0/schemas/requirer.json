@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/ingress_per_unit/schemas/requirer.json",
+  "type": "object",
+  "title": "`ingress-per-unit` requirer schema",
+  "description": "The `ingress-per-unit` root schema comprises the entire requirer databag for this interface.",
+  "default": {},
+  "examples": [
+    {
+      "name": "app-name",
+      "host": "hostname",
+      "port": 4242,
+      "model": "model-name"
+    }
+  ],
+  "required": [
+    "name",
+    "host",
+    "port",
+    "model"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "Application Name",
+      "description": "The name of the unit requesting ingress.",
+      "default": null,
+      "examples": [
+        "prometheus-k8s"
+      ]
+    },
+    "model": {
+      "$id": "#/properties/model",
+      "type": "string",
+      "title": "Model Name",
+      "description": "The name of the model the unit requesting ingress is in.",
+      "default": null,
+      "examples": [
+        "my-model"
+      ]
+    },
+    "host": {
+      "$id": "#/properties/host",
+      "type": "string",
+      "title": "Hostname",
+      "description": "Hostname the unit wishes to be exposed.",
+      "default": null,
+      "examples": [
+        "foo.bar.baz.com"
+      ]
+    },
+    "port": {
+      "$id": "#/properties/port",
+      "type": "integer",
+      "title": "Port",
+      "description": "The port the unit wishes to be exposed.",
+      "default": null,
+      "examples": [
+        4242
+      ]
+    },
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,3 @@
+providers: []
+consumers:
+  - grafana-k8s

@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/tls_certificates/v0/schemas/provider.json",
+  "type": "object",
+  "title": "`tls_certificates` provider root schema",
+  "description": "The `tls_certificates` root schema comprises the entire provider databag for this interface.",
+  "example": [
+    {
+      "whatever.com": {
+        "key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEA1CHw0NwHmuu/1ych0G/vlE0ArsPo3meWvG5u0rlg1xoGwdbh\nJeG7DIDtBlU71NFVs/DLdAtx2MwWg0rKYXGzBex+XaI4WLowLmD+KTk8ZCWvBHXq\nQ+N5Tc7CFlBnVW7xPqAE/HGFTgAhH+vq1lYKfXNpJMlXf3EuaNycmVwJgyKdh9d8\njzEqa54YWtH/E2guv+Rb9atGdmVHgLhNPgcwIuIODYJpQLjawnT2Lf8Z7MdTqVdV\n7slorOnz2mHslqC5KPnvDXIrVmrwhltf9DcWpxH8ZzkAfOdEFA53ioBBwaIPYoy1\nUvBJRnrbjhVoTq6XUM8BheqzfPppKnpnJPE2jwIDAQABAoIBAAjN39DLUQV9A1lK\npnygKLFfAMhAGUohwn/PlYnpZ7uFuQISiQWpeLnsH+pDX1hV19jABbGrR+5Xiheo\n4v1oWqXESvpX4T7Ne3JxVBsh5P/DEKB+xFpM9pvkGOoULDW/hQO0YICZtY6nMrjA\ncd6zc3wBbju4n4kKiYKQpW84Aq0Oj1OXIfo48F776MTm3WNAgdpHC5CYmQdUu20A\nAnmS52XSOcva9dZrs29kQM7iA2ssefLy+yQLR5jCiLvrmvjZtSCpDryfDC2A2nny\n4dMhyLCezTVcCy8kTTTgaOh+kxgbCwQJNT6xcOIB4fYBVUn0wd+UiCqxGVIehSGd\nLSlyMAECgYEA/Eax/FJ3SQa28z+to3i7zy03f2porDs+uKVyQcfZlxniEzoEKYPJ\nFdG4XtCjgre5YCUPeWCJgUEcc2x5XdP4T33bN9cMOgz+g4hpP6I2wj9/QV3tnAFL\nhlOIFEkDlBIURXIORU115D2CNBUWfGQAsJQeKE4YncaTWO9Gn08oAEECgYEA10OM\n4f31HmO/QyW3uARIgTF2GZDkVPeYvuG6DBDHGznJzdSNJgIP+Jotg344vR555IMQ\nUtvzg6cVpLdJypOI+sNiiYBlHUgyc4E0yGnBedNKpxF1gYw4sljX6fJ6FPaBcq9X\n6sKXC90KWe4lAvLE4c+qGInFqPxw7BPVBnV4gs8CgYB39jYUwjIu6557tUAgh/zm\n252UXUlA/TsqGqJmXV4+1/QFKIVqKFyqn3uIurXGJw9jhLwC/8DjUc7xpBdiYrWl\nNzfTKdOKlzs/2NITjFN1szQUJVIj6Qm86mO/Iakt9BrnmwDmO5tf2U/c7Fow9GzP\nit98UwapoA/ZLo7qmn1vAQKBgH+YHKO/4lD3EuF8M9+xOkDJzpTs20q50CIkriCE\nuWAb6tBEUr3arxjOWnf8kykWLW4TedODaF365ctSkTywIptwwLF8F3M53h200lKQ\nzQunADLzGFGHifu8yY50GYTfcG9IG7adTObNSFtx2yJaP/URIGOXFkBKEaz9PGGt\ns5blAoGBAI20XD6yAL8cD5EN0pZ2eHDQbF/g8ML8zxJG4vCV2ElhfH+L4Q2zXAYp\nDAGRj+z928KUM+OIjyts7RWoQm0/5Bf9VuvrC0o3H0pw4rmNyW1VEJWR7LLgA647\n7O8CvHALrL7aMh6XWNmDMSrO63nYN5JzRpxJXXtPqmqNSd6cUewP\n-----END RSA PRIVATE KEY-----",
+        "cert": "-----BEGIN CERTIFICATE-----\nMIIDajCCAlKgAwIBAgIUaKRAIcZmkNziPb6FpgfShKTHj/wwDQYJKoZIhvcNAQEL\nBQAwPTE7MDkGA1UEAxMyVmF1bHQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkg\nKGNoYXJtLXBraS1sb2NhbCkwHhcNMjIwNTI2MDAzMzI0WhcNMjMwNTI1MjMzMzU0\nWjAVMRMwEQYDVQQDEwpibGFibGEuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A\nMIIBCgKCAQEA1CHw0NwHmuu/1ych0G/vlE0ArsPo3meWvG5u0rlg1xoGwdbhJeG7\nDIDtBlU71NFVs/DLdAtx2MwWg0rKYXGzBex+XaI4WLowLmD+KTk8ZCWvBHXqQ+N5\nTc7CFlBnVW7xPqAE/HGFTgAhH+vq1lYKfXNpJMlXf3EuaNycmVwJgyKdh9d8jzEq\na54YWtH/E2guv+Rb9atGdmVHgLhNPgcwIuIODYJpQLjawnT2Lf8Z7MdTqVdV7slo\nrOnz2mHslqC5KPnvDXIrVmrwhltf9DcWpxH8ZzkAfOdEFA53ioBBwaIPYoy1UvBJ\nRnrbjhVoTq6XUM8BheqzfPppKnpnJPE2jwIDAQABo4GJMIGGMA4GA1UdDwEB/wQE\nAwIDqDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwHQYDVR0OBBYEFASO\nWjQVWEhsucKdwUeyq4RRwmygMB8GA1UdIwQYMBaAFPOJYJ5nPJg3UVlfKPxggdig\n/n+nMBUGA1UdEQQOMAyCCmJsYWJsYS5jb20wDQYJKoZIhvcNAQELBQADggEBAGq8\nVrNFmTkf9jG3R8yD1HIZp0cbDacF25SHSYS3+M32BlITve0OOA0CzW3OLrXnCTp7\nLoSMWpWM5TFeJNl/lV4bC8izXA3hsf3bHXERkEGfjuTUmjK8QodvAs/ueoaD1E/Y\n0b9w3Qb3+dbs9joU/2XltvOcTPmtjTsfkMQ12sFozzLn4LVZTDe9Pmt2YXcnv+nd\navU0bCVNWYLc/6AHImtKYrziBBk+mfwYkPFFdwjpwHVPuCTMsZSBY8TrSuuk79w4\nBTRXzEBsCizprRGFRmZnFCA+SbMkh2PWpKziujODdGMZjUWtgFI2AGwMtIk2KXLK\nD/8jxyBXHnvBJ5S3vNo=\n-----END CERTIFICATE-----"
+      },
+      "ca": "-----BEGIN CERTIFICATE-----\nMIIDazCCAlOgAwIBAgIUcmcehy58Qe+g00FUC4WrGYqOBwwwDQYJKoZIhvcNAQEL\nBQAwPTE7MDkGA1UEAxMyVmF1bHQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkg\nKGNoYXJtLXBraS1sb2NhbCkwHhcNMjIwNTI2MDAxNzIwWhcNMzIwNTIyMjMxNzUw\nWjA9MTswOQYDVQQDEzJWYXVsdCBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAo\nY2hhcm0tcGtpLWxvY2FsKTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAMQ5VG4o/tKjAr+1p0fH4XP+IPlGJTubDuMC1S7KwwxqyXmW/PXhIxC4zPPiRodK\nJ1sBtAla0fVQ5xRjou/FTdKtHbXMm9Nh4fVauFu7HMLHvDjBwZKl26eZ536QhOO9\nggjs/Gx9pYoWmTKqDGbGZRgKx4zjYmMNYdY7VfpLqmzYEMMPy4mQRHajWo7ksdMh\nev/ZU0PSyY4Vfk7+a8O/gTGebRYZzUAVMJX+7RMySqPvtI7Cm9KrYZFLDoLT/yKW\neOi/oynbCTnCKllR9GsmjHtO/bjoE4Ggmn4zWHSZSaoe7deG27CVHT/gU+DLQhQi\n/MNbCItkUzYKU6YO+0INXp8CAwEAAaNjMGEwDgYDVR0PAQH/BAQDAgEGMA8GA1Ud\nEwEB/wQFMAMBAf8wHQYDVR0OBBYEFPOJYJ5nPJg3UVlfKPxggdig/n+nMB8GA1Ud\nIwQYMBaAFPOJYJ5nPJg3UVlfKPxggdig/n+nMA0GCSqGSIb3DQEBCwUAA4IBAQAj\nHzDsi3GNtp6mPAt9eUjR69WPdS8GgI4ypqIaKjS/r8lwEB1y9FT50NgYhb+nH/2y\nj5ajQEF/Mf9GBJOpFtPWpULxPra5EeCVpMS9sCP1BFS3Tq1/p09kb5kGNzJPQ5u1\nNJDJMAhzUHZcxCnqNBrRKhvtWKNZygvcZuV2nypN+vvtMXlZv5GMrYGpOUomUGza\nviGfaLiGdNeWBXElKe1slutUXXTkLOMS7rLQ5RziDrVxXn9uuE1lrTovEACvrP1Z\n0BFJIuGTn699OGevx44u4gO4qIkzpGeQ1gAnSdgq2HZpxSAYdi2ay8MSHbOfsLY0\nAIdVl46lbjsmIh+vvFyI\n-----END CERTIFICATE-----",
+      "chain": "-----BEGIN CERTIFICATE-----\nMIIDazCCAlOgAwIBAgIUcmcehy58Qe+g00FUC4WrGYqOBwwwDQYJKoZIhvcNAQEL\nBQAwPTE7MDkGA1UEAxMyVmF1bHQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkg\nKGNoYXJtLXBraS1sb2NhbCkwHhcNMjIwNTI2MDAxNzIwWhcNMzIwNTIyMjMxNzUw\nWjA9MTswOQYDVQQDEzJWYXVsdCBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAo\nY2hhcm0tcGtpLWxvY2FsKTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAMQ5VG4o/tKjAr+1p0fH4XP+IPlGJTubDuMC1S7KwwxqyXmW/PXhIxC4zPPiRodK\nJ1sBtAla0fVQ5xRjou/FTdKtHbXMm9Nh4fVauFu7HMLHvDjBwZKl26eZ536QhOO9\nggjs/Gx9pYoWmTKqDGbGZRgKx4zjYmMNYdY7VfpLqmzYEMMPy4mQRHajWo7ksdMh\nev/ZU0PSyY4Vfk7+a8O/gTGebRYZzUAVMJX+7RMySqPvtI7Cm9KrYZFLDoLT/yKW\neOi/oynbCTnCKllR9GsmjHtO/bjoE4Ggmn4zWHSZSaoe7deG27CVHT/gU+DLQhQi\n/MNbCItkUzYKU6YO+0INXp8CAwEAAaNjMGEwDgYDVR0PAQH/BAQDAgEGMA8GA1Ud\nEwEB/wQFMAMBAf8wHQYDVR0OBBYEFPOJYJ5nPJg3UVlfKPxggdig/n+nMB8GA1Ud\nIwQYMBaAFPOJYJ5nPJg3UVlfKPxggdig/n+nMA0GCSqGSIb3DQEBCwUAA4IBAQAj\nHzDsi3GNtp6mPAt9eUjR69WPdS8GgI4ypqIaKjS/r8lwEB1y9FT50NgYhb+nH/2y\nj5ajQEF/Mf9GBJOpFtPWpULxPra5EeCVpMS9sCP1BFS3Tq1/p09kb5kGNzJPQ5u1\nNJDJMAhzUHZcxCnqNBrRKhvtWKNZygvcZuV2nypN+vvtMXlZv5GMrYGpOUomUGza\nviGfaLiGdNeWBXElKe1slutUXXTkLOMS7rLQ5RziDrVxXn9uuE1lrTovEACvrP1Z\n0BFJIuGTn699OGevx44u4gO4qIkzpGeQ1gAnSdgq2HZpxSAYdi2ay8MSHbOfsLY0\nAIdVl46lbjsmIh+vvFyI\n-----END CERTIFICATE-----",
+      "unit_name": "whatever_unit_name"
+    }
+  ],
+  "properties": {
+    "ca": {
+      "$id": "#/properties/ca",
+      "type": "string",
+      "title": "CA",
+      "description": "The CA Certificate"
+    },
+    "chain": {
+      "$id": "#/properties/chain",
+      "type": "string",
+      "title": "Chain",
+      "description": "The Chain Certificate"
+    },
+    "unit_name": {
+      "$id": "#/properties/unit_name",
+      "type": "string",
+      "title": "Unit Name",
+      "description": "The name of the unit"
+    }
+  },
+  "patternProperties": {
+    "^(?!ca|chain|unit_name).*$": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "cert": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cert",
+        "key"
+      ]
+    }
+  },
+  "required": [
+    "ca",
+    "chain"
+  ]
+}
