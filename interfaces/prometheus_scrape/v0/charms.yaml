@@ -1,0 +1,4 @@
+providers:
+  - prometheus-k8s
+consumers:
+  - grafana-agent-k8s
