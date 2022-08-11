@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/prometheus_remote_write/schemas/provider.json",
+    "type": "object",
+    "title": "`prometheus_remote_write` provider root schema",
+    "description": "The `prometheus_remote_write` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "remote_write": {
+                "url": "http://192.168.1.2:9090/api/v1/write"
+            }
+        }
+    ],
+    "required": [
+        "remote_write"
+    ],
+    "properties": {
+        "remote_write": {
+            "$id": "#/properties/remote_write",
+            "type": "object",
+            "title": "Remote Write",
+            "description": "Configuration of the remote write provider",
+            "default": {},
+            "examples": [
+                {
+                    "url": "http://192.168.1.2:9090/api/v1/write"
+                }
+            ],
+            "required": [
+                "url"
+            ],
+            "properties": {
+                "url": {
+                    "$id": "#/properties/remote_write/properties/url",
+                    "type": "string",
+                    "title": "URL",
+                    "description": "The URL the requirer should target with remote write operations.",
+                    "default": "",
+                    "examples": [
+                        "http://192.168.1.2:9090/api/v1/write"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

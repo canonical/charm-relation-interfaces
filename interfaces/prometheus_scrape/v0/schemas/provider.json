@@ -1,0 +1,279 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/prometheus_scrape/schemas/provider.json",
+    "title": "`prometheus_scrape` provider root schema",
+    "type": "object",
+    "additionalProperties": true,
+    "examples": [
+        {
+            "application-data": {
+                "alert_rules": {
+                    "groups": [
+                        {
+                            "name": "an_alert_rule_group",
+                            "rules": [
+                                {
+                                    "alert": "SomethingIsUp",
+                                    "expr": "something_bad == 1",
+                                    "for": "0m",
+                                    "labels": {
+                                        "some-label": "some-value"
+                                    },
+                                    "annotations": {
+                                        "some-annotation": "some-other-value"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "scrape_jobs": [
+                    {
+                        "metrics_path": "/metrics",
+                        "static_configs": [
+                            {
+                                "targets": [
+                                    "*:4080"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "scrape_metadata": {
+                    "model": "cos",
+                    "model_uuid": "c2e9f4d5-dcb3-4870-8509-330eb9745ee8",
+                    "application": "zinc-k8s",
+                    "unit": "zinc-k8s/0",
+                    "charm_name": "zinc-k8s"
+                }
+            },
+            "related-units": {
+                "zinc-k8s/0": {
+                    "data": {
+                        "prometheus_scrape_unit_address": "zinc-k8s-0.zinc-k8s-endpoints.cos.svc.cluster.local",
+                        "prometheus_scrape_unit_name": "zinc-k8s/0"
+                    }
+                }
+            }
+        }
+    ],
+    "properties": {
+        "application-data": {
+            "$id": "#/properties/application-data",
+            "title": "Application Databag",
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "alert_rules": {
+                    "$id": "#/properties/application-data/alert_rules",
+                    "title": "Alert rules exposed by the provider",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "groups": {
+                            "$id": "#/properties/application-data/alert_rules/groups",
+                            "title": "Alert rule groups exposed by the provider",
+                            "type": "array",
+                            "additionalItems": true,
+                            "items": [
+                                {
+                                    "$id": "#/properties/application-data/alert_rules/groups/0",
+                                    "title": "Alert rule group exposed by the provider",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "name": {
+                                            "$id": "#/properties/application-data/alert_rules/groups/0/name",
+                                            "title": "Name of an alert rule group",
+                                            "type": "string"
+                                        },
+                                        "rules": {
+                                            "$id": "#/properties/application-data/alert_rules/groups/0/rules",
+                                            "title": "List of rules in an alert rule group",
+                                            "type": "array",
+                                            "additionalItems": true,
+                                            "items": [
+                                                {
+                                                    "alert": {
+                                                        "$id": "#/properties/application-data/alert_rules/groups/0/rules/0/alert",
+                                                        "title": "Name of an individual alert rule",
+                                                        "type": "string"
+                                                    },
+                                                    "expr": {
+                                                        "$id": "#/properties/application-data/alert_rules/groups/0/rules/0/expr",
+                                                        "title": "PromQL or LogQL expression of an individual alert rule",
+                                                        "type": "string"
+                                                    },
+                                                    "for": {
+                                                        "$id": "#/properties/application-data/alert_rules/groups/0/rules/0/for",
+                                                        "title": "The duration for which an alert must triggered before it fires",
+                                                        "type": "string"
+                                                    },
+                                                    "labels": {
+                                                        "$id": "#/properties/application-data/alert_rules/groups/0/rules/0/labels",
+                                                        "title": "Labels of an individual alert rule",
+                                                        "type": "object",
+                                                        "additionalProperties": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "annotations": {
+                                                        "$id": "#/properties/application-data/alert_rules/groups/0/rules/0/annotations",
+                                                        "title": "Annotations of an individual alert rule",
+                                                        "type": "object",
+                                                        "additionalProperties": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "scrape_jobs": {
+                    "$id": "#/properties/application-data/scrape_jobs",
+                    "title": "Scrape jobs exposed by the provider",
+                    "type": "array",
+                    "additionalItems": true,
+                    "items": [
+                        {
+                            "$id": "#/properties/application-data/scrape_jobs/0",
+                            "title": "Scrape job exposed by the provider",
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "metrics_path": {
+                                    "$id": "#/properties/application-data/scrape_jobs/0/metrics_path",
+                                    "title": "Path to the metrics endpoint",
+                                    "type": "string"
+                                },
+                                "static_configs": {
+                                    "$id": "#/properties/application-data/scrape_jobs/0/static_configs",
+                                    "title": "Static configs for a scrape job",
+                                    "type": "array",
+                                    "additionalItems": true,
+                                    "items": [
+                                        {
+                                            "$id": "#/properties/application-data/scrape_jobs/0/static/configs/0",
+                                            "title": "Static config for a scrape job",
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "targets": {
+                                                    "$id": "#/properties/application-data/scrape_jobs/0/static/configs/0/targets",
+                                                    "title": "List of targets associated with a static config",
+                                                    "type": "array",
+                                                    "additionalItems": true,
+                                                    "items": [
+                                                        {
+                                                            "type": "string"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "targets"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "metrics_path",
+                                "static_configs"
+                            ]
+                        }
+                    ]
+                },
+                "scrape_metadata": {
+                    "$id": "#/properties/application-data/scrape_metadata",
+                    "title": "Scrape metadata associated with a provider",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "model": {
+                            "$id": "#/properties/application-data/scrape_metadata/model",
+                            "title": "Juju model of a scrape endpoint provider",
+                            "type": "string"
+                        },
+                        "model_uuid": {
+                            "$id": "#/properties/application-data/scrape_metadata/model_uuid",
+                            "title": "Juju model UUID of a scrape endpoint provider",
+                            "type": "string"
+                        },
+                        "application": {
+                            "$id": "#/properties/application-data/scrape_metadata/application",
+                            "title": "Juju application name of a scrape endpoint provider",
+                            "type": "string"
+                        },
+                        "unit": {
+                            "$id": "#/properties/application-data/scrape_metadata/unit",
+                            "title": "Juju unit of a scrape endpoint provider",
+                            "type": "string"
+                        },
+                        "charm_name": {
+                            "$id": "#/properties/application-data/scrape_metadata/charm_name",
+                            "title": "Charm name of a scrape endpoint provider",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "model",
+                        "model_uuid",
+                        "application",
+                        "unit",
+                        "charm_name"
+                    ]
+                }
+            },
+            "required": [
+                "scrape_jobs",
+                "scrape_metadata"
+            ]
+        },
+        "related-units": {
+            "type": "object",
+            "patternProperties": {
+                "^.*/d+$": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "data": {
+                            "$id": "#/properties/related-units/unit/data",
+                            "title": "Unit databag",
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "prometheus_scrape_unit_address": {
+                                    "$id": "#/properties/related-units/unit/data/prometheus_scrape_unit_address",
+                                    "title": "Address to the individual unit",
+                                    "type": "string"
+                                },
+                                "prometheus_scrape_unit_name": {
+                                    "$id": "#/properties/related-units/unit/data/prometheus_scrape_unit_name",
+                                    "title": "Juju unit name for the individual unit",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "prometheus_scrape_unit_address",
+                                "prometheus_scrape_unit_name"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "data"
+                    ]
+                }
+            }
+        }
+    },
+    "required": [
+        "application-data",
+        "related-units"
+    ]
+}

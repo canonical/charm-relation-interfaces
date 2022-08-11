@@ -1,0 +1,346 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/prometheus_remote_write/schemas/requirer.json",
+    "type": "object",
+    "title": "`prometheus_remote_write` requirer root schema",
+    "description": "The `prometheus_remote_write` root schema comprises the entire requirer databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "alert_rules": {
+                "groups": [
+                    {
+                        "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                        "rules": [
+                            {
+                                "alert": "ConsumerCharmUnavailable",
+                                "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                "for": "0m",
+                                "labels": {
+                                    "severity": "critical",
+                                    "juju_model": "some-model",
+                                    "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                    "juju_application": "consumer-charm"
+                                },
+                                "annotations": {
+                                    "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                    "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "required": [
+        "alert_rules"
+    ],
+    "properties": {
+        "alert_rules": {
+            "$id": "#/properties/alert_rules",
+            "type": "object",
+            "title": "Alert Rules",
+            "description": "Alert rules provided by the requirer",
+            "default": {},
+            "examples": [
+                {
+                    "groups": [
+                        {
+                            "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                            "rules": [
+                                {
+                                    "alert": "GrafanaAgentUnavailable",
+                                    "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                    "for": "0m",
+                                    "labels": {
+                                        "severity": "critical",
+                                        "juju_model": "some-model",
+                                        "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                        "juju_application": "consumer-charm"
+                                    },
+                                    "annotations": {
+                                        "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                        "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "required": [
+                "groups"
+            ],
+            "properties": {
+                "groups": {
+                    "$id": "#/properties/groups",
+                    "type": "array",
+                    "title": "Alert rule groups",
+                    "description": "A list of alert rule groups provided by the requirer",
+                    "default": [],
+                    "examples": [
+                        [
+                            {
+                                "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                                "rules": [
+                                    {
+                                        "alert": "ConsumerCharmUnavailable",
+                                        "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                        "for": "0m",
+                                        "labels": {
+                                            "severity": "critical",
+                                            "juju_model": "some-model",
+                                            "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                            "juju_application": "consumer-charm"
+                                        },
+                                        "annotations": {
+                                            "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                            "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/groups/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/groups/items/anyOf/0",
+                                "type": "object",
+                                "title": "Alert rule group",
+                                "description": "A group of alert rules provided by the requirer",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                                        "rules": [
+                                            {
+                                                "alert": "ConsumerCharmUnavailable",
+                                                "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                                "for": "0m",
+                                                "labels": {
+                                                    "severity": "critical",
+                                                    "juju_model": "some-model",
+                                                    "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                                    "juju_application": "consumer-charm"
+                                                },
+                                                "annotations": {
+                                                    "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                    "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "required": [
+                                    "name",
+                                    "rules"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "$id": "#/properties/groups/items/anyOf/0/properties/name",
+                                        "type": "string",
+                                        "title": "Name",
+                                        "description": "The name of the alert rule group.",
+                                        "default": "",
+                                        "examples": [
+                                            "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts"
+                                        ]
+                                    },
+                                    "rules": {
+                                        "$id": "#/properties/groups/items/anyOf/0/properties/rules",
+                                        "type": "array",
+                                        "title": "Rules",
+                                        "description": "A list of alert rules provided by the requirer.",
+                                        "default": [],
+                                        "examples": [
+                                            [
+                                                {
+                                                    "alert": "ConsumerCharmUnavailable",
+                                                    "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                                    "for": "0m",
+                                                    "labels": {
+                                                        "severity": "critical",
+                                                        "juju_model": "some-model",
+                                                        "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                                        "juju_application": "consumer-charm"
+                                                    },
+                                                    "annotations": {
+                                                        "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                        "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                    }
+                                                }
+                                            ]
+                                        ],
+                                        "additionalItems": true,
+                                        "items": {
+                                            "$id": "#/properties/groups/items/anyOf/0/properties/rules/items",
+                                            "anyOf": [
+                                                {
+                                                    "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0",
+                                                    "default": {},
+                                                    "title": "Alert Rule",
+                                                    "type": "object",
+                                                    "description": "An alert rule provided by the requirer",
+                                                    "examples": [
+                                                        {
+                                                            "alert": "ConsumerCharmUnavailable",
+                                                            "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                                            "for": "0m",
+                                                            "labels": {
+                                                                "severity": "critical",
+                                                                "juju_model": "some-model",
+                                                                "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                                                "juju_application": "consumer-charm"
+                                                            },
+                                                            "annotations": {
+                                                                "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                                "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "required": [
+                                                        "alert",
+                                                        "expr",
+                                                        "labels"
+                                                    ],
+                                                    "properties": {
+                                                        "alert": {
+                                                            "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/alert",
+                                                            "type": "string",
+                                                            "title": "Alert",
+                                                            "description": "Name of the alert rule.",
+                                                            "default": "",
+                                                            "examples": [
+                                                                "ConsumerCharmUnavailable"
+                                                            ]
+                                                        },
+                                                        "expr": {
+                                                            "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/expr",
+                                                            "type": "string",
+                                                            "title": "Expression",
+                                                            "description": "The expression used to evaluate whether the alert is firing.",
+                                                            "default": "",
+                                                            "examples": [
+                                                                "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1"
+                                                            ]
+                                                        },
+                                                        "for": {
+                                                            "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/for",
+                                                            "type": "string",
+                                                            "title": "For",
+                                                            "description": "The duration for which an alert expression needs to fulfilled before an alert is fired.",
+                                                            "default": "",
+                                                            "examples": [
+                                                                "0m"
+                                                            ]
+                                                        },
+                                                        "labels": {
+                                                            "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels",
+                                                            "default": {},
+                                                            "type": "object",
+                                                            "title": "Labels",
+                                                            "description": "A list of labels applied to the alert rule",
+                                                            "examples": [
+                                                                {
+                                                                    "severity": "critical",
+                                                                    "juju_model": "some-model",
+                                                                    "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
+                                                                    "juju_application": "consumer-charm"
+                                                                }
+                                                            ],
+                                                            "required": [
+                                                                "severity"
+                                                            ],
+                                                            "properties": {
+                                                                "severity": {
+                                                                    "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/severity",
+                                                                    "type": "string",
+                                                                    "title": "Severity",
+                                                                    "description": "The severity of this alert.",
+                                                                    "default": "",
+                                                                    "examples": [
+                                                                        "critical",
+                                                                        "error",
+                                                                        "warn",
+                                                                        "info"
+                                                                    ]
+                                                                },
+                                                                "juju_model": {
+                                                                    "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_model",
+                                                                    "type": "string",
+                                                                    "title": "Juju Model",
+                                                                    "description": "The name of the Juju model the alert applies to.",
+                                                                    "default": "",
+                                                                    "examples": [
+                                                                        "some-model"
+                                                                    ]
+                                                                },
+                                                                "juju_model_uuid": {
+                                                                    "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_model_uuid",
+                                                                    "type": "string",
+                                                                    "title": "Juju Model UUID",
+                                                                    "description": "The UUID of the Juju model the alert applies to.",
+                                                                    "default": "",
+                                                                    "examples": [
+                                                                        "00000000-0000-0000-0000-000000000000"
+                                                                    ]
+                                                                },
+                                                                "juju_application": {
+                                                                    "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_application",
+                                                                    "type": "string",
+                                                                    "title": "Juju Application",
+                                                                    "description": "The name of the Juju application the alert applies to.",
+                                                                    "default": "",
+                                                                    "examples": [
+                                                                        "consumer-charm"
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "additionalProperties": false
+                                                        },
+                                                        "annotations": {
+                                                            "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/annotations",
+                                                            "default": {},
+                                                            "title": "Annotations",
+                                                            "description": "A list of annotations to include whenever the alert rule fires.",
+                                                            "examples": [
+                                                                {
+                                                                    "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                                    "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                                }
+                                                            ],
+                                                            "required": [],
+                                                            "type": [
+                                                                "object",
+                                                                "null"
+                                                            ],
+                                                            "patternProperties": {
+                                                                "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+                                                                    "description": "Template-expanded prior to usage",
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "additionalProperties": false
+                                                        }
+                                                    },
+                                                    "additionalProperties": false
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "additionalProperties": false
+    }
+}
