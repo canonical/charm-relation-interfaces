@@ -31,8 +31,7 @@
    },
    "then":{
       "required":[
-         "topic",
-         "group"
+         "topic"
       ]
    },
    "additionalProperties":true,
@@ -70,23 +69,12 @@
             "topic-1",
             "appname-*"
          ]
-      },
-      "group":{
-         "title":"Kafka consumer group name",
-         "description":"The consumer group name requested by the requirer",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "group-1",
-            "appname-*"
-         ]
       }
    },
    "examples":[
       {
          "extra-user-roles":"consumer",
-         "topic":"special-topic",
-         "group":"group-A"
+         "topic":"special-topic"
       }
    ]
 }
