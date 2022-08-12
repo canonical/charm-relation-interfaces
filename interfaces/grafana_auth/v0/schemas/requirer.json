@@ -7,16 +7,27 @@
     "default": {},
     "examples": [
         {
-            "url": "https://grafana.example.com/"
+            "application-data": {
+                "url": "https://grafana.example.com/"
+            }
         }
     ],
     "required": [
-        "url"
+        "application-data"
     ],
     "properties": {
-        "url": {
-            "$id": "#/properties/url",
-            "type": "string"
+        "application-data": {
+            "$id": "#/properties/application-data",
+            "title": "Application Databag",
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "url"
+            ],
+            "url": {
+                "$id": "#/properties/application-data/url",
+                "type": "string"
+            }
         }
     },
     "additionalProperties": true
