@@ -51,6 +51,15 @@
             "10.141.78.155,10.141.78.62,10.141.78.186"
          ]
       },
+      "consumer-group-prefix":{
+         "title":"Kafka consumer group prefix",
+         "description":"A prefix for wildcard consumer-group ids that have been granted permissions",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "relation-14-"
+         ]
+      },
       "zookeeper-uris":{
          "title":"ZooKeeper uri",
          "description":"A comma-seperated list of ZooKeeper server uris, and Kafka cluster zNode",
@@ -71,6 +80,7 @@
          "endpoints":[
             "10.141.78.155,10.141.78.62,10.141.78.186"
          ],
+         "consumer-group-prefix":"relation-14-",
          "zookeeper_uris":"10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
       }
    ]
