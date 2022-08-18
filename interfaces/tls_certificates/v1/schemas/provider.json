@@ -48,7 +48,8 @@
             "$id": "#/properties/certificates/items/chain",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "$id": "#/properties/certificates/items/chain/items"
             }
           }
         },
