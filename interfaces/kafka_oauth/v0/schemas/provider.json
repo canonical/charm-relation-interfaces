@@ -1,0 +1,117 @@
+{
+   "$schema":"https://json-schema.org/draft/2019-09/schema",
+   "$id":"https://canonical.github.io/charm-relation-interfaces/interfaces/kafka_oauth/schemas/provider.json",
+   "title":"`kafka_oauth` provider schema",
+   "description":"The `kafka_oauth` root schema comprises the entire provider databag for this interface.",
+   "type":"object",
+   "default":{
+      
+   },
+   "required":[
+      "client-id",
+      "client-secret",
+      "token-endpoint-uri",
+      "valid-issuer-uri",
+      "jwks-endpoint-uri",
+      "username",
+      "username-claim",
+      "fallback-username-claim",
+      "fallback-username-prefix"
+   ],
+   "additionalProperties":true,
+   "properties":{
+      "client-id":{
+         "title":"Kafka client-id",
+         "description":"The Authorization Server client-id for the Kafka cluster",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "6779ef20e75817b79602"
+         ]
+      },
+      "client-secret":{
+         "title":"Kafka client-secret",
+         "description":"The Authorization Server client-secret for the Kafka cluster",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "0oa2hl2inow5Uqc6c357"
+         ]
+      },
+      "token-endpoint-uri":{
+         "title":"Authorization Server token endpoint uri",
+         "description":"The URL where brokers can request oauth2 access tokens",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "http://localhost:8080/realms/kafka/protocol/openid-connect/token"
+         ]
+      },
+      "valid-issuer-uri":{
+         "title":"Authorization Server valid issuer uri",
+         "description":"The URL where tokens can be validated at",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "http://localhost:8080/realms/kafka"
+         ]
+      },
+      "jwks-endpoint-uri":{
+         "title":"Authorization Server JWT token endpoint uri",
+         "description":"The URL where brokers can request JWT tokens",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "http://localhost:8080/realms/kafka/protocol/openid-connect/certs"
+         ]
+      },
+      "username":{
+         "title":"The Kafka Cluster username ",
+         "description":"The generated username for the Kafka Cluster on the Authorization Server",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "kafka-brokers"
+         ]
+      },
+      "username-claim":{
+         "title":"The username mapping field",
+         "description":"The JWT token field to map to unique user identification",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "username"
+         ]
+      },
+      "fallback-username-claim":{
+         "title":"The fallback username mapping field",
+         "description":"The JWT token field to map to unique user identification as a fallback",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "client_id"
+         ]
+      },
+      "fallback-username-prefix":{
+         "title":"The fallback username mapping field prefix",
+         "description":"The prefix to assign to fallback usernames",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "kafka-client-user-"
+         ]
+      }
+   },
+   "examples":[
+      {
+         "client-id":"6779ef20e75817b79602",
+         "client-secret":"0oa2hl2inow5Uqc6c357",
+         "token-endpoint-uri":"http://localhost:8080/realms/kafka/protocol/openid-connect/token",
+         "valid-issuer-uri":"http://localhost:8080/realms/kafka",
+         "jwks-endpoint-uri":"http://localhost:8080/realms/kafka/protocol/openid-connect/certs",
+         "username-claim":"username",
+         "fallback-username-claim":"client_id",
+         "fallback-username-prefix":"kafka-client-user-"
+      }
+   ]
+}

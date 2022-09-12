@@ -9,6 +9,7 @@
 | [`ingress`](interfaces/ingress/v0/README.md)                                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | [`kafka_client`](interfaces/kafka_client/v0/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| [`kafka_oauth`](interfaces/kafka_oauth/v0/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | [`mongodb_client`](interfaces/mongodb_client/v0/README.md)                   | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | [`mysql_client`](interfaces/mysql_client/v0/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |

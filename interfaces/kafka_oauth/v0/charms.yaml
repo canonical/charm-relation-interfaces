@@ -1,0 +1,4 @@
+providers: []
+consumers:
+  - kafka-operator
+  - kafka-k8s-operator
