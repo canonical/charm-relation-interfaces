@@ -13,7 +13,6 @@
       "token-endpoint-uri",
       "valid-issuer-uri",
       "jwks-endpoint-uri",
-      "username",
       "username-claim",
       "fallback-username-claim",
       "fallback-username-prefix"
@@ -63,15 +62,6 @@
          "default":"",
          "examples":[
             "http://localhost:8080/realms/kafka/protocol/openid-connect/certs"
-         ]
-      },
-      "username":{
-         "title":"The Kafka Cluster username ",
-         "description":"The generated username for the Kafka Cluster on the Authorization Server",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "kafka-brokers"
          ]
       },
       "username-claim":{
