@@ -4,7 +4,7 @@
 
 This relation interface describes the expected behavior of any charm claiming to be able to interface with a Kafka cluster as an integrator between an OAuth Authorization Server external to the Juju model, and said cluster. Charms providing this relation interface are expected to facilitate the automatic creation and removal of inter-broker users for an active `kafka_oauth` relation to the provider.
 
-It is expected that an administrator will create a user account on their Authorization Server that will be used for a Kafka Cluster. Storing this account's `username` and `password`, the Administrator then manually adding this to any Charm seeking to Provide the `kafka_oauth` relation. When a Kafka Charm relates to a Provider Charm on this interface, it will use it's stored `username` and `password` to retrieve a `client-id` and `client-secret` from the Authorization Server, before passing them back to the Kafka Charm across relation data.
+It is expected that an administrator will create a user account on their Authorization Server that will be used for a Kafka Cluster, and retrieve a `client-id` and `secret`. The Administrator will then manually add these secrets to any Charm seeking to Provide the `kafka_oauth` relation. When a Kafka Charm relates to a Provider Charm on this interface, these secrets are to be passed to the Kafka Charm across relation data.
 
 Each Kafka Charm deployment will require it's own Provider Charm.
 
@@ -14,6 +14,26 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Direction
 
+### Expected Sequence
+```mermaid
+sequenceDiagram
+    autonumber
+    critical Manual steps by Admin
+    🧍->>Auth Servers: Adds Kafka user
+    Auth Servers-->>🧍: Kafka client_id/secret
+    🧍->>Integrator: Kafka client_id/secret
+    end
+	loop Within the Juju model
+    Kafka Charm->>Integrator: `kafka_oauth` relation
+    Integrator-->>Kafka Charm: Kafka client_id/secret + Identity URLs
+    end
+    Client App->>Kafka Charm: Token
+    Kafka Charm->>Auth Servers: Validate token
+    Auth Servers-->>Kafka Charm: ✅
+    Kafka Charm-->>Client App: ✅
+```
+
+### Relation
 ```mermaid
 flowchart LR
     Provider -- client-id\nclient-secret\ntoken-endpoint-uri\nvalid-issuer-uri\njwks-endpoint-uri\nusername-claim\nfallback-username-claim\nfallback-username-prefix --> Requirer
