@@ -24,7 +24,7 @@ flowchart LR
 The Provider MUST adhere to the criteria, to be considered compatible with the interface.
 
 ### Provider
-- MUST provide both the `client-id` and `client-secret` fields with values necessary for establishing an authorized connection to the external Authroization Server
+- MUST provide both the `client-id` and `client-secret` fields with values necessary for establishing an authorized connection to the external Authorization Server
 - MUST provide `token-endpoint-uri` and `jwks-endpoint-uri` fields with values that facilitate Kafka brokers requesting OAuth2.0 access tokens and JWTs
 - MUST provide the `valid-issuer-uri` field with values that facilitate Kafka brokers validating access external request credentials passed by clients
 - MUST provide the `username-claim`, `fallback-username-claim` and `fallback-username-prefix` fields with values that allow the Kafka cluster to evaluate passed tokens and generate SASL principals within the cluster

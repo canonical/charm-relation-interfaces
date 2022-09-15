@@ -9,8 +9,6 @@ This relation interface describes the expected behavior of any charm claiming to
 - Consumers can expect to be granted ACLs for a specified topic with `READ`, `DESCRIBE` on topic, and `READ` on a wildcard-suffixed consumer-group upon relation. 
 - Admins can expect to be granted super-user permissions for their application credentials upon relation.
 
-Authentication protocols supported include `SASL_SCRAM`, or `SASL_OAUTHBEARER`.
-
 ## Terminology
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119](https://www.rfc-editor.org/rfc/rfc2119).
@@ -29,23 +27,18 @@ flowchart LR
 Both the Requirer and the Provider MUST adhere to the criteria, to be considered compatible with the interface.
 
 ### Provider
-- If requirer `security-protocol=SASL_SCRAM`, MUST create an application `username` and `password` inside the Kafka cluster when the requirer relates to the Kafka cluster, stored in ZooKeeper
-    - MUST NOT if requirer `security-protocol=SASL_OAUTHBEARER`
-- If requier `security-protocol=SASL_SCRAM`, MUST delete an application `username` and `password` from the Kafka cluster when the relation is removed
-    - MUST NOT if requirer `security-protocol=SASL_OAUTHBEARER`
-- MUST provide the `uris` field with a comma-seperated list of broker uris, which can be used for cluster connection.
-- MAY provide `endpoints` field with a comma-seperated list of broker hostnames / IP addresses. If not provided, these can be extracted from the `uris` field
+- MUST create an application `username` and `password` inside the Kafka cluster when the requirer relates to the Kafka cluster, stored in ZooKeeper
+- MUST delete an application `username` and `password` from the Kafka cluster when the relation is removed
+- MUST provide the `uris` field with a comma-separated list of broker uris, which can be used for cluster connection.
+- MAY provide `endpoints` field with a comma-separated list of broker hostnames / IP addresses. If not provided, MUST be able to be extracted from the `uris` field
 - If requirer `extra-user-roles` includes `consumer`, MUST provide the `consumer-group-prefix` field with the prefixed consumer groups
     - MUST NOT if requirer `extra-user-roles` includes `consumer`
-- If the requirer `extra-user-roles` includes `admin`, MUST provide the `zookeeper-uris` field with a comma-seperated list of ZooKeeper server uris and Kafka cluster zNode for direct ZooKeeper connection
+- If the requirer `extra-user-roles` includes `admin`, MUST provide the `zookeeper-uris` field with a comma-separated list of ZooKeeper server uris and Kafka cluster zNode for direct ZooKeeper connection
     - MUST NOT if requirer `extra-user-roles` does not include `admin`
 - MUST provide a valid CA to the client for encrypted communication to the Kafka cluster in the `tls-ca` field if the cluster is currently configured for TLS
     - SHOULD NOT if the cluster is not configured for TLS
 
 ### Requirer
-- MUST provide the authentication protocol they wish to connect to Kafka with in the `security-protocol` field (one of `SASL_SCRAM` or `SASL_OAUTHBEARER`")
-- If requirer `security-protocol=SASL_OAUTHBEARER`, MUST provide the client OAuth ID in the `client-id` field
-    - MUST NOT if requirer `security-protocol=SASL_SCRAM`
 - MUST provide the `extra-user-roles` field specifying a comma-separated list of roles for the client application (between `admin`, `consumer` and `producer`)
 - SHOULD provide the `topic` field specifying the topic that the requirer charm needs permissions to create (for `extra-user-roles=producer`), or consume (for `extra-user-roles=consumer`)
     - This can only be omitted when the client has also specified `extra-user-roles=admin`
