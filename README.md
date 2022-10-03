@@ -1,4 +1,6 @@
-# Juju Relation Interfaces
+# Charm Relation Interfaces
+
+A catalogue of opinionated and standardized interface specifications for charmed operator relations. The purpose of the repository is to outline the behavior and requirements for key interface names, ensuring that charms claiming to implement a certain interface actually are capable of being integrated with each other. 
 
 ## Interfaces
 
