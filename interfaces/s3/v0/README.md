@@ -31,7 +31,7 @@ Both the Requirer and the Provider must adhere to criteria to be compatible with
 
 ### Requirer
 - Is expected to provide a bucket name in the `bucket` field. Field value should be generated on Requirer side if no particular value set in Requirer juju config.
-- Is expected than Provider can ignore `bucket` field in some cases (e.g. S3Proxy or S3 Integrator) and provide correct bucket name back.
+- Is expected to tolerate that the Provider may ignore the `bucket` field in some cases (e.g. S3Proxy or S3 Integrator) and instead use the bucket name received.
 - Is expected to allow multiple different Juju applications to access the same bucket name.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple buckets.
