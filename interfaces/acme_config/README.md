@@ -36,10 +36,6 @@ compatible with the interface.
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-### Requirer
-
-[\[JSON Schema\]](./schemas/requirer.json)
-
 #### Example
 
 ```yaml
@@ -54,3 +50,7 @@ application-data:
     "CF_API_KEY": "abcd1234efgh"
   }
 ```
+
+### Requirer
+
+[\[JSON Schema\]](./schemas/requirer.json)
