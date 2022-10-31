@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/acme_config/schemas/provider.json",
+  "type": "object",
+  "title": "`acme_config` provider schema",
+  "description": "The `acme_config` root schema comprises the entire provider databag for this interface.",
+  "default": {},
+  "properties": {
+    "additionalProperties": true
+  }
+}

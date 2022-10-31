@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/acme_config/schemas/requirer.json",
+  "type": "object",
+  "title": "`acme_config` provider root schema",
+  "description": "The `acme_config` root schema comprises the entire requirer databag for this interface.",
+  "examples": [
+    {
+      "email": "example@canonical.com",
+      "server": "https://www.acme.com",
+      "agree_tos": true,
+      "challenge_name": "HTTP-01"
+    },
+    {
+      "email": "example@canonical.com",
+      "server": "https://www.acme.com",
+      "agree_tos": true,
+      "challenge_name": "DNS-01",
+      "challenge_config": {
+        "provider": "cloudflare",
+        "CF_API_EMAIL": "example@canonical.com",
+        "CF_API_KEY": "abcd1234efgh"
+      }
+    }
+  ],
+  "properties": {
+    "email": {
+      "type": "string"
+    },
+    "server": {
+      "type": "string"
+    },
+    "agree_tos": {
+      "type": "boolean"
+    },
+    "challenge_name": {
+      "type": "string"
+    },
+    "challenge_config": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "email",
+    "server",
+    "agree_tos",
+    "challenge_name"
+  ],
+  "additionalProperties": true
+}
