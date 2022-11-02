@@ -23,5 +23,5 @@ To contribute an interface specification, open a pull request containing a `READ
 |               | [`tls_certificates/v0`](interfaces/tls_certificates/v0/README.md)            | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`tls_certificates/v1`](interfaces/tls_certificates/v1/README.md)            | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
+For a more detailed explanation of statuses and how they should be used, see [the legend](https://github.com/canonical/charm-relation-interfaces/blob/main/LEGEND.md).
 
-For a more detailed explanation of statuses and how they should be used, see [the legend](LEGEND.md).

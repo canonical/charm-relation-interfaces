@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/k8s-service/schemas/requirer.json",
+  "type": "object",
+  "title": "`k8s-service` requirer schema",
+  "description": "The `k8s-service` root schema comprises the entire requirer databag for this interface.",
+  "default": {},
+  "properties": {
+    "additionalProperties": true
+  }
+}

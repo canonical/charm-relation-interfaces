@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/ingress/schemas/provider.json",
+    "type": "object",
+    "title": "`ingress` provider schema",
+    "description": "The `ingress` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "url": "http://foo.bar:80/model_name-app_name"
+        }
+    ],
+    "required": [
+        "url"
+    ],
+    "properties": {
+        "url": {
+            "$id": "#/properties/url",
+            "type": "string",
+            "title": "Ingress URL",
+            "description": "The ingress url for the application",
+            "default": null,
+            "examples": [
+                "http://foo.bar:80/prom-model-prometheus-k8s"
+            ]
+        }
+    },
+    "additionalProperties": false
+}

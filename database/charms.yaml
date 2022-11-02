@@ -1,4 +1,0 @@
-providers:
-  - postgresql-k8s-operator
-  - mongodb-k8s-operator
-consumers: []

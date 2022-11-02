@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/grafana_auth/schemas/provider.json",
+    "type": "object",
+    "title": "`grafana_auth` provider schema",
+    "description": "The `grafana_auth` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "application-data": {
+                "auth": {
+                    "proxy": {
+                        "enabled": true,
+                        "header_name": "X-WEBAUTH-USER",
+                        "header_property": "username",
+                        "auto_sign_up": true
+                    }
+                }
+            }
+        }
+    ],
+    "required": [
+        "application-data"
+    ],
+    "properties": {
+        "application-data": {
+            "$id": "#/properties/application-data",
+            "title": "Application Databag",
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "auth"
+            ],
+            "properties": {
+                "auth": {
+                    "additionalProperties": true,
+                    "anyOf": [
+                        {
+                            "required": [
+                                "proxy"
+                            ]
+                        }
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "proxy": {
+                            "$id": "#/properties/application-data/proxy",
+                            "type": "object",
+                            "required": [
+                                "header_name",
+                                "header_property"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "enabled": {
+                                    "$id": "#/properties/application-data/proxy/enabled",
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "header_name": {
+                                    "$id": "#/properties/application-data/proxy/header_name",
+                                    "type": "string"
+                                },
+                                "header_property": {
+                                    "$id": "#/properties/application-data/proxy/header_property",
+                                    "type": "string"
+                                },
+                                "auto_sign_up": {
+                                    "$id": "#/properties/application-data/proxy/auto_sign_up",
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "sync_ttl": {
+                                    "$id": "#/properties/application-data/proxy/sync_ttl",
+                                    "type": "integer",
+                                    "default": 60
+                                },
+                                "whitelist": {
+                                    "$id": "#/properties/application-data/proxy/whitelist",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "headers": {
+                                    "$id": "#/properties/application-data/proxy/headers",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "headers_encoded": {
+                                    "$id": "#/properties/application-data/proxy/headers_encoded",
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "enable_login_token": {
+                                    "$id": "#/properties/application-data/proxy/enable_login_token",
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties": true
+}

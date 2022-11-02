@@ -1,0 +1,4 @@
+providers:
+  - postgresql-operator
+  - postgresql-k8s-operator
+consumers: []

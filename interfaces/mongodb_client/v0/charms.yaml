@@ -1,0 +1,4 @@
+providers:
+  - mongodb-operator
+  - mongodb-k8s-operator
+consumers: []

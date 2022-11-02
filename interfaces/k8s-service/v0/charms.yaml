@@ -1,0 +1,9 @@
+providers:
+  - kfp-api
+  - kfp-viz
+  - kubeflow-profiles
+requires:
+  - kfp-api
+  - kfp-ui
+  - kfp-persistence
+  - kubeflow-dashboard
