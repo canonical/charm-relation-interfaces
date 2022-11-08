@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/requirer.json",
+    "title": "`s3` provider schema",
+    "description": "The `s3` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "bucket"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "bucket": {
+            "title": "Bucket Name",
+            "description": "The bucket name requested by the requirer",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "relation-17"
+            ]
+        }
+    },
+    "examples": [{
+        "bucket": "myapp"
+    }]
+}

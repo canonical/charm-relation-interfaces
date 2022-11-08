@@ -1,0 +1,9 @@
+providers:
+  - s3-integrator
+consumers:
+  - mysql-operator
+  - mysql-k8s-operator
+  - postgresql-operator
+  - postgresql-k8s-operator
+  - mongodb-operator
+  - mongodb-k8s-operator
