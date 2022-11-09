@@ -1,0 +1,581 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/kratos_external_idp/v0/schemas/provider.json",
+    "type": "object",
+    "title": "Kratos external idp provider schema",
+    "description": "The `kratos_external_idp` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "": ""
+        }
+    ],
+    "required": [
+        "client_id",
+        "provider",
+        "secret_backend"
+    ],
+    "properties": {
+        "client_id": {
+            "title": "The client_id for the Kratos client",
+            "description": "The registered client_id that will be used by Kratos to authenticate with the external idp",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "some_random_string"
+            ]
+        },
+        "provider": {
+            "$id": "/provider/type",
+            "title": "The external provider's name",
+            "description": "The external provider's name",
+            "type": "string",
+            "enum": [
+                "generic",
+                "google",
+                "facebook",
+                "microsoft",
+                "github",
+                "apple",
+                "gitlab",
+                "auth0",
+                "slack",
+                "spotify",
+                "discord",
+                "twitch",
+                "netid",
+                "yander",
+                "vk",
+                "dingtalk"
+            ],
+            "examples": [
+                "microsoft"
+            ]
+        },
+        "secret_backend": {
+            "title": "Where the secrets are stored",
+            "description": "Where the secrets are stored",
+            "type": "string",
+            "default": "relation",
+            "enum": [
+                "relation",
+                "secret",
+                "vault"
+            ],
+            "examples": [
+                "relation"
+            ]
+        },
+        "microsoft": {
+            "type": "object"
+        },
+        "apple": {
+            "type": "object"
+        },
+        "generic": {
+            "type": "object"
+        },
+        "auth0": {
+            "type": "object"
+        },
+        "google": {
+            "type": "object"
+        },
+        "facebook": {
+            "type": "object"
+        },
+        "github": {
+            "type": "object"
+        },
+        "gitlab": {
+            "type": "object"
+        },
+        "slack": {
+            "type": "object"
+        },
+        "spotify": {
+            "type": "object"
+        },
+        "discord": {
+            "type": "object"
+        },
+        "twitch": {
+            "type": "object"
+        },
+        "netid": {
+            "type": "object"
+        },
+        "yandex": {
+            "type": "object"
+        },
+        "vkontakte": {
+            "type": "object"
+        },
+        "dingtalk": {
+            "type": "object"
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "microsoft"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "microsoft": {
+                        "properties": {
+                            "client_secret": {
+                                "$ref": "/schemas/client_secret"
+                            },
+                            "tenant_id": {
+                                "title": "The Azure AD tenant_id which the users belong to",
+                                "description": "The Azure AD tenant_id which the users belong to",
+                                "type": "string",
+                                "default": ""
+                            }
+                        },
+                        "required": [
+                            "client_secret",
+                            "tenant_id"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "microsoft": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "apple"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "apple": {
+                        "properties": {
+                            "team_id": {
+                                "title": "The Team ID provided by Apple",
+                                "description": "The Team ID provided by Apple",
+                                "type": "string",
+                                "default": ""
+                            },
+                            "private_key_id": {
+                                "title": "The private key identifier generated by Apple",
+                                "description": "The private key identifier generated by Apple",
+                                "type": "string",
+                                "default": ""
+                            },
+                            "private_key": {
+                                "title": "The private key generated by Apple",
+                                "description": "The private key generated by Apple",
+                                "type": "string",
+                                "default": ""
+                            }
+                        },
+                        "required": [
+                            "team_id",
+                            "private_key_id",
+                            "private_key"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "apple": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "generic"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "generic": {
+                        "$ref": "/schemas/generic_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "generic": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "auth0"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "auth0": {
+                        "$ref": "/schemas/generic_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "auth0": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "google"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "google": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "google": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "facebook"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "facebook": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "facebook": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "github"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "github": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "github": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "gitlab"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "gitlab": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "gitlab": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "slack"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "slack": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "slack": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "spotify"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "spotify": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "spotify": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "discord"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "discord": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "discord": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "twitch"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "twitch": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "twitch": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "netid"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "netid": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "netid": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "yandex"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "yandex": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "yandex": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "vkontakte"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "vkontakte": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "vkontakte": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "provider": {
+                        "const": "dingtalk"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "dingtalk": {
+                        "$ref": "/schemas/known_provider"
+                    }
+                }
+            },
+            "else": {
+                "properties": {
+                    "dingtalk": {
+                        "additionalProperties": false
+                    }
+                }
+            }
+        }
+    ],
+    "$defs": {
+        "client_secret": {
+            "$id": "/schemas/client_secret",
+            "title": "The client_secret for the Kratos client",
+            "description": "The registered client_secret that will be used by Kratos to authenticate with the external idp",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "h4ckerz"
+            ]
+        },
+        "issuer_url": {
+            "$id": "/schemas/issuer_url",
+            "title": "The external provider's issuer_url",
+            "description": "The external provider's issuer_url",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "https://example.com/oidc"
+            ]
+        },
+        "generic_provider": {
+            "$id": "/schemas/generic_provider",
+            "type": "object",
+            "properties": {
+                "client_secret": {
+                    "$ref": "/schemas/client_secret"
+                },
+                "issuer_url": {
+                    "$ref": "/schemas/issuer_url"
+                }
+            },
+            "required": [
+                "client_secret",
+                "issuer_url"
+            ],
+            "additionalProperties": false
+        },
+        "known_provider": {
+            "$id": "/schemas/known_provider",
+            "type": "object",
+            "properties": {
+                "client_secret": {
+                    "$ref": "/schemas/client_secret"
+                }
+            },
+            "required": [
+                "client_secret"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
