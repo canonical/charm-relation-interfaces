@@ -13,8 +13,8 @@ Initially, the backup or restore will be triggered manually against the database
 
 ```mermaid
 flowchart TD
-    Requirer -- job-id, job-type, s3-bucket, s3-access-key, s3-secret-key, s3-path[, s3-backup-file-path] --> Provider
-    Provider -- job-id, job-type, status, s3-logfile-path[, s3-backup-path] --> Requirer
+    Requirer -- job-id, job-type, s3-bucket, s3-access-key, s3-secret-key, s3-path, s3-backup-file-path --> Provider
+    Provider -- job-id, job-type, status, s3-logfile-path, s3-backup-path --> Requirer
 ```
 
 The interface consists of two parties: a Provider (database charm) and a Requirer (database manager charm). The Requirer will be expected to provide the relevant job details, and S3 credentials and file locations necessary to perform the job. The provider will in turn respond with the same job details, along with the `status` of the job after it has completed (either successfully or unsucessfully). The log and backup files will be stored in the provided S3 file locations.
