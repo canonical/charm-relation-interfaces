@@ -14,7 +14,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ```mermaid
 flowchart
     Requirer -- provider_id, redirect_uri --> Provider
-    Provider -- client_id, provider, secret_backend, microsoft, apple, generic, auth0, google, facebook, github, gitlab, slack, spotify, discord, twitch, netid, yandex, vkontakte, dingtalk --> Requirer
+    Provider -- client_id, provider, secret_backend, client_secret, tenant_id, private_key, private_key_id, team_id, type --> Requirer
 ```
 
 ## Behavior
@@ -22,18 +22,17 @@ flowchart
 The Provider MUST adhere to the criteria, to be considered compatible with the interface.
 
 ### Provider
-- MUST provide the `client_id` field with the value necessary for establishing an authorized connection to the external OP
-- MUST provide the `provider` field with the type of the external OP. `provider` must be one of: `generic`, `google`, `facebook`, `microsoft`, `github`, `apple`, `gitlab`, `auth0`, `slack`, `spotify`, `discord`, `twitch`, `netid`, `yander`, `vk`, `dingtalk`.
-- MUST provide the `secret_backend` field with information about backend used to store the sensitive information (`client_secrets`, `apple_private_keys`). The `secret_backend` field MUST have one of the following values: `relation`, `secret`, `vault`.
-- MUST provide the field with the value of the provider field and the necessary information.
-- If `provider` is any of `generic` or `auth0` then the Provider MUST provider the `client_secret` and `issuer_url` fields under the corresponding key.
-- If `provider` is any of `google`, `facebook`, `github`, `gitlab`, `slack`, `spotify`, `discord`, `twitch`, `netid`, `yandex`, `vkontakte` or `dingtalk` then the Provider MUST provide the `client_secret` field under the corresponding key.
-- If `provider` is `microsoft` then the Provider MUST provide the `client_secret` and `tenant_id` fields under the corresponding key.
-- If `provider` is `apple` then the Provider MUST provide the `team_id`, `private_key_id` and `private_key` fields under the corresponding key.
+- MUST provide one or more provider configurations in the relation data bag.
+- MUST provide the `client_id` field for each item.
+- MUST provide the `type` field for each item with the provider's type. `type` must be one of: `generic`, `google`, `facebook`, `microsoft`, `github`, `apple`, `gitlab`, `auth0`, `slack`, `spotify`, `discord`, `twitch`, `netid`, `yander`, `vk`, `dingtalk`.
+- MUST provide the `secret_backend` field for each item, with information about backend used to store the sensitive information (`client_secrets`, `apple_private_keys`). The `secret_backend` field MUST have one of the following values: `relation`, `secret`, `vault`.
+- If `type` is any of `generic` or `auth0` then the Provider MUST provider the `client_secret` and `issuer_url` fields under the corresponding key.
+- If `type` is any of `google`, `facebook`, `github`, `gitlab`, `slack`, `spotify`, `discord`, `twitch`, `netid`, `yandex`, `vkontakte` or `dingtalk` then the Provider MUST provide the `client_secret` field under the corresponding key.
+- If `type` is `microsoft` then the Provider MUST provide the `client_secret` and `tenant_id` fields under the corresponding key.
+- If `type` is `apple` then the Provider MUST provide the `team_id`, `private_key_id` and `private_key` fields under the corresponding key.
 
 ### Requirer
-- MUST provide the `redirect_uri` field with a valid uri.
-- MUST provide the `provider_id` field with the ID, that Kratos provided to this external provider
+- MUST provider an array of `redirect_uri`s and `provider_id`s for each provider in the Provider's databag.
 
 ## Relation Data
 
@@ -49,18 +48,18 @@ Provider provides client credentials and information about the external OP. It M
   - endpoint: kratos_external_idp
     relation-endpoint: kratos_external_idp
     application_data:
-      microsoft:
-        client_id: client_id
+      - client_id: client_id
         client_secret: cl1ent-s3cRet
         secret_backend: relation
         tenant_id: 4242424242424242
+        type: microsoft
 ```
 
 ### Requirer
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides redirect_uri and provider_id. It should be placed in the **application** databag.
+Requirer provides a redirect_uri and provider_id for every provider. It should be placed in the **application** databag.
 
 #### Example
 
@@ -69,7 +68,7 @@ Requirer provides redirect_uri and provider_id. It should be placed in the **app
   - endpoint: kratos_external_idp
     related-endpoint: kratos_external_idp
     application-data:
-        redirect_uri: https://example.kratos.com/self-service/methods/oidc/callback/microsoft
+      - redirect_uri: https://example.kratos.com/self-service/methods/oidc/callback/microsoft
         provider_id: microsoft
 ```
 

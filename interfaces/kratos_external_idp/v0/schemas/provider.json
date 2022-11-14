@@ -1,47 +1,43 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/kratos_external_idp/v0/schemas/provider.json",
-    "type": "object",
+    "type": "array",
     "title": "Kratos external idp provider schema",
     "description": "The `kratos_external_idp` root schema comprises the entire provider databag for this interface.",
     "default": {},
     "examples": [
         {
-            "microsoft": [
-                {
-                    "client_id": "client_id",
-                    "client_secret": "cl1ent-s3cRet",
-                    "secret_backend": "relation",
-                    "tenant_id": "4242424242424242"
-                },
-                {
-                    "client_id": "client_id_2",
-                    "client_secret": "pazzw0rD",
-                    "secret_backend": "vault",
-                    "tenant_id": "4242424242424242"
-                }
-            ],
-            "google": [
-                {
-                    "client_id": "client",
-                    "client_secret": "aba",
-                    "secret_backend": "relation"
-                }
-            ]
+            "client_id": "client_id",
+            "client_secret": "cl1ent-s3cRet",
+            "secret_backend": "relation",
+            "tenant_id": "4242424242424242",
+            "type": "microsoft"
+        },
+        {
+            "client_id": "client_id_2",
+            "client_secret": "pazzw0rD",
+            "secret_backend": "vault",
+            "tenant_id": "4242424242424242",
+            "type": "microsoft"
+        },
+        {
+            "client_id": "client",
+            "client_secret": "aba",
+            "secret_backend": "relation",
+            "type": "google"
         }
     ],
     "required": [],
-    "properties": {
-        "microsoft": {
-            "type": "array",
-            "items": {
+    "items": {
+        "anyOf": [
+            {
                 "type": "object",
-                "additionalProperties": true,
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
                     "tenant_id",
+                    "type"
                 ],
                 "properties": {
                     "client_id": {"$ref": "/schemas/client_id"},
@@ -51,21 +47,20 @@
                         "title": "The Azure AD tenant_id which the users belong to",
                         "description": "The Azure AD tenant_id which the users belong to",
                         "type": "string"
-                    }
-                }
-            }
-        },
-        "apple": {
-            "type": "array",
-            "items": {
+                    },
+                    "type": {"enum": ["microsoft"]}
+                },
+                "additionalProperties": true
+            },
+            {
                 "type": "object",
-                "additionalProperties": true,
                 "required": [
                     "client_id",
                     "private_key",
                     "private_key_id",
                     "secret_backend",
-                    "team_id"
+                    "team_id",
+                    "type"
                 ],
                 "properties": {
                     "client_id": {"$ref": "/schemas/client_id"},
@@ -84,66 +79,328 @@
                         "title": "The Team ID provided by Apple",
                         "description": "The Team ID provided by Apple",
                         "type": "string"
-                    }
-                }
+                    },
+                    "type": {"enum": ["apple"]}
+                },
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "issuer_url": {
+                        "$ref": "/schemas/issuer_url"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["generic"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "issuer_url",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "issuer_url": {
+                        "$ref": "/schemas/issuer_url"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["auth0"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "issuer_url",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["google"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["facebook"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["github"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["gitlab"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["slack"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["spotify"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["discord"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["twitch"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["netid"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["yandex"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["vk"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "client_id": {
+                        "$ref": "/schemas/client_id"
+                    },
+                    "client_secret": {
+                        "$ref": "/schemas/client_secret"
+                    },
+                    "secret_backend": {
+                        "$ref": "/schemas/secret_backend"
+                    },
+                    "type": {"enum": ["dingtalk"]}
+                },
+                "required": [
+                    "client_id",
+                    "client_secret",
+                    "secret_backend",
+                    "type"
+                ],
+                "additionalProperties": true
             }
-        },
-        "generic": {
-            "type": "array",
-            "items": {"$ref": "/schemas/generic_provider"}
-        },
-        "auth0": {
-            "type": "array",
-            "items": {"$ref": "/schemas/generic_provider"}
-        },
-        "google": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "facebook": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "github": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "gitlab": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "slack": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "spotify": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "discord": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "twitch": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "netid": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "yandex": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "vk": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        },
-        "dingtalk": {
-            "type": "array",
-            "items": {"$ref": "/schemas/known_provider"}
-        }
+        ]
     },
     "$defs": {
         "client_id": {
@@ -187,53 +444,6 @@
             "examples": [
                 "relation"
             ]
-        },
-        "generic_provider": {
-            "$id": "/schemas/generic_provider",
-            "type": "object",
-            "properties": {
-                "client_id": {
-                    "$ref": "/schemas/client_id"
-                },
-                "client_secret": {
-                    "$ref": "/schemas/client_secret"
-                },
-                "issuer_url": {
-                    "$ref": "/schemas/issuer_url"
-                },
-                "secret_backend": {
-                    "$ref": "/schemas/secret_backend"
-                }
-            },
-            "required": [
-                "client_id",
-                "client_secret",
-                "issuer_url",
-                "secret_backend"
-            ],
-            "additionalProperties": true
-        },
-        "known_provider": {
-            "$id": "/schemas/known_provider",
-            "type": "object",
-            "properties": {
-                "client_id": {
-                    "$ref": "/schemas/client_id"
-                },
-                "client_secret": {
-                    "$ref": "/schemas/client_secret"
-                },
-                "secret_backend": {
-                    "$ref": "/schemas/secret_backend"
-                }
-            },
-            "required": [
-                "client_id",
-                "client_secret",
-                "secret_backend"
-            ],
-            "additionalProperties": true
         }
-    },
-    "additionalProperties": true
+    }
 }
