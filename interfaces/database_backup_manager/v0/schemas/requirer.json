@@ -1,0 +1,100 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup_manager/schemas/requirer.json",
+    "title": "`database_backup_manager` requirer schema",
+    "description": "The `database_backup_manager` root schema comprises the entire requirer databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "job-id",
+        "job-type",
+        "s3-bucket",
+        "s3-access-key",
+        "s3-secret-key",
+        "s3-path"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "job-id": {
+            "$id": "#/properties/job-id",
+            "title": "Job ID",
+            "description": "A unique id for the job.",
+            "type": "string",
+            "examples": [
+                "job-01693ed2-644f-11ed-81ce-0242ac120002"
+            ]
+        },
+        "job-type": {
+            "$id": "#/properties/job-type",
+            "title": "Job type",
+            "description": "The job type.",
+            "type": "string",
+            "enum": ["backup", "restore"],
+            "default": "backup"
+        },
+        "s3-bucket": {
+            "$id": "#/properties/s3-bucket",
+            "title": "S3 Bucket",
+            "description": "The S3 bucket where the backup and log files will be or are stored.",
+            "type": "string",
+            "examples": [
+                "bucket"
+            ]
+        },
+        "s3-access-key": {
+            "$id": "#/properties/s3-access-key",
+            "title": "S3 Access Key",
+            "description": "The S3 access key with which to access the S3 bucket with",
+            "type": "string",
+            "examples": [
+                "AKIAIOSFODNN7EXAMPLE"
+            ]
+        },
+        "s3-secret-key": {
+            "$id": "#/properties/s3-secret-key",
+            "title": "S3 Secret Key",
+            "description": "The S3 secret key with which to access the S3 bucket with",
+            "type": "string",
+            "examples": [
+                "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+            ]
+        },
+        "s3-path": {
+            "$id": "#/properties/s3-path",
+            "title": "S3 file path",
+            "description": "The S3 file path in the bucket at which the backup and logs file may be stored",
+            "type": "string",
+            "examples": [
+                "/mysql/2022-11-14T16:13:01.123456/"
+            ]
+        },
+        "s3-backup-path": {
+            "$id": "#/properties/s3-backup-path",
+            "title": "Backup file path",
+            "description": "The S3 file path for the backup file which needs to be restored",
+            "type": "string",
+            "examples": [
+                "s3://bucket/mysql/2022-11-13T18:45:18.123456/backups/mysql.backup"
+            ]
+        }
+    },
+    "examples": [
+        {
+            "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120002",
+            "job-type": "backup",
+            "s3-bucket": "bucket",
+            "s3-access-key": "AKIAIOSFODNN7EXAMPLE",
+            "s3-secret-key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "s3-path": "/mysql/2022-11-14T16:13:01.123456/"
+        },
+        {
+            "job-id": "job-ad989f5a-6453-11ed-81ce-0242ac120002",
+            "job-type": "restore",
+            "s3-bucket": "bucket",
+            "s3-access-key": "AKIAIOSFODNN7EXAMPLE",
+            "s3-secret-key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "s3-path": "/mysql/2022-11-14T16:13:01.123456/",
+            "s3-backup-file-path": "s3://bucket/mysql/2022-11-13T18:45:18.123456/backups/mysql.backup"
+        }
+    ]
+}
