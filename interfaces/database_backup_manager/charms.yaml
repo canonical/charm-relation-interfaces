@@ -1,0 +1,3 @@
+providers: []
+consumers:
+  - database_backup_manager

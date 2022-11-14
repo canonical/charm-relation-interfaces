@@ -1,0 +1,74 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup_manager/schemas/provider.json",
+    "title": "`database_backup_manager` provider schema",
+    "description": "The `database_backup_manager` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "job-id",
+        "job-type",
+        "status",
+        "s3-logfile-path"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "job-id": {
+            "$id": "#/properties/job-id",
+            "title": "Job ID",
+            "description": "A unique id for the job. Is the same value as the one provided by the Requirer.",
+            "type": "string",
+            "examples": [
+                "job-01693ed2-644f-11ed-81ce-0242ac120002"
+            ]
+        },
+        "job-type": {
+            "$id": "#/properties/job-type",
+            "title": "Job type",
+            "description": "The job type. Is the same value as the one provided by the Requirer.",
+            "type": "string",
+            "enum": ["backup", "restore"],
+            "default": "backup"
+        },
+        "status": {
+            "$id": "#/properties/status",
+            "title": "Job status",
+            "description": "The status of the job once it has completed",
+            "type": "string",
+            "enum": ["running", "success", "error"]
+        },
+        "s3-logfile-path": {
+            "$id": "#/properties/s3-logfile-path",
+            "title": "The log file path",
+            "description": "The path of the log file in the S3 bucket provided by the Requirer.",
+            "type": "string",
+            "examples": [
+                "s3://bucket/mysql/2022-11-14T16:13:01.123456/logs/backup.log"
+            ]
+        },
+        "s3-backup-path": {
+            "$id": "#/properties/s3-backup-path",
+            "title": "The backup path",
+            "description": "The path of the backup file in the S3 bucket provided by the Requirer.",
+            "type": "string",
+            "examples": [
+                "s3://bucket/mysql/2022-11-14T16:13:01.123456/backups/mysql.backup"
+            ]
+        }
+    },
+    "examples": [
+        {
+            "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120002",
+            "job-type": "backup",
+            "status": "success",
+            "s3-logfile-path": "s3://bucket/mysql/2022-11-14T16:13:01.123456/logs/backup.log",
+            "s3-backup-path": "s3://bucket/mysql/2022-11-14T16:13:01.123456/backups/mysql.backup"
+        },
+        {
+            "job-id": "job-d0e6d45c-6450-11ed-81ce-0242ac120002",
+            "job-type": "restore",
+            "status": "failure",
+            "s3-logfile-path": "s3://bucket/mysql/2022-11-14T16:15:02.123456/logs/restore.log"
+        }    
+    ]
+}
