@@ -31,9 +31,9 @@
             "type": "string",
             "default": "",
             "examples": [
-                "https://example.kratos.com/self-service/methods/oidc/callback/callback"
+                "https://example.kratos.com/self-service/methods/oidc/callback/microsoft"
             ]
         }
     },
-    "additionalProperties": false
+    "additionalProperties": true
 }

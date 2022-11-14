@@ -49,11 +49,10 @@ Provider provides client credentials and information about the external OP. It M
   - endpoint: kratos_external_idp
     relation-endpoint: kratos_external_idp
     application_data:
-      client_id: client_id
-      provider: microsoft
-      secret_backend: relation
       microsoft:
+        client_id: client_id
         client_secret: cl1ent-s3cRet
+        secret_backend: relation
         tenant_id: 4242424242424242
 ```
 
@@ -70,7 +69,7 @@ Requirer provides redirect_uri and provider_id. It should be placed in the **app
   - endpoint: kratos_external_idp
     related-endpoint: kratos_external_idp
     application-data:
-        redirect_uri: https://example.kratos.com/self-service/methods/oidc/callback/callback
+        redirect_uri: https://example.kratos.com/self-service/methods/oidc/callback/microsoft
         provider_id: microsoft
 ```
 
