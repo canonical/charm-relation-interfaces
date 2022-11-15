@@ -51,6 +51,10 @@
               "type": "string",
               "$id": "#/properties/certificates/items/chain/items"
             }
+          },
+          "revoked": {
+            "$id": "#/properties/certificates/items/revoked",
+            "type": "boolean"
           }
         },
         "additionalProperties": true
