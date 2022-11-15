@@ -37,7 +37,7 @@
                     "client_secret",
                     "secret_backend",
                     "tenant_id",
-                    "type"
+                    "provider"
                 ],
                 "properties": {
                     "client_id": {"$ref": "/schemas/client_id"},
@@ -48,7 +48,7 @@
                         "description": "The Azure AD tenant_id which the users belong to",
                         "type": "string"
                     },
-                    "type": {"enum": ["microsoft"]}
+                    "provider": {"enum": ["microsoft"]}
                 },
                 "additionalProperties": true
             },
@@ -60,7 +60,7 @@
                     "private_key_id",
                     "secret_backend",
                     "team_id",
-                    "type"
+                    "provider"
                 ],
                 "properties": {
                     "client_id": {"$ref": "/schemas/client_id"},
@@ -80,7 +80,7 @@
                         "description": "The Team ID provided by Apple",
                         "type": "string"
                     },
-                    "type": {"enum": ["apple"]}
+                    "provider": {"enum": ["apple"]}
                 },
                 "additionalProperties": true
             },
@@ -99,14 +99,14 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["generic"]}
+                    "provider": {"enum": ["generic"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "issuer_url",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -125,14 +125,14 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["auth0"]}
+                    "provider": {"enum": ["auth0"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "issuer_url",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -148,13 +148,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["google"]}
+                    "provider": {"enum": ["google"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -170,13 +170,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["facebook"]}
+                    "provider": {"enum": ["facebook"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -192,13 +192,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["github"]}
+                    "provider": {"enum": ["github"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -214,13 +214,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["gitlab"]}
+                    "provider": {"enum": ["gitlab"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -236,13 +236,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["slack"]}
+                    "provider": {"enum": ["slack"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -258,13 +258,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["spotify"]}
+                    "provider": {"enum": ["spotify"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -280,13 +280,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["discord"]}
+                    "provider": {"enum": ["discord"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -302,13 +302,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["twitch"]}
+                    "provider": {"enum": ["twitch"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -324,13 +324,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["netid"]}
+                    "provider": {"enum": ["netid"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -346,13 +346,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["yandex"]}
+                    "provider": {"enum": ["yandex"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -368,13 +368,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["vk"]}
+                    "provider": {"enum": ["vk"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             },
@@ -390,13 +390,13 @@
                     "secret_backend": {
                         "$ref": "/schemas/secret_backend"
                     },
-                    "type": {"enum": ["dingtalk"]}
+                    "provider": {"enum": ["dingtalk"]}
                 },
                 "required": [
                     "client_id",
                     "client_secret",
                     "secret_backend",
-                    "type"
+                    "provider"
                 ],
                 "additionalProperties": true
             }
