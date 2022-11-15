@@ -32,7 +32,7 @@ The Provider MUST adhere to the criteria, to be considered compatible with the i
 - If `type` is `apple` then the Provider MUST provide the `team_id`, `private_key_id` and `private_key` fields under the corresponding key.
 
 ### Requirer
-- MUST provider an array of `redirect_uri`s and `provider_id`s for each provider in the Provider's databag.
+- MUST provide an array of `redirect_uri`s and `provider_id`s for each provider in the Provider's databag.
 
 ## Relation Data
 
