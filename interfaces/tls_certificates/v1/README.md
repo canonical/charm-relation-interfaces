@@ -18,6 +18,7 @@ compatible with the interface.
 
 - Is expected to generate (or use an existing) private-key
 - Is expected to provide a list of CSR's for which it requires certificates
+- Is expected to stop using a certificate when revoked by the Provider
 
 ### Provider
 
