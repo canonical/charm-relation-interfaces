@@ -8,10 +8,8 @@
     "required": [
         "job-id",
         "job-type",
-        "s3-bucket",
-        "s3-access-key",
-        "s3-secret-key",
-        "s3-path"
+        "storage-interface-type",
+        "storage-interface-data"
     ],
     "additionalProperties": true,
     "properties": {
@@ -32,69 +30,92 @@
             "enum": ["backup", "restore"],
             "default": "backup"
         },
-        "s3-bucket": {
-            "$id": "#/properties/s3-bucket",
-            "title": "S3 Bucket",
-            "description": "The S3 bucket where the backup and log files will be or are stored.",
+        "storage-interface-type": {
+            "$id": "#/properties/storage-interface-type",
+            "title": "Storage interface type",
+            "description": "The storage interface to use for storing or retrieving files",
             "type": "string",
-            "examples": [
-                "bucket"
-            ]
+            "enum": ["s3"],
+            "default": "s3"
         },
-        "s3-access-key": {
-            "$id": "#/properties/s3-access-key",
-            "title": "S3 Access Key",
-            "description": "The S3 access key with which to access the S3 bucket with",
-            "type": "string",
-            "examples": [
-                "AKIAIOSFODNN7EXAMPLE"
-            ]
-        },
-        "s3-secret-key": {
-            "$id": "#/properties/s3-secret-key",
-            "title": "S3 Secret Key",
-            "description": "The S3 secret key with which to access the S3 bucket with",
-            "type": "string",
-            "examples": [
-                "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-            ]
-        },
-        "s3-path": {
-            "$id": "#/properties/s3-path",
-            "title": "S3 file path",
-            "description": "The S3 file path in the bucket at which the backup and logs file may be stored",
-            "type": "string",
-            "examples": [
-                "/mysql/2022-11-14T16:13:01.123456/"
-            ]
-        },
-        "s3-backup-path": {
-            "$id": "#/properties/s3-backup-path",
-            "title": "Backup file path",
-            "description": "The S3 file path for the backup file which needs to be restored",
-            "type": "string",
-            "examples": [
-                "s3://bucket/mysql/2022-11-13T18:45:18.123456/backups/mysql.backup"
-            ]
+        "storage-interface-data": {
+            "type": "object",
+            "required": [
+                "s3-access-key",
+                "s3-secret-key",
+                "s3-log-file"
+            ],
+            "properties": {
+                "s3-access-key": {
+                    "$id": "#/properties/storage-interface-data/s3-access-key",
+                    "title": "S3 Access Key",
+                    "description": "The S3 access key with which to access the S3 bucket with",
+                    "type": "string",
+                    "examples": [
+                        "access-key"
+                    ]
+                },
+                "s3-secret-key": {
+                    "$id": "#/properties/storage-interface-data/s3-secret-key",
+                    "title": "S3 Secret Key",
+                    "description": "The S3 secret key with which to access the S3 bucket with",
+                    "type": "string",
+                    "examples": [
+                        "secret-key"
+                    ]
+                },
+                "s3-log-file": {
+                    "$id": "#/properties/storage-interface-data/s3-log-file",
+                    "title": "S3 file path",
+                    "description": "Path where the job is expected to upload a log file to",
+                    "type": "string",
+                    "examples": [
+                        "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log"
+                    ]
+                },
+                "s3-backup-file": {
+                    "$id": "#/properties/storage-interface-data/s3-backup-file",
+                    "title": "Backup file path",
+                    "description": "Path where the job is expected to upload the backup file",
+                    "type": "string",
+                    "examples": [
+                        "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+                    ]
+                },
+                "s3-restore-file": {
+                    "$id": "#/properties/storage-interface-data/s3-restore-file",
+                    "title": "Restore file path",
+                    "description": "Path where the job is expected to retrieve the restore file",
+                    "type": "string",
+                    "examples": [
+                        "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+                    ]
+                }
+            }
         }
     },
     "examples": [
         {
             "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120002",
             "job-type": "backup",
-            "s3-bucket": "bucket",
-            "s3-access-key": "AKIAIOSFODNN7EXAMPLE",
-            "s3-secret-key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-            "s3-path": "/mysql/2022-11-14T16:13:01.123456/"
+            "storage-interface-type": "s3",
+            "storage-interface-data": {
+                "s3-access-key": "access-key",
+                "s3-secret-key": "secret-key",
+                "s3-log-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log",
+                "s3-backup-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+            }
         },
         {
             "job-id": "job-ad989f5a-6453-11ed-81ce-0242ac120002",
             "job-type": "restore",
-            "s3-bucket": "bucket",
-            "s3-access-key": "AKIAIOSFODNN7EXAMPLE",
-            "s3-secret-key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-            "s3-path": "/mysql/2022-11-14T16:13:01.123456/",
-            "s3-backup-file-path": "s3://bucket/mysql/2022-11-13T18:45:18.123456/backups/mysql.backup"
+            "storage-interface-type": "s3",
+            "storage-interface-data": {
+                "s3-access-key": "access-key",
+                "s3-secret-key": "secret-key",
+                "s3-log-file": "s3://bucket/mysql/2023-01-01T01:01:01.123456/logs/backup.log",
+                "s3-restore-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+            }
         }
     ]
 }

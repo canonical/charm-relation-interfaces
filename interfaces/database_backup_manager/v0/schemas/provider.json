@@ -9,7 +9,8 @@
         "job-id",
         "job-type",
         "status",
-        "s3-logfile-path"
+        "storage-interface-type",
+        "storage-interface-data"
     ],
     "additionalProperties": true,
     "properties": {
@@ -37,23 +38,68 @@
             "type": "string",
             "enum": ["running", "success", "error"]
         },
-        "s3-logfile-path": {
-            "$id": "#/properties/s3-logfile-path",
-            "title": "The log file path",
-            "description": "The path of the log file in the S3 bucket provided by the Requirer.",
+        "storage-interface-type": {
+            "$id": "#/properties/storage-interface-type",
+            "title": "Storage interface type",
+            "description": "The storage interface to use for storing or retrieving files",
             "type": "string",
-            "examples": [
-                "s3://bucket/mysql/2022-11-14T16:13:01.123456/logs/backup.log"
-            ]
+            "enum": ["s3"],
+            "default": "s3"
         },
-        "s3-backup-path": {
-            "$id": "#/properties/s3-backup-path",
-            "title": "The backup path",
-            "description": "The path of the backup file in the S3 bucket provided by the Requirer.",
-            "type": "string",
-            "examples": [
-                "s3://bucket/mysql/2022-11-14T16:13:01.123456/backups/mysql.backup"
-            ]
+        "storage-interface-data": {
+            "type": "object",
+            "required": [
+                "s3-access-key",
+                "s3-secret-key",
+                "s3-log-file"
+            ],
+            "properties": {
+                "s3-access-key": {
+                    "$id": "#/properties/storage-interface-data/s3-access-key",
+                    "title": "S3 Access Key",
+                    "description": "The S3 access key with which to access the S3 bucket with",
+                    "type": "string",
+                    "examples": [
+                        "access-key"
+                    ]
+                },
+                "s3-secret-key": {
+                    "$id": "#/properties/storage-interface-data/s3-secret-key",
+                    "title": "S3 Secret Key",
+                    "description": "The S3 secret key with which to access the S3 bucket with",
+                    "type": "string",
+                    "examples": [
+                        "secret-key"
+                    ]
+                },
+                "s3-log-file": {
+                    "$id": "#/properties/storage-interface-data/s3-log-file",
+                    "title": "S3 file path",
+                    "description": "Path where the job is expected to upload a log file to",
+                    "type": "string",
+                    "examples": [
+                        "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log"
+                    ]
+                },
+                "s3-backup-file": {
+                    "$id": "#/properties/storage-interface-data/s3-backup-file",
+                    "title": "Backup file path",
+                    "description": "Path where the job is expected to upload the backup file",
+                    "type": "string",
+                    "examples": [
+                        "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+                    ]
+                },
+                "s3-restore-file": {
+                    "$id": "#/properties/storage-interface-data/s3-restore-file",
+                    "title": "Restore file path",
+                    "description": "Path where the job is expected to retrieve the restore file",
+                    "type": "string",
+                    "examples": [
+                        "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+                    ]
+                }
+            }
         }
     },
     "examples": [
@@ -61,14 +107,25 @@
             "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120002",
             "job-type": "backup",
             "status": "success",
-            "s3-logfile-path": "s3://bucket/mysql/2022-11-14T16:13:01.123456/logs/backup.log",
-            "s3-backup-path": "s3://bucket/mysql/2022-11-14T16:13:01.123456/backups/mysql.backup"
+            "storage-interface-type": "s3",
+            "storage-interface-data": {
+                "s3-access-key": "access-key",
+                "s3-secret-key": "secret-key",
+                "s3-log-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log",
+                "s3-backup-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+            }
         },
         {
             "job-id": "job-d0e6d45c-6450-11ed-81ce-0242ac120002",
             "job-type": "restore",
             "status": "failure",
-            "s3-logfile-path": "s3://bucket/mysql/2022-11-14T16:15:02.123456/logs/restore.log"
-        }    
+            "storage-interface-type": "s3",
+            "storage-interface-data": {
+                "s3-access-key": "access-key",
+                "s3-secret-key": "secret-key",
+                "s3-log-file": "s3://bucket/mysql/2023-01-01T01:01:01.123456/logs/restore.log",
+                "s3-restore-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+            }
+        }
     ]
 }
