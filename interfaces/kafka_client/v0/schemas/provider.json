@@ -10,7 +10,6 @@
    "required":[
       "username",
       "password",
-      "uris",
       "endpoints"
    ],
    "additionalProperties":true,
@@ -33,22 +32,13 @@
             "alphanum-32byte-random"
          ]
       },
-      "uris":{
+      "endpoints":{
          "title":"Kafka bootstrap-servers",
          "description":"A comma-seperated list of host:ip for each Kafka broker",
          "type":"string",
          "default":"",
          "examples":[
             "10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092"
-         ]
-      },
-      "endpoints":{
-         "title":"Kafka broker hosts",
-         "description":"A comma-seperated list of host IPs for each Kafka broker",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "10.141.78.155,10.141.78.62,10.141.78.186"
          ]
       },
       "consumer-group-prefix":{
@@ -74,9 +64,6 @@
       {
          "username":"relation-14",
          "password":"alphanum-32byte-random",
-         "uris":[
-            "10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092"
-         ],
          "endpoints":[
             "10.141.78.155,10.141.78.62,10.141.78.186"
          ],

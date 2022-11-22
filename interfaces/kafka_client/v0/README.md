@@ -13,7 +13,7 @@ This relation interface describes the expected behavior of any charm claiming to
 ```mermaid
 flowchart LR
     Requirer -- extra-user-roles, topic --> Provider
-    Provider -- username, password, uris, endpoints, consumer-group-prefix, zookeeper-uris --> Requirer
+    Provider -- username, password, endpoints, consumer-group-prefix, zookeeper-uris --> Requirer
 ```
 
 ## Behavior
@@ -23,7 +23,6 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 ### Provider
 - Is expected to create an application `username` and `password` inside the kafka cluster when the requirer relates to the kafka cluster, using the SASL/SCRAM mechanism, stored in ZooKeeper.
 - Is expected to delete an application `username` and `password` from the kafka cluster when the relation is removed.
-- Is expected to provide the `uris` field with a comma-seperated list of broker uris, which can be used for cluster connection.
 - Is expected to provide the `endpoints` field with a comma-seperated list of broker hostnames / IP addresses.
 - Can optionally provide the `consumer-group-prefix` field with the prefixed consumer groups, if requirer `extra-user-roles` is includes `consumer`
 - Can optionally provide the `zookeeper-uris` field with a comma-seperated list of ZooKeeper server uris and Kafka cluster zNode, if the requirer `extra-user-roles` includes `admin`
@@ -49,8 +48,7 @@ Provider provides application credentials and server connection uris. It should 
     application-data:
       username: user123
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
-      uris: 10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092
-      endpoints: 10.141.78.155,10.141.78.62,10.141.78.186
+      endpoints: 10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092
       consumer-group-prefix: user123-
       zookeeper-uris: 10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/kafka
 
