@@ -13,7 +13,10 @@
             "required": [
                 "job-id",
                 "job-type",
-                "storage-interface"
+                "storage-interface",
+                "s3-config",
+                "backup-file",
+                "log-file"
             ],
             "properties": {
                 "job-id": {
@@ -26,28 +29,13 @@
                     "$ref": "#/$defs/storage-interface"
                 },
                 "s3-config": {
-                    "type": "object",
-                    "properties": {
-                        "access-key": {
-                            "$ref": "#/$defs/access-key"
-                        },
-                        "secret-key": {
-                            "$ref": "#/$defs/secret-key"
-                        },
-                        "log-file": {
-                            "$ref": "#/$defs/log-file"
-                        },
-                        "backup-file": {
-                            "$ref": "#/$defs/backup-file"
-                        }
-                    },
-                    "required": [
-                        "access-key",
-                        "secret-key",
-                        "log-file",
-                        "backup-file"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json"
+                },
+                "backup-file": {
+                    "$ref": "#/$defs/backup-file"
+                },
+                "log-file": {
+                    "$ref": "#/$defs/log-file"
                 }
             }
         },
@@ -57,7 +45,9 @@
             "required": [
                 "job-id",
                 "job-type",
-                "storage-interface"
+                "storage-interface",
+                "s3-config",
+                "restore-file"
             ],
             "properties": {
                 "job-id": {
@@ -70,28 +60,10 @@
                     "$ref": "#/$defs/storage-interface"
                 },
                 "s3-config": {
-                    "type": "object",
-                    "properties": {
-                        "access-key": {
-                            "$ref": "#/$defs/access-key"
-                        },
-                        "secret-key": {
-                            "$ref": "#/$defs/secret-key"
-                        },
-                        "log-file": {
-                            "$ref": "#/$defs/log-file"
-                        },
-                        "restore-file": {
-                            "$ref": "#/$defs/restore-file"
-                        }
-                    },
-                    "required": [
-                        "access-key",
-                        "secret-key",
-                        "log-file",
-                        "restore-file"
-                    ],
-                    "additionalProperties": false
+                    "$ref": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json"
+                },
+                "restore-file": {
+                    "$ref": "#/$defs/restore-file"
                 }
             }
         }
@@ -118,22 +90,6 @@
             "type": "string",
             "enum": ["s3"],
             "default": "s3"
-        },
-        "access-key": {
-            "title": "S3 Access Key",
-            "description": "The S3 access key with which to access the S3 bucket with",
-            "type": "string",
-            "examples": [
-                "access-key"
-            ]
-        },
-        "secret-key": {
-            "title": "S3 Secret Key",
-            "description": "The S3 secret key with which to access the S3 bucket with",
-            "type": "string",
-            "examples": [
-                "secret-key"
-            ]
         },
         "log-file": {
             "title": "Log file path",
@@ -166,22 +122,23 @@
             "job-type": "backup",
             "storage-interface": "s3",
             "s3-config": {
+                "bucket": "my-bucket",
                 "access-key": "access-key",
-                "secret-key": "secret-key",
-                "log-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log",
-                "backup-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
-            }
+                "secret-key": "secret-key"
+            },
+            "log-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log",
+            "backup-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
         },
         {
             "job-id": "job-ad989f5a-6453-11ed-81ce-0242ac120002",
             "job-type": "restore",
             "storage-interface": "s3",
             "s3-config": {
+                "bucket": "my-bucket",
                 "access-key": "access-key",
-                "secret-key": "secret-key",
-                "log-file": "s3://bucket/mysql/2023-01-01T01:01:01.123456/logs/backup.log",
-                "restore-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
-            }
+                "secret-key": "secret-key"
+            },
+            "restore-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
         }
     ]
 }
