@@ -6,139 +6,88 @@
     "type": "object",
     "default": {},
     "additionalProperties": true,
-    "oneOf": [
-        {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-                "job-id",
-                "job-type",
-                "storage-interface",
-                "s3-config",
-                "backup-file",
-                "log-file"
-            ],
-            "properties": {
-                "job-id": {
-                    "$ref": "#/$defs/job-id"
-                },
-                "job-type": {
-                    "$ref": "#/$defs/job-type"
-                },
-                "storage-interface": {
-                    "$ref": "#/$defs/storage-interface"
-                },
-                "s3-config": {
-                    "$ref": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json"
-                },
-                "backup-file": {
-                    "$ref": "#/$defs/backup-file"
-                },
-                "log-file": {
-                    "$ref": "#/$defs/log-file"
-                }
-            }
-        },
-        {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-                "job-id",
-                "job-type",
-                "storage-interface",
-                "s3-config",
-                "restore-file"
-            ],
-            "properties": {
-                "job-id": {
-                    "$ref": "#/$defs/job-id"
-                },
-                "job-type": {
-                    "$ref": "#/$defs/job-type"
-                },
-                "storage-interface": {
-                    "$ref": "#/$defs/storage-interface"
-                },
-                "s3-config": {
-                    "$ref": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json"
-                },
-                "restore-file": {
-                    "$ref": "#/$defs/restore-file"
-                }
-            }
-        }
+    "required": [
+        "jobs"
     ],
-    "$defs": {
-        "job-id": {
-            "title": "Job ID",
-            "description": "A unique id for the job. Is the same value as the one provided by the Requirer.",
-            "type": "string",
-            "examples": [
-                "job-01693ed2-644f-11ed-81ce-0242ac120002"
-            ]
-        },
-        "job-type": {
-            "title": "Job type",
-            "description": "The job type. Is the same value as the one provided by the Requirer.",
-            "type": "string",
-            "enum": ["backup", "restore"],
-            "default": "backup"
-        },
-        "storage-interface": {
-            "title": "Storage interface",
-            "description": "The storage interface to use for storing or retrieving files",
-            "type": "string",
-            "enum": ["s3"],
-            "default": "s3"
-        },
-        "log-file": {
-            "title": "Log file path",
-            "description": "Path where the job is expected to upload a log file to",
-            "type": "string",
-            "examples": [
-                "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log"
-            ]
-        },
-        "backup-file": {
-            "title": "Backup file path",
-            "description": "Path where the job is expected to upload the backup file",
-            "type": "string",
-            "examples": [
-                "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
-            ]
-        },
-        "restore-file": {
-            "title": "Restore file path",
-            "description": "Path where the job is expected to retrieve the restore file",
-            "type": "string",
-            "examples": [
-                "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
-            ]
+    "properties": {
+        "jobs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "required": [
+                    "job-id",
+                    "job-type",
+                    "storage-interface",
+                    "storage-config"
+                ],
+                "properties": {
+                    "job-id": {
+                        "title": "Job ID",
+                        "description": "A unique id for the job. Is the same value as the one provided by the Requirer.",
+                        "type": "string",
+                        "examples": [
+                            "job-01693ed2-644f-11ed-81ce-0242ac120001"
+                        ]
+                    },
+                    "job-type": {
+                        "title": "Job type",
+                        "description": "The job type. Is the same value as the one provided by the Requirer.",
+                        "type": "string",
+                        "enum": ["backup", "restore"],
+                        "default": "backup"
+                    },
+                    "storage-interface": {
+                        "title": "Storage interface",
+                        "description": "The storage interface to use for storing or retrieving files",
+                        "type": "string",
+                        "enum": ["s3"],
+                        "default": "s3"
+                    },
+                    "storage-config": {
+                        "oneOf": [
+                            {
+                                "$ref": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json"
+                            }
+                        ]
+                    },
+                    "artifact-path": {
+                        "title": "Artifact path",
+                        "description": "The artifact path for the job. This is where backup files and logs are stored",
+                        "type": "string",
+                        "examples": [
+                            "/path/to/artifacts/"
+                        ]
+                    }
+                }
+            }
         }
     },
     "examples": [
         {
-            "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120002",
-            "job-type": "backup",
-            "storage-interface": "s3",
-            "s3-config": {
-                "bucket": "my-bucket",
-                "access-key": "access-key",
-                "secret-key": "secret-key"
-            },
-            "log-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/logs/backup.log",
-            "backup-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
-        },
-        {
-            "job-id": "job-ad989f5a-6453-11ed-81ce-0242ac120002",
-            "job-type": "restore",
-            "storage-interface": "s3",
-            "s3-config": {
-                "bucket": "my-bucket",
-                "access-key": "access-key",
-                "secret-key": "secret-key"
-            },
-            "restore-file": "s3://bucket/mysql/2022-01-01T01:01:01.123456/backups/mysql.backup"
+            "jobs": [
+                {
+                    "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120001",
+                    "job-type": "backup",
+                    "storage-interface": "s3",
+                    "storage-config": {
+                        "bucket": "my-bucket",
+                        "access-key": "access-key",
+                        "secret-key": "secret-key"
+                    }
+                },
+                {
+                    "job-id": "job-ad989f5a-6453-11ed-81ce-0242ac120003",
+                    "job-type": "restore",
+                    "storage-interface": "s3",
+                    "storage-config": {
+                        "bucket": "my-bucket",
+                        "access-key": "access-key",
+                        "secret-key": "secret-key"
+                    },
+                    "artifact-path": "/path/to/retrieve/backups/"
+                }
+            ]
         }
     ]
 }
