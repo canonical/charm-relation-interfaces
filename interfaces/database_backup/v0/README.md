@@ -1,4 +1,4 @@
-# `database_backup_manager`
+# `database_backup`
 
 ## Usage
 
@@ -13,11 +13,11 @@ Initially, the backup or restore will be triggered manually against the database
 
 ```mermaid
 flowchart TD
-    Requirer -- job-id, job-type, storage-interface, storage-config, artifact-path --> Provider
-    Provider -- job-id, job-type, status, artifact-path --> Requirer
+    Requirer -- job-id, job-type, job-config, storage-interface, storage-config, artefact-path --> Provider
+    Provider -- job-id, job-type, job-config, storage-interface, storage-config, artefact-path, status, message --> Requirer
 ```
 
-The interface consists of two parties: a Provider (database charm) and a Requirer (database manager charm). The Requirer will be expected to provide the relevant jobs (backups or restores) to execute. The provider will then be expected to execute these jobs and respond with their statuses.
+The interface consists of two parties: a Provider (database charm) and a Requirer (backup manager charm). The Requirer will be expected to provide the relevant jobs (backups or restores) to execute. The provider will then be expected to execute these jobs and respond with their statuses.
 
 ## Behavior
 
@@ -26,11 +26,11 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 ### Provider
 
 - Is expected to detect any new jobs and run either a backup or restore based on the `job-type`.
-- Is expected to run concurrent backups, but only one restore at a time.
+- Is expected to run concurrent backups if possible (e.g. incremental/PITR backup in some cases can be parallel to full backup), but only one restore at a time.
 - Is expected to have appropriate locking mechanisms to avoid running incompatible jobs concurrently (e.g. a backup and a restore).
 - Is expected to indicate to the Requirer the status of the current or most recently completed job via the `status` field.
-- Is expected, in the case of backups, to upload backup and log artifacts to the provided storage.
-- Is expected, in the case of restores, to retrieve backup artifacts from the provided storage.
+- Is expected, in the case of backups, to upload backup and log artefacts to the provided storage.
+- Is expected, in the case of restores, to retrieve backup artefacts from the provided storage.
 
 ### Requirer
 
@@ -44,7 +44,7 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-Provider (database charm) is expected to record the status of running or completed jobs in the **unit** databag of the unit that performed the job. In the case of a backup, the information will be placed in the **unit** databag of the unit that performed the backup. In the case of a restore, the information will be placed in the **unit** databag of the lowest numbered unit (where the restore is performed).
+Provider (database charm) is expected to record the status of running or completed jobs in the **unit** databag of the unit that performed the job.
 
 #### Example
 ```yaml
@@ -61,7 +61,17 @@ Provider (database charm) is expected to record the status of running or complet
               {
                 "job-id": "another-unique-job-id",
                 "job-type": "restore",
-                "status": "error"
+                "job-config": {
+                  "compression": true
+                },
+                "storage-interface": "s3",
+                "storage-config": {
+                  "bucket": "my-bucket",
+                  "access-key": "access-key",
+                  "secret-key": "secret-key"
+                },
+                "status": "error",
+                "message": "MySQL charm in blocked state"
               }
             ]
           '
@@ -73,8 +83,17 @@ Provider (database charm) is expected to record the status of running or complet
               {
                 "job-id": "unique-job-id",
                 "job-type": "backup",
+                "job-config": {
+                  "compression": false
+                },
+                "storage-interface": "s3",
+                "storage-config": {
+                  "bucket": "my-bucket",
+                  "access-key": "access-key",
+                  "secret-key": "secret-key"
+                },
                 "status": "success",
-                "artifact-path": "/path/to/backups-and-logs/"
+                "artefact-path": "/path/to/backups-and-logs/"
               }
             ]
           '
@@ -98,6 +117,9 @@ Requirer (backup manager charm) is expected to request jobs by placing them in t
           {
             "job-id": "unique-job-id",
             "job-type": "backup",
+            "job-config": {
+              "compression": true,
+            }
             "storage-interface": "s3",
             "storage-config": {
               "bucket": "my-bucket",
@@ -108,13 +130,16 @@ Requirer (backup manager charm) is expected to request jobs by placing them in t
           {
             "job-id": "another-unique-job-id",
             "job-type": "restore",
+            "job-config": {
+              "compression": true
+            },
             "storage-interface": "s3",
             "storage-config": {
               "bucket": "my-bucket",
               "access-key": "access-key",
               "secret-key": "secret-key"
             },
-            "artifact-path": "/path/to/retrieve/backups/"
+            "artefact-path": "/path/to/retrieve/backups/"
           }
         ]
       '
