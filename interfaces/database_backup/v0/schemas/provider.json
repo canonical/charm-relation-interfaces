@@ -1,0 +1,130 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup_manager/schemas/provider.json",
+    "title": "`database_backup_manager` provider schema",
+    "description": "The `database_backup_manager` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "additionalProperties": true,
+    "required": [
+        "jobs"
+    ],
+    "properties": {
+        "jobs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "required": [
+                    "job-id",
+                    "job-type",
+                    "status",
+                    "storage-interface",
+                    "storage-config"
+                ],
+                "properties": {
+                    "job-id": {
+                        "title": "Job ID",
+                        "description": "A unique id for the job. Is the same value as the one provided by the Requirer.",
+                        "type": "string",
+                        "examples": [
+                            "job-01693ed2-644f-11ed-81ce-0242ac120002"
+                        ]
+                    },
+                    "job-type": {
+                        "title": "Job type",
+                        "description": "The job type. Is the same value as the one provided by the Requirer.",
+                        "type": "string",
+                        "enum": ["backup", "restore"],
+                        "default": "backup"
+                    },
+                    "job-config": {
+                        "title": "Job config",
+                        "description": "The job configuration",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                            "compression"
+                        ],
+                        "properties": {
+                            "compression": {
+                                "title": "Compression",
+                                "description": "Whether the backups are compressed",
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "storage-interface": {
+                        "title": "Storage interface",
+                        "description": "The storage interface to use for storing or retrieving files",
+                        "type": "string",
+                        "enum": ["s3"],
+                        "default": "s3"
+                    },
+                    "storage-config": {
+                        "oneOf": [
+                            {
+                                "$ref": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json"
+                            }
+                        ]
+                    },
+                    "status": {
+                        "title": "Job status",
+                        "description": "The status of the job once it has completed",
+                        "type": "string",
+                        "enum": ["running", "success", "error"]
+                    },
+                    "message": {
+                        "title": "Job message",
+                        "description": "A message describing the status of the job (e.g. an error message)",
+                        "type": "string"
+                    },
+                    "artefact-path": {
+                        "title": "Artefact path",
+                        "description": "The artefact path for the job. This is where backup files and logs are stored",
+                        "type": "string",
+                        "examples": [
+                            "/path/to/artefacts/"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "examples": [
+        {
+            "jobs": [
+                {
+                    "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120001",
+                    "job-type": "backup",
+                    "job-config": {
+                        "compression": true
+                    },
+                    "storage-interface": "s3",
+                    "storage-config": {
+                        "bucket": "my-bucket",
+                        "access-key": "access-key",
+                        "secret-key": "secret-key"
+                    },
+                    "status": "success",
+                    "artefact-path": "/path/to/backup/"
+                },
+                {
+                    "job-id": "job-d0e6d45c-6450-11ed-81ce-0242ac120002",
+                    "job-type": "restore",
+                    "job-config": {
+                        "compression": true
+                    },
+                    "storage-interface": "s3",
+                    "storage-config": {
+                        "bucket": "my-bucket",
+                        "access-key": "access-key",
+                        "secret-key": "secret-key"
+                    },
+                    "status": "error",
+                    "message": "MySQL charm in blocked state"
+                }
+            ]
+        }
+    ]
+}

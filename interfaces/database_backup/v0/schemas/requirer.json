@@ -18,6 +18,7 @@
                 "required": [
                     "job-id",
                     "job-type",
+                    "job-config",
                     "storage-interface",
                     "storage-config"
                 ],
@@ -37,6 +38,22 @@
                         "enum": ["backup", "restore"],
                         "default": "backup"
                     },
+                    "job-config": {
+                        "title": "Job config",
+                        "description": "The job configuration",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                            "compression"
+                        ],
+                        "properties": {
+                            "compression": {
+                                "title": "Compression",
+                                "description": "Whether the backups are compressed",
+                                "type": "boolean"
+                            }
+                        }
+                    },
                     "storage-interface": {
                         "title": "Storage interface",
                         "description": "The storage interface to use for storing or retrieving files",
@@ -51,12 +68,12 @@
                             }
                         ]
                     },
-                    "artifact-path": {
-                        "title": "Artifact path",
+                    "artefact-path": {
+                        "title": "Artefact path",
                         "description": "The artifact path for the job. This is where backup files and logs are stored",
                         "type": "string",
                         "examples": [
-                            "/path/to/artifacts/"
+                            "/path/to/artefacts/"
                         ]
                     }
                 }
@@ -69,6 +86,9 @@
                 {
                     "job-id": "job-01693ed2-644f-11ed-81ce-0242ac120001",
                     "job-type": "backup",
+                    "job-config": {
+                        "compression": true
+                    },
                     "storage-interface": "s3",
                     "storage-config": {
                         "bucket": "my-bucket",
@@ -79,13 +99,16 @@
                 {
                     "job-id": "job-ad989f5a-6453-11ed-81ce-0242ac120003",
                     "job-type": "restore",
+                    "job-config": {
+                        "compression": false
+                    },
                     "storage-interface": "s3",
                     "storage-config": {
                         "bucket": "my-bucket",
                         "access-key": "access-key",
                         "secret-key": "secret-key"
                     },
-                    "artifact-path": "/path/to/retrieve/backups/"
+                    "artefact-path": "/path/to/retrieve/backups/"
                 }
             ]
         }
