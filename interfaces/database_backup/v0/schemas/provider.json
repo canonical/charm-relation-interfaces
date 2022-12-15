@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup_manager/schemas/provider.json",
-    "title": "`database_backup_manager` provider schema",
-    "description": "The `database_backup_manager` root schema comprises the entire provider databag for this interface.",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup/schemas/provider.json",
+    "title": "`database_backup` provider schema",
+    "description": "The `database_backup` root schema comprises the entire provider databag for this interface.",
     "type": "object",
     "default": {},
     "additionalProperties": true,

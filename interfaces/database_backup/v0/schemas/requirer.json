@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup_manager/schemas/requirer.json",
-    "title": "`database_backup_manager` requirer schema",
-    "description": "The `database_backup_manager` root schema comprises the entire requirer databag for this interface.",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup/schemas/requirer.json",
+    "title": "`database_backup` requirer schema",
+    "description": "The `database_backup` root schema comprises the entire requirer databag for this interface.",
     "type": "object",
     "default": {},
     "additionalProperties": true,
