@@ -17,7 +17,7 @@ flowchart TD
     Provider -- job-id, job-type, job-config, storage-interface, storage-config, artefact-path, status, message --> Requirer
 ```
 
-The interface consists of two parties: a Provider (database charm) and a Requirer (backup manager charm). The Requirer will be expected to provide the relevant jobs (backups or restores) to execute. The provider will then be expected to execute these jobs and respond with their statuses.
+The interface consists of two parties: a Provider (database charm) and a Requirer (database backup manager charm). The Requirer will be expected to request the relevant jobs (backups or restores) to execute. The provider will then be expected to execute these jobs and respond with their statuses.
 
 ## Behavior
 
@@ -49,8 +49,8 @@ Provider (database charm) is expected to record the status of running or complet
 #### Example
 ```yaml
   relation-info:
-  - endpoint: database-backup-manager
-    related-endpoint: database-backup-manager
+  - endpoint: database-backup
+    related-endpoint: database-backup
     applcation-data: {}
     related-units:
       mysql/0:
@@ -103,14 +103,14 @@ Provider (database charm) is expected to record the status of running or complet
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer (backup manager charm) is expected to request jobs by placing them in the **application** databag.
+Requirer (database backup manager charm) is expected to request jobs by placing them in the **application** databag.
 
 #### Example
 
 ```yaml
   relation-info:
-  - endpoint: database-backup-manager
-    related-endpoint: database-backup-manager
+  - endpoint: database-backup
+    related-endpoint: database-backup
     application-data:
       jobs: '
         [
