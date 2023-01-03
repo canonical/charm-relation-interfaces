@@ -13,8 +13,8 @@ Initially, the backup or restore will be triggered manually against the database
 
 ```mermaid
 flowchart TD
-    Requirer -- job-id, job-type, job-config, storage-interface, storage-config, artefact-path --> Provider
-    Provider -- job-id, job-type, job-config, storage-interface, storage-config, artefact-path, status, message --> Requirer
+    Requirer -- job-configuration --> Provider
+    Provider -- job-configuration, job-results --> Requirer
 ```
 
 The interface consists of two parties: a Provider (database charm) and a Requirer (database backup manager charm). The Requirer will be expected to request the relevant jobs (backups or restores) to execute. The provider will then be expected to execute these jobs and respond with their statuses.
