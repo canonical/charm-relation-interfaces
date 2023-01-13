@@ -5,6 +5,8 @@ A catalogue of opinionated and standardized interface specifications for charmed
 ## Contributing
 To contribute an interface specification, open a pull request containing a `README.md`, json schemas for both sides of the relation, as well as a `charms.yaml` file consisting of a list of any `providers` and `consumers` known to adhere to the specification. See the [grafana-auth](https://github.com/canonical/charm-relation-interfaces/tree/main/interfaces/grafana_auth/v0) interface for examples of what to include and how it should be structured. For interface schemas, make sure to include **both the unit and application databag** in your schema, and also make sure to set `additionalProperties` to `true` as we want to be able to keep it extendable.
 
+To quickly get started, you can copy the `interfaces/__template__` folder to create a basic template.
+
 ## Interfaces
 
 | Category      | Interface                                                                    |                               Status                                | 
