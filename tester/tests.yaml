@@ -1,0 +1,19 @@
+states:
+  - local: # Tester Charm
+      app:
+        _supported_versions: '- v1'
+      unit: { }
+    remote:
+      - $.application-data._supported_versions
+#  - local: # Tester Charm
+#      app:
+#        _supported_versions: '- v1'
+#      unit:
+#        data: |-
+#          host: 10.1.14.5
+#          model: some-model
+#          name: ingress-tester/0
+#          port: 9090
+#    remote:
+#      - $.application-data._supported_versions
+#      - $.related-units.*.data.data

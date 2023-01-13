@@ -26,3 +26,31 @@ To contribute an interface specification, open a pull request containing a `READ
 
 For a more detailed explanation of statuses and how they should be used, see [the legend](https://github.com/canonical/charm-relation-interfaces/blob/main/LEGEND.md).
 
+
+# Relation interface testers
+
+In order to automatically validate whether a charm satisfies a given relation interface, the relation interface maintainer(s) need to write one or more **relation interface testers**. A relation interface tester is a collection of [scenario-based test cases](https://github.com/PietroPasotti/ops-scenario), each one of which checks that, given a specific (relation) event, the charm will do what the interface specifies. For example, most interface testers will check that, on relation changed, the charm will write a certain value into its (app/unit) databag, and perhaps that that value matches a certain (json)schema.
+
+(todo: wait for https://github.com/canonical/operator/pull/887 to merge).
+
+
+## How to write an interface tester
+
+- Copy `interfaces/__template__/interface_tests/interface_tests.py` to `interfaces/your-interface-name/interface_tests/interface_tests.py` (the filename is up to you, there can be multiple files)
+- Run `tester/check_interface_tests.py` to verify that the file you just added is discovered. You should see: 
+    ```yaml
+    your-interface-name:  # e.g. "database"
+      - versionID:        # e.g. "v0"
+        - requirer:
+           - MyInterfaceRequirerChangedTest:: interface-name-relation-created (state=yes)
+        - provider:
+           - MyInterfaceProviderCreatedTest:: interface-name-relation-changed (state=no)
+    
+    ```
+  
+- Fill in the tests with whatever is appropriate. Feel free to add as many requirer/provider tests as you need, and if appropriate, split them over multiple files. All modules in `interfaces/your-interface-name/interface_tests/` will be loaded and checked for the two globals:
+  - `INTERFACE_NAME`: name of the interface being tested (could be different from "your-interface-name")
+  - `__TESTS__`: names of the classes inside this module that represent interface test cases
+  if both globals are defined, the test case classes will be validated and collected as interface test cases.
+
+
