@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/<your-interface-name>/schemas/requirer.json",
+    "type": "object",
+    "title": "`your-interface-name` requirer schema",
+    "description": "The `your-interface-name` root schema comprises the entire requirer databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+        }
+    ],
+    "required": [
+    ],
+    "properties": {
+    },
+}

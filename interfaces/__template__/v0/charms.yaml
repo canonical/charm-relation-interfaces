@@ -1,0 +1,4 @@
+providers:
+  - list of reference charms using the provider side
+consumers:
+  - list of reference charms using the consumer side
