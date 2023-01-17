@@ -5,12 +5,19 @@ from scenario.structs import State
 
 __TESTS__ = [
     "IngressProviderTest",
+    "IngressRequirerTest",
 ]
+
+# todo: consider replacing this with a InterfaceTestCase.__subclasses__() gatherer
 
 
 # declare the name of the interface you're testing (it might be different from the directory name)
 #  this is a REQUIRED global variable. Without it, this test case won't be valid.
 INTERFACE_NAME: str = 'ingress'
+
+# todo: grab interface_name from parent folder instead:
+#  interfaces/{this_dir.replace('-', '_')}/
+
 
 class InterfaceTestCase(abc.ABC):
     INPUT_STATE: State = None
@@ -27,6 +34,11 @@ class InterfaceTestCase(abc.ABC):
     @abc.abstractmethod
     def validate(self, output_state: State):
         raise NotImplementedError("validate")
+
+    def validate_schema(self, output_state: State):
+        pass
+        # todo use self.role + ../schemas/{role}.json to validate databag contents.
+        #  run this function after validate() output_state is dedup'ed from validate's.
 
 
 class IngressProviderTest(InterfaceTestCase):
@@ -47,3 +59,10 @@ class IngressProviderTest(InterfaceTestCase):
             assert data.get('prometheus_scrape_unit_address')
             assert data.get('prometheus_scrape_unit_name') == charm.unit.name  # todo: fetch unit name
 
+
+class IngressRequirerTest(InterfaceTestCase):
+    EVENT = 'ingress-relation-changed'
+    ROLE = 'requirer'
+
+    def validate(self, output_state: State):
+        pass

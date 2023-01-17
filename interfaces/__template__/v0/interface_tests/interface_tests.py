@@ -5,6 +5,7 @@
 import abc
 from typing import Literal
 
+
 from scenario.structs import State, network, NetworkSpec
 
 
@@ -40,6 +41,8 @@ class InterfaceTestCase(abc.ABC):
 
 
 class MyInterfaceProviderCreatedTest(InterfaceTestCase):
+    # todo consider alternative ways of providing these inputs
+
     # declare which role of the interface this test is meant to verify.
     ROLE = 'provider'
 
@@ -69,6 +72,7 @@ class MyInterfaceProviderCreatedTest(InterfaceTestCase):
         #  whatever that means in the context of this interface.
         #  for example, if the charm is meant to set application data as a response to this event, you could do:
         assert output_state.relations[0].local_app_data['baz'] == 'qux'
+        assert output_state.status.unit == 'active', 'idle'
 
 
 # also fill in:

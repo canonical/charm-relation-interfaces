@@ -21,12 +21,13 @@ class InterfaceTester:
             return self._target
         return CharmSpec.from_charm(self._target)
 
-    def _yield_test_cases(self,
+    def _yield_scenes(self,
                           interface_name: Optional[str] = None,
                           state_template: Optional[State] = None
-                          ) -> Iterable[Scene, Callback]:
+                          ) -> Iterable[Union[Scene, Callback]]:
 
         if interface_name:
+            # TODO: implement
             pass
 
     def run(self,
@@ -42,7 +43,7 @@ class InterfaceTester:
 
         scenario = Scenario(charm_spec=self._spec)
 
-        for scene in self._yield_test_cases(
+        for scene in self._yield_scenes(
                 interface_name,
                 state_template=state_template):
 
@@ -58,15 +59,3 @@ class InterfaceTester:
 @pytest.fixture(scope='function')
 def interface_tester():
     yield InterfaceTester()
-
-# def pytest_addoption(parser):
-#     group = parser.getgroup('interface-tester')
-#     # group.addoption(
-#     #     '--foo',
-#     #     action='store',
-#     #     dest='dest_foo',
-#     #     default='2023',
-#     #     help='Set the value for the fixture "bar".'
-#     # )
-#     #
-#     parser.addini('HELLO', 'Dummy pytest.ini setting')
