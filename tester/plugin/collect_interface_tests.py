@@ -71,6 +71,16 @@ class InterfaceTestSpec(TypedDict):
     requirer: _RoleTestSpec
 
 
+def get_all_subclasses(cls):
+    subclasses = set()
+
+    for subclass in cls.__subclasses__():
+        subclasses.add(subclass)
+        subclasses.update(get_all_subclasses(subclass))
+
+    return list(subclasses)
+
+
 def gather_tests_for_version(version_dir: Path) -> InterfaceTestSpec:
     interface_tests_dir = version_dir / 'interface_tests'
 
@@ -82,19 +92,21 @@ def gather_tests_for_version(version_dir: Path) -> InterfaceTestSpec:
         sys.path.append(str(interface_tests_dir))
 
         for possible_test_file in interface_tests_dir.glob('*.py'):
+            # strip .py
+            module_name = str(possible_test_file.with_suffix('').name)
             try:
-                module = importlib.import_module(str(possible_test_file.name.strip('.py')))
+                module = importlib.import_module(module_name)
             except ImportError as e:
                 logger.error(f"Failed to load module {possible_test_file}: {e}")
                 continue
 
-            test_cases = InterfaceTestCase.__subclasses__()
+            test_cases = get_all_subclasses(InterfaceTestCase)
             test_cases_in_file = [cls for cls in test_cases if inspect.getfile(cls) == str(possible_test_file)]
 
             for cls in test_cases_in_file:
                 cls_validation_errors = _validate_test_class(cls)
                 if cls_validation_errors:
-                    logger.error(f"{cls} validation failed: {cls_validation_errors}")
+                    logger.error(f"{cls} validation failed: {cls_validation_errors}. Skipping...")
 
                 else:
                     if cls.ROLE == 'provider':  # noqa we validated cls: it has ROLE.

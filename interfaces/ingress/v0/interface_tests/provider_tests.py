@@ -1,11 +1,15 @@
 from scenario.structs import State, relation
+
 from interface_test import InterfaceTestCase
 
 
-class IngressProviderTestCreated(InterfaceTestCase):
+class ProviderTestCase(InterfaceTestCase):
+    ROLE = 'provider'
+
+
+class IngressProviderTestCreated(ProviderTestCase):
     EVENT = 'ingress-relation-created'
     INPUT_STATE = State()
-    ROLE = 'provider'
 
     # nothing happens on created
 
@@ -16,10 +20,9 @@ class IngressProviderTestCreated(InterfaceTestCase):
         assert not relation.local_unit_data
 
 
-class IngressProviderTestJoined(InterfaceTestCase):
+class IngressProviderTestJoined(ProviderTestCase):
     EVENT = 'ingress-relation-joined'
     INPUT_STATE = State()
-    ROLE = 'provider'
 
     # nothing happens on joined
 
@@ -30,7 +33,7 @@ class IngressProviderTestJoined(InterfaceTestCase):
         assert not relation.local_unit_data
 
 
-class IngressProviderTestChangedValid(InterfaceTestCase):
+class IngressProviderTestChangedValid(ProviderTestCase):
     EVENT = 'ingress-relation-changed'
     INPUT_STATE = State(
         relations=[relation(
@@ -47,7 +50,6 @@ class IngressProviderTestChangedValid(InterfaceTestCase):
             }}
         )]
     )
-    ROLE = 'provider'
 
     # on changed, if the remote side has sent valid data: our side is populated.
 
@@ -58,22 +60,20 @@ class IngressProviderTestChangedValid(InterfaceTestCase):
         assert relation.local_app_data
 
 
-class IngressProviderTestChangedInvalid(InterfaceTestCase):
+class IngressProviderTestChangedInvalid(ProviderTestCase):
     EVENT = 'ingress-relation-changed'
     INPUT_STATE = State(relations=[relation(
-            # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
-            #  perhaps input state is too general: we only need this relation meta:
-            endpoint='ingress',
-            interface='ingress',
-            remote_app_name='remote',
-            remote_units_data={0: {
-                'port': '42',
-                'bubble': 'rubble'
-            }}
-        )]
+        # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
+        #  perhaps input state is too general: we only need this relation meta:
+        endpoint='ingress',
+        interface='ingress',
+        remote_app_name='remote',
+        remote_units_data={0: {
+            'port': '42',
+            'bubble': 'rubble'
+        }}
+    )]
     )
-
-    ROLE = 'provider'
 
     # on changed, if the remote side has sent INvalid data: local side didn't publish anything either.
 
@@ -83,11 +83,3 @@ class IngressProviderTestChangedInvalid(InterfaceTestCase):
         assert not relation.local_app_data
         assert not relation.local_unit_data
 
-
-
-class IngressRequirerTest(InterfaceTestCase):
-    EVENT = 'ingress-relation-changed'
-    ROLE = 'requirer'
-
-    def validate(self, output_state: State):
-        pass

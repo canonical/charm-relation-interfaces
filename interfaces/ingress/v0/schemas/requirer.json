@@ -52,12 +52,12 @@
     },
     "port": {
       "$id": "#/properties/port",
-      "type": "integer",
+      "type": "string",
       "title": "Port",
-      "description": "The port the application wishes to be exposed.",
+      "description": "The port the application wishes to be exposed. It's a string, but digits-only!.",
       "default": null,
       "examples": [
-        4242
+        "4242"
       ]
     },
     "additionalProperties": true
