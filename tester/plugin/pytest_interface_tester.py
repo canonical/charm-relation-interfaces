@@ -8,7 +8,7 @@ from typing import Union, Optional, Type, Iterable, Callable, TYPE_CHECKING, Lit
 import pytest
 from ops.testing import CharmType
 from scenario.scenario import Scenario
-from scenario.structs import State, CharmSpec, Scene, event
+from scenario.structs import State, CharmSpec, Scene, event, Event, EventMeta, RelationMeta
 
 from collect_interface_tests import gather_tests_for_version, InterfaceTestSpec
 
@@ -99,7 +99,7 @@ class InterfaceTester:
             logger.debug(f'collecting scenes for {role}')
 
             test: "InterfaceTestCase"
-            for test in tests[role]['tests']:
+            for _, test in tests[role]['tests']:
                 logger.debug(f'converting {test} to Scene')
 
                 # this is the input state as specified by the interface tests writer. It can contain elements
@@ -114,23 +114,51 @@ class InterfaceTester:
                 #  -> so we overwrite and warn on conflict: state_template is the baseline, input_state provides the
                 #  relation spec for the relation being tested
 
-                state = state_template.copy()
+                state = (state_template or State()).copy()
                 for relation in state.relations:
                     if relation.meta.interface == interface_name:
                         logger.warning(f"relation with interface name = {interface_name} found in state template. "
                                        f"This will be overwritten by the relation spec provided by the relation "
                                        f"interface test case.")
 
-                def filter_relations(relations, op):
-                    return [r for r in relations if op(relation.meta.interface, interface_name)]
+                if input_state:
+                    def filter_relations(relations, op):
+                        return [r for r in relations if op(relation.meta.interface, interface_name)]
 
-                relations = (filter_relations(state.relations, op=operator.ne) +
-                             filter_relations(input_state.relations, op=operator.eq))
+                    relations = (filter_relations(state.relations, op=operator.ne) +
+                                 filter_relations(input_state.relations, op=operator.eq))
 
-                state.relations = relations
+                    state.relations = relations
+
+                # if the event being tested is a relation event, we need to inject some metadata
+                # or scenario.Runtime won't be able to guess what envvars need setting before ops.main
+                # takes over
+                if isinstance(test.EVENT, str):
+                    ep_name, _, evt_kind = test.EVENT.rpartition('-relation-')
+                    if ep_name and evt_kind:
+                        # this is a relation event.
+                        # we craft some metadata
+                        evt = event(test.EVENT,
+                                    meta=EventMeta(
+                                        relation=RelationMeta(
+                                            endpoint=ep_name,
+                                            interface=interface_name,
+                                            relation_id=0,
+                                            remote_app_name='remote',
+                                        )))
+
+                    else:
+                        evt = event(test.EVENT)
+
+                elif isinstance(test.EVENT, Event):
+                    evt = test.EVENT
+
+                else:
+                    raise TypeError(f"Expected Event or str, not {type(test.EVENT)}. "
+                                    f"Invalid test case.")
 
                 scene = Scene(
-                    event=event(test.EVENT),
+                    event=evt,
                     state=state
                 )
 

@@ -2,7 +2,7 @@
 # That will provide you completion and documentation for using the State object.
 # at the time of writing, that can only be installed from sources (build a wheel from https://github.com/PietroPasotti/ops-scenario/tree/stripped)
 # todo: as soon as https://github.com/canonical/operator/pull/887 merges, update this.
-from scenario.structs import State, network, NetworkSpec
+from scenario.structs import State, network, NetworkSpec, relation
 
 # this is an ABC: it will guide you through implementing all required attributes and methods.
 from tester.plugin.interface_test import InterfaceTestCase
