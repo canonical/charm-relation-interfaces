@@ -7,7 +7,8 @@ class IngressProviderTest(InterfaceTestCase):
     INPUT_STATE = State()
     ROLE = 'provider'
 
-    def validate(self, output_state: State):
+    @staticmethod
+    def validate(output_state: State):
         scrape_relation_out = output_state.relations[0]
         if output_state.leader:
             assert scrape_relation_out.local_app_data.get('alert_rules')  # todo: json schema validation?

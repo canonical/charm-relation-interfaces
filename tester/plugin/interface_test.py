@@ -17,11 +17,13 @@ class InterfaceTestCase(abc.ABC):
     def EVENT(self) -> Union[str, Event]:
         raise NotImplementedError()
 
+    @staticmethod
     @abc.abstractmethod
-    def validate(self, output_state: State):
+    def validate(output_state: State):
         raise NotImplementedError("validate")
 
-    def validate_schema(self, output_state: State):
+    @staticmethod
+    def validate_schema(output_state: State):
         pass
         # todo use self.role + ../schemas/{role}.json to validate databag contents.
         #  run this function after validate() output_state is dedup'ed from validate's.

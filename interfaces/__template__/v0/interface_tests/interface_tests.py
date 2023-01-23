@@ -34,7 +34,8 @@ class MyInterfaceProviderCreatedTest(InterfaceTestCase):
     )
 
     # this function should contain the assertion that the test case represents.
-    def validate(self, output_state: State):
+    @staticmethod
+    def validate(output_state: State):
         # here: write assertion code that checks that, if the charm implementing the provider side were
         #  to receive an interface-name-relation-created event with that state, the charm would *do the right thing*,
         #  whatever that means in the context of this interface.
@@ -48,6 +49,7 @@ class MyInterfaceRequirerChangedTest(InterfaceTestCase):
     ROLE = 'requirer'
     EVENT = 'interface-name-relation-changed',
 
-    def validate(self, output_state: State):
+    @staticmethod
+    def validate(output_state: State):
         pass
 
