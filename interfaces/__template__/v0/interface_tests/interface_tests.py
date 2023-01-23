@@ -2,42 +2,10 @@
 # That will provide you completion and documentation for using the State object.
 # at the time of writing, that can only be installed from sources (build a wheel from https://github.com/PietroPasotti/ops-scenario/tree/stripped)
 # todo: as soon as https://github.com/canonical/operator/pull/887 merges, update this.
-import abc
-from typing import Literal
-
-
 from scenario.structs import State, network, NetworkSpec
 
-
-# declare in a variable called "__TESTS__" the exhaustive list of classes,
-#  matching the InterfaceTestCase protocol, that are meant to test your interface.
-
-__TESTS__ = [
-    "MyInterfaceProviderCreatedTest",
-]
-
-# declare the name of the interface you're testing (it might be different from the directory name)
-#  this is a REQUIRED global variable. Without it, this test case won't be valid.
-INTERFACE_NAME: str = 'interface-name'
-
-
-# this is the protocol that a test case must match: feel free
-#  to keep it on top of your test file as reference.
-class InterfaceTestCase(abc.ABC):
-    INPUT_STATE: State = None
-
-    @abc.abstractmethod
-    @property
-    def ROLE(self) -> Literal['provider', 'requirer']:
-        raise NotImplementedError()
-    @abc.abstractmethod
-    @property
-    def EVENT(self) -> str:
-        raise NotImplementedError()
-
-    @abc.abstractmethod
-    def validate(self, output_state: State):
-        raise NotImplementedError("validate")
+# this is an ABC: it will guide you through implementing all required attributes and methods.
+from tester.plugin.interface_test import InterfaceTestCase
 
 
 class MyInterfaceProviderCreatedTest(InterfaceTestCase):
