@@ -55,11 +55,13 @@ class InterfaceTester:
     def _fetch_tests(self, interface_name, version: int = 0) -> InterfaceTestSpec:
         with tempfile.TemporaryDirectory() as tempdir:
             cmd = f"git clone --depth 1 --branch {self._branch} {self._repo}".split(" ")
-            proc = Popen(cmd, cwd=tempdir, stdout=PIPE)
+            proc = Popen(cmd, cwd=tempdir, stderr=PIPE, stdout=PIPE)
             proc.wait()
             if proc.returncode != 0:
                 raise RuntimeError(f'failed to fetch {self._repo}:{self._branch}, '
-                                   f'check that the ref is correct: {proc.stdout.read()}')
+                                   f'check that the ref is correct. '
+                                   f'out={proc.stdout.read()}'
+                                   f'err={proc.stderr.read()}')
 
             repo_name = self._repo.split('/')[-1]
             intf_spec_path = Path(tempdir) / repo_name / self._base_path / interface_name / f"v{version}"

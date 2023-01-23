@@ -1,5 +1,5 @@
 from scenario.structs import State
-from tester.plugin.interface_test import InterfaceTestCase
+from interface_test import InterfaceTestCase
 
 
 class IngressProviderTest(InterfaceTestCase):
