@@ -3,7 +3,7 @@ import operator
 import tempfile
 from pathlib import Path
 from subprocess import Popen, PIPE
-from typing import Union, Optional, Type, Iterable, Callable, TYPE_CHECKING, Literal, Tuple
+from typing import Union, Optional, Type, Iterable, Callable, TYPE_CHECKING, Literal, Tuple, Dict, Any
 
 import pytest
 from ops.testing import CharmType
@@ -75,11 +75,11 @@ class InterfaceTester:
             tests = gather_tests_for_version(intf_spec_path)
         return tests
 
-    def _yield_scenes(self,
+    def _yield_tests(self,
                       interface_name: Optional[str] = None,
                       state_template: Optional[State] = None,
                       version: int = 0
-                      ) -> Iterable[Tuple["InterfaceTestCase", Scene]]:
+                      ) -> Iterable[Tuple["InterfaceTestCase", Dict[Any, Any], Scene]]:
 
         # in order to gather the scenes/test cases, we need two things:
         # - the test cases (InterfaceTestCase subclasses) as defined by the charm-relation interfaces repo
@@ -116,94 +116,96 @@ class InterfaceTester:
             logger.debug(f'collecting scenes for {role}')
 
             test: "InterfaceTestCase"
-            for _, test in tests[role]['tests']:
-                logger.debug(f'converting {test} to Scene')
+            for _, spec in tests[role]:
+                for test in spec['tests']:
+                    logger.debug(f'converting {test} to Scene')
 
-                # this is the input state as specified by the interface tests writer. It can contain elements
-                # that are required for the relation interface test to work, typically relation data pertaining to the
-                # relation interface being tested.
-                input_state = test.INPUT_STATE
+                    # this is the input state as specified by the interface tests writer. It can contain elements
+                    # that are required for the relation interface test to work, typically relation data pertaining to the
+                    # relation interface being tested.
+                    input_state = test.INPUT_STATE
 
-                # state_template is state as specified by the charm being tested, which the charm requires to function
-                # properly. Consider it part of the mocking. For example: some required config, a "happy" status,
-                # network information, OTHER relations. Typically, should NOT touch the relation that this
-                # interface test is about
-                #  -> so we overwrite and warn on conflict: state_template is the baseline, input_state provides the
-                #  relation spec for the relation being tested
+                    # state_template is state as specified by the charm being tested, which the charm requires to function
+                    # properly. Consider it part of the mocking. For example: some required config, a "happy" status,
+                    # network information, OTHER relations. Typically, should NOT touch the relation that this
+                    # interface test is about
+                    #  -> so we overwrite and warn on conflict: state_template is the baseline, input_state provides the
+                    #  relation spec for the relation being tested
 
-                state = (state_template or State()).copy()
-                for rel in state.relations:
-                    if rel.meta.interface == interface_name:
-                        logger.warning(f"relation with interface name = {interface_name} found in state template. "
-                                       f"This will be overwritten by the relation spec provided by the relation "
-                                       f"interface test case.")
+                    state = (state_template or State()).copy()
+                    for rel in state.relations:
+                        if rel.meta.interface == interface_name:
+                            logger.warning(f"relation with interface name = {interface_name} found in state template. "
+                                           f"This will be overwritten by the relation spec provided by the relation "
+                                           f"interface test case.")
 
-                def filter_relations(relations, op):
-                    return [r for r in relations if op(rel.meta.interface, interface_name)]
+                    def filter_relations(relations, op):
+                        return [r for r in relations if op(rel.meta.interface, interface_name)]
 
-                relations = filter_relations(state.relations, op=operator.ne)
+                    relations = filter_relations(state.relations, op=operator.ne)
 
-                if input_state:
-                    relations.extend(filter_relations(input_state.relations, op=operator.eq))
+                    if input_state:
+                        relations.extend(filter_relations(input_state.relations, op=operator.eq))
 
-                if not filter_relations(relations, op=operator.eq):
-                    # if neither the charm nor the interface specified any custom relation spec for
-                    # the interface we're testing, we will provide one.
-                    endpoints_for_interface = supported_endpoints[role]
+                    if not filter_relations(relations, op=operator.eq):
+                        # if neither the charm nor the interface specified any custom relation spec for
+                        # the interface we're testing, we will provide one.
+                        endpoints_for_interface = supported_endpoints[role]
 
-                    if len(endpoints_for_interface) < 1:
-                        raise ValueError(f'no endpoint found for {role}/{interface_name}.')
-                    elif len(endpoints_for_interface) > 1:
-                        raise ValueError(f"Multiple endpoints found for {role}/{interface_name}: "
-                                         f"{endpoints_for_interface}: cannot guess which one it is "
-                                         f"we're supposed to be testing")
-                    else:
-                        endpoint = endpoints_for_interface[0]
+                        if len(endpoints_for_interface) < 1:
+                            raise ValueError(f'no endpoint found for {role}/{interface_name}.')
+                        elif len(endpoints_for_interface) > 1:
+                            raise ValueError(f"Multiple endpoints found for {role}/{interface_name}: "
+                                             f"{endpoints_for_interface}: cannot guess which one it is "
+                                             f"we're supposed to be testing")
+                        else:
+                            endpoint = endpoints_for_interface[0]
 
-                    relations.append(
-                        relation(
-                            interface=interface_name,
-                            endpoint=endpoint,
+                        relations.append(
+                            relation(
+                                interface=interface_name,
+                                endpoint=endpoint,
+                            )
                         )
+
+                    state.relations = relations
+
+                    # if the event being tested is a relation event, we need to inject some metadata
+                    # or scenario.Runtime won't be able to guess what envvars need setting before ops.main
+                    # takes over
+                    if isinstance(test.EVENT, str):
+                        ep_name, _, evt_kind = test.EVENT.rpartition('-relation-')
+                        if ep_name and evt_kind:
+                            # this is a relation event.
+                            # we craft some metadata
+                            evt = event(test.EVENT,
+                                        meta=EventMeta(
+                                            relation=RelationMeta(
+                                                endpoint=ep_name,
+                                                interface=interface_name,
+                                                relation_id=0,
+                                                remote_app_name='remote',
+                                            )))
+
+                        else:
+                            evt = event(test.EVENT)
+
+                    elif isinstance(test.EVENT, Event):
+                        evt = test.EVENT
+
+                    else:
+                        raise TypeError(f"Expected Event or str, not {type(test.EVENT)}. "
+                                        f"Invalid test case.")
+
+                    scene = Scene(
+                        event=evt,
+                        state=state
                     )
 
-                state.relations = relations
+                    logger.info(f"collected {scene} for {interface_name}")
 
-                # if the event being tested is a relation event, we need to inject some metadata
-                # or scenario.Runtime won't be able to guess what envvars need setting before ops.main
-                # takes over
-                if isinstance(test.EVENT, str):
-                    ep_name, _, evt_kind = test.EVENT.rpartition('-relation-')
-                    if ep_name and evt_kind:
-                        # this is a relation event.
-                        # we craft some metadata
-                        evt = event(test.EVENT,
-                                    meta=EventMeta(
-                                        relation=RelationMeta(
-                                            endpoint=ep_name,
-                                            interface=interface_name,
-                                            relation_id=0,
-                                            remote_app_name='remote',
-                                        )))
-
-                    else:
-                        evt = event(test.EVENT)
-
-                elif isinstance(test.EVENT, Event):
-                    evt = test.EVENT
-
-                else:
-                    raise TypeError(f"Expected Event or str, not {type(test.EVENT)}. "
-                                    f"Invalid test case.")
-
-                scene = Scene(
-                    event=evt,
-                    state=state
-                )
-
-                logger.info(f"collected {scene} for {interface_name}")
-
-                yield test, scene
+                    schema = spec['schema']
+                    yield test, schema, scene
 
     def run(self,
             interface_name: Optional[str] = None,
@@ -218,7 +220,7 @@ class InterfaceTester:
 
         scenario = Scenario(charm_spec=self._spec)
 
-        for test, scene in self._yield_scenes(
+        for test, schema, scene in self._yield_tests(
                 interface_name,
                 state_template=state_template):
 
@@ -230,16 +232,14 @@ class InterfaceTester:
             # todo: out consistency check ? or we rely on scenario's.
 
             try:
-                test.validate(output_state=out)
+                test.validate(out)
             except Exception as e:
                 pytest.fail(f"Failed validating scene output: {e}")
 
             try:
-                test.validate_schema(output_state=out)
+                test.validate_schema(out, schema=schema)
             except Exception as e:
                 pytest.fail(f"Failed validating schema on scene output: {e}")
-
-
 
 
 
