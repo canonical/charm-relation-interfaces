@@ -18,9 +18,9 @@ class IngressProviderTestCreated(ProviderTestCase):
         assert not relation.local_app_data
         assert not relation.local_unit_data
 
-    # TODO: document this pattern to suppress schema validation i.e. if it's expected to be empty.
-    def validate_schema(data, schema):
-        pass
+    # # TODO: document this pattern to suppress schema validation i.e. if it's expected to be empty.
+    # def validate_schema(data, schema):
+    #     pass
 
 
 class IngressProviderTestJoined(ProviderTestCase):
@@ -85,4 +85,7 @@ class IngressProviderTestChangedInvalid(ProviderTestCase):
         relation = output_state.relations[0]
         assert not relation.local_app_data
         assert not relation.local_unit_data
+
+    def validate_schema(relation, schema):
+        pass
 

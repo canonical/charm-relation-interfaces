@@ -14,5 +14,5 @@ class IngressRequirerTestCreated(RequirerTestCase):
     @staticmethod
     def validate(output_state: State):
         relation = output_state.relations[0]
-        assert relation.local_unit_data
-        assert not relation.local_app_data
+        assert relation.local_app_data
+        assert not relation.local_unit_data
