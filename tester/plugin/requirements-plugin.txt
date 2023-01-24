@@ -1,1 +1,2 @@
 scenario  # todo switch to using ops' built-in scenario if/when that PR gets merged
+pydantic

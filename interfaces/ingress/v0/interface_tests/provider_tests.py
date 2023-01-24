@@ -6,7 +6,6 @@ from interface_test import InterfaceTestCase
 class ProviderTestCase(InterfaceTestCase):
     ROLE = 'provider'
 
-
 class IngressProviderTestCreated(ProviderTestCase):
     EVENT = 'ingress-relation-created'
     INPUT_STATE = State()
@@ -18,6 +17,10 @@ class IngressProviderTestCreated(ProviderTestCase):
         relation = output_state.relations[0]
         assert not relation.local_app_data
         assert not relation.local_unit_data
+
+    # TODO: document this pattern to suppress schema validation i.e. if it's expected to be empty.
+    def validate_schema(data, schema):
+        pass
 
 
 class IngressProviderTestJoined(ProviderTestCase):
@@ -42,12 +45,12 @@ class IngressProviderTestChangedValid(ProviderTestCase):
             endpoint='ingress',
             interface='ingress',
             remote_app_name='remote',
-            remote_units_data={0: {
+            remote_app_data={
                 'host': '0.0.0.42',
                 'model': 'bar',
                 'name': 'baz',
                 'port': '42',
-            }}
+            }
         )]
     )
 

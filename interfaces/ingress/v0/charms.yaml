@@ -1,4 +1,10 @@
 providers:
-  - traefik-k8s
+  - name: traefik-k8s  # charm name; required
+    url: foo.com  # repo to clone; required
+    branch: testing  # HIDDEN. todo: don't expose branch to final user api
+    test_setup:  # optional
+      location: tests/interfaces/conftest.py  # optional; default = tests/interfaces/conftest.py
+      identifier: itester # optional; default = itester
+
 consumers:
-  - spring-music
+  - name: spring-music

@@ -6,7 +6,7 @@ from ops.charm import CharmBase
 from ops.framework import Framework
 from scenario.structs import CharmSpec, State
 
-from collect_interface_tests import gather_tests_for_version, InterfaceTestSpec
+from collect_interface_tests import gather_test_spec_for_version, InterfaceTestSpec
 from pytest_interface_tester import InterfaceTester
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -37,15 +37,15 @@ class MyRequirer(CharmBase):
 
     def _on_created(self, e):
         if self.unit.is_leader():
-            e.relation.data[self.app]['host'] = 'foo'
-            e.relation.data[self.app]['port'] = '10'
-            e.relation.data[self.app]['model'] = 'baz'
-            e.relation.data[self.app]['name'] = 'qux'
+            e.relation.data[self.unit]['host'] = 'foo'
+            e.relation.data[self.unit]['port'] = '10'
+            e.relation.data[self.unit]['model'] = 'baz'
+            e.relation.data[self.unit]['name'] = 'qux'
 
 
 class TestingInterfaceTester(InterfaceTester):
     def _fetch_tests(self, interface_name, version: int = 0) -> InterfaceTestSpec:
-        return gather_tests_for_version(PROJECT_ROOT / 'interfaces' / interface_name / f'v{version}')
+        return gather_test_spec_for_version(PROJECT_ROOT / 'interfaces' / interface_name / f'v{version}')
 
 
 def test_ingress_requirer():

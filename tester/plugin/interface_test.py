@@ -1,8 +1,13 @@
 import abc
-from typing import Literal, Union, Dict, Any
+from typing import Literal, Union, Optional
 
-import jsonschema as jsonschema
+from pydantic import BaseModel
 from scenario.structs import State, Event, RelationSpec
+
+
+class DataBagSchema(BaseModel):
+    unit: Optional[BaseModel] = None
+    app: Optional[BaseModel] = None
 
 
 class InterfaceTestCase(abc.ABC):
@@ -24,22 +29,8 @@ class InterfaceTestCase(abc.ABC):
         raise NotImplementedError("validate")
 
     @staticmethod
-    def validate_schema(relation: RelationSpec, schema: Dict[Any, Any]):
-        # todo: consider if this behaviour should be configurable.
-        valid = [None, None]
-
-        if app_data := relation.local_app_data:
-            jsonschema.validate(
-                app_data,
-                schema
-            )
-            valid[0] = True
-
-        if unit_data := relation.local_unit_data:
-            jsonschema.validate(
-                unit_data,
-                schema
-            )
-            valid[1] = True
-
-        return valid
+    def validate_schema(relation: RelationSpec, schema: DataBagSchema):
+        return schema.validate({
+            "unit": relation.local_unit_data,
+            "app": relation.local_app_data,
+        })
