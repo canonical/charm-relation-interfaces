@@ -37,10 +37,10 @@ class MyRequirer(CharmBase):
 
     def _on_created(self, e):
         if self.unit.is_leader():
-            e.relation.data[self.unit]['host'] = 'foo'
-            e.relation.data[self.unit]['port'] = '10'
-            e.relation.data[self.unit]['model'] = 'baz'
-            e.relation.data[self.unit]['name'] = 'qux'
+            e.relation.data[self.app]['host'] = 'foo'
+            e.relation.data[self.app]['port'] = '10'
+            e.relation.data[self.app]['model'] = 'baz'
+            e.relation.data[self.app]['name'] = 'qux'
 
 
 class TestingInterfaceTester(InterfaceTester):
@@ -54,7 +54,10 @@ def test_ingress_requirer():
         target=CharmSpec(
             charm_type=MyRequirer,
             meta=MyRequirer.META
+        ),
+        interface_name='ingress',
+        state_template=State(
+            leader=True
         )
     )
-    tester.run('ingress',
-               state_template=State(leader=True))
+    tester.run()

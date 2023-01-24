@@ -14,7 +14,7 @@ class MyProviderAppData(BaseModel):
 
 
 class MyRequirerUnitData(BaseModel):
-    port: int
+    port: Json[int]
     host: str
     model: str
     name: str
