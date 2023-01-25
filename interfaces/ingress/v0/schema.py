@@ -1,6 +1,8 @@
 import json
 from typing import Dict
 from urllib.parse import urlparse
+
+import yaml
 from pydantic import BaseModel, Json, AnyHttpUrl, validator
 
 from interface_test import DataBagSchema
@@ -11,7 +13,11 @@ class Url(BaseModel):
 
 
 class MyProviderAppData(BaseModel):
-    ingress: Json[Dict[str, Url]]
+    ingress: Dict[str, Url]
+
+    @validator('ingress', pre=True)
+    def decode_ingress(cls, ingress):
+        return yaml.safe_load(ingress)
 
     @validator('ingress')
     def validate_ingress(cls, ingress):
