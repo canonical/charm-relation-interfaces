@@ -1,7 +1,7 @@
 providers:
   - name: traefik-k8s  # charm name; required
-    url: foo.com  # repo to clone; required
-    branch: testing  # HIDDEN. todo: don't expose branch to final user api
+    url: https://github.com/canonical/traefik-k8s-operator  # repo to clone; required
+    branch: interface-tests  # HIDDEN. todo: don't expose branch to final user api
     test_setup:  # optional
       location: tests/interfaces/conftest.py  # optional; default = tests/interfaces/conftest.py
       identifier: itester # optional; default = itester

@@ -5,6 +5,7 @@ from pathlib import Path
 from subprocess import Popen, PIPE
 from typing import Union, Optional, Type, Iterable, Callable, TYPE_CHECKING, Literal, Tuple, Dict, Any
 
+import pydantic
 import pytest
 from ops.testing import CharmType
 from scenario.scenario import Scenario
@@ -104,7 +105,8 @@ class InterfaceTester:
                                    f'err={proc.stderr.read()}')
 
             repo_name = self._repo.split('/')[-1]
-            intf_spec_path = Path(tempdir) / repo_name / self._base_path / interface_name.replace('-', '_') / f"v{version}"
+            intf_spec_path = Path(tempdir) / repo_name / self._base_path / interface_name.replace('-',
+                                                                                                  '_') / f"v{version}"
             if not intf_spec_path.exists():
                 raise RuntimeError(f"interface spec dir not found at expected location. "
                                    f"Check that {repo_name}/{self._base_path}/{interface_name} "
@@ -115,10 +117,10 @@ class InterfaceTester:
         return tests
 
     def _yield_tests(self,
-                      interface_name: Optional[str] = None,
-                      state_template: Optional[State] = None,
-                      version: int = 0
-                      ) -> Iterable[Tuple["InterfaceTestCase", "DataBagSchema", Scene]]:
+                     interface_name: Optional[str] = None,
+                     state_template: Optional[State] = None,
+                     version: int = 0
+                     ) -> Iterable[Tuple["InterfaceTestCase", "DataBagSchema", Scene]]:
 
         # in order to gather the scenes/test cases, we need two things:
         # - the test cases (InterfaceTestCase subclasses) as defined by the charm-relation interfaces repo
@@ -259,7 +261,7 @@ class InterfaceTester:
                 state_template=self._state_template):
             if subtests:
                 with subtests.test(msg=getattr(test, 'name', test.__name__)):
-                    self._run(test, schema, scene, _raise=True)
+                    self._run(test, schema, scene, subtests=subtests)
 
             out = self._run(test, schema, scene)
             if out:
@@ -268,57 +270,84 @@ class InterfaceTester:
         if errors:
             pytest.fail(f'interface tests completed with errors. {errors}')
 
-
-    def _run(self, test: "InterfaceTestCase", schema:Optional["DataBagSchema"], scene:Scene,
-             _raise=False):
-        errors = []
+    def _assert_scene_plays(self, scene):
         scenario = Scenario(charm_spec=self._spec)
-
-        logger.info('check 1: scenario play')
         try:
-            out = scenario.play(scene)
+            return scenario.play(scene)
         except Exception as e:
             msg = f"Failed check 1: scenario errored out: ({type(e).__name__}){e}. Could not play scene."
+            raise RuntimeError(msg) from e
+
+    def _assert_state_out_valid(self, state: State, test: "InterfaceTestCase"):
+        try:
+            # todo consider validate(output: RelationSpec) and INPUT_STATE: RelationSpec to simplify.
+            test.validate(state)
+        except Exception as e:
+            msg = f"Failed check 2: validating scene output: {e}"
+            raise RuntimeError(msg) from e
+
+    def _assert_schema_valid(self, test: "InterfaceTestCase", relation, schema: "DataBagSchema"):
+        try:
+            test.validate_schema(relation, schema=schema)
+        except Exception as e:
+            msg = f"Failed check 3: validating schema on scene output: {e}"
             logger.error(msg)
-            if _raise:
-                raise RuntimeError(msg) from e
-            errors.append(msg)
-            # if this one fails, it doesn't make sense to try the next.
-            return errors
+            raise RuntimeError(msg) from e
+
+    def _assert_schemas_valid(self, test: "InterfaceTestCase", schema: "DataBagSchema",
+                              state_out: State):
+        errors = []
+        interface_name = self._interface_name
+        for rel in [r for r in state_out.relations if r.meta.interface == interface_name]:
+            try:
+                self._assert_schema_valid(test, rel, schema)
+            except RuntimeError as e:
+                errors.append(e.args[0])
+        return errors
+
+    def _run(self,
+             test: "InterfaceTestCase",
+             schema: Optional["DataBagSchema"],
+             scene: Scene,
+             subtests=None):
+
+        errors = []
+        logger.info('check 1: scenario play')
+        if subtests:
+            with subtests.test("check 1: scenario play"):
+                state_out = self._assert_scene_plays(scene)
+        else:
+            try:
+                state_out = self._assert_scene_plays(scene)
+            except RuntimeError as e:
+                errors.append(e.args[0])
+                logger.info("scenario couldn't run: aborting test.")
+                return errors
 
         logger.info('check 2: scenario output state validation')
         # todo: out consistency check ? or we rely on scenario's.
-        try:
-            # todo consider validate(output: RelationSpec) and INPUT_STATE: RelationSpec to simplify.
-            test.validate(out)
-        except Exception as e:
-            msg = f"Failed check 2: validating scene output: {e}"
-            logger.error(msg)
-            if _raise:
-                raise RuntimeError(msg) from e
-
-            errors.append(msg)
-            return errors
+        if subtests:
+            with subtests.test("check 2: scenario output state validation"):
+                self._assert_state_out_valid(state_out, test)
+        else:
+            try:
+                self._assert_state_out_valid(state_out, test)
+            except RuntimeError as e:
+                errors.append(e.args[0])
 
         logger.info('check 3: databag schema validation')
         if not schema:
             logger.info('schema validation step skipped: no schema provided')
             return errors
-
-        interface_name = self._interface_name
-        for rel in [r for r in out.relations if r.meta.interface == interface_name]:
-            try:
-                app_valid, unit_valid = test.validate_schema(rel, schema=schema)
-            except Exception as e:
-                msg = f"Failed check 3: validating schema on scene output: {e}"
-                logger.error(msg)
-                if _raise:
-                    raise RuntimeError(msg) from e
-
-                errors.append(msg)
-                continue
-            logger.info(f"schema validation: app={app_valid}, unit={unit_valid}")
+        if subtests:
+            with subtests.test('check 3: databag schema validation'):
+                assert not self._assert_schemas_valid(test, schema, state_out)
+        else:
+            errors.extend(
+                self._assert_schemas_valid(test, schema, state_out)
+            )
         return errors
+
 
 @pytest.fixture(scope='function')
 def interface_tester():
