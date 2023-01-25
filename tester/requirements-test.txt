@@ -1,2 +1,6 @@
 pytest-subtests
 pytest
+requests
+pyyaml
+pydantic
+git+https://github.com/PietroPasotti/ops-scenario@1.0.0#egg=scenario

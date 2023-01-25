@@ -1,7 +1,7 @@
 import dataclasses
 import logging
 import tempfile
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from pathlib import Path
 from subprocess import Popen, PIPE
 from typing import Literal, List
@@ -89,4 +89,5 @@ def test_interfaces_matrix():
 
 if __name__ == '__main__':
     import pytest
+
     pytest.main()

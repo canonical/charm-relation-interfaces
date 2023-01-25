@@ -1,8 +1,8 @@
 import abc
-from typing import Literal, Union, Optional
+from typing import Literal, Optional, Union
 
 from pydantic import BaseModel
-from scenario.structs import State, Event, RelationSpec
+from scenario.structs import Event, RelationSpec, State
 
 
 class DataBagSchema(BaseModel):
@@ -15,7 +15,7 @@ class InterfaceTestCase(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def ROLE(self) -> Literal['provider', 'requirer']:
+    def ROLE(self) -> Literal["provider", "requirer"]:
         raise NotImplementedError()
 
     @property
@@ -30,7 +30,9 @@ class InterfaceTestCase(abc.ABC):
 
     @staticmethod
     def validate_schema(relation: RelationSpec, schema: DataBagSchema):
-        return schema.validate({
-            "unit": relation.local_unit_data,
-            "app": relation.local_app_data,
-        })
+        return schema.validate(
+            {
+                "unit": relation.local_unit_data,
+                "app": relation.local_app_data,
+            }
+        )

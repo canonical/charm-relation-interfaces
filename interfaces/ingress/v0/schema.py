@@ -1,7 +1,3 @@
-import json
-from typing import Dict
-from urllib.parse import urlparse
-
 import yaml
 from pydantic import BaseModel, Json, AnyHttpUrl, validator
 
