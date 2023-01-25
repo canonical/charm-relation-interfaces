@@ -1,7 +1,7 @@
-import json
 from pathlib import Path
 from typing import Optional
 
+import yaml
 from ops.charm import CharmBase
 from ops.framework import Framework
 from ops.model import BlockedStatus
@@ -24,8 +24,8 @@ class MyProvider(CharmBase):
 
     def _on_changed(self, e):
         if e.relation.data[e.relation.app].get('host'):
-            urls = json.dumps({e.relation.data[e.relation.app].get('name'): {'url': 'http://foo.com'}})
-            e.relation.data[self.app]['urls'] = urls
+            url = yaml.safe_dump({'url': 'http://foo.com'})
+            e.relation.data[self.app]['ingress'] = url
         else:
             self.unit.status = BlockedStatus('relation data invalid')
 
@@ -80,4 +80,3 @@ def test_ingress_provider(subtests):
         )
     )
     tester.run(subtests=subtests)
-
