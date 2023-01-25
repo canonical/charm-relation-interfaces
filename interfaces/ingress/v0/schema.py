@@ -11,14 +11,14 @@ class Url(BaseModel):
 
 
 class MyProviderAppData(BaseModel):
-    urls: Json[Dict[str, Url]]
+    ingress: Json[Dict[str, Url]]
 
-    @validator('urls')
-    def validate_urls(cls, urls):
-        if not urls:
+    @validator('ingress')
+    def validate_ingress(cls, ingress):
+        if not ingress:
             return
 
-        for unit_name in urls.keys():
+        for unit_name in ingress.keys():
             a, b, c = unit_name.rpartition('/')
             if not a and b and c:
                 raise ValueError(f'invalid unit name: {unit_name}')

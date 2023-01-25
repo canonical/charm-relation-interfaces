@@ -25,7 +25,6 @@ class IngressProviderTestCreated(ProviderTestCase):
         pass
 
 
-
 class IngressProviderTestJoined(ProviderTestCase):
     EVENT = 'ingress-relation-joined'
     INPUT_STATE = State()
