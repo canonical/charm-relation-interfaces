@@ -4,7 +4,7 @@ providers:
     branch: interface-tests  # HIDDEN. todo: don't expose branch to final user api
     test_setup:  # optional
       location: tests/interfaces/conftest.py  # optional; default = tests/interfaces/conftest.py
-      identifier: itester # optional; default = itester
+      identifier: interface_tester # optional; default = interface_tester
 
 consumers:
   - name: spring-music

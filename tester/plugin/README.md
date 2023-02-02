@@ -38,7 +38,7 @@ After installing the plugin via `pip`, you can use the fixture in your pytests.
 If your charm can run with Scenario all relation events without needing patching, you don't need to do this.
 Most charms, however, do things that Scenario can't or won't wrap for you. For example, make a kubernetes API call, Popen calls, send http requests, etc... In order to let your charm be scraped by the charm-relation-interfaces automated tester, you need to set up your charm to hide away all that state Scenario won't cover.
 
-If you want to expose a custom charm facade for the automated charm-relation-interfaces tester, you will have to provide a pytest fixture named `itester` at the `/tests/interfaces/conftest.py` path.
+If you want to expose a custom charm facade for the automated charm-relation-interfaces tester, you will have to provide a pytest fixture named `interface_tester` at the `/tests/interfaces/conftest.py` path.
 
 ### Facade config
 You can customize name and location of the facade, but you will need to include that data when registering your charm with the interface. In `charms.yaml`, you can then specify:
@@ -47,7 +47,7 @@ You can customize name and location of the facade, but you will need to include 
     url: https://github.com/foo/my-charm-name  # required
     test_setup:  # optional
       location: path/to/file.py  # optional; default = tests/interfaces/conftest.py
-      identifier: my_fixture_name # optional; default = itester
+      identifier: my_fixture_name # optional; default = interface_tester
 ```
 
 
@@ -58,7 +58,7 @@ from pytest_interface_tester import InterfaceTester
 from charm import MyCharmName
 
 @pytest.fixture
-def itester(interface_tester: InterfaceTester):
+def interface_tester(interface_tester: InterfaceTester):
     # this is to tell to the automated tester which charm class it should use:
     interface_tester.configure(target=MyCharmName)  
     yield interface_tester
@@ -73,7 +73,7 @@ from charm import MyCharmName
 from unittest.mock import patch
 
 @pytest.fixture
-def itester(interface_tester: InterfaceTester):
+def interface_tester(interface_tester: InterfaceTester):
     with patch("charm.KubernetesServicePatch", lambda **unused: None):
         MyCharmName.some_method = lambda self: 42
         interface_tester.configure(target=MyCharmName)  
@@ -98,8 +98,8 @@ If you provide a custom facade for your charm, you will most likely need to use 
 from pytest_interface_tester import InterfaceTester
 from charm import MyCharm
 
-def test_ingress_interface(itester: InterfaceTester):
-    itester.configure(target=MyCharm, interface_name='ingress')
-    itester.run()
+def test_ingress_interface(interface_tester: InterfaceTester):
+    interface_tester.configure(target=MyCharm, interface_name='ingress')
+    interface_tester.run()
 ```
 
