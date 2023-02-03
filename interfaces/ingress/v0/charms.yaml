@@ -1,4 +1,3 @@
 providers:
   - traefik-k8s
 consumers:
-  - spring-music
