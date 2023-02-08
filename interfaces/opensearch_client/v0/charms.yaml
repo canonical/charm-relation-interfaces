@@ -1,0 +1,3 @@
+providers:
+  - opensearch-operator
+consumers: []
