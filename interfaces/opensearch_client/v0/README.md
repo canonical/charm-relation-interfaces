@@ -14,7 +14,7 @@ flowchart TD
     Provider -- username, \npassword, \nendpoints --> Requirer
 ```
 
-As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Requirer (application charm). The Requirer will be expected to provide an index name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the index itself.
+As with all Juju relations, the `database` interface consists of two parties: a Provider (opensearch charm), and a Requirer (application charm). The Requirer will be expected to provide an index name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the index itself.
 
 ## Behavior
 
@@ -24,7 +24,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to create an application user inside the opensearch cluster when the requirer provides the `database` field.
 - Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
 - Is expected to provide the `endpoints` field containing all cluster host addresses in a comma-separated list.
-- Is expected to provide the `version` field whenever database charm wants to communicate its database version.
+- Is expected to provide the `version` field describing the installed version of opensearch.
 
 ### Requirer
 
@@ -34,7 +34,9 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.
 - Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
-  - If this is not set to a default
+  - This can be set to two values:
+    - default: this has read-write permissions over the index that has been generated for this relation.
+    - admin: this has control over the index, including how cluster roles are assigned to nodes in the cluster.
 
 ## Relation Data
 

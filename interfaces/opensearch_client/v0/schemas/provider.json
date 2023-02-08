@@ -15,7 +15,7 @@
         "username": {
             "$id": "#/properties/username",
             "title": "Database User Username",
-            "description": "Username for connecting to the requested database",
+            "description": "Username for connecting to the requested index",
             "type": "string",
             "default": "",
             "examples": [
@@ -25,21 +25,11 @@
         "password": {
             "$id": "#/properties/password",
             "title": "Database User Password",
-            "description": "Password for connecting to the requested database",
+            "description": "Password for connecting to the requested index",
             "type": "string",
             "default": "",
             "examples": [
                 "alphanum-32byte-random"
-            ]
-        },
-        "database": {
-            "$id": "#/properties/database",
-            "title": "Database Name",
-            "description": "The index name delivered by the provider. Might not be the same as requested by the requirer",
-            "type": "string",
-            "default": "",
-            "examples": [
-                "myapp"
             ]
         },
         "endpoints": {
