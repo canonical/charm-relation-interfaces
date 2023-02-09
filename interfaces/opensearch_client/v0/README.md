@@ -21,15 +21,15 @@ As with all Juju relations, the `database` interface consists of two parties: a 
 Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
 
 ### Provider
-- Is expected to create an application user inside the opensearch cluster when the requirer provides the `database` field.
-- Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
-- Is expected to provide the `endpoints` field containing all cluster host addresses in a comma-separated list.
+- Is expected to create an application user inside the opensearch cluster when the requirer provides the `index` field.
+- Is expected to provide `username` and `password` fields when Requirer provides the `index` field.
+- Is expected to provide the `hosts` field containing all cluster host addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version of opensearch.
 
 ### Requirer
 
-- Is expected to provide an index name in the `database` field.
-- Is expected to provide indentical values in the `database` field if several requirer units provide it in the relation.
+- Is expected to provide an index name in the `index` field.
+- Is expected to provide indentical values in the `index` field if several requirer units provide it in the relation.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.
@@ -44,7 +44,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-Provider provides credentials, endpoints, TLS info and database-specific fields. It should be placed in the **application** databag.
+Provider provides credentials, host addresses, TLS info and database-specific fields. It should be placed in the **application** databag.
 
 
 #### Example
@@ -53,8 +53,8 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
   - endpoint: database
     related-endpoint: database
     application-data:
-      database: myindex
-      endpoints: 10.180.162.200:9200,10.180.162.75:9200
+      index: myindex
+      hosts: 10.180.162.200:9200,10.180.162.75:9200
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
       username: opensearch-client_4_user
 ```
@@ -63,8 +63,7 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides index name in `database` unit. Should be placed in the **unit** databag
-in at least one unit of the Requirer.
+Requirer provides index name. This should be placed in the **unit** databag in at least one unit of the Requirer.
 
 #### Example
 
@@ -77,5 +76,5 @@ in at least one unit of the Requirer.
       worker-a/0:
         in-scope: true
         data:
-          database: myindex
+          index: myindex
 ```

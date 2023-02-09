@@ -6,13 +6,13 @@
     "type": "object",
     "default": {},
     "required": [
-        "database"
+        "index"
     ],
     "additionalProperties": true,
     "properties": {
-        "database": {
+        "index": {
             "title": "Index Name",
-            "description": "The database name requested by the requirer",
+            "description": "The index name requested by the requirer",
             "type": "string",
             "default": "",
             "examples": [
@@ -30,7 +30,7 @@
         }
     },
     "examples": [{
-        "database": "myapp",
+        "index": "myindex",
         "extra-user-roles": "default,admin"
     }]
 }
