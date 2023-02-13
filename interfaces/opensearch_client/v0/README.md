@@ -22,6 +22,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 - Is expected to create an application user inside the opensearch cluster when the requirer provides the `index` field.
+  - This user is removed when the relation is removed.
 - Is expected to provide `username` and `password` fields when Requirer provides the `index` field.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version of opensearch.
@@ -29,9 +30,10 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ### Requirer
 
 - Is expected to provide an index name in the `index` field.
+  - This index is NOT removed from the opensearch charm when the relation is removed.
 - Is expected to provide indentical values in the `index` field if several requirer units provide it in the relation.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
-- Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple opensearch charms.
+- Is expected to have different relations with the same interface name if Requirer needs access to multiple opensearch charms.
 - Is expected to allow multiple different charmed applications to access the same index name.
 - Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
   - This can be set to two values:
