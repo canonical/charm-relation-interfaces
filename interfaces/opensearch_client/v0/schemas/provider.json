@@ -8,7 +8,7 @@
     "required": [
         "username",
         "password",
-        "hosts"
+        "endpoints"
     ],
     "additionalProperties": true,
     "properties": {
@@ -32,10 +32,10 @@
                 "alphanum-32byte-random"
             ]
         },
-        "hosts": {
-            "$id": "#/properties/hosts",
-            "title": "Database Hosts",
-            "description": "A list of hosts used to connect to the index",
+        "endpoints": {
+            "$id": "#/properties/endpoints",
+            "title": "Database endpoints",
+            "description": "A list of endpoints used to connect to the index",
             "type": "string",
             "default": "",
             "examples": [
@@ -57,7 +57,7 @@
         "username": "opensearch-client_0_user",
         "password": "alphanum-32byte-random",
         "index": "myapp",
-        "hosts": "ip-1:port,ip-2:port",
+        "endpoints": "ip-1:port,ip-2:port",
         "version": "8.0.27-18"
     }]
 }
