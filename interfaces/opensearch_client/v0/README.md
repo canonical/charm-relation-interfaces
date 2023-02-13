@@ -31,11 +31,11 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to provide an index name in the `index` field.
 - Is expected to provide indentical values in the `index` field if several requirer units provide it in the relation.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
-- Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
-- Is expected to allow multiple different Juju applications to access the same database name.
+- Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple opensearch charms.
+- Is expected to allow multiple different charmed applications to access the same index name.
 - Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
   - This can be set to two values:
-    - default: this has read-write permissions over the index that has been generated for this relation.
+    - default: this has read-write permissions over the index that has been generated for this relation. This permission level will be applied if no value is provided.
     - admin: this has control over the index, including how cluster roles are assigned to nodes in the cluster.
 
 ## Relation Data
