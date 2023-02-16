@@ -12,7 +12,7 @@ This relation interface describes the expected behavior of any charm claiming to
 
 ```mermaid
 flowchart LR
-    Requirer -- topic, extra-user-roles --> Provider
+    Requirer -- topic, extra-user-roles, consumer-group-prefix --> Provider
     Provider -- topic, username, password, endpoints, consumer-group-prefix, zookeeper-uris --> Requirer
 ```
 
@@ -32,7 +32,7 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 - Is expected to provide the `extra-user-roles` field specifying a comma-separated list of roles for the client application (between `admin`, `consumer` and `producer`).
 - Can optionally provide the `topic` field specifying the topic that the requirer charm needs permissions to create (for `extra-user-roles=producer`), or consume (for `extra-user-roles=consumer`).
 - Is expected to tolerate that the Provider may ignore the `topic` field in some cases and instead use the topic name received.
-
+- Can optionally provide the `consumer-group-prefix` field specifying the consumer-group-prefix that the requirer charm needs permissions to consume (for `extra-user-roles=consumer`).
 
 ## Relation Data
 
@@ -72,4 +72,5 @@ Requirer provides application role and topic. It should be placed in the **appli
     application-data:
         extra-user-roles: consumer,producer
         topic: special-topic
+        consumer-group-prefix: "my-consumer-group"
 ```
