@@ -2,7 +2,7 @@
 
 ## Usage
 
-This relation interface describes the expected behaviour of any charm interfacing with the [Charmed Opensearch Operator](https://github.com/canonical/opensearch-operator) using the `opensearch-client` relation.
+This relation interface describes the expected behaviour of any charm interfacing with OpenSearch or ElasticSearch charms, such as the [Charmed OpenSearch Operator](https://github.com/canonical/opensearch-operator) using the `opensearch-client` relation.
 
 In most cases, this will be accomplished using the [data_interfaces library](https://github.com/canonical/data-platform-libs/blob/main/lib/charms/data_platform_libs/v0/data_interfaces.py), although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
@@ -10,7 +10,7 @@ In most cases, this will be accomplished using the [data_interfaces library](htt
 
 ```mermaid
 flowchart TD
-    Requirer -- database, \nextra-user-roles --> Provider
+    Requirer -- index, \nextra-user-roles --> Provider
     Provider -- username, \npassword, \nendpoints --> Requirer
 ```
 
@@ -21,21 +21,26 @@ As with all Juju relations, the `opensearch-client` interface consists of two pa
 Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
 
 ### Provider
+
 - Is expected to create an application user inside the opensearch cluster when the requirer provides the `index` field.
   - This user is removed when the relation is removed.
-- Is expected to provide `username` and `password` fields when Requirer provides the `index` field.
+  - Is expected to apply the permissions in the `extra-user-roles` provided by the Requirer to this user (e.g. `extra-user-roles=admin`).
+  - If multiple relations require the same index name, they should all be able to access it.
+- Is not expected to create an index on relation creation.
+  - Responsibility for managing an index rests with the requirer application, including creating and removing indices.
+- Is expected to provide `username` and `password` fields as Juju Secrets when Requirer provides the `index` field.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version of opensearch.
+- If the charm has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)), it is expected to provide the CA chain in the `tls-ca` field as a Juju Secret.
 
 ### Requirer
 
 - Is expected to provide an index name in the `index` field.
-  - This index is NOT removed from the opensearch charm when the relation is removed.
-- Is expected to provide identical values in the `index` field if several requirer units provide it in the relation.
-- Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
-- Is expected to have different relations with the same interface name if Requirer needs access to multiple opensearch charms.
-- Is expected to allow multiple different charmed applications to access the same index name.
-- Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
+- Is expected to manage its own index.
+  - Indices are not created on the provider application when the relation is created. The `index` field exists to grant the correct permissions for the relation user, which the requirer charm uses to control its index.
+  - This index is NOT removed from the provider charm when the relation is removed.
+- Is expected to have different relations with the same interface name if Requirer needs access to multiple opensearch indices.
+- Is expected to provide user permissions in the `extra-user-roles` field. These permissions will be applied to the user created for the relation.
   - This can be set to two values:
     - default: this has read-write permissions over the index that has been generated for this relation. This permission level will be applied if no value is provided.
     - admin: this has control over the index, including how cluster roles are assigned to nodes in the cluster.
