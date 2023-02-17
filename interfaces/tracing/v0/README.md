@@ -6,9 +6,10 @@ This relation interface is meant to exchange the necessary information for a cha
 
 ## Direction
 
-Tracing, like certain log systems, is a push-based API.  However, the directionality of the relation flows from the trace ingester (a Tempo(-compliant) backend) to the provider of traces (the applications generating metrics and traces), such as a mattermost charm.
+Tracing is a push-based system. The tracing backend, also called an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) or [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
+The tracing backend **provides**, for each protocol it supports, an endpoint at which the server is ready to accept that protocol. So the directionality of the relation flows from the observer: the trace ingester (a Tempo(-compliant) backend), to the observed: the application producing the traces, such as a mattermost charm.
 
-The trace ingester exposes the tracing backend at which traces can be forwarded by the requirer; the requirer receives that data and uses it to determine where to send the traces.
+The requirer is supposed to receive the supported protocols and use it to determine where to send the traces.
 
 This follows the convention of other push models such as `loki_push_api`.
 
@@ -16,19 +17,21 @@ We call the data structure that is exchanged via this interface 'tracing backend
 
 ```mermaid
 flowchart LR
-    Provider -- tracing-backend --> Requirer
+    Provider -- TracingBackend --> Requirer
 ```
 
 ## Behavior
 ### Provider
 
 - Is expected to publish the hostname at which the server is reachable.
-- Is expected to publish, for each protocol it accepts, the port at which the server is listening.
+- Is expected to run a server supporting one or more tracing protocols such as [OTLP](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification).
+- Is expected to publish via relation data, for each protocol it accepts, the port at which the server is listening.
+
 
 ### Requirer
 
 - Is expected to push traces to one or more of the supported endpoints.
-- Is expected to handle cases where the ingester ports do not contain a supported ingester type, for instance by blocking. 
+- Is expected to handle cases where none of the protocols offered by the provider is supported. 
 
 ## Relation Data
 ### Provider
