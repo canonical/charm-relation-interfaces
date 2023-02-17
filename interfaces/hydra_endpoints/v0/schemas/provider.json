@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/hydra_endpoints/schemas/provider.json",
+    "title": "`hydra_endpoints` provider schema",
+    "description": "The `hydra_endpoints` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "type": "object",
+    "properties": {
+        "application_data": {
+            "type": "object",
+            "properties": {
+                "admin_endpoint": {
+                    "type": "string"
+                },
+                "public_endpoint": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "admin_endpoint",
+                "public_endpoint"
+            ]
+        }
+    },
+    "required": [
+        "application_data"
+    ]
+}

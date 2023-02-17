@@ -1,0 +1,4 @@
+providers:
+  - hydra-operator
+consumers:
+  - kratos-operator
