@@ -2,7 +2,7 @@
 
 ## Usage
 
-This relation interface describes the expected behaviour of any charm interfacing with OpenSearch or ElasticSearch charms, such as the [Charmed OpenSearch Operator](https://github.com/canonical/opensearch-operator) using the `opensearch-client` relation.
+This relation interface describes the expected behaviour of any charm interfacing with OpenSearch or ElasticSearch charms, such as the [Charmed OpenSearch Operator](https://github.com/canonical/opensearch-operator) using the `opensearch-client` relation.  This interface is likely to satisfy the requirements of any ElasticSearch API-compatible application, but feel free to [open a PR](https://github.com/canonical/charm-relation-interfaces/pulls) to modify this document if it doesn't meet your requirements.
 
 In most cases, this will be accomplished using the [data_interfaces library](https://github.com/canonical/data-platform-libs/blob/main/lib/charms/data_platform_libs/v0/data_interfaces.py), although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
