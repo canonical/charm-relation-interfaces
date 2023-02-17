@@ -21,7 +21,7 @@ while the requirer will just consume the information.
 
 ```mermaid
 flowchart
-    Requirer -- --> Provider
+    Requirer ----> Provider
     Provider -- hydra_admin_endpoint, hydra_public_endpoint --> Requirer
 ```
 
