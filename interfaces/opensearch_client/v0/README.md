@@ -28,9 +28,9 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
   - If multiple relations require the same index name, they should all be able to access it.
 - Is not expected to create an index on relation creation.
   - Responsibility for managing an index rests with the requirer application, including creating and removing indices.
-- Is expected to provide `username` and `password` fields as Juju Secrets when Requirer provides the `index` field.
+- Is expected to provide unique `username` and `password` fields as Juju Secrets when Requirer provides the `index` field.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
-- Is expected to provide the `version` field describing the installed version of opensearch.
+- Is expected to provide the `version` field describing the installed version number of opensearch.
 - If the charm has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)), it is expected to provide the CA chain in the `tls-ca` field as a Juju Secret.
 
 ### Requirer
@@ -41,9 +41,10 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
   - This index is NOT removed from the provider charm when the relation is removed.
 - Is expected to have different relations with the same interface name if Requirer needs access to multiple opensearch indices.
 - Is expected to provide user permissions in the `extra-user-roles` field. These permissions will be applied to the user created for the relation.
-  - This can be set to two values:
+  - These permissions can be set to two values:
     - default: this has read-write permissions over the index that has been generated for this relation. This permission level will be applied if no value is provided.
     - admin: this has control over the index, including how cluster roles are assigned to nodes in the cluster.
+  - Specifics of how these permissions are implemented have been left to the provider charm developers, since they vary slightly between opensearch API-compliant applications.
 
 ## Relation Data
 
@@ -51,7 +52,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-Provider provides credentials, endpoint addresses, TLS info and database-specific fields. It should be placed in the **application** databag.
+Provider provides credentials, endpoint addresses, TLS info and index-specific fields. It should be placed in the **application** databag.
 
 
 #### Example
