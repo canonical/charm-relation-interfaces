@@ -41,9 +41,9 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
   - This index is NOT removed from the provider charm when the relation is removed.
 - Is expected to have different relations with the same interface name if Requirer needs access to multiple opensearch indices.
 - Is expected to provide user permissions in the `extra-user-roles` field. These permissions will be applied to the user created for the relation.
-  - These permissions can be set to two values:
-    - default: this has read-write permissions over the index that has been generated for this relation. This permission level will be applied if no value is provided.
-    - admin: this has control over the index, including how cluster roles are assigned to nodes in the cluster.
+  - This value can be empty, in which case a default will be applied, or it can be set to `admin`:
+    - default: this has read-write permissions over the index that has been generated for this relation.
+    - admin: this has control over the cluster, including creating new indices and setting cluster node roles.
   - Specifics of how these permissions are implemented have been left to the provider charm developers, since they vary slightly between opensearch API-compliant applications.
 
 ## Relation Data
@@ -61,7 +61,6 @@ Provider provides credentials, endpoint addresses, TLS info and index-specific f
   - endpoint: opensearch-client
     related-endpoint: opensearch-app-consumer
     application-data:
-      index: myindex
       endpoints: 10.180.162.200:9200,10.180.162.75:9200
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
       username: opensearch-client_4_user
