@@ -52,7 +52,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-Provider provides credentials, endpoint addresses, TLS info and index-specific fields. It should be placed in the **application** databag.
+Provider provides credentials, endpoint addresses, TLS info and index-specific fields in the **application** databag.
 
 
 #### Example
