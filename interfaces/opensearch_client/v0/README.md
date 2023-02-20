@@ -71,7 +71,7 @@ Provider provides credentials, endpoint addresses, TLS info and index-specific f
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides index name. This should be placed in the **unit** databag in at least one unit of the Requirer.
+Requirer provides the index name in its **unit** databag.
 
 #### Example
 
