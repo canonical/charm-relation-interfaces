@@ -43,10 +43,10 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ```json
 {
-"application_data": {
-  "admin_endpoint": "admin-endpoint",
-  "public_endpoint": "public-endpoint"
-}
+  "application_data": {
+    "admin_endpoint": "admin-endpoint",
+    "public_endpoint": "public-endpoint"
+  }
 }
 ```
 
