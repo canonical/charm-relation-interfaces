@@ -20,16 +20,15 @@ flowchart
 ## Behavior
 
 Both the requirer and the provider need to adhere to a certain set of criteria to be considered compatible with the interface:
-- The provider must be able to supply admin and public endpoints
-- There are no criteria for the requirer as it's supposed to just consume the relation data.
 
 ### Provider
 
+- Is expected to serve admin and public API endpoints 
 - Is expected to write the public and admin URLs to the application databag.
 
 ### Requirer
 
-- Is expected to consume the relation data.
+- Is expected to consume the relation data by updating its config file with the received endpoints.
 
 ## Relation Data
 
