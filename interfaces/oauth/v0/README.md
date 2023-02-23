@@ -16,7 +16,7 @@ The consumer is a charm that wishes to act as a oauth2 client, and the provider 
 ```mermaid
 flowchart TD
     Requirer -- redirect_uri, audience, scope, grant_types, token_endpoint_auth_method --> Provider
-    Provider -- issuer_url, authentication_endpoint, token_endpoint, userinfo_endpoint, introspection_endpoint, jwks_endpoint, client_id, client_secret_id, scope, groups, ca_chain --> Requirer
+    Provider -- issuer_url, authentication_endpoint, token_endpoint, userinfo_endpoint, introspection_endpoint, jwks_endpoint, client_id, client_secret_id, scope, groups --> Requirer
 ```
 
 ## Behavior
@@ -31,7 +31,6 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 - Is expected to register a client and provide the client_id in the databag.
 - Is expected to register a client, place the client_secret in a juju secret and provide the juju secret ID in the databag (client_secret_id).
 - Is expected to provide the groups claim, if one is available.
-- Is expected to provide the ca chain, if it is needed for the client to trust the provider’s certificate.
 
 ### Requirer
 

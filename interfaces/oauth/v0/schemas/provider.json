@@ -96,12 +96,6 @@
                     "title": "Groups Claim Name",
                     "description": "The name of the claim that represents the user's groups",
                     "default": null
-                },
-                "ca_chain": {
-                    "type": "string",
-                    "title": "Certificate Authority Chain",
-                    "description": "The CA chain, must be present only if it is needed for the requirer to trust the provider's TLS certificate",
-                    "default": null
                 }
             },
             "required": [
