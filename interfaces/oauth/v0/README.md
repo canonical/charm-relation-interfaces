@@ -32,6 +32,8 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 - Is expected to register a client, place the client_secret in a juju secret and provide the juju secret ID in the databag (client_secret_id).
 - Is expected to provide the groups claim, if one is available.
 
+As mentioned above the field client_secret_id holds the id of a Juju Secret, this means that the charms implementing the relation must be running on Juju >3 in order be able to use Juju secrets.
+
 ### Requirer
 
 - Is expected to provide a user accessible redirect_uri using the HTTPS scheme.
