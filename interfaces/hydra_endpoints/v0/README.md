@@ -1,8 +1,10 @@
 # `hydra_endpoints`
 
-## Usage
+## Overview
 
 This relation interface describes the expected behavior of charms claiming to be able to provide or consume a hydra endpoint.
+
+## Usage
 
 The interface will provide admin and public endpoints, in case any other charm belonging to the IAM bundle requires them both.
 
@@ -28,7 +30,7 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Requirer
 
-- Is expected to consume the relation data by updating its config file with the received endpoints.
+- Is expected to consume the relation data to set up integration with Hydra.
 
 ## Relation Data
 
