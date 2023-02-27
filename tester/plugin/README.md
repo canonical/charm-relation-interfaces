@@ -60,7 +60,7 @@ from charm import MyCharmName
 @pytest.fixture
 def interface_tester(interface_tester: InterfaceTester):
     # this is to tell to the automated tester which charm class it should use:
-    interface_tester.configure(target=MyCharmName)  
+    interface_tester.configure(charm_type=MyCharmName)  
     yield interface_tester
 ```
 
@@ -76,7 +76,7 @@ from unittest.mock import patch
 def interface_tester(interface_tester: InterfaceTester):
     with patch("charm.KubernetesServicePatch", lambda **unused: None):
         MyCharmName.some_method = lambda self: 42
-        interface_tester.configure(target=MyCharmName)  
+        interface_tester.configure(charm_type=MyCharmName)  
         yield interface_tester
 ```
 
@@ -88,7 +88,7 @@ from pytest_interface_tester import InterfaceTester
 from charm import MyCharm
 
 def test_ingress_interface(interface_tester: InterfaceTester):
-    interface_tester.configure(target=MyCharm, interface_name='ingress')
+    interface_tester.configure(charm_type=MyCharm, interface_name='ingress')
     interface_tester.run()
 ```
 
@@ -99,7 +99,7 @@ from pytest_interface_tester import InterfaceTester
 from charm import MyCharm
 
 def test_ingress_interface(interface_tester: InterfaceTester):
-    interface_tester.configure(target=MyCharm, interface_name='ingress')
+    interface_tester.configure(charm_type=MyCharm, interface_name='ingress')
     interface_tester.run()
 ```
 

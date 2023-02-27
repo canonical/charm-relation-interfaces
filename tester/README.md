@@ -30,6 +30,6 @@ from charm import MyCharm
 
 def test_all_interfaces(interface_tester: InterfaceTester):
     with patch('charm.KubernetesAPI', lambda **unused: None):
-      interface_tester.configure(charm=MyCharm)
+      interface_tester.configure(charm_type=MyCharm)
       interface_tester.run()
 ```

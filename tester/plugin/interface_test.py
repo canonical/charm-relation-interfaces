@@ -2,7 +2,7 @@ import abc
 from typing import Literal, Optional, Union
 
 from pydantic import BaseModel
-from scenario.structs import Event, RelationSpec, State
+from scenario import Event, Relation, State
 
 
 class DataBagSchema(BaseModel):
@@ -29,7 +29,7 @@ class InterfaceTestCase(abc.ABC):
         raise NotImplementedError("validate")
 
     @staticmethod
-    def validate_schema(relation: RelationSpec, schema: DataBagSchema):
+    def validate_schema(relation: Relation, schema: DataBagSchema):
         return schema.validate(
             {
                 "unit": relation.local_unit_data,
