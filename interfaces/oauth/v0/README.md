@@ -43,8 +43,6 @@ As mentioned above the field client_secret_id holds the id of a Juju Secret, thi
 
 ## Relation Data
 
-Describe the contents of the databags and provide schemas for them.
-
 ### Provider
 
 [\[JSON Schema\]](./schemas/provider.json)
