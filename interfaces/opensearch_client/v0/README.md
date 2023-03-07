@@ -46,7 +46,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
     - default: this has read-write permissions over the index that has been generated for this relation.
     - admin: this has control over the cluster, including creating new indices and setting cluster node roles.
   - Specifics of how these permissions are implemented have been left to the provider charm developers, since they vary slightly between opensearch API-compliant applications.
-- Is expected to tolerate that the Provider may ignore the `index` field in some cases and instead use the database name received.
+- Is expected to tolerate that the Provider may ignore the `index` field in some cases and instead use the index name received.
 
 ## Relation Data
 
