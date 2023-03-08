@@ -28,6 +28,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
   - If multiple relations require the same index name, they should all be able to access it.
 - Is not expected to create an index on relation creation.
   - Responsibility for managing an index rests with the requirer application, including creating and removing indices.
+- Is expected to provide the `index` field with the index that has been made available to the Requirer.
 - Is expected to provide unique `username` and `password` fields as Juju Secrets when Requirer provides the `index` field.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
@@ -45,6 +46,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
     - default: this has read-write permissions over the index that has been generated for this relation.
     - admin: this has control over the cluster, including creating new indices and setting cluster node roles.
   - Specifics of how these permissions are implemented have been left to the provider charm developers, since they vary slightly between opensearch API-compliant applications.
+- Is expected to tolerate that the Provider may ignore the `index` field in some cases and instead use the index name received.
 
 ## Relation Data
 

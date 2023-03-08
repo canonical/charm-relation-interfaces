@@ -6,12 +6,23 @@
     "type": "object",
     "default": {},
     "required": [
+        "index",
         "username",
         "password",
         "endpoints"
     ],
     "additionalProperties": true,
     "properties": {
+        "index": {
+            "$id": "#/properties/index",
+            "title": "Relation Index",
+            "description": "Index that has been made available to the relation user. Name defined in the Requirer's index field.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "myindex"
+            ]
+        },
         "username": {
             "$id": "#/properties/username",
             "title": "Relation User Username",
