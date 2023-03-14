@@ -1,9 +1,6 @@
 providers:
-  - name: traefik-k8s  # charm name; required
-    url: https://github.com/canonical/traefik-k8s-operator  # repo to clone; required
-    test_setup:  # optional
-      location: tests/interfaces/conftest.py  # optional; default = tests/interfaces/conftest.py
-      identifier: interface_tester # optional; default = interface_tester
+  - name: traefik-k8s
+    url: https://github.com/canonical/traefik-k8s-operator
 
 consumers:
   - name: grafana-k8s
