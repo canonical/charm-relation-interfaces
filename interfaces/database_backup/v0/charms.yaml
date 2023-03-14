@@ -1,3 +1,4 @@
 providers: []
 consumers:
-  - database_backup_manager
+  - name: database_backup_manager
+    url: todo # TODO

@@ -1,10 +1,19 @@
 providers:
-  - vault
-  - tls-certificates-operator
-requirers:
-  - keystone
-  - nova-cloud
-  - cinder
-  - neutron
-  - glance
-  - charm-ceph-dashboard
+  - name: vault
+    url: todo # TODO
+  - name: tls-certificates-operator
+    url: https://www.github.com/canonical/tls-certificates-operator
+
+consumers:
+  - name: keystone
+    url: todo # TODO
+  - name: nova-cloud
+    url: todo # TODO
+  - name: cinder
+    url: todo # TODO
+  - name: neutron
+    url: todo # TODO
+  - name: glance
+    url: todo # TODO
+  - name: charm-ceph-dashboard
+    url: todo # TODO

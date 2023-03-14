@@ -1,4 +1,16 @@
 providers:
-  - list of reference charms using the provider side
-consumers:
-  - list of reference charms using the consumer side
+  # list of charms using this interface as providers
+  - name: charm-using-the-provider-side
+    url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone; required
+
+    # interface tester parameters
+    test_setup:  # optional
+      # where to find the interface tester configuration fixture
+      location: tests/interfaces/conftest.py  # optional; default = tests/interfaces/conftest.py
+      # the python identifier (name) of the interface tester configuration fixture to load
+      identifier: interface_tester # optional; default = interface_tester
+
+
+# list of charms using this interface as consumers.
+# same structure as providers
+consumers: []
