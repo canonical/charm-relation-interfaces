@@ -1,19 +1,19 @@
 providers:
   - name: vault
-    url: todo # TODO
+    url: https://www.github.com/openstack/charm-vault
   - name: tls-certificates-operator
     url: https://www.github.com/canonical/tls-certificates-operator
 
 consumers:
   - name: keystone
-    url: todo # TODO
-  - name: nova-cloud
-    url: todo # TODO
+    url: https://www.github.com/openstack/charm-keystone
+  - name: nova-cloud-controller
+    url: https://www.github.com/openstack/charm-nova-cloud-controller
   - name: cinder
-    url: todo # TODO
-  - name: neutron
-    url: todo # TODO
+    url: https://www.github.com/openstack/charm-cinder
+  - name: neutron-api
+    url: https://www.github.com/openstack/charm-neutron-api
   - name: glance
-    url: todo # TODO
+    url: https://www.github.com/openstack/charm-glance
   - name: charm-ceph-dashboard
-    url: todo # TODO
+    url: https://www.github.com/openstack/charm-ceph-dashboard
