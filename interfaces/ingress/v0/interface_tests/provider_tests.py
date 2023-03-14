@@ -1,4 +1,4 @@
-from scenario.structs import State, relation
+from scenario import State, Relation
 
 from interface_test import InterfaceTestCase
 
@@ -44,7 +44,7 @@ class IngressProviderTestJoined(ProviderTestCase):
 class IngressProviderTestChangedValid(ProviderTestCase):
     EVENT = 'ingress-relation-changed'
     INPUT_STATE = State(
-        relations=[relation(
+        relations=[Relation(
             # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
             #  perhaps input state is too general: we only need this relation meta:
             endpoint='ingress',
@@ -70,7 +70,7 @@ class IngressProviderTestChangedValid(ProviderTestCase):
 
 class IngressProviderTestChangedInvalid(ProviderTestCase):
     EVENT = 'ingress-relation-changed'
-    INPUT_STATE = State(relations=[relation(
+    INPUT_STATE = State(relations=[Relation(
         # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
         #  perhaps input state is too general: we only need this relation meta:
         endpoint='ingress',

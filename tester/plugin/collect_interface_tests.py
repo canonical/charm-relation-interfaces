@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple, Type, TypedDict
 
 import yaml
-from scenario.structs import State
+from scenario import State
 
 from interface_test import DataBagSchema, InterfaceTestCase
 

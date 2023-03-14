@@ -20,14 +20,14 @@ setup(
     maintainer="Pietro Pasotti",
     maintainer_email="pietro.pasotti@canonical.com",
     license="GNU GPL v3.0",
-    url="https://github.com/PietroPasotti/pytest-interface-tester",
+    url="https://github.com/canonical/charm-relation-interfaces/tree/tester/plugin",
     description="Pytest plugin to test charm relation interfaces.",
     long_description=read("README.md"),
     py_modules=["pytest_interface_tester"],
     python_requires=">=3.5",
     install_requires=[
         "pytest>=3.5.0",
-        # "scenario"  # it needs ops-scenario, but that's not on pip. install it manually.
+        "ops-scenario"
     ],
     classifiers=[
         "Development Status :: 4 - Beta",

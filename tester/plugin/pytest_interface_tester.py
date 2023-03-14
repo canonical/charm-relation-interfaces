@@ -239,7 +239,7 @@ class InterfaceTester:
 
     def _yield_tests(
             self,
-    ) -> Generator[Tuple["InterfaceTestCase", "DataBagSchema", Event, State]]:
+    ) -> Generator[Tuple["InterfaceTestCase", "DataBagSchema", Event, State], None, None]:
         """Yield all test cases applicable to this charm and interface.
 
         This means:

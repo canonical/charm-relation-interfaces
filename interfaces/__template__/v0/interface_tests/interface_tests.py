@@ -1,8 +1,6 @@
 # in order to write these tests, you should install "scenario", the scenario-based testing lib for ops.
 # That will provide you completion and documentation for using the State object.
-# at the time of writing, that can only be installed from sources (build a wheel from https://github.com/PietroPasotti/ops-scenario/tree/stripped)
-# todo: as soon as https://github.com/canonical/operator/pull/887 merges, update this.
-from scenario.structs import State, network, NetworkSpec, relation
+from scenario import State, Network
 
 # this is an ABC: it will guide you through implementing all required attributes and methods.
 from tester.plugin.interface_test import InterfaceTestCase
@@ -25,10 +23,11 @@ class MyInterfaceProviderCreatedTest(InterfaceTestCase):
     #  in order to function, you could:
     INPUT_STATE = State(
         networks=[
-            NetworkSpec(
+            Network(
                 name='my-network',
-                bind_id=0,
-                network=network(egress_subnets=("1.1.1.42/42",))
+                bind_addresses=[],
+                ingress_addresses=[],
+                egress_subnets=["1.1.1.42/42"]
             )
         ]
     )

@@ -1,4 +1,4 @@
-from scenario.structs import State
+from scenario import State
 
 from interface_test import InterfaceTestCase
 

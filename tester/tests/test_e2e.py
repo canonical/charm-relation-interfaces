@@ -1,11 +1,11 @@
 from pathlib import Path
-from typing import Optional
 
 import yaml
 from ops.charm import CharmBase
 from ops.framework import Framework
 from ops.model import BlockedStatus
-from scenario.structs import CharmSpec, State
+from scenario import State
+
 
 from collect_interface_tests import InterfaceTestSpec, gather_test_spec_for_version
 from pytest_interface_tester import InterfaceTester
@@ -53,7 +53,8 @@ class TestingInterfaceTester(InterfaceTester):
 def test_ingress_requirer(subtests):
     tester = TestingInterfaceTester()
     tester.configure(
-        target=CharmSpec(charm_type=MyRequirer, meta=MyRequirer.META),
+        charm_type=MyRequirer,
+        meta=MyRequirer.META,
         interface_name="ingress",
         state_template=State(leader=True),
     )
@@ -63,7 +64,8 @@ def test_ingress_requirer(subtests):
 def test_ingress_provider(subtests):
     tester = TestingInterfaceTester()
     tester.configure(
-        target=CharmSpec(charm_type=MyProvider, meta=MyProvider.META),
+        charm_type=MyProvider,
+        meta=MyProvider.META,
         interface_name="ingress",
         state_template=State(leader=True),
     )
