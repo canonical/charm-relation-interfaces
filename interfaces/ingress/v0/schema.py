@@ -1,3 +1,5 @@
+# Copyright 2023 Canonical
+# See LICENSE file for licensing details.
 """This file defines the schemas for the provider and consumer sides of the ingress interface.
 
 It exposes two interfaces.schema_base.DataBagSchema subclasses called:
