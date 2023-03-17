@@ -1,52 +1,35 @@
 from scenario import State, Relation
 
-from interface_test import InterfaceTestCase
+from interface_test import interface_test_case, SchemaConfig
 
 
-class ProviderTestCase(InterfaceTestCase):
-    ROLE = 'provider'
+@interface_test_case(
+    event='ingress-relation-created',
+    role='provider',
+    schema=SchemaConfig.empty
+)
+def test_no_data_on_created(output_state: State):
+    # nothing happens on created: databags are empty
+    return
 
 
-class IngressProviderTestCreated(ProviderTestCase):
-    EVENT = 'ingress-relation-created'
-    INPUT_STATE = State()
-
-    # nothing happens on created
-
-    @staticmethod
-    def validate(output_state: State):
-        relation = output_state.relations[0]
-        assert not relation.local_app_data
-        assert not relation.local_unit_data
-
-    # TODO: document this pattern to suppress schema validation i.e. if it's expected to be empty.
-
-    def validate_schema(relation, schema):
-        pass
+@interface_test_case(
+    event='ingress-relation-joined',
+    role='provider',
+    schema=SchemaConfig.empty
+)
+def test_no_data_on_joined(output_state: State):
+    # nothing happens on joined: databags are empty
+    return
 
 
-class IngressProviderTestJoined(ProviderTestCase):
-    EVENT = 'ingress-relation-joined'
-    INPUT_STATE = State()
-
-    # nothing happens on joined
-
-    @staticmethod
-    def validate(output_state: State):
-        relation = output_state.relations[0]
-        assert not relation.local_app_data
-        assert not relation.local_unit_data
-
-    def validate_schema(relation, schema):
-        pass
-
-
-class IngressProviderTestChangedValid(ProviderTestCase):
-    EVENT = 'ingress-relation-changed'
-    INPUT_STATE = State(
+@interface_test_case(
+    event='ingress-relation-changed',
+    role='provider',
+    input_state=State(
         relations=[Relation(
             # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
-            #  perhaps input state is too general: we only need this relation meta:
+            #  perhaps input state is too general: we only need this relation's db contents:
             endpoint='ingress',
             interface='ingress',
             remote_app_name='remote',
@@ -58,21 +41,15 @@ class IngressProviderTestChangedValid(ProviderTestCase):
             }
         )]
     )
-
-    # on changed, if the remote side has sent valid data: our side is populated.
-
-    @staticmethod
-    def validate(output_state: State):
-        relation = output_state.relations[0]
-        assert not relation.local_unit_data
-        assert relation.local_app_data
+)
+def test_data_published_on_changed_remote_valid(output_state: State):
+    return  # schema validation is enough for now
 
 
-class IngressProviderTestChangedInvalid(ProviderTestCase):
-    EVENT = 'ingress-relation-changed'
-    INPUT_STATE = State(relations=[Relation(
-        # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
-        #  perhaps input state is too general: we only need this relation meta:
+@interface_test_case(
+    event='ingress-relation-changed',
+    role='provider',
+    input_state=State(relations=[Relation(
         endpoint='ingress',
         interface='ingress',
         remote_app_name='remote',
@@ -81,16 +58,9 @@ class IngressProviderTestChangedInvalid(ProviderTestCase):
             'bubble': 'rubble'
         }
     )]
-    )
-
+    ),
+    schema=SchemaConfig.empty
+)
+def test_data_published_on_changed_remote_invalid(output_state: State):
     # on changed, if the remote side has sent INvalid data: local side didn't publish anything either.
-
-    @staticmethod
-    def validate(output_state: State):
-        relation = output_state.relations[0]
-        assert not relation.local_app_data
-        assert not relation.local_unit_data
-
-    def validate_schema(relation, schema):
-        pass
-
+    return

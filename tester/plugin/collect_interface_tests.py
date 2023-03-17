@@ -14,13 +14,11 @@ from typing import List, Optional, Tuple, Type, TypedDict
 import yaml
 from scenario import State
 
-from interface_test import DataBagSchema, _InterfaceTestCase, REGISTERED_TEST_CASES, Role
+from interface_test import DataBagSchema, _InterfaceTestCase, REGISTERED_TEST_CASES, Role, SchemaConfig
 
 ROOT = Path(__file__).parent.parent.parent
 
 logger = logging.getLogger("interface_tests_checker")
-
-
 
 _NotFound = object()
 
@@ -51,7 +49,7 @@ def _try_load_and_decode(file: Path, decoder, default_factory=dict):
 
 
 def _gather_schema_for_version(
-    version_dir: Path,
+        version_dir: Path,
 ) -> Tuple[Optional[Type[DataBagSchema]], Optional[Type[DataBagSchema]]]:
     schema_location = version_dir / "schema.py"
 
@@ -121,7 +119,7 @@ def _gather_test_cases_for_version(version_dir: Path, interface_name: str, versi
     return provider_test_cases, requirer_test_cases
 
 
-def gather_test_spec_for_version(version_dir: Path, interface_name:str, version:int) -> InterfaceTestSpec:
+def gather_test_spec_for_version(version_dir: Path, interface_name: str, version: int) -> InterfaceTestSpec:
     provider_test_cases, requirer_test_cases = _gather_test_cases_for_version(
         version_dir, interface_name, version
     )
@@ -142,7 +140,7 @@ def gather_test_spec_for_version(version_dir: Path, interface_name:str, version:
     }
 
 
-def _gather_tests_for_interface(interface_dir: Path, interface_name:str):
+def _gather_tests_for_interface(interface_dir: Path, interface_name: str):
     tests = {}
     for version_dir in interface_dir.glob("v*"):
         try:
@@ -158,7 +156,7 @@ def collect_tests(root: Path = ROOT, include: str = "*"):
     tests = {}
     for interface_dir in (root / "interfaces").glob(include):
         interface_dir_name = interface_dir.name
-        if interface_dir_name == "__template__":
+        if interface_dir_name.startswith("__"):  # ignore __template__ and python-dirs
             continue  # skip
         interface_name = interface_dir_name.replace("-", "_")
         tests[interface_name] = _gather_tests_for_interface(interface_dir, interface_name)
@@ -171,7 +169,8 @@ def pprint_tests(include="*"):
 
     def pprint_case(case: _InterfaceTestCase):
         state = "yes" if case.input_state else "no"
-        print(f"      - {case.name}:: {case.event} (state={state})")
+        schema_config = case.schema if isinstance(case.schema, SchemaConfig) else "custom"
+        print(f"      - {case.name}:: {case.event} (state={state}, schema={schema_config})")
 
     for interface, versions in tests.items():
         if not versions:
@@ -190,7 +189,7 @@ def pprint_tests(include="*"):
                 tests = test_spec["tests"]
                 schema = test_spec["schema"]
                 print(f"   - {role}:")
-                for module, test_cls in tests:
+                for test_cls in tests:
                     pprint_case(test_cls)
                 if not tests:
                     print(f"     - <no tests>")
@@ -211,7 +210,7 @@ def pprint_tests(include="*"):
 
                         custom_test_setup = "yes" if charm.get("test_setup") else "no"
                         print(
-                            f'       - {charm["name"]} ({charm.get("url", "NO URL")[:10]}) '
+                            f'       - {charm["name"]} ({charm.get("url", "NO URL")}) '
                             f"custom_test_setup={custom_test_setup}"
                         )
 
@@ -222,4 +221,6 @@ def pprint_tests(include="*"):
 
 
 if __name__ == "__main__":
+    collect_tests(include='ingress')
+
     pprint_tests(include="*")
