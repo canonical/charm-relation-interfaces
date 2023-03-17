@@ -1,0 +1,6 @@
+pytest-subtests
+pytest
+requests
+pyyaml
+pydantic
+ops-scenario

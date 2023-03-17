@@ -271,7 +271,7 @@
                                                                 },
                                                                 "juju_model": {
                                                                     "$id": "#/properties/groups/items/anyOf/0/properties/rules/items/anyOf/0/properties/labels/properties/juju_model",
-                                                                    "type": "string",
+                                                                    "type":relation "string",
                                                                     "title": "Juju Model",
                                                                     "description": "The name of the Juju model the alert applies to.",
                                                                     "default": "",
