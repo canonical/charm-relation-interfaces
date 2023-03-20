@@ -25,10 +25,7 @@ setup(
     long_description=read("README.md"),
     py_modules=["pytest_interface_tester"],
     python_requires=">=3.5",
-    install_requires=[
-        "pytest>=3.5.0",
-        "ops-scenario"
-    ],
+    install_requires=["pytest>=3.5.0", "ops-scenario"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Pytest",

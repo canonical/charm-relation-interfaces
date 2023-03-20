@@ -6,7 +6,6 @@ from ops.framework import Framework
 from ops.model import BlockedStatus
 from scenario import State
 
-
 from collect_interface_tests import InterfaceTestSpec, gather_test_spec_for_version
 from pytest_interface_tester import InterfaceTester
 
@@ -44,9 +43,14 @@ class MyRequirer(CharmBase):
 
 
 class TestingInterfaceTester(InterfaceTester):
-    def _fetch_tests(self, interface_name, version: int = 0) -> InterfaceTestSpec:
+    def _collect_interface_test_specs(self) -> InterfaceTestSpec:
         return gather_test_spec_for_version(
-            PROJECT_ROOT / "interfaces" / interface_name / f"v{version}"
+            PROJECT_ROOT
+            / "interfaces"
+            / self._interface_name
+            / f"v{self._interface_version}",
+            self._interface_name,
+            self._interface_version,
         )
 
 
@@ -58,6 +62,7 @@ def test_ingress_requirer(subtests):
         interface_name="ingress",
         state_template=State(leader=True),
     )
+    assert list(tester._yield_tests()), "no tests ran"
     tester.run(subtests=subtests)
 
 
@@ -69,4 +74,5 @@ def test_ingress_provider(subtests):
         interface_name="ingress",
         state_template=State(leader=True),
     )
+    assert list(tester._yield_tests()), "no tests ran"
     tester.run(subtests=subtests)

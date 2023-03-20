@@ -14,7 +14,13 @@ from typing import List, Optional, Tuple, Type, TypedDict
 import yaml
 from scenario import State
 
-from interface_test import DataBagSchema, _InterfaceTestCase, REGISTERED_TEST_CASES, Role, SchemaConfig
+from interface_test import (
+    REGISTERED_TEST_CASES,
+    DataBagSchema,
+    Role,
+    SchemaConfig,
+    _InterfaceTestCase,
+)
 
 ROOT = Path(__file__).parent.parent.parent
 
@@ -49,7 +55,7 @@ def _try_load_and_decode(file: Path, decoder, default_factory=dict):
 
 
 def _gather_schema_for_version(
-        version_dir: Path,
+    version_dir: Path,
 ) -> Tuple[Optional[Type[DataBagSchema]], Optional[Type[DataBagSchema]]]:
     schema_location = version_dir / "schema.py"
 
@@ -89,7 +95,9 @@ def _gather_charms_for_version(version_dir: Path):
     return _try_load_and_decode(charms_yaml, yaml.safe_load)
 
 
-def _gather_test_cases_for_version(version_dir: Path, interface_name: str, version: int):
+def _gather_test_cases_for_version(
+    version_dir: Path, interface_name: str, version: int
+):
     interface_tests_dir = version_dir / "interface_tests"
 
     provider_test_cases = []
@@ -108,8 +116,12 @@ def _gather_test_cases_for_version(version_dir: Path, interface_name: str, versi
                 logger.error(f"Failed to load module {possible_test_file}: {e}")
                 continue
 
-            provider_test_cases.extend(REGISTERED_TEST_CASES[(interface_name, version, Role.provider)])
-            requirer_test_cases.extend(REGISTERED_TEST_CASES[(interface_name, version, Role.requirer)])
+            provider_test_cases.extend(
+                REGISTERED_TEST_CASES[(interface_name, version, Role.provider)]
+            )
+            requirer_test_cases.extend(
+                REGISTERED_TEST_CASES[(interface_name, version, Role.requirer)]
+            )
 
         if not (requirer_test_cases or provider_test_cases):
             logger.error(f"no valid test case files found in {interface_tests_dir}")
@@ -119,7 +131,9 @@ def _gather_test_cases_for_version(version_dir: Path, interface_name: str, versi
     return provider_test_cases, requirer_test_cases
 
 
-def gather_test_spec_for_version(version_dir: Path, interface_name: str, version: int) -> InterfaceTestSpec:
+def gather_test_spec_for_version(
+    version_dir: Path, interface_name: str, version: int
+) -> InterfaceTestSpec:
     provider_test_cases, requirer_test_cases = _gather_test_cases_for_version(
         version_dir, interface_name, version
     )
@@ -146,9 +160,13 @@ def _gather_tests_for_interface(interface_dir: Path, interface_name: str):
         try:
             version_n = int(version_dir.name[1:])
         except TypeError:
-            logger.error(f'Unable to parse version {version_dir.name} as an integer. Skipping...')
+            logger.error(
+                f"Unable to parse version {version_dir.name} as an integer. Skipping..."
+            )
             continue
-        tests[version_dir.name] = gather_test_spec_for_version(version_dir, interface_name, version_n)
+        tests[version_dir.name] = gather_test_spec_for_version(
+            version_dir, interface_name, version_n
+        )
     return tests
 
 
@@ -159,7 +177,9 @@ def collect_tests(root: Path = ROOT, include: str = "*"):
         if interface_dir_name.startswith("__"):  # ignore __template__ and python-dirs
             continue  # skip
         interface_name = interface_dir_name.replace("-", "_")
-        tests[interface_name] = _gather_tests_for_interface(interface_dir, interface_name)
+        tests[interface_name] = _gather_tests_for_interface(
+            interface_dir, interface_name
+        )
 
     return tests
 
@@ -169,8 +189,12 @@ def pprint_tests(include="*"):
 
     def pprint_case(case: _InterfaceTestCase):
         state = "yes" if case.input_state else "no"
-        schema_config = case.schema if isinstance(case.schema, SchemaConfig) else "custom"
-        print(f"      - {case.name}:: {case.event} (state={state}, schema={schema_config})")
+        schema_config = (
+            case.schema if isinstance(case.schema, SchemaConfig) else "custom"
+        )
+        print(
+            f"      - {case.name}:: {case.event} (state={state}, schema={schema_config})"
+        )
 
     for interface, versions in tests.items():
         if not versions:
@@ -221,6 +245,6 @@ def pprint_tests(include="*"):
 
 
 if __name__ == "__main__":
-    collect_tests(include='ingress')
+    collect_tests(include="ingress")
 
     pprint_tests(include="*")

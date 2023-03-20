@@ -20,7 +20,7 @@ In order to automatically test the compliance of a charm with a relation interfa
            - <no charms>    # ditto
     ```
 - Fill in the tests with whatever is appropriate. Feel free to add as many requirer/provider tests as you need, and if necessary, split them over multiple files. 
-- All modules in `interfaces/your-interface-name/interface_tests/` will be loaded and all `InterfaceTestCase` subclasses will be checked for validity. All valid tests will be displayed in the listing: if a test you added didn't show up, it's not valid for some reason (e.g. you forgot to override one of the abstract methods). 
+- All modules in `interfaces/your-interface-name/interface_tests/` will be loaded and all files will be scraped for functions marked with the `interface_test_case` decorator. All valid tests will be displayed in the listing: if a test you added didn't show up, it's not valid for some reason (e.g. you forgot to add the decorator, or to give the mandatory `state_out` positional argument to your callable). 
 
 
 # the pytest-interface-tester plugin
