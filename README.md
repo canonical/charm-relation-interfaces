@@ -30,7 +30,7 @@ To quickly get started, you can copy the `interfaces/__template__` folder to cre
 
 ## Project-internal Interfaces
 
-### MLOps
+### Charmed Kubeflow
 
 | Category      | Interface                                                                    |                               Status                                |
 |---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
