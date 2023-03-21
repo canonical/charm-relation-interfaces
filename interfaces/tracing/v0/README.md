@@ -2,14 +2,13 @@
 
 ## Usage
 
-This relation interface is meant to exchange the necessary information for a charm to integrate with a Tempo-compliant tracing backend.
+This relation interface describes the expected behavior of any charm claiming to be able to provide or consume a tempo-compliant tracing server.
 
 ## Direction
 
-Tracing is a push-based system. The tracing backend, also called an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) or [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
+Tracing is done in a push-based fashion. The receiving endpoint of the tracing backend, also referred to as an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) and [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
 The tracing backend **provides**, for each protocol it supports, an endpoint at which the server is ready to accept that protocol. So the directionality of the relation flows from the observer: the trace ingester (a Tempo(-compliant) backend), to the observed: the application producing the traces, such as a mattermost charm.
 
-The requirer is supposed to receive the supported protocols and use it to determine where to send the traces.
 
 This follows the convention of other push models such as `loki_push_api`.
 
@@ -25,7 +24,7 @@ flowchart LR
 
 - Is expected to publish the hostname at which the server is reachable.
 - Is expected to run a server supporting one or more tracing protocols such as [OTLP](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification).
-- Is expected to publish via relation data, for each protocol it accepts, the port at which the server is listening.
+- Is expected to publish, for each protocol it accepts, the port at which the server is listening.
 
 
 ### Requirer
