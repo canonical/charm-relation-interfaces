@@ -4,8 +4,9 @@
 import importlib
 import logging
 import sys
+import types
 from pathlib import Path
-from typing import Type
+from typing import Optional, Type
 
 import pydantic
 
@@ -14,7 +15,7 @@ ROOT = Path(__file__).parent.parent
 JSON_SCHEMAS_ROOT = ROOT / "docs" / "json_schemas"
 
 
-def get_schema_from_module(module: object, name: str):
+def get_schema_from_module(module: object, name: str) -> Type[pydantic.BaseModel]:
     """Tries to get ``name`` from ``module``, expecting to find a pydantic.BaseModel."""
     schema_cls = getattr(module, name, None)
     if not schema_cls:
@@ -24,7 +25,7 @@ def get_schema_from_module(module: object, name: str):
     return schema_cls
 
 
-def load_schema_module(schema_path: Path):
+def load_schema_module(schema_path: Path) -> types.ModuleType:
     """Import the schema.py file as a python module."""
     # so we can import without tricks
     sys.path.append(str(schema_path.parent))
@@ -33,9 +34,8 @@ def load_schema_module(schema_path: Path):
     module_name = str(schema_path.with_suffix("").name)
     try:
         module = importlib.import_module(module_name)
-    except ImportError as e:
-        logger.error(f"Failed to load module {schema_path}: {e}")
-        return
+    except ImportError:
+        raise
     finally:
         # cleanup, just in case
         sys.path.remove(str(schema_path.parent))
@@ -61,7 +61,13 @@ def build_schemas_from_source(
     output_location: Path = JSON_SCHEMAS_ROOT,
 ):
     """Load the schemas from schema.py, dump them to docs/json_schemas/<role>.json."""
-    module = load_schema_module(schema_path)
+
+    try:
+        module = load_schema_module(schema_path)
+    except ImportError as e:
+        logger.error(f"Failed to load module {schema_path}: {e}")
+        return
+
     schemas_dir = output_location / interface_name / f"v{version}"
 
     some_schema_found = False
