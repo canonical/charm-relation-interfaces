@@ -6,7 +6,7 @@ import logging
 import sys
 import types
 from pathlib import Path
-from typing import Optional, Type
+from typing import Type
 
 import pydantic
 
