@@ -1,0 +1,4 @@
+providers:
+  - zookeeper
+consumers:
+  - grafana-agent
