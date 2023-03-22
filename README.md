@@ -40,6 +40,8 @@ To quickly get started, you can copy the `interfaces/__template__` folder to cre
 | Category      | Interface                                                                    |                               Status                                |
 |---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
 | Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`kratos_external_idp`](interfaces/kratos_external_idp/v0/README.md)                                     | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+
 
 
 For a more detailed explanation of statuses and how they should be used, see [the legend](https://github.com/canonical/charm-relation-interfaces/blob/main/LEGEND.md).
