@@ -36,9 +36,10 @@ def load_schema_module(schema_path: Path):
     except ImportError as e:
         logger.error(f"Failed to load module {schema_path}: {e}")
         return
+    finally:
+        # cleanup, just in case
+        sys.path.remove(str(schema_path.parent))
 
-    # cleanup, just in case
-    sys.path.remove(str(schema_path.parent))
     return module
 
 
@@ -75,7 +76,7 @@ def build_schemas_from_source(
             continue
         except TypeError as e:
             logger.error(
-                f"Found schema class in {schema_path}; "
+                f"Found object called {name!r} in {schema_path}; "
                 f"expecting a DataBagSchema subclass, not {e.args[0]!r}."
             )
             continue
