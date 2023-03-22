@@ -47,7 +47,7 @@ def dump_json_schema(schema_cls: Type[pydantic.BaseModel], output_location: Path
     """Serialize pydantic schema to jsonschema and output it to file"""
     json_schema_file_name = output_location.with_suffix(".json")
     if json_schema_file_name.exists():
-        logger.info(f'file {json_schema_file_name} exists; overwriting...')
+        logger.info(f"file {json_schema_file_name} exists; overwriting...")
     else:
         json_schema_file_name.parent.mkdir(exist_ok=True, parents=True)
 
