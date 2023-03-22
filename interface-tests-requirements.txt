@@ -1,0 +1,3 @@
+# python packages required by relation interface tests.
+pyyaml
+
