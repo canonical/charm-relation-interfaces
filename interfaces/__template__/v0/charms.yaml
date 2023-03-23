@@ -1,7 +1,8 @@
 providers:
+  # list of charms using this interface as providers
   - name: charm-using-the-provider-side
-    url: https://github.com/foo/charm-repo
+    url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone; required
 
-consumers:
-  - name: charm-using-the-requirer-side
-    url: https://github.com/foo/charm-repo
+# list of charms using this interface as consumers.
+# same structure as providers
+consumers: []
