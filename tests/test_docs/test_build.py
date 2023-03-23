@@ -28,39 +28,76 @@ FOO = 1
     assert module.FOO == 1
 
 
-def test_get_schema_from_module(tmp_path):
-    pth = Path(tmp_path) / "bar.py"
-    pth.write_text(
-        dedent(
-            """
-import pydantic
+@pytest.mark.parametrize(
+    "module_contents, schema_name, foo_value",
+    (
+        (
+            dedent(
+                """import pydantic
 class RequirerSchema(pydantic.BaseModel):
-    foo = 1
+    foo = 1"""
+            ),
+            "RequirerSchema",
+            1,
+        ),
+        (
+            dedent(
+                """import pydantic
 class ProviderSchema(pydantic.BaseModel):
-    foo = 2
+    foo = 2"""
+            ),
+            "ProviderSchema",
+            2,
+        ),
+        (
+            dedent(
+                """import pydantic
 class Foo(pydantic.BaseModel):
-    foo = 3
-class Bar:
-    pass
-"""
-        )
-    )
+    foo = 3"""
+            ),
+            "Foo",
+            3,
+        ),
+    ),
+)
+def test_get_schema_from_module(tmp_path, module_contents, schema_name, foo_value):
+    # unique filename else it will load the wrong module
+    pth = Path(tmp_path) / f"bar{schema_name}.py"
+    pth.write_text(module_contents)
     module = load_schema_module(pth)
 
-    requirer_schema = get_schema_from_module(module, "RequirerSchema")
-    assert requirer_schema.__fields__["foo"].default == 1
-    provider_schema = get_schema_from_module(module, "ProviderSchema")
-    assert provider_schema.__fields__["foo"].default == 2
-    foo_schema = get_schema_from_module(module, "Foo")
-    assert foo_schema.__fields__["foo"].default == 3
+    requirer_schema = get_schema_from_module(module, schema_name)
+    assert requirer_schema.__fields__["foo"].default == foo_value
+
+
+@pytest.mark.parametrize(
+    "module_contents, schema_name",
+    (
+        (dedent("""Foo2=1"""), "Foo2"),
+        (dedent("""Bar='baz'"""), "Bar"),
+        (dedent("""Baz=[1,2,3]"""), "Baz"),
+    ),
+)
+def test_get_schema_from_module_wrong_type(tmp_path, module_contents, schema_name):
+    # unique filename else it will load the wrong module
+    pth = Path(tmp_path) / f"bar{schema_name}.py"
+    pth.write_text(module_contents)
+    module = load_schema_module(pth)
 
     # fails because it's not a pydantic model
     with pytest.raises(TypeError):
-        get_schema_from_module(module, "Bar")
+        get_schema_from_module(module, schema_name)
+
+
+@pytest.mark.parametrize("schema_name", ("foo", "bar", "baz"))
+def test_get_schema_from_module_bad_name(tmp_path, schema_name):
+    pth = Path(tmp_path) / "bar3.py"
+    pth.write_text("dead='beef'")
+    module = load_schema_module(pth)
 
     # fails because it's not found in the module
     with pytest.raises(NameError):
-        get_schema_from_module(module, "Baz")
+        get_schema_from_module(module, schema_name)
 
 
 def test_dump_json_schema(tmp_path):
@@ -83,13 +120,66 @@ def test_dump_json_schema(tmp_path):
     }
 
 
-def test_build_schemas_from_source(tmp_path):
+@pytest.mark.parametrize(
+    "module_contents, schema_name",
+    (
+        (
+            dedent(
+                """import pydantic
+class RequirerSchema(pydantic.BaseModel):
+    foo = 1"""
+            ),
+            "RequirerSchema",
+        ),
+        (
+            dedent(
+                """import pydantic
+class ProviderSchema(pydantic.BaseModel):
+    foo = 2"""
+            ),
+            "ProviderSchema",
+        ),
+    ),
+)
+def test_build_schemas_from_source_one_only(tmp_path, module_contents, schema_name):
     pth = Path(tmp_path)
-    schema_path = pth / "baz.py"
+    schema_path = pth / f"baz_one_{schema_name}.py"
 
+    schema_path.write_text(module_contents)
     build_schemas_from_source(
         schema_path=schema_path, interface_name="foo", version=42, output_location=pth
     )
+
+    schema_output_path = pth / "foo" / "v42"
+
+    if schema_name == "ProviderSchema":
+        assert (schema_output_path / "provider.json").exists()
+        assert not (schema_output_path / "requirer.json").exists()
+    if schema_name == "RequirerSchema":
+        assert not (schema_output_path / "provider.json").exists()
+        assert (schema_output_path / "requirer.json").exists()
+
+
+def test_build_schemas_from_source_both(tmp_path):
+    pth = Path(tmp_path)
+    schema_path = pth / "baz_both.py"
+
+    schema_path.write_text(
+        dedent(
+            """import pydantic
+class RequirerSchema(pydantic.BaseModel):
+    foo = 1
+class ProviderSchema(pydantic.BaseModel):
+    foo = 2"""
+        )
+    )
+    build_schemas_from_source(
+        schema_path=schema_path, interface_name="foo", version=42, output_location=pth
+    )
+
+    schema_output_path = pth / "foo" / "v42"
+    assert (schema_output_path / "provider.json").exists()
+    assert (schema_output_path / "requirer.json").exists()
 
 
 def test_build_schemas_from_empty_source(tmp_path, caplog):
@@ -166,15 +256,15 @@ class Bar:
     (
         dedent(
             """
-import pydantic
-class RequirerSchema:
-    pass
-"""
+    import pydantic
+    class RequirerSchema:
+        pass
+    """
         ),
         dedent(
             """
-RequirerSchema = 42
-"""
+    RequirerSchema = 42
+    """
         ),
     ),
 )
