@@ -143,26 +143,28 @@ class ProviderSchema(pydantic.BaseModel):
 )
 def test_build_schemas_from_source_one_only(tmp_path, module_contents, schema_name):
     pth = Path(tmp_path)
-    schema_path = pth / f"baz_one_{schema_name}.py"
+    schema_output_path = pth / "outputs"
+    schema_path = pth / "foo" / "v42" / f"baz_one_{schema_name}.py"
+    schema_path.parent.mkdir(exist_ok=True, parents=True)
 
     schema_path.write_text(module_contents)
     build_schemas_from_source(
-        schema_path=schema_path, interface_name="foo", version=42, output_location=pth
+        schema_path=schema_path, output_location=schema_output_path
     )
 
-    schema_output_path = pth / "foo" / "v42"
-
+    schema_outputs = schema_output_path / "foo" / "v42"
     if schema_name == "ProviderSchema":
-        assert (schema_output_path / "provider.json").exists()
-        assert not (schema_output_path / "requirer.json").exists()
+        assert (schema_outputs / "provider.json").exists()
+        assert not (schema_outputs / "requirer.json").exists()
     if schema_name == "RequirerSchema":
-        assert not (schema_output_path / "provider.json").exists()
-        assert (schema_output_path / "requirer.json").exists()
+        assert not (schema_outputs / "provider.json").exists()
+        assert (schema_outputs / "requirer.json").exists()
 
 
 def test_build_schemas_from_source_both(tmp_path):
     pth = Path(tmp_path)
-    schema_path = pth / "baz_both.py"
+    schema_path = pth / "foo" / "v42" / "baz_both.py"
+    schema_path.parent.mkdir(exist_ok=True, parents=True)
 
     schema_path.write_text(
         dedent(
@@ -173,9 +175,7 @@ class ProviderSchema(pydantic.BaseModel):
     foo = 2"""
         )
     )
-    build_schemas_from_source(
-        schema_path=schema_path, interface_name="foo", version=42, output_location=pth
-    )
+    build_schemas_from_source(schema_path=schema_path, output_location=pth)
 
     schema_output_path = pth / "foo" / "v42"
     assert (schema_output_path / "provider.json").exists()
@@ -184,15 +184,15 @@ class ProviderSchema(pydantic.BaseModel):
 
 def test_build_schemas_from_empty_source(tmp_path, caplog):
     pth = Path(tmp_path)
-    schema_path = pth / "my_schema.py"
+    schema_path = pth / "foo" / "v42" / "my_schema.py"
+    schema_path.parent.mkdir(exist_ok=True, parents=True)
+
     # there is a module but it's empty
     schema_path.touch()
 
     with caplog.at_level(logging.DEBUG):
         build_schemas_from_source(
             schema_path=schema_path,
-            interface_name="foo",
-            version=42,
             output_location=pth,
         )
 
@@ -214,7 +214,9 @@ def test_build_schemas_from_empty_source(tmp_path, caplog):
 
 def test_build_schemas_from_nonempty_but_bad_source(tmp_path, caplog):
     pth = Path(tmp_path)
-    schema_path = pth / "my_schema.py"
+    schema_path = pth / "foo" / "v42" / "my_schema.py"
+    schema_path.parent.mkdir(exist_ok=True, parents=True)
+
     # there is a module, but it's full of uninteresting stuff
     schema_path.write_text(
         dedent(
@@ -230,8 +232,6 @@ class Bar:
     with caplog.at_level(logging.DEBUG):
         build_schemas_from_source(
             schema_path=schema_path,
-            interface_name="foo",
-            version=42,
             output_location=pth,
         )
 
@@ -272,14 +272,14 @@ def test_build_schemas_broken_source(tmp_path, source, caplog):
     caplog.clear()
 
     pth = Path(tmp_path)
-    schema_path = pth / "qux.py"
+    schema_path = pth / "foo" / "v42" / "qux.py"
+    schema_path.parent.mkdir(exist_ok=True, parents=True)
+
     # there is a module, but the name points to something unexpected
     schema_path.write_text(source)
     with caplog.at_level(logging.DEBUG):
         build_schemas_from_source(
             schema_path=schema_path,
-            interface_name="foo",
-            version=42,
             output_location=pth,
         )
 

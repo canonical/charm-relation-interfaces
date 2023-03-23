@@ -58,8 +58,6 @@ def dump_json_schema(schema_cls: Type[pydantic.BaseModel], output_location: Path
 
 def build_schemas_from_source(
     schema_path: Path,
-    interface_name: str,
-    version: int,
     output_location: Path = JSON_SCHEMAS_ROOT,
 ):
     """Load the schemas from schema.py, dump them to docs/json_schemas/<role>.json."""
@@ -69,8 +67,6 @@ def build_schemas_from_source(
     except ImportError as e:
         logger.error(f"Failed to load module {schema_path}: {e}")
         return
-
-    schemas_dir = output_location / interface_name / f"v{version}"
 
     some_schema_found = False
     for role, name in (("provider", "ProviderSchema"), ("requirer", "RequirerSchema")):
@@ -90,7 +86,12 @@ def build_schemas_from_source(
             continue
 
         some_schema_found = True
-        dump_json_schema(schema_cls, output_location=schemas_dir / role)
+
+        # if the schema is at /path/to/interfaces/foo/v3/schema.py,
+        # we take [foo, v3]
+        # the output path becomes /path/to/output_location/foo/v3/{role}.json`
+        output_path = output_location.joinpath(*schema_path.parts[-3:-1], role)
+        dump_json_schema(schema_cls, output_location=output_path)
 
     if not some_schema_found:
         logger.error(
@@ -120,7 +121,7 @@ def run(include: str = "*"):
                 logger.info(
                     f"found pydantic schemas for interface {interface_name}/v{version}"
                 )
-                build_schemas_from_source(schemas_path, interface_name, version)
+                build_schemas_from_source(schemas_path)
             else:
                 logger.info(
                     f"no schemas found for interface {interface_name}/v{version}; "
