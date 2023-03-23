@@ -54,7 +54,7 @@ class TestingInterfaceTester(InterfaceTester):
         )
 
 
-def test_ingress_requirer(subtests):
+def test_ingress_requirer():
     tester = TestingInterfaceTester()
     tester.configure(
         charm_type=MyRequirer,
@@ -63,10 +63,10 @@ def test_ingress_requirer(subtests):
         state_template=State(leader=True),
     )
     assert list(tester._yield_tests()), "no tests collected"
-    tester.run(subtests=subtests)
+    tester.run()
 
 
-def test_ingress_provider(subtests):
+def test_ingress_provider():
     tester = TestingInterfaceTester()
     tester.configure(
         charm_type=MyProvider,
@@ -75,4 +75,4 @@ def test_ingress_provider(subtests):
         state_template=State(leader=True),
     )
     assert list(tester._yield_tests()), "no tests collected"
-    tester.run(subtests=subtests)
+    tester.run()

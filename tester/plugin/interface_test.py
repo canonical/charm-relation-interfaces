@@ -44,47 +44,58 @@ class Role(str, Enum):
 
 @dataclasses.dataclass
 class _InterfaceTestCase:
+    """Data associated with a single interface test case."""
     interface_name: str
+    """The name of the interface that this test is about."""
     version: int
+    """The version of the interface that this test is about."""
     event: Union[Event, str]
+    """The event that this test is about."""
     role: Role
+    """The role (provider|requirer) that this test is about."""
     name: str
+    """Human-readable name of what this test does."""
+
     validator: Callable[[State], None]
+    """The function that will be called on the output state to validate it."""
 
     schema: Union[DataBagSchema, SchemaConfig] = SchemaConfig.default
+    """Either a Pydantic schema for the unit/app databags of 'this side' of the relation, which
+    will be used to validate the relation databags in the output state, or:
+    - 'skip' to skip schema validation altogether
+    - 'empty' to have the schema validator assert that the databags should be empty.
+    """
     input_state: Optional[State] = None
+    """Initial state that this test should be run with."""
 
     def run(self, output_state: State):
         """Execute the test: that is, run the decorated validator against the output state."""
         return self.validator(output_state)
 
-    def validate_schema(self, relation: Relation):
-        """Validate the"""
-        if not self.schema:
-            return
-        return self.schema.validate(
-            {
-                "unit": relation.local_unit_data,
-                "app": relation.local_app_data,
-            }
-        )
+
+_TestCaseCacheType = Dict[Tuple["InterfaceNameStr", "VersionInt", Role], List[_InterfaceTestCase]]
+# for each (interface_name, version, role) triplet: the list of all collected interface test cases.
+REGISTERED_TEST_CASES: _TestCaseCacheType = defaultdict(list)
 
 
-REGISTERED_TEST_CASES: Dict[
-    Tuple["InterfaceNameStr", "VersionInt", Role], List[_InterfaceTestCase]
-] = defaultdict(list)
-
-
-def get_registered_test_cases():
+def get_registered_test_cases() -> _TestCaseCacheType:
     """The test cases that have been registered so far."""
     return REGISTERED_TEST_CASES
 
 
 def get_interface_name_and_version(fn: Callable) -> Tuple[str, int]:
+    f"""Return the interface name and version of a test case validator function.
+    
+    It assumes that the function is in a module whose path matches the following regex: 
+    {INTF_NAME_AND_VERSION_REGEX}
+    
+    If that can't be matched, it will raise a InvalidTestCase.
+    """
+
     file = inspect.getfile(fn)
     match = INTF_NAME_AND_VERSION_REGEX.findall(file)
     if len(match) != 1:
-        raise ValueError(
+        raise InvalidTestCase(
             f"Can't determine interface name and version from test case location: {file}."
             rf"expecting a file path matching '/interfaces/(\w+)/v(\d+)/' "
         )
@@ -92,6 +103,7 @@ def get_interface_name_and_version(fn: Callable) -> Tuple[str, int]:
     try:
         version_int = int(version_str)
     except TypeError:
+        # overly cautious: the regex should already be only matching digits.
         raise InvalidTestCase(
             f"Unable to cast version {version_str} to integer. "
             f"Check file location: {file}."
@@ -99,15 +111,25 @@ def get_interface_name_and_version(fn: Callable) -> Tuple[str, int]:
     return interface_name, version_int
 
 
-def check_signature(fn):
+def check_test_case_validator_signature(fn: Callable):
+    """Verify the signature of a test case validator function.
+
+    Will raise InvalidTestCase if:
+    - the number of parameters is not exactly 1
+    - the parameter is not positional only or positional/keyword
+
+    Will pop a warning if the one argument is annotated with anything other than scenario.State
+    (or no annotation).
+    """
     sig = inspect.signature(fn)
-    if not len(sig.parameters) >= 1:
+    if not len(sig.parameters) == 1:
         raise InvalidTestCase(
             "interface test case validator expects exactly one "
             "positional argument of type State."
         )
 
-    par0 = list(sig.parameters.values())[0]
+    params = list(sig.parameters.values())
+    par0 = params[0]
     if par0.kind not in (par0.POSITIONAL_OR_KEYWORD, par0.POSITIONAL_ONLY):
         raise InvalidTestCase(
             "interface test case validator expects the first argument to be positional."
@@ -133,7 +155,7 @@ def interface_test_case(
     The decorated function must take exactly one positional argument of type State.
 
     Arguments:
-    :param name: the name of the test. Will default to the decorated function's name.
+    :param name: the name of the test. Will default to the decorated function's identifier.
     :param event: the event that this test is about.
     :param role: the interface role this test is about.
     :param input_state: the input state for this scenario test. Will default to the empty State().
@@ -144,8 +166,11 @@ def interface_test_case(
         schema = SchemaConfig(schema)
 
     def wrapper(fn: Callable[[State], None]):
-        check_signature(fn)
+        # validate that the function is a valid validator
+        check_test_case_validator_signature(fn)
 
+        # derive from the module the function is defined in what the
+        # interface name and version are
         interface_name, version = get_interface_name_and_version(fn)
 
         role_ = Role(role)

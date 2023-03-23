@@ -1,4 +1,7 @@
 providers:
-  - list of reference charms using the provider side
+  - name: charm-using-the-provider-side
+    url: https://github.com/foo/charm-repo
+
 consumers:
-  - list of reference charms using the consumer side
+  - name: charm-using-the-requirer-side
+    url: https://github.com/foo/charm-repo

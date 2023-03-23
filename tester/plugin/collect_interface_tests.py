@@ -7,7 +7,7 @@ If you are contributing a relation interface specification or modifying the test
 schemas for one, you can execute this file to ascertain that all relevant data is being gathered
 correctly.
 """
-
+import dataclasses
 import importlib
 import json
 import logging
@@ -47,16 +47,20 @@ class _TestSetup(TypedDict):
     configured InterfaceTester instance. If not provided defaults to "interface_tester" """
 
 
-class _CharmSpec(TypedDict):
+@dataclasses.dataclass
+class _CharmSpec:
     name: str
     """The name of the charm."""
     url: str
     """Url of a git repository where the charm source can be found."""
-    test_setup:  Optional[_TestSetup]
+    test_setup: Optional[_TestSetup]
     """Interface tester configuration. Can be left empty. All values will be defaulted."""
     branch: Optional[str]
     """Name of the git branch where to find the interface tester configuration. 
     If not provided defaults to "main". """
+
+    def __hash__(self):
+        return hash((self.name, self.url, self.branch))
 
 
 class _CharmsDotYamlSpec(TypedDict):
@@ -116,17 +120,29 @@ def _gather_schema_for_version(
 
 
 def _gather_charms_for_version(version_dir: Path) -> Optional[_CharmsDotYamlSpec]:
-    """Attempt to read the `charms.yaml` for this version sudir; return an empty dict on failure."""
+    """Attempt to read the `charms.yaml` for this version sudir.
+
+    On failure, return None.
+    """
     charms_yaml = version_dir / "charms.yaml"
     if not charms_yaml.exists():
         return None
+
+    charms = None
     try:
-        return yaml.safe_load(charms_yaml.read_text())
+        charms = yaml.safe_load(charms_yaml.read_text())
     except (json.JSONDecodeError, yaml.YAMLError) as e:
         logger.error(f"failed to decode {charms_yaml}: " f"verify that it is valid: {e}")
     except FileNotFoundError as e:
         logger.error(f"not found: {e}")
-    return None
+    if not charms:
+        return None
+
+    spec: _CharmsDotYamlSpec = {
+        'providers': [_CharmSpec(**dct) for dct in charms.get('providers' or ())],
+        'requirers': [_CharmSpec(**dct) for dct in charms.get('requirers' or ())]
+    }
+    return spec
 
 
 def _gather_test_cases_for_version(

@@ -4,7 +4,7 @@ import tempfile
 from collections import defaultdict
 from pathlib import Path
 from subprocess import Popen, PIPE
-from typing import Literal, List
+from typing import Literal, List, NamedTuple
 
 import requests
 
@@ -16,17 +16,21 @@ ROOT = Path(__file__).parent.parent
 _ROLES = Literal['requirer', 'provider']
 
 
-@dataclasses.dataclass
-class TestCase:
+class TestCase(NamedTuple):
     interface: str
-    version: int
+    version: str
     role: _ROLES
 
 
-def run_interface_tests(root: Path = ROOT, include: str = "*"):
-    tests = collect_tests(root, include=include)
+def run_interface_tests(path: Path = ROOT, include: str = "*"):
+    """Run the interface tests on all interfaces.
 
-    # in order to avoid fetching the same charm multiple times, we map the charms to the interfaces and versions
+    First it collects the tests
+    """
+    tests = collect_tests(path, include=include)
+
+    # in order to avoid fetching the same charm multiple times, we map
+    # the charms to the interfaces and versions they need tested
     charms_to_interfaces = defaultdict(list)
 
     for interface, version_specs in tests.items():
@@ -38,7 +42,7 @@ def run_interface_tests(root: Path = ROOT, include: str = "*"):
                         TestCase(interface, version, role)
                     )
 
-    for charm, test_cases in charms_to_interfaces:
+    for charm, test_cases in charms_to_interfaces.items():
         _run_interface_tests(charm, test_cases)
 
 
@@ -79,15 +83,9 @@ def _run_interface_tests(charm: str, test_cases: List[TestCase],
 
             # search for interface tests. If there is a spec for a test case: run that test.
             # todo: grab test_setup from charms
-            # if no interface test is found: try running the test on the charm as it is (no patching, no initial_state...)
-
-
-def test_interfaces_matrix():
-    """This is the entry point for pytest."""
-    run_interface_tests()
+            # if no interface test is found: try running the test on the charm as it is
+            # (no patching, no initial_state...)
 
 
 if __name__ == '__main__':
-    import pytest
-
-    pytest.main()
+    run_interface_tests()

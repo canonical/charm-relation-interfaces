@@ -323,7 +323,7 @@ class InterfaceTester:
                 logger.debug(f"state={state}, evt={evt}")
                 yield test, spec["schema"], evt, state
 
-    def run(self, subtests=None):
+    def run(self):
         """Run interface tests."""
         self._validate_config()  # will raise if misconfigured
 
@@ -331,13 +331,7 @@ class InterfaceTester:
         ran_some = False
 
         for test, schema, event, state in self._yield_tests():
-            if subtests:
-                with subtests.test(msg=getattr(test, "name", test.name)):
-                    out = self._run_test_case(
-                        test, schema, event, state, subtests=subtests
-                    )
-            else:
-                out = self._run_test_case(test, schema, event, state)
+            out = self._run_test_case(test, schema, event, state)
 
             if out:
                 errors.extend(out)
@@ -393,6 +387,7 @@ class InterfaceTester:
         state_out: State,
         schema: DataBagSchema,
     ) -> List[str]:
+        """Check that all relations using the interface comply with the provided schema."""
         test_schema = test.schema
         if test_schema is SchemaConfig.skip:
             logger.info(
@@ -429,45 +424,40 @@ class InterfaceTester:
         schema: Optional["DataBagSchema"],
         event: Event,
         state: State,
-        subtests=None,
-    ):
-        errors = []
-        state_out = None
+    ) -> List[str]:
+        """Run an interface test case.
+
+        This will run three checks in sequence:
+        - play the scenario (check that the charm runs without exceptions) and
+          obtain the output state
+        - validate the output state (by calling the test-case-provided validator with
+          the output state as argument)
+        - validate the schema against the relations in the output state.
+
+        It will return a list of strings, representing any issues encountered in any of the checks.
+        """
+        errors: List[str] = []
 
         logger.info("check 1: scenario play")
-        if subtests:
-            with subtests.test("check 1: scenario play"):
-                state_out = self._assert_case_plays(event=event, state=state)
-        else:
-            try:
-                state_out = self._assert_case_plays(event=event, state=state)
-            except RuntimeError as e:
-                errors.append(e.args[0])
-
-        if not state_out:
+        try:
+            state_out = self._assert_case_plays(event=event, state=state)
+        except RuntimeError as e:
+            errors.append(e.args[0])
             logger.info("scenario couldn't run: aborting test.")
             return errors
 
         logger.info("check 2: scenario output state validation")
-        # todo: out consistency check ? or we rely on scenario's.
-        if subtests:
-            with subtests.test("check 2: scenario output state validation"):
-                self._assert_state_out_valid(state_out, test)
-        else:
-            try:
-                self._assert_state_out_valid(state_out, test)
-            except RuntimeError as e:
-                errors.append(e.args[0])
+        # todo: consistency check? or should we rely on scenario's?
+        try:
+            self._assert_state_out_valid(state_out, test)
+        except RuntimeError as e:
+            errors.append(e.args[0])
 
         logger.info("check 3: databag schema validation")
         if not schema:
             logger.info("schema validation step skipped: no schema provided")
             return errors
-        if subtests:
-            with subtests.test("check 3: databag schema validation"):
-                assert not self._assert_schemas_valid(test, state_out, schema)
-        else:
-            errors.extend(self._assert_schemas_valid(test, state_out, schema))
+        errors.extend(self._assert_schemas_valid(test, state_out, schema))
         return errors
 
     def _coerce_event(self, raw_event: Union[str, Event], relation: Relation) -> Event:
