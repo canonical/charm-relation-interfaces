@@ -2,8 +2,4 @@ providers:
   - name: traefik-k8s
     url: https://github.com/canonical/traefik-k8s-operator
 
-consumers:
-  - name: grafana-k8s
-    url: https://github.com/canonical/grafana-k8s-operator
-
-    # todo ad other o11y charms?
+consumers: []
