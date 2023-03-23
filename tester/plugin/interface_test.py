@@ -73,7 +73,11 @@ class _InterfaceTestCase:
 REGISTERED_TEST_CASES: Dict[
     Tuple["InterfaceNameStr", "VersionInt", Role], List[_InterfaceTestCase]
 ] = defaultdict(list)
-_NotGiven = object()
+
+
+def get_registered_test_cases():
+    """The test cases that have been registered so far."""
+    return REGISTERED_TEST_CASES
 
 
 def get_interface_name_and_version(fn: Callable) -> Tuple[str, int]:
@@ -117,13 +121,13 @@ def check_signature(fn):
 
 
 def interface_test_case(
-    role: Union[Role, "RoleLiteral"],
-    event: Union[str, Event],
-    input_state: Optional[State] = None,
-    name: str = None,
-    schema: Union[
-        DataBagSchema, SchemaConfig, "_SchemaConfigLiteral"
-    ] = SchemaConfig.default,
+        role: Union[Role, "RoleLiteral"],
+        event: Union[str, Event],
+        input_state: Optional[State] = None,
+        name: str = None,
+        schema: Union[
+            DataBagSchema, SchemaConfig, "_SchemaConfigLiteral"
+        ] = SchemaConfig.default,
 ):
     """Decorator to register a function as an interface test case.
     The decorated function must take exactly one positional argument of type State.

@@ -62,7 +62,7 @@ def test_ingress_requirer(subtests):
         interface_name="ingress",
         state_template=State(leader=True),
     )
-    assert list(tester._yield_tests()), "no tests ran"
+    assert list(tester._yield_tests()), "no tests collected"
     tester.run(subtests=subtests)
 
 
@@ -74,5 +74,5 @@ def test_ingress_provider(subtests):
         interface_name="ingress",
         state_template=State(leader=True),
     )
-    assert list(tester._yield_tests()), "no tests ran"
+    assert list(tester._yield_tests()), "no tests collected"
     tester.run(subtests=subtests)
