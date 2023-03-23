@@ -1,9 +1,20 @@
+# TODO: the kfp charms are in a multi-charm repo. Some setup will be required to configure the tester
+#       to use the charm-specific subpath
+
 providers:
-  - kfp-api
-  - kfp-viz
-  - kubeflow-profiles
+  - name: kfp-api
+    url: https://github.com/canonical/kfp-operators
+  - name: kfp-viz
+    url: https://github.com/canonical/kfp-operators
+  - name: kubeflow-profiles
+    url: https://github.com/canonical/kubeflow-profiles-operator
+
 requires:
-  - kfp-api
-  - kfp-ui
-  - kfp-persistence
-  - kubeflow-dashboard
+  - name: kfp-api
+    url: https://github.com/canonical/kfp-operators
+  - name: kfp-ui
+    url: https://github.com/canonical/kfp-operators
+  - name: kfp-persistence
+    url: https://github.com/canonical/kfp-operators
+  - name: kubeflow-dashboard
+    url: https://github.com/canonical/kubeflow-dashboard-operator

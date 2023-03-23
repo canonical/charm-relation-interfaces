@@ -1,4 +1,6 @@
 providers:
-  - mysql-operator
-  - mysql-k8s-operator
+  - name: mysql-operator
+    url: https://www.github.com/canonical/mysql-operator
+  - name: mysql-k8s-operator
+    url: https://www.github.com/canonical/mysql-k8s-operator
 consumers: []

@@ -1,4 +1,8 @@
 providers:
-  - list of reference charms using the provider side
-consumers:
-  - list of reference charms using the consumer side
+  # list of charms using this interface as providers
+  - name: charm-using-the-provider-side
+    url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone; required
+
+# list of charms using this interface as consumers.
+# same structure as providers
+consumers: []

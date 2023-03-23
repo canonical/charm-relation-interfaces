@@ -3,7 +3,7 @@
 A catalogue of opinionated and standardized interface specifications for charmed operator relations. The purpose of the repository is to outline the behavior and requirements for key interface names, ensuring that charms claiming to implement a certain interface actually are capable of being integrated with each other.
 
 ## Contributing
-To contribute an interface specification, open a pull request containing a `README.md`, json schemas for both sides of the relation, as well as a `charms.yaml` file consisting of a list of any `providers` and `consumers` known to adhere to the specification. See the [grafana-auth](https://github.com/canonical/charm-relation-interfaces/tree/main/interfaces/grafana_auth/v0) interface for examples of what to include and how it should be structured. For interface schemas, make sure to include **both the unit and application databag** in your schema, and also make sure to set `additionalProperties` to `true` as we want to be able to keep it extendable.
+To contribute an interface specification, open a pull request containing a `README.md`, json schemas for both sides of the relation and a `charms.yaml` file consisting of a list of any `providers` and `consumers` known to adhere to the specification. See the [template interface](https://github.com/canonical/charm-relation-interfaces/tree/main/interfaces/__template__/v0) for an example of what to include and how it should be structured. For interface schemas, make sure to include **both the unit and application databag** in your schema, and also make sure to set `additionalProperties` to `true` as we want to be able to keep it extendable.
 
 To quickly get started, you can copy the `interfaces/__template__` folder to create a basic template.
 
