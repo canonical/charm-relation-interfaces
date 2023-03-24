@@ -11,7 +11,7 @@ In most cases, this will be accomplished using the [data_interfaces library](htt
 ```mermaid
 flowchart TD
     Requirer -- index, \nextra-user-roles --> Provider
-    Provider -- username, \npassword, \nendpoints --> Requirer
+    Provider -- index, \nusername, \npassword, \nendpoints --> Requirer
 ```
 
 As with all Juju relations, the `opensearch-client` interface consists of two parties: a Provider (opensearch charm), and a Requirer (application charm). The Requirer will be expected to provide an index name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the index itself.
