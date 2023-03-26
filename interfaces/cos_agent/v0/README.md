@@ -21,51 +21,30 @@ flowchart TD
     Requirer -- refresh_events --> Provider
 ```
 
-As all Juju relations, the `cos_agent` interface consists of a provider and a requirer. In this case the `Provider` side of the relationship may provide telemetry information such as:
-
-- `relation_name`: name of the relation that use `cos_agent` interface
-- `metrics_endpoints` to be scraped
-- `metrics_rules_dir`: directory that contains Prometheus style rules
-- `logs_rules_dir`: directory that contains Loki style rules
-- `recursive_rules_dir`: flag that indicates if these directories should be scanned recursively
-- `log_slots`: snap slots to connect to for scraping logs
-- `dashboard_dirs`: list of directories that contains Grafana dashboards
-- `refresh_events`: list of events on which to refresh relation data.w
-
-These parameters are optional, if some of these are not provided, dafault values will be used:
-
-```python
-relation_name: `cos-agent`
-metrics_endpoints: None
-metrics_rules_dir: "./src/prometheus_alert_rules"
-logs_rules_dir: "./src/loki_alert_rules"
-recurse_rules_dirs: False
-log_slots: None
-dashboard_dirs: None
-refresh_events: None
-```
+As all Juju relations, the `cos_agent` interface consists of a provider and a requirer. In this case the `Provider` side of the relationship may provide telemetry settings, if not, the required side will use default values.
 
 ## Behavior
 
-Both the `Requirer` and the `Provider` need to adhere to a certain set of criterias to be considered compatible with the interface.
+Since this interface is meant to be simple and lightweight each telemetry parameter in the `Provider` side is optional, if some of these are not provided, dafault values will be used.
 
 ### Provider
 
-- Is expected to provide one or more Prometheus scrape jobs in the relation data bag.
-- Is expected to respect the metrics topology set by the requirer.
-- Is expected to provide alert rules over the relation data bag.
-- Is expected to add any wanted topology labels to all metrics sent to the provider.
-- Is expected to provide any wanted topology label matchers as labels on every alert rule in the relation data bag.
-- Is expected to be able to expose both single alert rules and alert rule groups over the relation data bag.
-- Is expected to send alert rules where the contain expressions lacks Juju topology label selectors.
+- Is expected to be able to provide metrics endpoints to be scraped.
+- Is expected to be able to provide a directory containing Prometheus style metrics rules files.
+- Is expected to be able to provide a directory containing Loki style rules files.
+- Is expected to be able to inform if metrics and logs rules directories should be scanned recursively.
+- Is expected to be able to provide snap slots to connect to for scraping logs.
+- Is expected to be able to provide a list of directories containing Grafana dashboard files.
+- Is expected to be able to provide a list of events on which to refresh relation data.
+
 
 ### Requirer
-- Is expected to be able to scrape Prometheus metrics from a metrics endpoint
-- Is expected to be able to ingest alert rules exposed over the relation data bag.
-- Is expected to fetch the target configuration from the relation data bag.
-- Is expected to inject alert rule topology labels as label matchers in alert rule expressions.
-- Is expected not to inject juju_unit as a label matcher by default, but to honor it if hard-coded by the user.
-- Is expected to be able to ingest both single alert rules and alert rule groups provided over the relation data bag.
+- Is expected to be able to scrape Prometheus metrics from metrics endpoints and remote-write these metrics to Prometheus and Prometheus compatible systems.
+- Is expected to be able to forward alert rules exposed over the relation data bag to Prometheus.
+- Is expected to be able to forward logs from the Provider to Loki.
+- Is expected to be able to forward alert rules exposed over the relation data bag to Loki.
+- Is expected to be able to forward Grafana Dashboards exposed over the relation data bag to Grafana.
+
 
 ## Relation Data
 
@@ -103,7 +82,7 @@ application-data:
   }
   scrape_jobs: [
     {
-      "metrics_path": "/metrics", 
+      "metrics_path": "/metrics",
       "static_configs": [
         { "targets": ["*:4080"] }
       ]
