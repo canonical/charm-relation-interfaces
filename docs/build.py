@@ -68,12 +68,11 @@ def build_schemas_from_source(
         logger.error(f"Failed to load module {schema_path}: {e}")
         return
 
-    some_schema_found = False
     for role, name in (("provider", "ProviderSchema"), ("requirer", "RequirerSchema")):
         try:
             schema_cls = get_schema_from_module(module, name)
         except NameError:
-            logger.debug(
+            logger.warning(
                 f"Failed to load {name} from {schema_path}: "
                 f"schema not defined for role: {role}."
             )
@@ -85,48 +84,19 @@ def build_schemas_from_source(
             )
             continue
 
-        some_schema_found = True
-
         # if the schema is at /path/to/interfaces/foo/v3/schema.py,
         # we take [foo, v3]
         # the output path becomes /path/to/output_location/foo/v3/{role}.json`
         output_path = output_location.joinpath(*schema_path.parts[-3:-1], role)
         dump_json_schema(schema_cls, output_location=output_path)
 
-    if not some_schema_found:
-        logger.error(
-            f"no schema was found in {schema_path}; "
-            f"missing ProviderSchema/RequirerSchema definitions."
-        )
 
-
-def run(include: str = "*"):
+def run():
     """Build all json schemas."""
-    for path in (ROOT / "interfaces").glob(include):
-        interface_name = path.name
-        if interface_name == "__template__":
-            continue
-
-        for version_path in path.glob("v*"):
-            try:
-                version = int(version_path.name[1:])
-            except (TypeError, IndexError):
-                logger.error(
-                    f"unable to determine version number from path: {version_path}"
-                )
-                continue
-
-            schemas_path = version_path / "schema.py"
-            if schemas_path.exists():
-                logger.info(
-                    f"found pydantic schemas for interface {interface_name}/v{version}"
-                )
-                build_schemas_from_source(schemas_path)
-            else:
-                logger.info(
-                    f"no schemas found for interface {interface_name}/v{version}; "
-                    f"skipping..."
-                )
+    for path in (ROOT / "interfaces").rglob("schema.py"):
+        if "__template__" not in path.__str__():
+            logger.info(f"Found schema: building {path}")
+            build_schemas_from_source(path)
 
 
 if __name__ == "__main__":

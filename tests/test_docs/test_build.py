@@ -206,11 +206,6 @@ def test_build_schemas_from_empty_source(tmp_path, caplog):
         f"schema not defined for role: provider." in caplog.text
     )
 
-    assert (
-        f"no schema was found in {schema_path}; "
-        f"missing ProviderSchema/RequirerSchema definitions." in caplog.text
-    )
-
 
 def test_build_schemas_from_nonempty_but_bad_source(tmp_path, caplog):
     pth = Path(tmp_path)
@@ -243,11 +238,6 @@ class Bar:
     assert (
         f"Failed to load ProviderSchema from {schema_path}: "
         f"schema not defined for role: provider." in caplog.text
-    )
-
-    assert (
-        f"no schema was found in {schema_path}; "
-        f"missing ProviderSchema/RequirerSchema definitions." in caplog.text
     )
 
 
