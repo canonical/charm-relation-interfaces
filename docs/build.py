@@ -11,6 +11,8 @@ from typing import Type
 import pydantic
 
 logger = logging.getLogger(__file__)
+logging.basicConfig(level=logging.INFO)
+
 ROOT = Path(__file__).parent.parent
 JSON_SCHEMAS_ROOT = ROOT / "docs" / "json_schemas"
 
