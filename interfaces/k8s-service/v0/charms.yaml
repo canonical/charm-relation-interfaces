@@ -9,7 +9,7 @@ providers:
   - name: kubeflow-profiles
     url: https://github.com/canonical/kubeflow-profiles-operator
 
-requires:
+requirers:
   - name: kfp-api
     url: https://github.com/canonical/kfp-operators
   - name: kfp-ui

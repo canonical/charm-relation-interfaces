@@ -48,14 +48,14 @@ class _TestSetup(TypedDict):
 
 
 @dataclasses.dataclass
-class _CharmSpec:
+class _CharmTestConfig:
     name: str
     """The name of the charm."""
     url: str
     """Url of a git repository where the charm source can be found."""
-    test_setup: Optional[_TestSetup]
+    test_setup: Optional[_TestSetup] = None
     """Interface tester configuration. Can be left empty. All values will be defaulted."""
-    branch: Optional[str]
+    branch: Optional[str] = None
     """Name of the git branch where to find the interface tester configuration. 
     If not provided defaults to "main". """
 
@@ -65,15 +65,15 @@ class _CharmSpec:
 
 class _CharmsDotYamlSpec(TypedDict):
     """Specification of the `charms.yaml` file each interface/version dir should contain."""
-    providers: List[_CharmSpec]
-    requirers: List[_CharmSpec]
+    providers: List[_CharmTestConfig]
+    requirers: List[_CharmTestConfig]
 
 
 class _RoleTestSpec(TypedDict):
     """The tests, schema, and charms for a single role of a given relation interface version."""
     tests: List["_InterfaceTestCase"]
     schema: Optional[Type[DataBagSchema]]
-    charms: List[_CharmSpec]
+    charms: List[_CharmTestConfig]
 
 
 class InterfaceTestSpec(TypedDict):
@@ -138,9 +138,19 @@ def _gather_charms_for_version(version_dir: Path) -> Optional[_CharmsDotYamlSpec
     if not charms:
         return None
 
+    providers = charms.get('providers')
+    # fixme: uniform terminology?
+    requirers = charms.get('requirers', charms.get('consumers'))
+
+    if not isinstance(providers, list) or not isinstance(requirers, list):
+        raise TypeError(f'{charms_yaml} file has unexpected providers/requirers spec; '
+                        f'expected two lists of dicts (yaml mappings); '
+                        f'got {type(providers)}/{type(requirers)}. '
+                        f'Invalid charms.yaml format.')
+
     spec: _CharmsDotYamlSpec = {
-        'providers': [_CharmSpec(**dct) for dct in charms.get('providers' or ())],
-        'requirers': [_CharmSpec(**dct) for dct in charms.get('requirers' or ())]
+        'providers': [_CharmTestConfig(**dct) for dct in providers],
+        'requirers': [_CharmTestConfig(**dct) for dct in requirers]
     }
     return spec
 
@@ -306,14 +316,15 @@ def pprint_tests(include="*"):
                 charms = test_spec["charms"]
                 if charms:
                     print("     - charms:")
+                    charm: _CharmTestConfig
                     for charm in charms:
                         if isinstance(charm, str):
                             print(f"       - <BADLY FORMATTED>")
                             continue
 
-                        custom_test_setup = "yes" if charm.get("test_setup") else "no"
+                        custom_test_setup = "yes" if charm.test_setup else "no"
                         print(
-                            f'       - {charm["name"]} ({charm.get("url", "NO URL")}) '
+                            f'       - {charm.name} ({charm.url or "NO URL"}) '
                             f"custom_test_setup={custom_test_setup}"
                         )
 

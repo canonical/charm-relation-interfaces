@@ -1,4 +1,3 @@
-import dataclasses
 import logging
 import operator
 import tempfile
@@ -10,7 +9,6 @@ from typing import (
     Callable,
     Dict,
     Generator,
-    Iterable,
     List,
     Literal,
     Optional,
@@ -22,7 +20,9 @@ from typing import (
 import pytest
 from ops.testing import CharmType
 from scenario.state import Event, Relation, State, _CharmSpec
-from tester.plugin.interface_test import DataBagSchema, SchemaConfig
+
+from errors import InterfaceTesterValidationError, InvalidTestCaseError
+from tester.plugin.interface_test import DataBagSchema, run_test_case
 
 from collect_interface_tests import InterfaceTestSpec, gather_test_spec_for_version
 
@@ -36,20 +36,12 @@ ROLE_TO_ROLE_META = {"provider": "provides", "requirer": "requires"}
 Role = Literal["provider", "requirer"]
 
 
-class InterfaceTesterValidationError(ValueError):
-    """Raised if the InterfaceTester configuration is incorrect or incomplete."""
-
-
-class InvalidTestCaseError(RuntimeError):
-    """Raised if an interface test case is invalid."""
-
-
 class InterfaceTester:
     def __init__(
-        self,
-        repo: str = "https://github.com/PietroPasotti/charm-relation-interfaces",
-        branch: str = "main",
-        base_path: str = "interfaces",
+            self,
+            repo: str = "https://github.com/PietroPasotti/charm-relation-interfaces",
+            branch: str = "main",
+            base_path: str = "interfaces",
     ):
         self._repo = repo
         self._branch = branch
@@ -67,18 +59,18 @@ class InterfaceTester:
         self._charm_spec_cache = None
 
     def configure(
-        self,
-        *,
-        charm_type: Optional[Type[CharmType]] = None,
-        repo: Optional[str] = None,
-        branch: Optional[str] = None,
-        base_path: Optional[str] = None,
-        interface_name: Optional[str] = None,
-        interface_version: Optional[int] = None,
-        state_template: Optional[State] = None,
-        meta: Optional[Dict[str, Any]] = None,
-        actions: Optional[Dict[str, Any]] = None,
-        config: Optional[Dict[str, Any]] = None,
+            self,
+            *,
+            charm_type: Optional[Type[CharmType]] = None,
+            repo: Optional[str] = None,
+            branch: Optional[str] = None,
+            base_path: Optional[str] = None,
+            interface_name: Optional[str] = None,
+            interface_version: Optional[int] = None,
+            state_template: Optional[State] = None,
+            meta: Optional[Dict[str, Any]] = None,
+            actions: Optional[Dict[str, Any]] = None,
+            config: Optional[Dict[str, Any]] = None,
     ):
         """
 
@@ -202,11 +194,11 @@ class InterfaceTester:
 
             repo_name = self._repo.split("/")[-1]
             intf_spec_path = (
-                Path(tempdir)
-                / repo_name
-                / self._base_path
-                / self._interface_name.replace("-", "_")
-                / f"v{self._interface_version}"
+                    Path(tempdir)
+                    / repo_name
+                    / self._base_path
+                    / self._interface_name.replace("-", "_")
+                    / f"v{self._interface_version}"
             )
             if not intf_spec_path.exists():
                 raise RuntimeError(
@@ -254,7 +246,7 @@ class InterfaceTester:
         return supported_endpoints
 
     def _yield_tests(
-        self,
+            self,
     ) -> Generator[
         Tuple["_InterfaceTestCase", "DataBagSchema", Event, State], None, None
     ]:
@@ -331,10 +323,20 @@ class InterfaceTester:
         ran_some = False
 
         for test, schema, event, state in self._yield_tests():
-            out = self._run_test_case(test, schema, event, state)
-
+            out = run_test_case(
+                test=test,
+                schema=schema,
+                event=event,
+                state=state,
+                interface_name=self._interface_name,
+                charm_type=self._charm_type,
+                meta=self.meta,
+                config=self.config,
+                actions=self.actions,
+            )
             if out:
                 errors.extend(out)
+
             ran_some = True
 
         if errors:
@@ -344,121 +346,6 @@ class InterfaceTester:
             msg = f"no tests gathered for {self._interface_name}/v{self._interface_version}"
             logger.warning(msg)
             pytest.skip(msg)
-
-    def _assert_case_plays(self, event: Event, state: State):
-        try:
-            state_out = state.trigger(
-                event,
-                charm_type=self._charm_type,
-                meta=self.meta,
-                actions=self.actions,
-                config=self.config,
-            )
-        except Exception as e:
-            msg = f"Failed check 1: scenario errored out: ({type(e).__name__}){e}. Could not play scene."
-            raise RuntimeError(msg) from e
-        return state_out
-
-    @staticmethod
-    def _assert_state_out_valid(state: State, test: "_InterfaceTestCase"):
-        try:
-            test.run(state)
-        except Exception as e:
-            msg = f"Failed check 2: validating scene output: {e}"
-            raise RuntimeError(msg) from e
-
-    @staticmethod
-    def _assert_schema_valid(schema: DataBagSchema, relation: Relation) -> None:
-        try:
-            schema.validate(
-                {
-                    "unit": relation.local_unit_data,
-                    "app": relation.local_app_data,
-                }
-            )
-        except Exception as e:
-            msg = f"Failed check 3: validating schema on scene output: {e}"
-            logger.error(msg)
-            raise RuntimeError(msg) from e
-
-    def _assert_schemas_valid(
-        self,
-        test: "_InterfaceTestCase",
-        state_out: State,
-        schema: DataBagSchema,
-    ) -> List[str]:
-        """Check that all relations using the interface comply with the provided schema."""
-        test_schema = test.schema
-        if test_schema is SchemaConfig.skip:
-            logger.info(
-                "Schema validation skipped as per interface_test_case schema config."
-            )
-            return []
-
-        if test_schema == SchemaConfig.default:
-            schema = schema
-        elif test_schema == SchemaConfig.empty:
-            schema = DataBagSchema()
-        elif isinstance(test_schema, DataBagSchema):
-            schema = test_schema
-        else:
-            raise InvalidTestCaseError(
-                "interface_test_case schema should be either a SchemaConfig instance or a "
-                f"DataBagSchema instance, not {type(test_schema)}."
-            )
-
-        errors = []
-        interface_name = self._interface_name
-        for relation in [
-            r for r in state_out.relations if r.interface == interface_name
-        ]:
-            try:
-                self._assert_schema_valid(schema=schema, relation=relation)
-            except RuntimeError as e:
-                errors.append(e.args[0])
-        return errors
-
-    def _run_test_case(
-        self,
-        test: "_InterfaceTestCase",
-        schema: Optional["DataBagSchema"],
-        event: Event,
-        state: State,
-    ) -> List[str]:
-        """Run an interface test case.
-
-        This will run three checks in sequence:
-        - play the scenario (check that the charm runs without exceptions) and
-          obtain the output state
-        - validate the output state (by calling the test-case-provided validator with
-          the output state as argument)
-        - validate the schema against the relations in the output state.
-
-        It will return a list of strings, representing any issues encountered in any of the checks.
-        """
-        errors: List[str] = []
-
-        logger.info("check 1: scenario play")
-        try:
-            state_out = self._assert_case_plays(event=event, state=state)
-        except RuntimeError as e:
-            errors.append(e.args[0])
-            logger.info("scenario couldn't run: aborting test.")
-            return errors
-
-        logger.info("check 2: scenario output state validation")
-        # todo: consistency check? or should we rely on scenario's?
-        try:
-            self._assert_state_out_valid(state_out, test)
-        except RuntimeError as e:
-            errors.append(e.args[0])
-
-        logger.info("check 3: databag schema validation")
-        if not schema:
-            logger.info("schema validation step skipped: no schema provided")
-            return errors
-        errors.extend(self._assert_schemas_valid(test, state_out, schema))
-        return errors
 
     def _coerce_event(self, raw_event: Union[str, Event], relation: Relation) -> Event:
         # if the event being tested is a relation event, we need to inject some metadata
@@ -498,7 +385,7 @@ class InterfaceTester:
             )
 
     def _generate_relations_state(
-        self, state_template: State, input_state: State, supported_endpoints, role: Role
+            self, state_template: State, input_state: State, supported_endpoints, role: Role
     ) -> List[Relation]:
         """Merge the relations from the input state and the state template into one.
 
