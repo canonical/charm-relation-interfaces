@@ -48,7 +48,7 @@
                 },
             },
         },
-        "unit-data": {
+        "related-units": {
             "config": {
                 "metrics": {
                     "scrape_jobs": [
@@ -198,41 +198,41 @@
                 },
             },
         }
-        "unit-data": {
-            "$id": "#/properties/unit-data",
+        "related-units": {
+            "$id": "#/properties/related-units",
             "title": "Unit Databag",
             "type": "object",
             "additionalProperties": true,
             "properties": {
                 "config": {
-                    "$id": "#/properties/unit-data/config",
+                    "$id": "#/properties/related-units/config",
                     "title": "config exposed by the unit provider",
                     "type": "object",
                     "additionalProperties": true,
                     "properties": {
                         "metrics": {
-                            "$id": "#/properties/unit-data/config/metrics",
+                            "$id": "#/properties/related-units/config/metrics",
                             "type": "object",
                             "additionalProperties": true,
                             "properties": {
                                 "scrape_jobs":{
-                                    "$id": "#/properties/unit-data/config/metrics/scrape_jobs",
+                                    "$id": "#/properties/related-units/config/metrics/scrape_jobs",
                                     "type": "array",
                                     "additionalItems": true,
                                     "items": [
                                         {
                                         "job_name": {
-                                            "$id": "#/properties/unit-data/config/metrics/scrape_jobs/0/job_name",
+                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/job_name",
                                             "title": "Name of the job",
                                             "type": "string"
                                         },
                                         "path": {
-                                            "$id": "#/properties/unit-data/config/metrics/scrape_jobs/0/path",
+                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/path",
                                             "title": "Path of the metrics endpoint",
                                             "type": "string"
                                         },
                                         "port": {
-                                            "$id": "#/properties/unit-data/config/metrics/scrape_jobs/0/port",
+                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/port",
                                             "title": "Port of the metrics endpoint",
                                             "type": "integer"
                                         },
@@ -242,17 +242,17 @@
                             }
                         },
                         "logs":{
-                            "$id": "#/properties/unit-data/config/logs",
+                            "$id": "#/properties/related-units/config/logs",
                             "type": "object",
                             "additionalProperties": true,
                             "properties": {
                                 "targets":{
-                                    "$id": "#/properties/unit-data/config/logs/targets",
+                                    "$id": "#/properties/related-units/config/logs/targets",
                                     "type": "array",
                                     "additionalItems": true,
                                     "items": [
                                         {
-                                        "$id": "#/properties/unit-data/config/logs/targets/0",
+                                        "$id": "#/properties/related-units/config/logs/targets/0",
                                         "type": "string",
                                     },
                                     ],
