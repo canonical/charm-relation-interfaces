@@ -107,6 +107,7 @@
                                             "type": "array",
                                             "additionalItems": true,
                                             "items": [
+
                                                 {
                                                 "$id": "#/properties/application-data/config/metrics/alert_rules/groups/0",
                                                 "title": "Alert rule group exposed by the provider",
@@ -199,69 +200,71 @@
             },
         }
         "related-units": {
-            "$id": "#/properties/related-units",
-            "title": "Unit Databag",
             "type": "object",
-            "additionalProperties": true,
-            "properties": {
-                "config": {
-                    "$id": "#/properties/related-units/config",
-                    "title": "config exposed by the unit provider",
+            "patternProperties": {
+                "^.*/d+$": {
                     "type": "object",
                     "additionalProperties": true,
                     "properties": {
-                        "metrics": {
-                            "$id": "#/properties/related-units/config/metrics",
+                        "config": {
+                            "$id": "#/properties/related-units/config",
+                            "title": "config exposed by the unit provider",
                             "type": "object",
                             "additionalProperties": true,
                             "properties": {
-                                "scrape_jobs":{
-                                    "$id": "#/properties/related-units/config/metrics/scrape_jobs",
-                                    "type": "array",
-                                    "additionalItems": true,
-                                    "items": [
-                                        {
-                                        "job_name": {
-                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/job_name",
-                                            "title": "Name of the job",
-                                            "type": "string"
-                                        },
-                                        "path": {
-                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/path",
-                                            "title": "Path of the metrics endpoint",
-                                            "type": "string"
-                                        },
-                                        "port": {
-                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/port",
-                                            "title": "Port of the metrics endpoint",
-                                            "type": "integer"
+                                "metrics": {
+                                    "$id": "#/properties/related-units/config/metrics",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "scrape_jobs":{
+                                            "$id": "#/properties/related-units/config/metrics/scrape_jobs",
+                                            "type": "array",
+                                            "additionalItems": true,
+                                            "items": [
+                                                {
+                                                "job_name": {
+                                                    "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/job_name",
+                                                    "title": "Name of the job",
+                                                    "type": "string"
+                                                },
+                                                "path": {
+                                                    "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/path",
+                                                    "title": "Path of the metrics endpoint",
+                                                    "type": "string"
+                                                },
+                                                "port": {
+                                                    "$id": "#/properties/related-units/config/metrics/scrape_jobs/0/port",
+                                                    "title": "Port of the metrics endpoint",
+                                                    "type": "integer"
+                                                },
+                                            },
+                                            ],
+                                        }
+                                    }
+                                },
+                                "logs":{
+                                    "$id": "#/properties/related-units/config/logs",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "properties": {
+                                        "targets":{
+                                            "$id": "#/properties/related-units/config/logs/targets",
+                                            "type": "array",
+                                            "additionalItems": true,
+                                            "items": [
+                                                {
+                                                "$id": "#/properties/related-units/config/logs/targets/0",
+                                                "type": "string",
+                                            },
+                                            ],
                                         },
                                     },
-                                    ],
-                                }
-                            }
-                        },
-                        "logs":{
-                            "$id": "#/properties/related-units/config/logs",
-                            "type": "object",
-                            "additionalProperties": true,
-                            "properties": {
-                                "targets":{
-                                    "$id": "#/properties/related-units/config/logs/targets",
-                                    "type": "array",
-                                    "additionalItems": true,
-                                    "items": [
-                                        {
-                                        "$id": "#/properties/related-units/config/logs/targets/0",
-                                        "type": "string",
-                                    },
-                                    ],
                                 },
                             },
                         },
                     },
                 },
-            }
+            },
         },
-    },
-}
+    }

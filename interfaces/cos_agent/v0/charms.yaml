@@ -1,4 +1,5 @@
 providers:
   - zookeeper
+  - kafka
 consumers:
   - grafana-agent

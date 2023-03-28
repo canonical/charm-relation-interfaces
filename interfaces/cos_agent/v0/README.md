@@ -2,15 +2,16 @@
 
 ## Usage
 
-This relation interface describes the expected behavior of any charm claiming to be able to provide or require the `cos_agent` interface.
+The `cos_agent` interface loads observability-related file paths and metrics endpoints into relation data.
 
-In most cases, this will be accomplished using the [`cos_agent` library](https://charmhub.io/grafana-agent/libraries/cos_agent), although charm developers are free to provide alternative libraries as long as they fulfill the behavioral and schematic requirements described in this document.
+The first implementation was for the [`grafana-agent`](https://charmhub.io/grafana-agent/libraries/cos_agent) machine charm for "converting" paths to log files, alert rules and dashboards into relation data for the `loki_push_api`, `prometheus_remote_write` and `grafana_dashboards` interfaces.
+
 
 ## Direction
 
 ```mermaid
 flowchart TD
-    Provider -- "relation_name
+    Provider["Provider (e.g. kafka)"] -- "relation_name
     metrics_endpoints
     metrics_rules_dir
     logs_rules_dir
@@ -18,14 +19,12 @@ flowchart TD
     log_slots
     dashboard_dirs
     refresh_events" --> Requirer
-    Requirer -- refresh_events --> Provider
+    Requirer["Requirer (e.g. grafana-agent)"] -- refresh_events --> Provider
 ```
 
 As all Juju relations, the `cos_agent` interface consists of a provider and a requirer. In this case the `Provider` side of the relationship may provide telemetry settings, if not, the required side will use default values.
 
 ## Behavior
-
-Since this interface is meant to be simple and lightweight each telemetry parameter in the `Provider` side is optional, if some of these are not provided, dafault values will be used.
 
 ### Provider
 
@@ -52,13 +51,17 @@ Since this interface is meant to be simple and lightweight each telemetry parame
 
 [\[JSON Schema\]](./schemas/provider.json)
 
+#### Application data
 - Exposes all scrape jobs the requirer should scrape metrics through. Should be placed in the **application** databag.
+
+
+#### Unit data
 - Exposes the unit address of each unit to scrape, as well as the unit name of each address. Should be placed in the **unit** databag of each scrapable unit.
 
 #### Example
 
 
-```yaml
+```json
 application-data:
   alert_rules: {
     "groups": [
@@ -112,4 +115,4 @@ related-units:
 
 ### Requirer
 
-No relation data should be exposed by the requirer of this relation.
+None.
