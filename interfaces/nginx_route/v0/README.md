@@ -10,8 +10,8 @@ interfacing with Kubernetes Nginx ingress resources.
 An application charm can use the `nginx-route` relation to request the creation
 of a Nginx ingress resource in the Kubernetes cluster. The specific 
 configuration of the ingress resources can be controlled by the data provided
-by the relation's requirer. The `nginx_route` charm library can be used to 
-handle the provider and requirer sides of this relation.
+by the relation's requirer. The [`nginx_route` charm library](https://charmhub.io/nginx-ingress-integrator/libraries/nginx_route)
+can be used to handle the provider and requirer sides of this relation.
 
 ## Direction
 
