@@ -1,0 +1,176 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/nginx_route/schemas/requirer.json",
+    "type": "object",
+    "title": "`nginx-route` requirer schema",
+    "description": "The `nginx-route` root schema comprises the entire requirer databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "service-hostname": "example.test",
+            "service-name": "test-app",
+            "service-port": 8080,
+            "service-namespace": "test-namespace"
+        }
+    ],
+    "required": [
+        "service-hostname",
+        "service-name",
+        "service-port",
+        "service-namespace"
+    ],
+    "properties": {
+        "service-hostname": {
+            "$id": "#/properties/service-hostname",
+            "type": "string",
+            "title": "Service Hostname",
+            "description": "The hostname of the service to create an ingress for.",
+            "default": null,
+            "examples": []
+        },
+        "service-name": {
+            "$id": "#/properties/service-name",
+            "type": "string",
+            "title": "Service Name",
+            "description": "The name of the service to create an ingress for.",
+            "default": null,
+            "examples": []
+        },
+        "service-namespace": {
+            "$id": "#/properties/service-namespace",
+            "type": "string",
+            "title": "Service Namespace",
+            "description": "The namespace of the service to create an ingress for. Will default to the namespace this charm is deployed into.",
+            "default": null,
+            "examples": []
+        },
+        "service-port": {
+            "$id": "#/properties/service-port",
+            "type": "integer",
+            "title": "Service Port",
+            "description": "The port of the service to create an ingress for.",
+            "default": null,
+            "examples": []
+        },
+        "additional-hostnames": {
+            "$id": "#/properties/additional-hostnames",
+            "type": "string",
+            "title": "Additional Hostnames",
+            "description": "Comma-separated list of additional hostnames for this ingress to listen on.",
+            "default": null,
+            "examples": []
+        },
+        "ingress-class": {
+            "$id": "#/properties/ingress-class",
+            "type": "string",
+            "title": "Ingress Class",
+            "description": "The ingress class to target for this ingress resource.\n\nIf your cluster has multiple ingress controllers, this allows\nyou to select the correct one, by setting the ingressClassName\nfield on the ingress resource created by the charm.\n\nThis value isn't available to be set via the relation as it's a\nproperty of the cluster's configuration.\n\nIf this value is empty, the charm will use whichever ingress class has the\n\"ingressclass.kubernetes.io/is-default-class\" annotation set to \"true\".\n\nIf multiple ingress classes are so configured, no selection will be made.\n\nFor more details, see:\n\n * https://kubernetes.github.io/ingress-nginx/user-guide/multiple-ingress/\n\n * https://kubernetes.io/docs/concepts/services-networking/ingress/#default-ingress-class\n",
+            "default": null,
+            "examples": []
+        },
+        "limit-rps": {
+            "$id": "#/properties/limit-rps",
+            "type": "integer",
+            "title": "Limit Rps",
+            "description": "Number of requests accepted from a given IP each second. The burst limit\nis set to this limit multiplied by 5. When clients exceed this limit a\n503 error will be returned.\nSetting this to 0 disables rate-limiting.\n",
+            "default": null,
+            "examples": []
+        },
+        "limit-whitelist": {
+            "$id": "#/properties/limit-whitelist",
+            "type": "string",
+            "title": "Limit Whitelist",
+            "description": "If rate-limiting is set, client IP source ranges to be excluded. The value\nis a comma-separated list of CIDRs.\n",
+            "default": null,
+            "examples": []
+        },
+        "max-body-size": {
+            "$id": "#/properties/max-body-size",
+            "type": "integer",
+            "title": "Max Body Size",
+            "description": "Max allowed body-size (for file uploads) in megabytes, set to 0 to disable limits.",
+            "default": null,
+            "examples": []
+        },
+        "owasp-modsecurity-crs": {
+            "$id": "#/properties/owasp-modsecurity-crs",
+            "type": "boolean",
+            "title": "Owasp Modsecurity Crs",
+            "description": "Enable OWASP ModSecurity Core Rule Set (CRS). A set of generic attack detection rules for use\nwith ModSecurity or compatible web application firewalls. The CRS aims to protect web\napplications from a wide range of attacks, including the OWASP Top Ten, with a minimum of\nfalse alerts. See https://github.com/coreruleset/coreruleset for more details.\n",
+            "default": null,
+            "examples": []
+        },
+        "owasp-modsecurity-custom-rules": {
+            "$id": "#/properties/owasp-modsecurity-custom-rules",
+            "type": "string",
+            "title": "Owasp Modsecurity Custom Rules",
+            "description": "New line ('\\n') separated list of custom rules to be added to modsecurity-snippet annotation.",
+            "default": null,
+            "examples": ["SecAction id:900130,phase:1,nolog,pass,t:none,setvar:tx.crs_exclusions_wordpress=1\n"]
+        },
+        "path-routes": {
+            "$id": "#/properties/path-routes",
+            "type": "string",
+            "title": "Path Routes",
+            "description": "Comma separated list of the routes under the hostname that you wish to map to the relation.\nExample: \"/admin,/portal\" will map example.test/admin and example.test/portal only.\n",
+            "default": null,
+            "examples": ["/admin,/portal"]
+        },
+        "proxy-read-timeout": {
+            "$id": "#/properties/proxy-read-timeout",
+            "type": "integer",
+            "title": "Proxy Read Timeout",
+            "description": "Defines a timeout in seconds for reading a response from the proxied server.",
+            "default": null,
+            "examples": []
+        },
+        "retry-errors": {
+            "$id": "#/properties/retry-errors",
+            "type": "string",
+            "title": "Retry Errors",
+            "description": "Specifies in which cases a request should be retried against the next server.\nComma-separated list, e.g. \"error,timeout,http_502,http_503,http_504\".\nSee http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_next_upstream\nfor more details. Unrecognised values will be ignored. The nginx default\nwill be used if this config option is set to an empty value.\n",
+            "default": null,
+            "examples": ["error,timeout,http_502,http_503,http_504"]
+        },
+        "rewrite-enabled": {
+            "$id": "#/properties/rewrite-enabled",
+            "type": "boolean",
+            "title": "Rewrite Enabled",
+            "description": "Whether requests should be written to the `rewrite-target`",
+            "default": null,
+            "examples": []
+        },
+        "rewrite-target": {
+            "$id": "#/properties/rewrite-target",
+            "type": "string",
+            "title": "Rewrite Target",
+            "description": "The path to rewrite requests to. If not set, rewrite-target will be \"/\".",
+            "default": null,
+            "examples": []
+        },
+        "session-cookie-max-age": {
+            "$id": "#/properties/session-cookie-max-age",
+            "type": "integer",
+            "title": "Session Cookie Max Age",
+            "description": "The max age to configure a session cookie for. Leaving unset or setting to 0 will disable session cookies and cookie-based affinity.",
+            "default": null,
+            "examples": []
+        },
+        "tls-secret-name": {
+            "$id": "#/properties/tls-secret-name",
+            "type": "string",
+            "title": "Tls Secret Name",
+            "description": "The name of the TLS secret to use. Leaving this empty will configure an ingress with TLS disabled.",
+            "default": null,
+            "examples": []
+        },
+        "whitelist-source-range": {
+            "$id": "#/properties/whitelist-source-range",
+            "type": "string",
+            "title": "Whitelist Source Range",
+            "description": "Allowed client IP source ranges. The value is a comma separated list of CIDRs.",
+            "default": null,
+            "examples": []
+        }
+    }
+}
