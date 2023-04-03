@@ -18,15 +18,17 @@ class DataBagSchema(BaseModel):
     >>>     foo: Json[int]
     >>>     bar: str
     >>>
-    >>> # this class needs to be named "ConsumerSchema" for it to be picked up by the automated tester.
+    >>> # this class needs to be named "ConsumerSchema"
+    >>> # for it to be picked up by the automated tester.
     >>> class ConsumerSchema(DataBagSchema):
     >>>     unit: MyUnitConsumerSchema
 
-    This specifies that for a relation to satisfy MyRequirerSchema, the application databag needs to be empty
-    and the unit databag needs to contain exactly a "bar":string and a "foo":Json-encoded int value.
+    This specifies that for a relation to satisfy MyRequirerSchema, the application databag
+    needs to be empty and the unit databag needs to contain exactly a "bar":string and a
+    "foo":Json-encoded int value.
 
-    By using pydantic's validator API, you can specify further constraints on the values, provide defaults,
-    enforce encoding/decoding, and so on.
+    By using pydantic's validator API, you can specify further constraints on the values,
+    provide defaults, enforce encoding/decoding, and more.
     """
     unit: Optional[BaseModel] = None
     app: Optional[BaseModel] = None

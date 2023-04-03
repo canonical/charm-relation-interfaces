@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "charm-relation-interfaces"
+
+version = "0.1"
+authors = [
+    { name = "Pietro Pasotti", email = "pietro.pasotti@canonical.com" },
+    { name = "Simon Aronsson", email = "simon.aronsson@canonical.com" },
+    { name = "Guillaume Belanger", email = "guillaume.belanger@canonical.com" },
+]
+description = "Charm relation interface protocol specifications."
+license.text = "Apache-2.0"
+keywords = ["juju", "relation interfaces"]
+
+dependencies = [
+    "pydantic"
+]
+
+readme = "README.md"
+requires-python = ">=3.8"
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/canonical/charm-relation-interfaces"
+"Bug Tracker" = "https://github.com/canonical/charm-relation-interfaces/issues"
+
+[tool.ruff]
+line-length = 99
+
+
+[tool.black]
+include = '\.pyi?$'
+
+
+[tool.isort]
+profile = "black"
+
+[bdist_wheel]
+universal=1
