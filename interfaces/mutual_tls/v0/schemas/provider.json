@@ -15,9 +15,6 @@
       ]
     }
   ],
-  "required": [
-    "certificate"
-  ],
   "properties": {
     "certificate": {
       "$id": "#/properties/certificate",

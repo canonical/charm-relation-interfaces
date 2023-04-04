@@ -25,6 +25,7 @@ To quickly get started, you can copy the `interfaces/__template__` folder to cre
 |               | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 | Security      | [`tls_certificates/v0`](interfaces/tls_certificates/v0/README.md)            | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`tls_certificates/v1`](interfaces/tls_certificates/v1/README.md)            | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`mutual_tls`](interfaces/mutual_tls/v0/README.md)                           | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | Storage       | [`s3`](interfaces/s3/v0/README.md)                                           | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
 ## Project-internal Interfaces

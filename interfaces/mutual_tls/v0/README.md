@@ -21,11 +21,11 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide its own public certificate, its CA certificate and its CA chain.
+- Is expected to provide its own public certificate and/or its CA certificate and/or its chain.
 
 ### Requirer
 
-- Is expected to use the provider's certificate and chain to authenticate the provider when communicating with it.
+- Is expected to use the provider's certificate and/or CA certificate and/or chain to authenticate the provider when communicating with it.
 
 ## Relation Data
 
