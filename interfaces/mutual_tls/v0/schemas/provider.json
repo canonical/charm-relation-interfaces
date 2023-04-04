@@ -39,5 +39,22 @@
       "description": "CA public TLS certificate chain"
     }
   },
+  "anyOf": [
+    {
+      "required": [
+        "certificate"
+      ]
+    },
+    {
+      "required": [
+        "ca"
+      ]
+    },
+    {
+      "required": [
+        "chain"
+      ]
+    }
+  ],
   "additionalProperties": true
 }
