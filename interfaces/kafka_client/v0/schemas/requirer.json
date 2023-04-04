@@ -25,7 +25,7 @@
    "if":{
       "properties":{
          "extra-user-roles":{
-            "pattern":"consumer"
+            "pattern":"requirer"
          }
       }
    },
@@ -42,22 +42,22 @@
          "type":"string",
          "default":"",
          "enum":[
-            "consumer",
+            "requirer",
             "producer",
             "admin",
-            "consumer,producer",
-            "consumer,admin",
+            "requirer,producer",
+            "requirer,admin",
             "producer,admin",
-            "consumer,producer,admin"
+            "requirer,producer,admin"
          ],
          "examples":[
-            "consumer",
+            "requirer",
             "producer",
             "admin",
-            "consumer,producer",
-            "consumer,admin",
+            "requirer,producer",
+            "requirer,admin",
             "producer,admin",
-            "consumer,producer,admin"
+            "requirer,producer,admin"
          ]
       },
       "topic":{
@@ -70,9 +70,9 @@
             "appname-*"
          ]
       },
-      "consumer-group-prefix":{
-         "title":"Kafka consumer group prefix",
-         "description":"A prefix for wildcard consumer-group ids that have been granted permissions",
+      "requirer-group-prefix":{
+         "title":"Kafka requirer group prefix",
+         "description":"A prefix for wildcard requirer-group ids that have been granted permissions",
          "type":"string",
          "default":"",
          "examples":[
@@ -82,9 +82,9 @@
    },
    "examples":[
       {
-         "extra-user-roles":"consumer",
+         "extra-user-roles":"requirer",
          "topic":"special-topic",
-         "consumer-group-prefix": "my-consumer-group"
+         "requirer-group-prefix": "my-requirer-group"
       }
    ]
 }

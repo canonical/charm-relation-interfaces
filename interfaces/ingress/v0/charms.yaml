@@ -2,4 +2,4 @@ providers:
   - name: traefik-k8s
     url: https://github.com/canonical/traefik-k8s-operator
 
-consumers: []
+requirers: []

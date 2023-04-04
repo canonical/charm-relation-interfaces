@@ -61,7 +61,7 @@ Provider provides credentials, endpoint addresses, TLS info and index-specific f
 ```yaml
   relation-info:
   - endpoint: opensearch-client
-    related-endpoint: opensearch-app-consumer
+    related-endpoint: opensearch-app-requirer
     application-data:
       endpoints: 10.180.162.200:9200,10.180.162.75:9200
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
@@ -78,7 +78,7 @@ Requirer provides the index name in its **unit** databag.
 
 ```yaml
   relation-info:
-  - endpoint: opensearch-app-consumer
+  - endpoint: opensearch-app-requirer
     related-endpoint: opensearch-client
     application-data: {}
     related-units:

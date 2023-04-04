@@ -10,21 +10,21 @@
             "alert_rules": {
                 "groups": [
                     {
-                        "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                        "name": "some-model_00000000-0000-0000-0000-000000000000_requirer-charm_alerts",
                         "rules": [
                             {
-                                "alert": "ConsumerCharmUnavailable",
-                                "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                "alert": "RequirerCharmUnavailable",
+                                "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1",
                                 "for": "0m",
                                 "labels": {
                                     "severity": "critical",
                                     "juju_model": "some-model",
                                     "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                    "juju_application": "consumer-charm"
+                                    "juju_application": "requirer-charm"
                                 },
                                 "annotations": {
-                                    "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                    "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                    "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                    "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                 }
                             }
                         ]
@@ -47,21 +47,21 @@
                 {
                     "groups": [
                         {
-                            "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                            "name": "some-model_00000000-0000-0000-0000-000000000000_requirer-charm_alerts",
                             "rules": [
                                 {
                                     "alert": "GrafanaAgentUnavailable",
-                                    "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                    "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1",
                                     "for": "0m",
                                     "labels": {
                                         "severity": "critical",
                                         "juju_model": "some-model",
                                         "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                        "juju_application": "consumer-charm"
+                                        "juju_application": "requirer-charm"
                                     },
                                     "annotations": {
-                                        "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                        "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                        "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                        "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                     }
                                 }
                             ]
@@ -82,21 +82,21 @@
                     "examples": [
                         [
                             {
-                                "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                                "name": "some-model_00000000-0000-0000-0000-000000000000_requirer-charm_alerts",
                                 "rules": [
                                     {
-                                        "alert": "ConsumerCharmUnavailable",
-                                        "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                        "alert": "RequirerCharmUnavailable",
+                                        "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1",
                                         "for": "0m",
                                         "labels": {
                                             "severity": "critical",
                                             "juju_model": "some-model",
                                             "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                            "juju_application": "consumer-charm"
+                                            "juju_application": "requirer-charm"
                                         },
                                         "annotations": {
-                                            "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                            "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                            "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                            "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                         }
                                     }
                                 ]
@@ -115,21 +115,21 @@
                                 "default": {},
                                 "examples": [
                                     {
-                                        "name": "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts",
+                                        "name": "some-model_00000000-0000-0000-0000-000000000000_requirer-charm_alerts",
                                         "rules": [
                                             {
-                                                "alert": "ConsumerCharmUnavailable",
-                                                "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                                "alert": "RequirerCharmUnavailable",
+                                                "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1",
                                                 "for": "0m",
                                                 "labels": {
                                                     "severity": "critical",
                                                     "juju_model": "some-model",
                                                     "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                                    "juju_application": "consumer-charm"
+                                                    "juju_application": "requirer-charm"
                                                 },
                                                 "annotations": {
-                                                    "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                                    "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                    "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                    "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                                 }
                                             }
                                         ]
@@ -147,7 +147,7 @@
                                         "description": "The name of the alert rule group.",
                                         "default": "",
                                         "examples": [
-                                            "some-model_00000000-0000-0000-0000-000000000000_consumer-charm_alerts"
+                                            "some-model_00000000-0000-0000-0000-000000000000_requirer-charm_alerts"
                                         ]
                                     },
                                     "rules": {
@@ -159,18 +159,18 @@
                                         "examples": [
                                             [
                                                 {
-                                                    "alert": "ConsumerCharmUnavailable",
-                                                    "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                                    "alert": "RequirerCharmUnavailable",
+                                                    "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1",
                                                     "for": "0m",
                                                     "labels": {
                                                         "severity": "critical",
                                                         "juju_model": "some-model",
                                                         "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                                        "juju_application": "consumer-charm"
+                                                        "juju_application": "requirer-charm"
                                                     },
                                                     "annotations": {
-                                                        "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                                        "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                        "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                        "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                                     }
                                                 }
                                             ]
@@ -187,18 +187,18 @@
                                                     "description": "An alert rule provided by the requirer",
                                                     "examples": [
                                                         {
-                                                            "alert": "ConsumerCharmUnavailable",
-                                                            "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1",
+                                                            "alert": "RequirerCharmUnavailable",
+                                                            "expr": "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1",
                                                             "for": "0m",
                                                             "labels": {
                                                                 "severity": "critical",
                                                                 "juju_model": "some-model",
                                                                 "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                                                "juju_application": "consumer-charm"
+                                                                "juju_application": "requirer-charm"
                                                             },
                                                             "annotations": {
-                                                                "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                                                "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                                "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                                "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                                             }
                                                         }
                                                     ],
@@ -215,7 +215,7 @@
                                                             "description": "Name of the alert rule.",
                                                             "default": "",
                                                             "examples": [
-                                                                "ConsumerCharmUnavailable"
+                                                                "RequirerCharmUnavailable"
                                                             ]
                                                         },
                                                         "expr": {
@@ -225,7 +225,7 @@
                                                             "description": "The expression used to evaluate whether the alert is firing.",
                                                             "default": "",
                                                             "examples": [
-                                                                "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"consumer-charm\"} < 1"
+                                                                "up{juju_model=\"some-model\",juju_model_uuid=\"00000000-0000-0000-0000-000000000000\", juju_application=\"requirer-charm\"} < 1"
                                                             ]
                                                         },
                                                         "for": {
@@ -249,7 +249,7 @@
                                                                     "severity": "critical",
                                                                     "juju_model": "some-model",
                                                                     "juju_model_uuid": "00000000-0000-0000-0000-000000000000",
-                                                                    "juju_application": "consumer-charm"
+                                                                    "juju_application": "requirer-charm"
                                                                 }
                                                             ],
                                                             "required": [
@@ -296,7 +296,7 @@
                                                                     "description": "The name of the Juju application the alert applies to.",
                                                                     "default": "",
                                                                     "examples": [
-                                                                        "consumer-charm"
+                                                                        "requirer-charm"
                                                                     ]
                                                                 }
                                                             },
@@ -309,8 +309,8 @@
                                                             "description": "A list of annotations to include whenever the alert rule fires.",
                                                             "examples": [
                                                                 {
-                                                                    "summary": "Consumer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
-                                                                    "description": "The Consumer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
+                                                                    "summary": "Requirer Charm {{ $labels.juju_model}}/{{ $labels.juju_unit }} unavailable",
+                                                                    "description": "The Requirer Charm {{ $labels.juju_model }} {{ $labels.juju_unit }} is unavailable LABELS = {{ $labels }}\n"
                                                                 }
                                                             ],
                                                             "required": [],

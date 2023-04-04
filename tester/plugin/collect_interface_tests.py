@@ -140,7 +140,7 @@ def _gather_charms_for_version(version_dir: Path) -> Optional[_CharmsDotYamlSpec
 
     providers = charms.get('providers')
     # fixme: uniform terminology?
-    requirers = charms.get('requirers', charms.get('consumers'))
+    requirers = charms.get('requirers', charms.get('requirers'))
 
     if not isinstance(providers, list) or not isinstance(requirers, list):
         raise TypeError(f'{charms_yaml} file has unexpected providers/requirers spec; '

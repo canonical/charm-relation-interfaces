@@ -2,5 +2,5 @@ providers:
   - name: hydra-operator
     url: https://www.github.com/canonical/hydra-operator
 
-consumers:
+requirers:
   []

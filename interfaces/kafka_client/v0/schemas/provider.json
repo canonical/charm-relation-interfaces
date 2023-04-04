@@ -42,9 +42,9 @@
             "10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092"
          ]
       },
-      "consumer-group-prefix":{
-         "title":"Kafka consumer group prefix",
-         "description":"A prefix for wildcard consumer-group ids that have been granted permissions",
+      "requirer-group-prefix":{
+         "title":"Kafka requirer group prefix",
+         "description":"A prefix for wildcard requirer-group ids that have been granted permissions",
          "type":"string",
          "default":"",
          "examples":[
@@ -68,7 +68,7 @@
          "endpoints":[
             "10.141.78.155,10.141.78.62,10.141.78.186"
          ],
-         "consumer-group-prefix":"relation-14-",
+         "requirer-group-prefix":"relation-14-",
          "zookeeper_uris":"10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
       }
    ]

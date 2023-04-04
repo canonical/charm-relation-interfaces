@@ -14,14 +14,14 @@ class DataBagSchema(BaseModel):
 
     >>> from pydantic import Json
     >>>
-    >>> class MyUnitConsumerSchema(DataBagSchema):
+    >>> class MyUnitRequirerSchema(DataBagSchema):
     >>>     foo: Json[int]
     >>>     bar: str
     >>>
-    >>> # this class needs to be named "ConsumerSchema"
+    >>> # this class needs to be named "RequirerSchema"
     >>> # for it to be picked up by the automated tester.
-    >>> class ConsumerSchema(DataBagSchema):
-    >>>     unit: MyUnitConsumerSchema
+    >>> class RequirerSchema(DataBagSchema):
+    >>>     unit: MyUnitRequirerSchema
 
     This specifies that for a relation to satisfy MyRequirerSchema, the application databag
     needs to be empty and the unit databag needs to contain exactly a "bar":string and a

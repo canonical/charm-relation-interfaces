@@ -14,7 +14,7 @@ providers:
   - name: zinc-k8s
     url: https://www.github.com/canonical/zinc-k8s
 
-consumers:
+requirers:
   - name: prometheus-k8s
     url: https://www.github.com/canonical/prometheus-k8s
   - name: grafana-agent-k8s
