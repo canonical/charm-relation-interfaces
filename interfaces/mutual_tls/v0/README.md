@@ -2,7 +2,7 @@
 
 ## Usage
 
-Some charms require knowledge of other charms public TLS certificates for trusted communication with them. This relation interface describes the expected behaviour of any charm claiming to be able to authenticate other charms through TLS communication.
+Some charms require knowledge of other charms public TLS certificates for trusted communication with them. This relation interface describes the expected behaviour of any charm claiming to be able to authenticate (or be authenticated) through TLS communication.
 
 **Warning**: This relation interface should not be used by charms requiring certificates for themselves. Please use the `tls-certificates` interface for this usecase.
 
