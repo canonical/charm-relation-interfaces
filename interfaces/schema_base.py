@@ -22,6 +22,14 @@ class DataBagSchema(BaseModel):
     >>> # for it to be picked up by the automated tester.
     >>> class RequirerSchema(DataBagSchema):
     >>>     unit: MyUnitRequirerSchema
+    >>>     # you can omit `unit` or `app` if the databag is expected to be empty.
+    >>>
+    >>> # you can also omit either `RequirerSchema` or `ProviderSchema` altogether if the requirer
+    >>> # or the provider, respectively, do not expose any relation data.
+    >>>
+    >>> # class ProviderSchema(DataBagSchema):
+    >>>     # ...
+
 
     This specifies that for a relation to satisfy MyRequirerSchema, the application databag
     needs to be empty and the unit databag needs to contain exactly a "bar":string and a

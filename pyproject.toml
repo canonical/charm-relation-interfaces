@@ -32,6 +32,13 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
+unit_tests = [
+    "ops",
+    "ops-scenario",
+    "pytest",
+    "pyyaml",
+]
+
 json_schemas = [
     "pyyaml",
 ]

@@ -1,13 +1,12 @@
 from pathlib import Path
 
 import yaml
+from collect_interface_tests import InterfaceTestSpec, gather_test_spec_for_version
 from ops.charm import CharmBase
 from ops.framework import Framework
 from ops.model import BlockedStatus
-from scenario import State
-
-from collect_interface_tests import InterfaceTestSpec, gather_test_spec_for_version
 from pytest_interface_tester import InterfaceTester
+from scenario import State
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
