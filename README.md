@@ -22,17 +22,31 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`kafka_client`](interfaces/kafka_client/v0/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 |               | [`opensearch_client`](interfaces/opensearch_client/v0/README.md)             | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 |               | [`database_backup`](interfaces/database_backup/v0/README.md)                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|               | [`oauth`](interfaces/oauth/v0/README.md)                                     | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| Identity      | [`oauth`](interfaces/oauth/v0/README.md)                                     | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | Observability | [`grafana_auth`](interfaces/grafana_auth/v0/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 |               | [`ingress`](interfaces/ingress/v0/README.md)                                 | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`prometheus_remote_write`](interfaces/prometheus_remote_write/v0/README.md) | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`prometheus_scrape`](interfaces/prometheus_scrape/v0/README.md)             | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
-| Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | Security      | [`tls_certificates/v0`](interfaces/tls_certificates/v0/README.md)            | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`tls_certificates/v1`](interfaces/tls_certificates/v1/README.md)            | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | Storage       | [`s3`](interfaces/s3/v0/README.md)                                           | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+
+## Project-internal Interfaces
+
+### Charmed Kubeflow
+
+| Category      | Interface                                                                    |                               Status                                |
+|---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
+| Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+
+### Identity
+
+| Category      | Interface                                                            |                               Status                                |
+|---------------|:---------------------------------------------------------------------|:-------------------------------------------------------------------:|
+| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`kratos_external_idp`](interfaces/kratos_external_idp/v0/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`kratos_endpoints`](interfaces/kratos_endpoints/v0/README.md)       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
 For a more detailed explanation of statuses and how they should be used, see [the legend](https://github.com/canonical/charm-relation-interfaces/blob/main/LEGEND.md).
 
