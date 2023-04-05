@@ -37,11 +37,11 @@ To quickly get started, you can copy the `interfaces/__template__` folder to cre
 
 ### Identity
 
-| Category      | Interface                                                            |                               Status                                |
-|---------------|:---------------------------------------------------------------------|:-------------------------------------------------------------------:|
-| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|               | [`kratos_external_idp`](interfaces/kratos_external_idp/v0/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|               | [`kratos_endpoints`](interfaces/kratos_endpoints/v0/README.md)       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| Category      | Interface                                                                    |                               Status                                |
+|---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
+| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`kratos_external_idp`](interfaces/kratos_external_idp/v0/README.md)         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`login_ui_endpoints`](interfaces/login_ui_endpoints/v0/README.md)           | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
 
 
