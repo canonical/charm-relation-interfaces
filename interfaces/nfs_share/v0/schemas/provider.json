@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/nfs_share/schemas/provider.json",
+    "type": "object",
+    "title": "`nfs_share` provider schema",
+    "description": "The `nfs_share` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "application_data": {
+                "endpoint": "nfs://10.152.28.100/volumes/polaris-research-data"
+            }
+        }
+    ],
+    "required": [
+        "endpoint"
+    ],
+    "properties": {
+        "application-data": {
+            "$id": "#/properties/application-data",
+            "title": "Application Databag",
+            "type": "object",
+            "additionalProperties": true
+        },
+        "properties": {
+            "endpoint": {
+                "type": "string",
+                "title": "NFS share endpoint",
+                "description": "The NFS share provider's NFS share endpoint URL.",
+                "examples": [
+                    "nfs://10.152.28.100/volumes/polaris-research-data"
+                ]
+            }
+        }
+    }
+}
