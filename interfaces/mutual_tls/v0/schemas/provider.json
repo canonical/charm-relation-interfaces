@@ -26,7 +26,7 @@
       "$id": "#/properties/ca",
       "type": "string",
       "title": "CA public TLS certificate",
-      "description": "CA Public TLS certificate"
+      "description": "CA public TLS certificate"
     },
     "chain": {
       "$id": "#/properties/chain",
