@@ -2,7 +2,7 @@
 
 ## Overview
 
-This relation interface describes the expected behavior of charms claiming to be able to provide or consume an Identity Platform Login UI endpoint.
+This relation interface describes the expected behavior of charms claiming to be able to provide or consume Identity Platform Login UI endpoints.
 
 ## Usage
 
