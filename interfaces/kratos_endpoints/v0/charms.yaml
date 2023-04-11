@@ -1,0 +1,7 @@
+providers:
+  - name: kratos-operator
+    url: https://github.com/canonical/kratos-operator
+
+consumers:
+  - name: identity-platform-login-ui-operator
+    url: https://github.com/canonical/identity-platform-login-ui-operator

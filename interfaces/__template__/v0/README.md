@@ -1,4 +1,4 @@
-# `ingress`
+# `name-of-this-interface`
 
 ## Usage
 
@@ -21,47 +21,26 @@ Describe as clearly as possible criteria that the requirer and the provider need
 
 ### Provider
 
-- List of expectations that the provider needs to fulfill. For example
-- Is expected to publish the ingress url in its application databag.
-  The url is expected to have the following structure:
-
-    > `http://[ingress hostname]:[ingress port]/[app-name]-[model-name]/`
+- List of expectations that the provider needs to fulfill. 
     
 
 ### Requirer
 
-- List of expectations that the requirer needs to fulfill. For example
-- Is expected to be able to provide a hostname, a port, the name of the (leader) unit requesting ingress, and a model name (namespace). 
-
+- List of expectations that the requirer needs to fulfill.
+- 
 ## Relation Data
 
 Describe the contents of the databags, and provide schemas for them.
 
-### Provider
-
-[\[JSON Schema\]](./schemas/provider.json)
-
+[\[Pydantic Schema\]](./schema.py)
 
 #### Example
-
-Provide examples of valid databags.
-
+Provide a yaml/json example of a valid databag state (for the whole relation).
 ```yaml
-application_data: {
-  url: "http://foo.bar:80/model_name-unit_name/0"
-}
-```
-
-### Requirer
-
-[\[JSON Schema\]](./schemas/requirer.json)
-
-#### Example
-```yaml
-application-data: {
- name: "unit-name",
- host: "hostname",
- port: 4242,
- model: "model-name"
-}
+provider:
+  app: {}
+  unit: {}
+consumer:
+  app: {}
+  unit: {}
 ```
