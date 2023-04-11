@@ -49,9 +49,9 @@ compatible with the interface.
 
 - Is expected to publish a name/alias that can be used as a unique identifier
   for a requested NFS share in its application databag.
-- Is expected to be able to publish a size, in gigabytes (GB), for how large to make a 
+- Is expected to optionally publish a size, in gigabytes (GB), for how large to make a 
   requested NFS share in its application databag.
-- Is expected to be able to publish an allowlist of hostnames that should be granted 
+- Is expected to optionally publish an allowlist of hostnames that should be granted 
   read/write access to the requested NFS share.
 
 ## Relation Data
@@ -60,8 +60,6 @@ compatible with the interface.
 
 Provider provides its NFS share endpoints. The NFS share endpoints should be placed in the
 __application__ databag.
-
-[\[JSON Schema\]](./schemas/provider.json)
 
 #### Example
 
@@ -72,8 +70,6 @@ application_data: {
 ```
 
 ### Requirer
-
-[\[JSON Schema\]](./schemas/requirer.json)
 
 #### Example
 
