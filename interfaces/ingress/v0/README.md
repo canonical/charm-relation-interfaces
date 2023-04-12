@@ -8,7 +8,7 @@ In most cases, this will be accomplished using the [ingress library](https://git
 
 ## Direction
 The `ingress` interface implements a provider/requirer pattern.
-The consumer is a charm that wishes to receive ingress, and the provider is a charm able to provide it.
+The requirer is a charm that wishes to receive ingress, and the provider is a charm able to provide it.
 
 ```mermaid
 flowchart TD

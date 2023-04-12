@@ -2,7 +2,7 @@ providers:
   - name: s3-integrator
     url: https://www.github.com/canonical/s3-integrator
 
-consumers:
+requirers:
   - name: mysql-operator
     url: https://www.github.com/canonical/mysql-operator
   - name: mysql-k8s-operator

@@ -2,4 +2,4 @@ providers:
   - name: opensearch-operator
     url: https://www.github.com/canonical/opensearch-operator
 
-consumers: []
+requirers: []
