@@ -40,7 +40,7 @@ considered compatible with the interface.
 
 The provider does not provide anything in the relation databag.
 
-[\[JSON Schema\]](./schemas/provider.json)
+[\[JSON Schema\]](./schemas/provider.py)
 
 ### Requirer
 
@@ -49,7 +49,7 @@ configuration of the Nginx ingress integrator charm, with the exception that
 `service-hostname`, `service-name`, `service-port`, and `service-namespace`
 are required in the relation data.
 
-[\[JSON Schema\]](./schemas/requirer.json)
+[\[JSON Schema\]](./schemas/requirer.py)
 
 #### Example
 ```yaml
