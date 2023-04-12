@@ -36,7 +36,7 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Provider
 
-- Is expected to serve all above specified endpoints 
+- Is expected to serve Identity Platform Login UI endpoints.
 - Is expected to write the URLs to the application databag.
 
 ### Requirer
