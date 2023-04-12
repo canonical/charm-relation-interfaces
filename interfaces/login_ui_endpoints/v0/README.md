@@ -47,7 +47,7 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Provider
 
-[\[JSON Schema\]](./schemas/provider.json)
+[\[Pydantic Schema\]](./schema.py)
 
 
 #### Example
@@ -69,6 +69,6 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Requirer
 
-[\[JSON Schema\]](./schemas/requirer.json)
+[\[Pydantic Schema\]](./schema.py)
 
 n/a
