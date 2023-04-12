@@ -27,6 +27,7 @@ considered compatible with the interface.
 ### Provider
 
 - Is expected to create ingress resources in the Kubernetes cluster if the requirer's requirements are valid.
+- Is expected to display an error message in the charm status and ignore requirer's request, if the request specified by the requirer is not valid.
 - Is expected to create ingress resources with host-based routing.
 
 ### Requirer
