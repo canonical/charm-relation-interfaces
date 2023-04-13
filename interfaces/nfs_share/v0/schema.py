@@ -9,7 +9,7 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-                endpoint: "nfs://127.0.0.1/data"
+                "endpoint": "nfs://127.0.0.1/data"
             }
 
     RequirerSchema:
