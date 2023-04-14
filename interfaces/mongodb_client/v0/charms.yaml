@@ -4,4 +4,4 @@ providers:
   - name: mongodb-k8s-operator
     url: https://www.github.com/canonical/mongodb-k8s-operator
 
-consumers: []
+requirers: []

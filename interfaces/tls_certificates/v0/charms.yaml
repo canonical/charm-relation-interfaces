@@ -4,7 +4,7 @@ providers:
   - name: tls-certificates-operator
     url: https://www.github.com/canonical/tls-certificates-operator
 
-consumers:
+requirers:
   - name: keystone
     url: https://www.github.com/openstack/charm-keystone
   - name: nova-cloud-controller

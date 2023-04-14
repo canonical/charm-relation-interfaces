@@ -1,10 +1,10 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
-"""This file defines the schemas for the provider and consumer sides of the ingress interface.
+"""This file defines the schemas for the provider and requirer sides of the ingress interface.
 
 It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 - ProviderSchema
-- ConsumerSchema
+- RequirerSchema
 
 Examples:
     ProviderSchema:
@@ -13,7 +13,7 @@ Examples:
                  {"url":  "http://foo.bar:80/model_name-app_name"}
              }
 
-    ConsumerSchema:
+    RequirerSchema:
         unit: <empty>
         app: {"name": "app-name",
               "host": "hostname",
@@ -25,7 +25,7 @@ Examples:
 import yaml
 from pydantic import BaseModel, Json, AnyHttpUrl, validator
 
-from interfaces.schema_base import DataBagSchema
+from interface_tester.schema_base import DataBagSchema
 
 
 class Url(BaseModel):
