@@ -19,8 +19,8 @@
       "type": "object",
       "properties": {}
     },
-    "MyRequirerAppData": {
-      "title": "MyRequirerAppData",
+    "IngressRequirerData": {
+      "title": "IngressRequirerData",
       "type": "object",
       "properties": {
         "port": {
@@ -45,6 +45,18 @@
         "host",
         "model",
         "name"
+      ]
+    },
+    "MyRequirerAppData": {
+      "title": "MyRequirerAppData",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/IngressRequirerData"
+        }
+      },
+      "required": [
+        "data"
       ]
     }
   }
