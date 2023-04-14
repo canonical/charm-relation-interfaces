@@ -1,5 +1,8 @@
 [build-system]
-requires = ["setuptools"]
+requires = [
+    "setuptools >= 35.0.2",
+    "setuptools_scm >= 2.0.0, <3"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -28,6 +31,30 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 
+[project.optional-dependencies]
+unit_tests = [
+    "ops",
+    "ops-scenario",
+    "pytest",
+    "pyyaml",
+]
+
+json_schemas = [
+    "pyyaml",
+# todo replace with pypi package when available
+#    "git+https://github.com/PietroPasotti/interface-tester-pytest",
+]
+
+interface_tests = [
+    "pyyaml",
+    "pytest",
+    "ops-scenario",
+    "pydantic",
+    "requests",
+# todo replace with pypi package when available
+#    "git+https://github.com/PietroPasotti/interface-tester-pytest",
+]
+
 [project.urls]
 "Homepage" = "https://github.com/canonical/charm-relation-interfaces"
 "Bug Tracker" = "https://github.com/canonical/charm-relation-interfaces/issues"
@@ -44,4 +71,5 @@ include = '\.pyi?$'
 profile = "black"
 
 [bdist_wheel]
-universal=1
+universal = 1
+

@@ -1,0 +1,8 @@
+name: "my-application"
+
+requires:
+  ingress:
+    interface: ingress
+
+containers:
+  foo: {}
