@@ -3,4 +3,3 @@ providers:
     url: https://github.com/canonical/traefik-k8s-operator
 
 requirers: []
-
