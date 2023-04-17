@@ -40,7 +40,7 @@ Provide a yaml/json example of a valid databag state (for the whole relation).
 provider:
   app: {}
   unit: {}
-consumer:
+requirer:
   app: {}
   unit: {}
 ```
