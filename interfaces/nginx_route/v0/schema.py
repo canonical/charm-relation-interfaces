@@ -7,28 +7,24 @@ from pydantic import BaseModel, Field
 
 class NginxRouteRequirerSchema(BaseModel):
     service_hostname: str = Field(
-        ...,
         alias="service-hostname",
         description="The hostname of the service to create an ingress for.",
         examples=["example.com"],
         title="Service Hostname",
     )
     service_name: str = Field(
-        ...,
         alias="service-name",
         description="The name of the service to create an ingress for.",
         examples=[],
         title="Service Name",
     )
     service_namespace: str = Field(
-        ...,
         alias="service-namespace",
         description="The namespace of the service to create an ingress for. Will default to the namespace this charm is deployed into.",
         examples=[],
         title="Service Namespace",
     )
     service_port: int = Field(
-        ...,
         alias="service-port",
         description="The port of the service to create an ingress for.",
         examples=[8080, 80],
@@ -141,3 +137,13 @@ class NginxRouteRequirerSchema(BaseModel):
         examples=["10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"],
         title="Whitelist Source Range",
     )
+
+
+class ProviderSchema(BaseModel):
+    """Provider schema for nginx_route."""
+
+
+class RequirerSchema(BaseModel):
+    """Requirer schema for nginx_route."""
+
+    app: NginxRouteRequirerSchema
