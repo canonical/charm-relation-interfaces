@@ -5,19 +5,22 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 Examples:
     ProviderSchema:
         unit: <empty>
-        app: {"url": "http://nrf-example.com:1234"}
+        app: {"url": "https://nrf-example.com:1234"}
     RequirerSchema:
         unit: <empty>
         app:  <empty>
 """
 
-from pydantic import BaseModel, AnyHttpUrl
+from pydantic import BaseModel, AnyHttpUrl, Field
 
 from interface_tester.schema_base import DataBagSchema
 
 
 class MyProviderAppData(BaseModel):
-    url: AnyHttpUrl
+    url: AnyHttpUrl = Field(
+        description="url to reach the NRF.",
+        examples=["https://nrf-example.com:1234"]
+    )
 
 
 class ProviderSchema(DataBagSchema):
