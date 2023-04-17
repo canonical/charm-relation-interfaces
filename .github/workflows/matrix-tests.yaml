@@ -1,0 +1,22 @@
+name: Matrix tests for interfaces
+
+on: workflow_dispatch
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    name: Excute Matrix tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: echo "TODO Install dependencies!" # interface_tester ? requirements.txt probably"
+      - name: Run tests
+        run: python run_matrix.py
+
