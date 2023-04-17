@@ -12,7 +12,7 @@ FIXTURE_IDENTIFIER = "interface_tester"
 logging.getLogger().setLevel(logging.INFO)
 
 
-def prepare_repo(charm_config: _CharmTestConfig, interface: str, root: Path = Path("/tmp/relation-interfaces-tests/")):
+def prepare_repo(charm_config: _CharmTestConfig, interface: str, root: Path = Path("/tmp/charm-relation-interfaces-tests/")):
     # Clone the charm repository and create the venv if it hasn't been done already
     charm_path = root / Path(charm_config.name)
     if not charm_path.is_dir():
@@ -26,7 +26,7 @@ def prepare_repo(charm_config: _CharmTestConfig, interface: str, root: Path = Pa
     return charm_path, test_path
 
 
-def _clean(root: Path = Path("/tmp/relation-interfaces-tests/")):
+def _clean(root: Path = Path("/tmp/charm-relation-interfaces-tests/")):
     if root.is_dir():
         shutil.rmtree(root)
 

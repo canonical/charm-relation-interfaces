@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: echo "TODO Install dependencies!" # interface_tester ? requirements.txt probably"
+        run: pip install pytest git+https://github.com/PietroPasotti/interface-tester-pytest@main
       - name: Run tests
         run: python run_matrix.py
 
