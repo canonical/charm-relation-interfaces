@@ -7,13 +7,12 @@ import os
 import shutil
 import logging
 
-FIXTURE_PATH = "tests/interfaces/conftest.py"
+FIXTURE_PATH = "tests/interface/conftest.py"
 FIXTURE_IDENTIFIER = "interface_tester"
 logging.getLogger().setLevel(logging.INFO)
 
 
 def prepare_repo(charm_config: _CharmTestConfig, interface: str, root: Path = Path("/tmp/relation-interfaces-tests/")):
-    charm_config.branch = "interface-tests" if charm_config.name == "traefik-k8s" else "" # TODO: remove before merging, used for tests
     # Clone the charm repository and create the venv if it hasn't been done already
     charm_path = root / Path(charm_config.name)
     if not charm_path.is_dir():
@@ -82,24 +81,30 @@ def test_charm(charm_path: Path, test_path: Path):
 def run_interface_tests(path: Path, include: str = "*"):
     test_results = {}
     for interface, x in collect_tests(path=path, include=include).items():
+        test_results[interface] = {}
         logging.info(f"Running tests for interface: {interface}")
         for _, y in x.items():
             for role in ["provider", "requirer"]:
+                test_results[interface][role] = {}
                 for charm_config in y[role]["charms"]:
-                    test_results[charm_config.name] = {}
-                    test_success = True
+                    last_result = "success"
                     try:
                         logging.info(f"Charm: {charm_config.name}")   
                         charm_path, test_path = prepare_repo(charm_config, interface)
                         test_charm(charm_path, test_path)
                         logging.info(f"Finished tests for charm {charm_config.name}")
                     except Exception as e:
-                        raise e # TODO: remove, used for debugging
-                        test_success = False
+                        logging.warning(f"exception: {e}")
+                        last_result = "failure"
                     
-                    # TODO: Structure output as json following the loop structure
-                    logging.info(f"Success: {test_success}")
+                    test_results[interface][role][charm_config.name] = last_result
+                    logging.info(f"Result: {last_result}")
+
+    return test_results
 
 
-_clean()
-run_interface_tests(Path("."), "ingress")
+if __name__ == "__main__":
+    _clean()
+    test_results = run_interface_tests(Path("."))
+    print("+++ Results +++")
+    print(test_results)
