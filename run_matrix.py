@@ -1,24 +1,34 @@
-# Copyright 2022 Caonical Ltd.
+"""Runner script to execute all interface tests."""
+# Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
-from interface_tester.collector import _CharmTestConfig, collect_tests
-from pathlib import Path
+import json
+import logging
 import os
 import shutil
-import logging
-import json
+from pathlib import Path
+
+from interface_tester.collector import _CharmTestConfig, collect_tests
 
 FIXTURE_PATH = "tests/interface/conftest.py"
 FIXTURE_IDENTIFIER = "interface_tester"
 logging.getLogger().setLevel(logging.INFO)
 
 
-def prepare_repo(charm_config: _CharmTestConfig, interface: str, root: Path = Path("/tmp/charm-relation-interfaces-tests/")):
-    # Clone the charm repository and create the venv if it hasn't been done already
+def prepare_repo(
+    charm_config: _CharmTestConfig,
+    interface: str,
+    root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
+):
+    """Clone the charm repository and create the venv if it hasn't been done already."""
     charm_path = root / Path(charm_config.name)
     if not charm_path.is_dir():
-        branch_option = f"--branch {charm_config.branch}" if charm_config.branch is not None else ""
-        os.system(f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path} >/dev/null")
+        branch_option = (
+            f"--branch {charm_config.branch}" if charm_config.branch is not None else ""
+        )
+        os.system(
+            f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path} >/dev/null"
+        )
         _prepare_venv(charm_path)
     fixture_path, fixture_id = _get_fixture(charm_config, charm_path)
     if not fixture_path.is_file():
@@ -28,13 +38,15 @@ def prepare_repo(charm_config: _CharmTestConfig, interface: str, root: Path = Pa
 
 
 def _clean(root: Path = Path("/tmp/charm-relation-interfaces-tests/")):
+    """Clean the directory used to store repos for the tests."""
     if root.is_dir():
         shutil.rmtree(root)
 
 
 def _generate_test(interface: str, test_path: Path, fixture_id: str) -> Path:
+    """Generate a pytest file for a given charm and interface."""
     test_content = f"""from interface_tester import InterfaceTester
-    
+
 def test_{interface}_interface({fixture_id}: InterfaceTester):
     {fixture_id}.configure(
         interface_name="{interface}",
@@ -45,9 +57,10 @@ def test_{interface}_interface({fixture_id}: InterfaceTester):
     with open(test_path / test_filename, "w") as file:
         file.write(test_content)
     return test_path / test_filename
-        
+
 
 def _get_fixture(charm_config: _CharmTestConfig, charm_path: Path):
+    """Get the tester fixture from a charm."""
     fixture_path = charm_path / FIXTURE_PATH
     fixture_id = FIXTURE_IDENTIFIER
     if charm_config.test_setup:
@@ -65,21 +78,25 @@ def _prepare_venv(charm_path: Path) -> Path:
     os.chdir(charm_path)
     # Create the venv and install the requirements
     os.system("python -m venv ./.interface-venv >/dev/null")
-    os.system(".interface-venv/bin/python -m pip install setuptools pytest git+https://github.com/PietroPasotti/interface-tester-pytest@main >/dev/null 2>&1")
+    os.system(
+        ".interface-venv/bin/python -m pip install setuptools pytest git+https://github.com/PietroPasotti/interface-tester-pytest@main >/dev/null 2>&1"
+    )
     os.system(".interface-venv/bin/python -m pip install -r requirements.txt >/dev/null 2>&1")
     os.chdir(original_wd)
     return charm_path / ".interface-venv/bin/python"
 
 
 def test_charm(charm_path: Path, test_path: Path):
+    """Run the interface test for a given charm and interface."""
     logging.info(f"Running tests for {charm_path}")
     original_wd = os.getcwd()
     os.chdir(charm_path)
     os.system(f"PYTHONPATH=src:lib .interface-venv/bin/python -m pytest {test_path}")
-    os.chdir(original_wd) 
+    os.chdir(original_wd)
 
 
 def run_interface_tests(path: Path, include: str = "*"):
+    """Run the tests for the specified interfaces, defaulting to all."""
     test_results = {}
     for interface, x in collect_tests(path=path, include=include).items():
         test_results[interface] = {}
@@ -90,14 +107,14 @@ def run_interface_tests(path: Path, include: str = "*"):
                 for charm_config in y[role]["charms"]:
                     last_result = "success"
                     try:
-                        logging.info(f"Charm: {charm_config.name}")   
+                        logging.info(f"Charm: {charm_config.name}")
                         charm_path, test_path = prepare_repo(charm_config, interface)
                         test_charm(charm_path, test_path)
                         logging.info(f"Finished tests for charm {charm_config.name}")
                     except Exception as e:
                         logging.warning(f"exception: {e}")
                         last_result = "failure"
-                    
+
                     test_results[interface][role][charm_config.name] = last_result
                     logging.info(f"Result: {last_result}")
 
