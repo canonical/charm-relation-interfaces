@@ -8,13 +8,15 @@ import os
 import shutil
 import subprocess
 import textwrap
+from collections import namedtuple
 from pathlib import Path
-
 from interface_tester.collector import _CharmTestConfig, collect_tests
 
 FIXTURE_PATH = "tests/interface/conftest.py"
 FIXTURE_IDENTIFIER = "interface_tester"
 logging.getLogger().setLevel(logging.INFO)
+
+FixtureSpec = namedtuple('FixtureSpec', 'path id')
 
 class SetupError(Exception):
     pass
@@ -41,12 +43,12 @@ def prepare_repo(
             stdout=subprocess.DEVNULL
         )
         _setup_venv(charm_path)
-    fixture_path, fixture_id = _get_fixture(charm_config, charm_path)
-    if not fixture_path.is_file():
+    fixture_spec = _get_fixture(charm_config, charm_path)
+    if not fixture_spec.path.is_file():
         # NOTE: In the future we could probably run the tests without a fixture, assuming
         # that the charm needs no patching at all to work with scenario
         raise SetupError(f"fixture missing for charm {charm_config.name}")
-    test_path = _generate_test(interface, fixture_path.parent, fixture_id)
+    test_path = _generate_test(interface, fixture_spec.path.parent, fixture_spec.id)
     return charm_path, test_path
 
 
@@ -71,7 +73,7 @@ def _generate_test(interface: str, test_path: Path, fixture_id: str) -> Path:
     return test_path / test_filename
 
 
-def _get_fixture(charm_config: _CharmTestConfig, charm_path: Path):
+def _get_fixture(charm_config: _CharmTestConfig, charm_path: Path) -> FixtureSpec:
     """Get the tester fixture from a charm."""
     fixture_path = charm_path / FIXTURE_PATH
     fixture_id = FIXTURE_IDENTIFIER
@@ -80,7 +82,7 @@ def _get_fixture(charm_config: _CharmTestConfig, charm_path: Path):
             fixture_path = charm_path / Path(charm_config.test_setup["location"])
         if charm_config.test_setup["identifier"]:
             fixture_id = charm_config.test_setup["identifier"]
-    return fixture_path, fixture_id
+    return FixtureSpec(fixture_path, fixture_id)
 
 
 def _setup_venv(charm_path: Path) -> Path:
@@ -103,8 +105,8 @@ def _setup_venv(charm_path: Path) -> Path:
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL
         )
-    except:
-        raise SetupError("venv setup failed")
+    except subprocess.CalledProcessError as e:
+        raise SetupError("venv setup failed") from e
     os.chdir(original_wd)
     return charm_path / ".interface-venv/bin/python"
 
@@ -119,8 +121,8 @@ def test_charm(charm_path: Path, test_path: Path):
             f"PYTHONPATH=src:lib .interface-venv/bin/python -m pytest {test_path}",
             shell=True
         )
-    except:
-        raise InterfaceTestError
+    except subprocess.CalledProcessError as e:
+        raise InterfaceTestError from e
     os.chdir(original_wd)
 
 
@@ -136,14 +138,18 @@ def run_interface_tests(path: Path, include: str = "*", clean=True):
             for role in ["provider", "requirer"]:
                 test_results[interface][role] = {}
                 for charm_config in y[role]["charms"]:
-                    last_result = "success"
+                    last_result = "failure"
                     logging.info(f"Charm: {charm_config.name}")
                     try:
                         charm_path, test_path = prepare_repo(charm_config, interface)
                         test_charm(charm_path, test_path)
-                    except:
+                        last_result = "success"
+                    except SetupError:
+                        logging.warning(f"test setup failed for {charm_config.name} {interface} {role}", exc_info=True)
+                    except InterfaceTestError:
                         logging.warning(f"interface tests for {charm_config.name} {interface} {role} failed", exc_info=True)
-                        last_result = "failure"
+                    except Exception:
+                        logging.warning(f"unpredicted tests failure for {charm_config.name} {interface} {role}", exc_info=True)
 
                     test_results[interface][role][charm_config.name] = last_result
                     logging.info(f"Result: {last_result}")
@@ -152,6 +158,7 @@ def run_interface_tests(path: Path, include: str = "*", clean=True):
 
 
 def pprint_interface_test_results(test_results: dict):
+    """Pretty print the results of interface tests."""
     print("+++ Results +++")
     print(json.dumps(test_results, indent=2))
 
