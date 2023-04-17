@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: pip install pytest git+https://github.com/PietroPasotti/interface-tester-pytest@main
+        run: pip install pytest git+https://github.com/canonical/interface-tester-pytest@main
       - name: Run tests
         run: python run_matrix.py
 
