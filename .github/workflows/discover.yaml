@@ -1,0 +1,23 @@
+name: Discover interfaces
+
+on: workflow_dispatch
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    name: Pretty print, for all interfaces, their schemas and interface tests.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: install interface-tester
+        # todo: pin to pypi package when available
+        run: |
+          python -m pip install git+https://github.com/canonical/interface-tester-pytest
+      - name: run discover
+        uses: interface_tester discover
