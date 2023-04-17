@@ -6,6 +6,7 @@ from pathlib import Path
 import os
 import shutil
 import logging
+import json
 
 FIXTURE_PATH = "tests/interface/conftest.py"
 FIXTURE_IDENTIFIER = "interface_tester"
@@ -107,4 +108,4 @@ if __name__ == "__main__":
     _clean()
     test_results = run_interface_tests(Path("."))
     print("+++ Results +++")
-    print(test_results)
+    print(json.dumps(test_results, indent=2))
