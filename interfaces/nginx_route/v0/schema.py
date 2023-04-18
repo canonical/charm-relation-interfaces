@@ -128,8 +128,8 @@ class NginxRouteRequirerSchema(BaseModel):
     tls_secret_name: Optional[str] = Field(
         None,
         alias="tls-secret-name",
-        description="The name of the TLS secret to use. Leaving this empty will configure an ingress with TLS disabled.",
-        examples=[],
+        description="The name of the Kubernetes TLS secret to use. Leaving this empty will configure an ingress with TLS disabled.",
+        examples=["example-com-tls"],
         title="Tls Secret Name",
     )
     whitelist_source_range: Optional[str] = Field(

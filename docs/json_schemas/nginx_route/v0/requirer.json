@@ -151,8 +151,10 @@
         },
         "tls-secret-name": {
           "title": "Tls Secret Name",
-          "description": "The name of the TLS secret to use. Leaving this empty will configure an ingress with TLS disabled.",
-          "examples": [],
+          "description": "The name of the Kubernetes TLS secret to use. Leaving this empty will configure an ingress with TLS disabled.",
+          "examples": [
+            "example-com-tls"
+          ],
           "type": "string"
         },
         "whitelist-source-range": {
