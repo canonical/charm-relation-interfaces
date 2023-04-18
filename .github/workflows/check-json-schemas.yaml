@@ -1,0 +1,26 @@
+name: Check Json Schemas CI
+on: [push, pull_request]
+
+jobs:
+  actions:
+    name: "Generate json schemas and check that they are committed"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # todo: only rebuild changed one(s)?
+      - name: "Build json schemas."
+        run: |
+          pip install tox
+          tox -e build-json-schemas  
+
+      # If the user has modified a generated file and not run `tox -e build-json-schemas' then error out
+      - name: Check for modifications to generated files
+        run: |
+          if [[ -n "$(git status -s)" ]]; then
+            echo "Please run 'tox -e build-json-schemas' then commit/push changes"
+            echo
+            git diff
+            exit 1
+          fi
