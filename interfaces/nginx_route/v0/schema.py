@@ -4,6 +4,8 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from interface_tester.schema_base import DataBagSchema
+
 
 class NginxRouteRequirerSchema(BaseModel):
     service_hostname: str = Field(
@@ -139,11 +141,11 @@ class NginxRouteRequirerSchema(BaseModel):
     )
 
 
-class ProviderSchema(BaseModel):
+class ProviderSchema(DataBagSchema):
     """Provider schema for nginx_route."""
 
 
-class RequirerSchema(BaseModel):
+class RequirerSchema(DataBagSchema):
     """Requirer schema for nginx_route."""
 
     app: NginxRouteRequirerSchema
