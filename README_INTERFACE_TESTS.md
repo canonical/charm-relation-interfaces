@@ -51,7 +51,7 @@ In order to add interface tests to a charm relation interface `"my-interface"`, 
 `repo-root/interfaces/my-interface/v0/interface_tests/requirer_tests.py` and `repo-root/interfaces/my-interface/v0/interface_tests/provider_tests.py`.
 
 Any python file in that directory will be scraped for tests. A test is any function decorated with the `interface_tester.interface_test_case` decorator.
-Before you start writing interface tests, it's a good idea to pip install [interface-tester-pytest](https://github.com/PietroPasotti/interface-tester-pytest).
+Before you start writing interface tests, it's a good idea to pip install [interface-tester-pytest](https://github.com/canonical/interface-tester-pytest).
 That will give you the right type hints as you're typing the code, and will also give you a little utility cli to verify that the tests you are writing are being correctly picked up by the same code that will eventually be used to run them.
 
 ## Your first interface test
@@ -132,4 +132,4 @@ This will attempt to run the interface tests on all charms in `foo/charms.yaml`.
 Omitting the `foo` argument will run the tests for all interfaces (warning: might take some time.)
 
 # Using interface tests as a charm author
-If you are the owner of a charm, and you are interested in adding your charm to an interface's `charms.yaml` (and thereby 'prove' that your charm complies with a given relation interface specification), then you need to follow the steps detailed at [interface-tester-pytest](https://github.com/PietroPasotti/interface-tester-pytest).
+If you are the owner of a charm, and you are interested in adding your charm to an interface's `charms.yaml` (and thereby 'prove' that your charm complies with a given relation interface specification), then you need to follow the steps detailed at [interface-tester-pytest](https://github.com/canonical/interface-tester-pytest).

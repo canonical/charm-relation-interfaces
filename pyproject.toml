@@ -42,7 +42,7 @@ unit_tests = [
 json_schemas = [
     "pyyaml",
 # todo replace with pypi package when available
-#    "git+https://github.com/PietroPasotti/interface-tester-pytest",
+#    "git+https://github.com/canonical/interface-tester-pytest",
 ]
 
 interface_tests = [
@@ -52,7 +52,7 @@ interface_tests = [
     "pydantic",
     "requests",
 # todo replace with pypi package when available
-#    "git+https://github.com/PietroPasotti/interface-tester-pytest",
+#    "git+https://github.com/canonical/interface-tester-pytest",
 ]
 
 [project.urls]
