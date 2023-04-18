@@ -15,7 +15,7 @@ class NginxRouteRequirerSchema(BaseModel):
     service_name: str = Field(
         alias="service-name",
         description="The name of the service to create an ingress for.",
-        examples=[],
+        examples=["wordpress", "indico"],
         title="Service Name",
     )
     service_namespace: str = Field(
