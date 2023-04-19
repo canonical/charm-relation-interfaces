@@ -17,19 +17,33 @@ Examples:
               }
 """
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-from interfaces.schema_base import DataBagSchema
+from interface_tester.schema_base import DataBagSchema
 
 
 class MyProviderAppData(BaseModel):
-    consent_url: str  # Endpoint Hydra forwards users for consent related operations.
-    error_url: str  # Endpoint Kratos forwards users to fetch full error messages.
-    index_url: str  # Endpoint Kratos forwards users to access index page of Public Login UI.
-    login_url: str  # Endpoint Hydra forwards users signing in.
-    oidc_error_url: str  # Endpoint Hydra forwards users to access error operations related to OpenID Connect.
-    registration_url: str  # Endpoint Kratos forwards users to register.
-    default_url: str  # Default Browser endpoint Kratos forwards users to.
+    consent_url: str = Field(
+        description="Endpoint Hydra forwards users for consent related operations."
+    )
+    error_url: str = Field(
+        description="Endpoint Kratos forwards users to fetch full error messages."
+    )
+    index_url: str = Field(
+        description="Endpoint Kratos forwards users to access index page of Public Login UI."
+    )
+    login_url: str = Field(
+        description="Endpoint Hydra forwards users signing in."
+    )
+    oidc_error_url: str = Field(
+        description="Endpoint Hydra forwards users to access error operations related to OpenID Connect."
+    )
+    registration_url: str = Field(
+        description="Endpoint Kratos forwards users to register."
+    )
+    default_url: str = Field(
+        description="Default Browser endpoint Kratos forwards users to."
+    )
 
 
 class ProviderSchema(DataBagSchema):

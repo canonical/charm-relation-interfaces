@@ -45,30 +45,4 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ## Relation Data
 
-### Provider
-
 [\[Pydantic Schema\]](./schema.py)
-
-
-#### Example
-
-
-```json
-{
-  "application_data": {
-    "consent_url": "http://identity-platform-login-ui-url/consent",
-    "error_url": "http://identity-platform-login-ui-url/error",
-    "index_url": "http://identity-platform-login-ui-url/index",
-    "login_url": "http://identity-platform-login-ui-url/login",
-    "oidc_error_url": "http://identity-platform-login-ui-url/oidc_error",
-    "registration_url": "http://identity-platform-login-ui-url/registration",
-    "default_url": "http://identity-platform-login-ui-url"
-  }
-}
-```
-
-### Requirer
-
-[\[Pydantic Schema\]](./schema.py)
-
-n/a
