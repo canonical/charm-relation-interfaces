@@ -4,7 +4,7 @@
 
 This relation interface describes the expected behavior of any charm claiming to be able to provide or consume ingress per unit data.
 
-In most cases, this will be accomplished using the [ingress library](https://github.com/canonical/traefik-k8s-operator/blob/main/lib/charms/traefik_k8s/v0/ingress_per_unit.py), although charm developers are free to provide alternative libraries as long as they fulfill the behavioral and schematic requirements described in this document.
+In most cases, this will be accomplished using the [ingress library](https://github.com/canonical/traefik-k8s-operator/blob/main/lib/charms/traefik_k8s/v1/ingress_per_unit.py), although charm developers are free to provide alternative libraries as long as they fulfill the behavioral and schematic requirements described in this document.
 
 ## Direction
 The `ingress-per-unit` interface implements a provider/requirer pattern.
