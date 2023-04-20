@@ -31,12 +31,16 @@ class Url(BaseModel):
     url: AnyHttpUrl
 
 
-class MyProviderAppData(BaseModel):
+class MyProviderData(BaseModel):
     ingress: Url
 
-    @validator('ingress', pre=True)
-    def decode_ingress(cls, ingress):
-        return yaml.safe_load(ingress)
+
+class MyProviderAppData(BaseModel):
+    data: MyProviderData
+
+    @validator('data', pre=True)
+    def decode_data(cls, data):
+        return yaml.safe_load(data)
 
 
 class ProviderSchema(DataBagSchema):

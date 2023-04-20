@@ -35,8 +35,8 @@
         "url"
       ]
     },
-    "MyProviderAppData": {
-      "title": "MyProviderAppData",
+    "MyProviderData": {
+      "title": "MyProviderData",
       "type": "object",
       "properties": {
         "ingress": {
@@ -45,6 +45,18 @@
       },
       "required": [
         "ingress"
+      ]
+    },
+    "MyProviderAppData": {
+      "title": "MyProviderAppData",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MyProviderData"
+        }
+      },
+      "required": [
+        "data"
       ]
     }
   }

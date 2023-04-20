@@ -1,6 +1,6 @@
 name: "my-application"
 
-requires:
+provides:
   ingress:
     interface: ingress
 
