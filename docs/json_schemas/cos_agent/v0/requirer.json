@@ -1,0 +1,62 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for CosAgent.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/CosAgentPeersUnitData"
+    },
+    "app": {
+      "$ref": "#/definitions/BaseModel"
+    }
+  },
+  "required": [
+    "unit"
+  ],
+  "definitions": {
+    "CosAgentPeersUnitData": {
+      "title": "CosAgentPeersUnitData",
+      "description": "Unit databag model for `cluster` cos-agent machine charm peer relation.",
+      "type": "object",
+      "properties": {
+        "principal_unit_name": {
+          "title": "Principal Unit Name",
+          "type": "string"
+        },
+        "principal_relation_id": {
+          "title": "Principal Relation Id",
+          "type": "string"
+        },
+        "principal_relation_name": {
+          "title": "Principal Relation Name",
+          "type": "string"
+        },
+        "metrics_alert_rules": {
+          "title": "Metrics Alert Rules",
+          "type": "object"
+        },
+        "log_alert_rules": {
+          "title": "Log Alert Rules",
+          "type": "object"
+        },
+        "dashboards": {
+          "title": "Dashboards",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "principal_unit_name",
+        "principal_relation_id",
+        "principal_relation_name"
+      ]
+    },
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

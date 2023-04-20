@@ -1,0 +1,66 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for CosAgent.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/CosAgentProviderUnitData"
+    },
+    "app": {
+      "$ref": "#/definitions/BaseModel"
+    }
+  },
+  "required": [
+    "unit"
+  ],
+  "definitions": {
+    "CosAgentProviderUnitData": {
+      "title": "CosAgentProviderUnitData",
+      "description": "Unit databag model for `cos-agent` relation.",
+      "type": "object",
+      "properties": {
+        "metrics_alert_rules": {
+          "title": "Metrics Alert Rules",
+          "type": "object"
+        },
+        "log_alert_rules": {
+          "title": "Log Alert Rules",
+          "type": "object"
+        },
+        "dashboards": {
+          "title": "Dashboards",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metrics_scrape_jobs": {
+          "title": "Metrics Scrape Jobs",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "log_slots": {
+          "title": "Log Slots",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "metrics_alert_rules",
+        "log_alert_rules",
+        "dashboards",
+        "metrics_scrape_jobs",
+        "log_slots"
+      ]
+    },
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    }
+  }
+}
