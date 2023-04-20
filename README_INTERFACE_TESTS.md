@@ -2,7 +2,7 @@
 
 Charm relation interfaces are information exchange protocols for Juju charms.
 In this repository, under each interface specification, it is possible to store a list of interface tests. The interface maintainers will write and maintain those tests for the interfaces they own. 
-The goal of the tests is to provide an as strict as possible set of rules to determine whether a given charm satisfies that interface protocol.
+The goal of the interface tests is to determine whether a given charm satisfies an interface protocol.
 
 For example, (simplifying a bit) the `ingress` protocol implemented by e.g. Traefik prescribes:
 - on `ingress-relation-joined`, the requirer should write its part of the data to the relation. 

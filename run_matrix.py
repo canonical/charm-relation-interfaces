@@ -32,6 +32,20 @@ class InterfaceTestError(Exception):
     pass
 
 
+def _clone_charm_repo(charm_config: _CharmTestConfig, charm_path: Path):
+    """Clones a charm repository to a local path."""
+    branch_option = ""
+    if charm_config.branch:
+        branch_option = f"--branch {charm_config.branch}"
+        logging.warning(f"custom branch provided for {charm_config.name}; "
+                        f"this should only be done in staging")
+    subprocess.call(
+        f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}",
+        shell=True,
+        stdout=subprocess.DEVNULL
+    )
+
+
 def prepare_repo(
         charm_config: _CharmTestConfig,
         interface: str,
@@ -39,16 +53,8 @@ def prepare_repo(
 ) -> Tuple[Path, Path]:
     """Clone the charm repository and create the venv if it hasn't been done already."""
     charm_path = root / Path(charm_config.name)
-    if not charm_path.is_dir():
-        branch_option = ""
-        if charm_config.branch:
-            branch_option = f"--branch {charm_config.branch}"
-            logging.warning(f"custom branch provided for {charm_config.name}; this should only be done in staging")
-        subprocess.call(
-            f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}",
-            shell=True,
-            stdout=subprocess.DEVNULL
-        )
+    if not charm_path.exists():
+        _clone_charm_repo(charm_config, charm_path)
         _setup_venv(charm_path)
     try:
         fixture_spec = _get_fixture(charm_config, charm_path)
@@ -195,10 +201,16 @@ def pprint_interface_test_results(test_results: dict):
 
 
 if __name__ == "__main__":
-    try:
-        include_arg = sys.argv[1]
-    except:
-        include_arg = "*"
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--include",
+        default="*",
+        help="Glob to filter what interfaces to include in the test matrix."
+    )
+    args = parser.parse_args()
+
     pprint_interface_test_results(
-        run_interface_tests(Path("."), include_arg)
+        run_interface_tests(Path("."), args.include)
     )
