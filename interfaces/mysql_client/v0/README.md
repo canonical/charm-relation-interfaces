@@ -65,8 +65,7 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides database name in `database` unit. Should be placed in the **unit** databag
-in at least one unit of the Requirer.
+Requirer provides database name. It should be placed in the **application** databag.
 
 #### Example
 
@@ -74,10 +73,6 @@ in at least one unit of the Requirer.
   relation-info:
   - endpoint: database
     related-endpoint: database
-    application-data: {}
-    related-units:
-      worker-a/0:
-        in-scope: true
-        data:
-          database: myappA
+    application-data:
+      database: myappA
 ```
