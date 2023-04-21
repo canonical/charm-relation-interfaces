@@ -8,6 +8,7 @@ KubernetesServicePatch = None
 
 class MyCharm(CharmBase):
     """Minimal charm providing ingress."""
+
     use_ingress = True
 
     def __init__(self, framework: Framework):
