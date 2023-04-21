@@ -37,82 +37,58 @@ As all Juju relations, the `cos_agent` interface consists of a provider and a re
 - Is expected to be able to provide a list of events on which to refresh relation data.
 
 
-### Requirer
-- Is expected to be able to scrape Prometheus metrics from metrics endpoints and remote-write these metrics to Prometheus and Prometheus compatible systems.
-- Is expected to be able to forward alert rules exposed over the relation data bag to Prometheus.
-- Is expected to be able to forward logs from the Provider to Loki.
-- Is expected to be able to forward alert rules exposed over the relation data bag to Loki.
-- Is expected to be able to forward Grafana Dashboards exposed over the relation data bag to Grafana.
-
 
 ## Relation Data
 
 ### Provider
 
-[\[JSON Schema\]](./schemas/provider.json)
-
-#### Application data
-- Exposes all scrape jobs the requirer should scrape metrics through.
+[\[JSON Schema\]]
 
 
 #### Unit data
-- Exposes the unit address of each unit to scrape, as well as the unit name of each address. 
+- Exposes mtrics_alert_rules, log_alert_rules, and log_slots
 
 #### Example
 
 
 ```json
-application-data:
-  alert_rules: {
-    "groups": [
-      {
-        "name": "an_alert_rule_group",
-        "rules": [
-          {
-            "alert": "SomethingIsUp",
-            "expr": "something_bad == 1",
-            "for": "0m",
-            "labels": {
-              "some-label": "some-value"
-            },
-            "annotations": {
-              "some-annotation": "some-other-value"
+{
+  "config": {
+    "metrics_alert_rules": {
+      "groups": [
+        {
+          "name": "test_58b48ff0_zookeeper_cos_23790144_zinc",
+          "rules": [
+            {
+              "alert": "ZincTargetMissing",
+              "annotations": {
+                "description": "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}",
+                "summary": "Prometheus target missing (instance {{ $labels.instance}})"
+              },
+              "expr": "up{juju_application=\"zinc2\"} == 0",
+              "for": "0m",
+              "labels": {
+                "app_group": "cloud",
+                "juju_application": "zookeeper",
+                "juju_charm": "zookeeper",
+                "juju_model": "test",
+                "juju_model_uuid": "58b48ff0-608b-435f-83b9-ea643e0b98db",
+                "severity": "critical"
+              }
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
+    },
+    "log_alert_rules": {},
+    /* Dashboards list with base64 encoded, lzma-compressed, json-dumped dashboard data */
+    "dashboards": [
+      "/Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj6hvVPXVdA…",
+      "/Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj6hvVPXVdB…"
+    ],
+    "log_slots": [
+      "charmed-zookeeper:logs"
     ]
   }
-  scrape_jobs: [
-    {
-      "metrics_path": "/metrics",
-      "static_configs": [
-        { "targets": ["*:4080"] }
-      ]
-    }
-  ]
-  scrape_metadata: {
-    "model": "cos",
-    "model_uuid": "c2e9f4d5-dcb3-4870-8509-330eb9745ee8",
-    "application": "zinc-k8s",
-    "unit": "zinc-k8s/0",
-    "charm_name": "zinc-k8s"
-  }
-related-units:
-  zinc-k8s/0:
-    data:
-      prometheus_scrape_unit_address: zinc-k8s-0.zinc-k8s-endpoints.cos.svc.cluster.local
-      prometheus_scrape_unit_name: zinc-k8s/0
-      # ...
-    # ...
-  zinc-k8s/1:
-    data:
-      prometheus_scrape_unit_address: zinc-k8s-1.zinc-k8s-endpoints.cos.svc.cluster.local
-      prometheus_scrape_unit_name: zinc-k8s/1
-      # ...
-    # ...
+}
 ```
-
-### Requirer
-
-None.

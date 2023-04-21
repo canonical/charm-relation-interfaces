@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/CosAgentProviderUnitData"
+      "$ref": "#/definitions/ProviderUnitData"
     },
     "app": {
       "$ref": "#/definitions/BaseModel"
@@ -14,9 +14,9 @@
     "unit"
   ],
   "definitions": {
-    "CosAgentProviderUnitData": {
-      "title": "CosAgentProviderUnitData",
-      "description": "Unit databag model for `cos-agent` relation.",
+    "NestedDataModel": {
+      "title": "NestedDataModel",
+      "description": "Nested model for `config` in ProviderUnitData.",
       "type": "object",
       "properties": {
         "metrics_alert_rules": {
@@ -55,6 +55,19 @@
         "dashboards",
         "metrics_scrape_jobs",
         "log_slots"
+      ]
+    },
+    "ProviderUnitData": {
+      "title": "ProviderUnitData",
+      "description": "Unit databag model for `cos-agent` relation.",
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/NestedDataModel"
+        }
+      },
+      "required": [
+        "config"
       ]
     },
     "BaseModel": {
