@@ -52,7 +52,7 @@ As all Juju relations, the `cos_agent` interface consists of a provider and a re
 [\[JSON Schema\]](./schemas/provider.json)
 
 #### Application data
-- Exposes all scrape jobs the requirer should scrape metrics through. Should be placed in the **application** databag.
+- Exposes all scrape jobs the requirer should scrape metrics through.
 
 
 #### Unit data
