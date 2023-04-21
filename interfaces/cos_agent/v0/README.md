@@ -56,7 +56,7 @@ As all Juju relations, the `cos_agent` interface consists of a provider and a re
 
 
 #### Unit data
-- Exposes the unit address of each unit to scrape, as well as the unit name of each address. Should be placed in the **unit** databag of each scrapable unit.
+- Exposes the unit address of each unit to scrape, as well as the unit name of each address. 
 
 #### Example
 
