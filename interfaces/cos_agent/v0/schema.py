@@ -119,15 +119,6 @@ class CosAgentPeersUnitData(BaseModel):
     # this simplifies working with the model.
     KEY: ClassVar[str] = "config"
 
-    @property
-    def app_name(self) -> str:
-        """Parse out the app name from the unit name.
-
-        TODO: Switch to using `model_post_init` when pydantic v2 is released?
-          https://github.com/pydantic/pydantic/issues/1729#issuecomment-1300576214
-        """
-        return self.principal_unit_name.split("/")[0]
-
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for CosAgent."""
