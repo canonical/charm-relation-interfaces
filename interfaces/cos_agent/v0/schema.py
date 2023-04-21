@@ -36,6 +36,7 @@ Examples:
                         ],
                 },
                 "log_alert_rules": {},
+                # Dashboards list with base64 encoded, lzma-compressed, json-dumped dashboard data
                 "dashboards": [
                     "/Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj6hvVPXVdA…",
                     "/Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj6hvVPXVdB…",
