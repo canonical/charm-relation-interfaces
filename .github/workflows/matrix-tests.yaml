@@ -18,5 +18,5 @@ jobs:
       - name: Install dependencies
         run: pip install tox
       - name: Run tests
-        run: tox -e interface-tests
+        run: tox -e run-interface-test-matrix
 

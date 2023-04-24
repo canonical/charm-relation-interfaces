@@ -35,39 +35,18 @@ class MyProviderData(BaseModel):
     ingress: Url
 
 
-class MyProviderAppData(BaseModel):
-    data: MyProviderData
-
-    @validator('data', pre=True)
-    def decode_data(cls, data):
-        return yaml.safe_load(data)
-
-
 class ProviderSchema(DataBagSchema):
     """Provider schema for Ingress."""
-    app: MyProviderAppData
+    app: MyProviderData
 
 
 class IngressRequirerData(BaseModel):
-    port: int  # The port the application wishes to be exposed.
+    port: str  # The port the application wishes to be exposed. stringified integer.
     host: str  # Hostname the application wishes to be exposed.
     model: str  # the model the application is in.
     name: str  # the name of the application requesting ingress.
 
 
-class MyRequirerAppData(BaseModel):
-    data: IngressRequirerData
-
-    @validator('data', pre=True)
-    def decode_data(cls, data: str):
-        """Decode data to yaml.
-
-        Yaml is not supported by pydantic 2.
-        """
-        # todo: drop this with pydantic 3
-        return yaml.safe_load(data)
-
-
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Ingress."""
-    app: MyRequirerAppData
+    app: IngressRequirerData

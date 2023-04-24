@@ -37,14 +37,10 @@ def test_no_data_on_joined(output_state: State):
             interface='ingress',
             remote_app_name='remote',
             remote_app_data={
-                'data': yaml.safe_dump(
-                    {
                         'host': '0.0.0.42',
                         'model': 'bar',
                         'name': 'remote/0',
-                        'port': 42
-                    }
-                )
+                        'port': '42'
             }
         )]
     )
@@ -61,12 +57,8 @@ def test_data_published_on_changed_remote_valid(output_state: State):
         interface='ingress',
         remote_app_name='remote',
         remote_app_data={
-            'data': yaml.safe_dump(
-                {
                     'port': '42',
                     'bubble': 'rubble'
-                }
-            )
         }
     )]
     ),
