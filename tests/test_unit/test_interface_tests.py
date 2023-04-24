@@ -1,6 +1,8 @@
 from pathlib import Path
 
+import pytest
 import yaml
+from interface_tester.errors import NoTestsRun
 from interface_tester.collector import InterfaceTestSpec, gather_test_spec_for_version
 from interface_tester.plugin import InterfaceTester
 from ops.charm import CharmBase
@@ -8,7 +10,7 @@ from ops.framework import Framework
 from ops.model import BlockedStatus
 from scenario import State
 
-PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 
 class MyProvider(CharmBase):
@@ -63,9 +65,13 @@ def test_ingress_requirer():
         charm_type=MyRequirer,
         meta=MyRequirer.META,
         interface_name="ingress",
+        interface_version=1,
         state_template=State(leader=True),
     )
-    assert tester.run()
+
+    # ATM there are no interface tests for ingress v1 requirer
+    with pytest.raises(NoTestsRun):
+        tester.run()
 
 
 def test_ingress_provider():
@@ -74,6 +80,7 @@ def test_ingress_provider():
         charm_type=MyProvider,
         meta=MyProvider.META,
         interface_name="ingress",
+        interface_version=1,
         state_template=State(leader=True),
     )
-    assert tester.run()
+    tester.run()
