@@ -54,7 +54,7 @@ class SomeCharm(CharmBase):
 import logging
 import socket
 import typing
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union  # noqa: F401 = Imported but unused
 
 import yaml
 from ops.charm import CharmBase, RelationBrokenEvent, RelationEvent
@@ -124,7 +124,9 @@ RequirerData = TypedDict(
 # Provider ingress data model.
 ProviderIngressData = TypedDict("ProviderIngressData", {"url": str})
 # Provider application databag model.
-ProviderApplicationData = TypedDict("ProviderApplicationData", {"ingress": ProviderIngressData})  # type: ignore
+ProviderApplicationData = TypedDict(
+    "ProviderApplicationData", {"ingress": ProviderIngressData}
+)
 
 
 def _validate_data(data, schema):

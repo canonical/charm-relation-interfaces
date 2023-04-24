@@ -9,14 +9,14 @@ import shutil
 import subprocess
 from collections import namedtuple
 from pathlib import Path
-from typing import Tuple, Dict, Iterable, Literal, TYPE_CHECKING
+from typing import TYPE_CHECKING, Dict, Iterable, Literal, Tuple
 
 from interface_tester.collector import collect_tests
 
 if TYPE_CHECKING:
     from interface_tester.collector import _CharmTestConfig, _RoleTestSpec
 
-    _Role = Literal['provider', 'requirer']
+    _Role = Literal["provider", "requirer"]
 
     # mapping from charm name (e.g. 'traefik-k8s') to whether the tests are passing or not
     _ResultsPerCharm = Dict[str, bool]
@@ -34,7 +34,7 @@ FIXTURE_PATH = "tests/interface/conftest.py"
 FIXTURE_IDENTIFIER = "interface_tester"
 logging.getLogger().setLevel(logging.INFO)
 
-FixtureSpec = namedtuple('FixtureSpec', 'path id')
+FixtureSpec = namedtuple("FixtureSpec", "path id")
 
 
 class SetupError(Exception):
@@ -47,23 +47,27 @@ class InterfaceTestError(Exception):
 
 def _clone_charm_repo(charm_config: "_CharmTestConfig", charm_path: Path):
     """Clones a charm repository to a local path."""
-    logging.info(f"Cloning: {charm_config.name} from ({charm_config.url}@{charm_config.branch or 'main'})")
+    logging.info(
+        f"Cloning: {charm_config.name} from ({charm_config.url}@{charm_config.branch or 'main'})"
+    )
     branch_option = ""
     if charm_config.branch:
         branch_option = f"--branch {charm_config.branch}"
-        logging.warning(f"custom branch provided for {charm_config.name}; "
-                        f"this should only be done in staging")
+        logging.warning(
+            f"custom branch provided for {charm_config.name}; "
+            f"this should only be done in staging"
+        )
     subprocess.call(
         f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}",
         shell=True,
-        stdout=subprocess.DEVNULL
+        stdout=subprocess.DEVNULL,
     )
 
 
 def _prepare_repo(
-        charm_config: "_CharmTestConfig",
-        interface: str,
-        root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
+    charm_config: "_CharmTestConfig",
+    interface: str,
+    root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
 ) -> Tuple[Path, Path]:
     """Clone the charm repository and create the venv if it hasn't been done already."""
     logging.info(f"Preparing testing environment for: {charm_config.name}")
@@ -130,7 +134,9 @@ def _setup_venv(charm_path: Path) -> Path:
     os.chdir(charm_path)
     # Create the venv and install the requirements
     try:
-        subprocess.check_call(f"{MKVENV_CMD} ./.interface-venv", shell=True, stdout=subprocess.DEVNULL)
+        subprocess.check_call(
+            f"{MKVENV_CMD} ./.interface-venv", shell=True, stdout=subprocess.DEVNULL
+        )
         logging.info(f"Installing dependencies in venv for {charm_path}")
 
         subprocess.check_call(
@@ -138,13 +144,13 @@ def _setup_venv(charm_path: Path) -> Path:
             "git+https://github.com/canonical/interface-tester-pytest@main",
             shell=True,
             stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
+            stderr=subprocess.DEVNULL,
         )
         subprocess.check_call(
             ".interface-venv/bin/python -m pip install -r requirements.txt",
             shell=True,
             stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
+            stderr=subprocess.DEVNULL,
         )
     except subprocess.CalledProcessError as e:
         raise SetupError("venv setup failed") from e
@@ -159,7 +165,7 @@ def _run_test_with_pytest(root: Path, test_path: Path):
     try:
         subprocess.check_call(
             f"PYTHONPATH=src:lib .interface-venv/bin/python -m pytest {test_path}",
-            shell=True
+            shell=True,
         )
     except subprocess.CalledProcessError as e:
         raise InterfaceTestError from e
@@ -172,19 +178,26 @@ def _test_charm(charm_config: "_CharmTestConfig", interface: str, role: str) -> 
     try:
         charm_path, test_path = _prepare_repo(charm_config, interface)
     except SetupError:
-        logging.warning(f"test setup failed for {charm_config.name} {interface} {role}", exc_info=True)
+        logging.warning(
+            f"test setup failed for {charm_config.name} {interface} {role}",
+            exc_info=True,
+        )
         return False
 
     try:
         _run_test_with_pytest(charm_path, test_path)
     except InterfaceTestError:
-        logging.warning(f"interface tests for {charm_config.name} {interface} {role} failed",
-                        exc_info=True)
+        logging.warning(
+            f"interface tests for {charm_config.name} {interface} {role} failed",
+            exc_info=True,
+        )
         return False
     return True
 
 
-def _test_charms(charm_configs: Iterable["_CharmTestConfig"], interface: str, role: str) -> "_ResultsPerCharm":
+def _test_charms(
+    charm_configs: Iterable["_CharmTestConfig"], interface: str, role: str
+) -> "_ResultsPerCharm":
     """Test all charms against this interface and role."""
     logging.info(f"Running tests for {interface}")
     out = {}
@@ -195,13 +208,15 @@ def _test_charms(charm_configs: Iterable["_CharmTestConfig"], interface: str, ro
     return out
 
 
-def _test_roles(tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str) -> "_ResultsPerRole":
+def _test_roles(
+    tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str
+) -> "_ResultsPerRole":
     """Run the tests for each role of this interface."""
     results_per_role: _ResultsPerRole = {}
     role: "_Role"
     for role in ["provider", "requirer"]:
         logging.info(f"Running tests for role: {role}")
-        interface_tests = tests_per_role[role]['tests']
+        interface_tests = tests_per_role[role]["tests"]
         charm_configs = tests_per_role[role]["charms"]
 
         if not interface_tests:
@@ -211,7 +226,10 @@ def _test_roles(tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str) 
             logging.info(f"No charms registered for {interface}/{role}; skipping...")
             results_per_role[role] = {}
         else:
-            logging.info(f"Running {len(interface_tests)} {interface} interface tests on: {[charm.name for charm in charm_configs]}...")
+            logging.info(
+                f"Running {len(interface_tests)} {interface} interface tests on: "
+                f"{[charm.name for charm in charm_configs]}..."
+            )
             results_per_role[role] = _test_charms(charm_configs, interface, role)
     return results_per_role
 
@@ -239,7 +257,7 @@ def run_interface_tests(path: Path, include: str = "*") -> "_ResultsPerInterface
         test_results[interface] = results_per_version
 
     if not collected:
-        logging.warning('No tests collected.')
+        logging.warning("No tests collected.")
 
     return test_results
 
@@ -257,10 +275,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--include",
         default="*",
-        help="Glob to filter what interfaces to include in the test matrix."
+        help="Glob to filter what interfaces to include in the test matrix.",
     )
     args = parser.parse_args()
 
-    pprint_interface_test_results(
-        run_interface_tests(Path("."), args.include)
-    )
+    pprint_interface_test_results(run_interface_tests(Path("."), args.include))
