@@ -67,6 +67,7 @@ def _clone_charm_repo(charm_config: "_CharmTestConfig", charm_path: Path):
 def _prepare_repo(
     charm_config: "_CharmTestConfig",
     interface: str,
+    version: str,
     root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
 ) -> Tuple[Path, Path]:
     """Clone the charm repository and create the venv if it hasn't been done already."""
@@ -83,7 +84,9 @@ def _prepare_repo(
         # NOTE: In the future we could probably run the tests without a fixture, assuming
         # that the charm needs no patching at all to work with scenario
         raise SetupError(f"fixture missing for charm {charm_config.name}")
-    test_path = _generate_test(interface, fixture_spec.path.parent, fixture_spec.id)
+    test_path = _generate_test(
+        interface, fixture_spec.path.parent, fixture_spec.id, version
+    )
     return charm_path, test_path
 
 
@@ -99,15 +102,20 @@ from interface_tester import InterfaceTester
 def test_{interface}_interface({fixture_id}: InterfaceTester):
     {fixture_id}.configure(
         interface_name="{interface}",
+        interface_version="{version}",
     )
     {fixture_id}.run()
 """
 
 
-def _generate_test(interface: str, test_path: Path, fixture_id: str) -> Path:
+def _generate_test(
+    interface: str, test_path: Path, fixture_id: str, version: str
+) -> Path:
     """Generate a pytest file for a given charm and interface."""
     logging.info(f"Generating test file for {interface} at {test_path}")
-    test_content = _TEST_CONTENT.format(interface=interface, fixture_id=fixture_id)
+    test_content = _TEST_CONTENT.format(
+        interface=interface, fixture_id=fixture_id, version=version
+    )
     test_filename = f"interface-test-{interface}.py"
     with open(test_path / test_filename, "w") as file:
         file.write(test_content)
@@ -172,11 +180,13 @@ def _run_test_with_pytest(root: Path, test_path: Path):
     os.chdir(original_wd)
 
 
-def _test_charm(charm_config: "_CharmTestConfig", interface: str, role: str) -> bool:
+def _test_charm(
+    charm_config: "_CharmTestConfig", interface: str, version, role: str
+) -> bool:
     """Run interface tests for a charm."""
     logging.info(f"Running tests for charm: {charm_config.name}")
     try:
-        charm_path, test_path = _prepare_repo(charm_config, interface)
+        charm_path, test_path = _prepare_repo(charm_config, interface, version)
     except SetupError:
         logging.warning(
             f"test setup failed for {charm_config.name} {interface} {role}",
@@ -196,20 +206,20 @@ def _test_charm(charm_config: "_CharmTestConfig", interface: str, role: str) -> 
 
 
 def _test_charms(
-    charm_configs: Iterable["_CharmTestConfig"], interface: str, role: str
+    charm_configs: Iterable["_CharmTestConfig"], interface: str, version, role: str
 ) -> "_ResultsPerCharm":
     """Test all charms against this interface and role."""
     logging.info(f"Running tests for {interface}")
     out = {}
     for charm_config in charm_configs:
-        success = _test_charm(charm_config, interface, role)
+        success = _test_charm(charm_config, interface, version, role)
         out[charm_config.name] = success
         logging.info(f"Result: {'PASSED' if success else 'FAILED'}")
     return out
 
 
 def _test_roles(
-    tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str
+    tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str, version: str
 ) -> "_ResultsPerRole":
     """Run the tests for each role of this interface."""
     results_per_role: _ResultsPerRole = {}
@@ -230,7 +240,9 @@ def _test_roles(
                 f"Running {len(interface_tests)} {interface} interface tests on: "
                 f"{[charm.name for charm in charm_configs]}..."
             )
-            results_per_role[role] = _test_charms(charm_configs, interface, role)
+            results_per_role[role] = _test_charms(
+                charm_configs, interface, version, role
+            )
     return results_per_role
 
 
@@ -242,7 +254,7 @@ def _test_interface_version(tests_per_version, interface: str) -> "_ResultsPerVe
     for version, tests_per_role in tests_per_version.items():
         logging.info(f"Running tests for version: {version}")
 
-        results_per_version[version] = _test_roles(tests_per_role, interface)
+        results_per_version[version] = _test_roles(tests_per_role, interface, version)
 
     return results_per_version
 
