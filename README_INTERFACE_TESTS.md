@@ -18,13 +18,88 @@ This is the expected behaviour for the interface:
 
 ## A minimal test case
 
-Install the [interface tester package](https://github.com/canonical/interface-tester-pytest).:
+### Register a charm to the interface
+Write to `./interfaces/ingress/v0/charms.yaml`:
+
+```yaml
+providers:
+  - name: traefik-k8s
+    url: https://github.com/canonical/traefik-k8s-operator
+
+requirers: []
+```
+
+Verify that the `charms.yaml` file format is correct:
+
+> interface_tester discover --include ingress
+
+You should see:
+
+```text
+collecting tests from root = /home/pietro/canonical/charm-relation-interfaces...
+Discovered:
+ingress:
+  - v1:
+   - provider:
+     - <no tests>
+     - schema NOT OK
+     - charms:
+       - traefik-k8s (https://github.com/canonical/traefik-k8s-operator) custom_test_setup=no
+   - requirer:
+     - <no tests>
+     - schema NOT OK
+     - <no charms>
+```
+
+### Add a relation interface schema
+Install the [interface tester package](https://github.com/canonical/interface-tester-pytest):
 
 `pip install git+https://github.com/canonical/interface-tester-pytest`
 
-Specify the schema for the `ingress` interface databags in `./interfaces/ingress/v0/schema.py`.
+Specify the schema for the `ingress` interface databags in `./interfaces/ingress/v0/schema.py`, for example:
 
-Create a python file at `<repo-root>/interfaces/ingress/v0/interface_tests/my_tests.py` with these contents:
+```python
+from pydantic import BaseModel
+from interface_tester import DataBagSchema
+
+class MyRequirerUnitData(BaseModel):
+    foo: str
+    
+class RequirerSchema(DataBagSchema):
+    unit = MyRequirerUnitData()
+
+class MyProviderAppData(BaseModel):
+    bar: str
+    baz: str
+    
+class ProviderSchema(DataBagSchema):
+    app = MyProviderAppData()
+```
+
+Verify that the schemas are correctly specified:
+
+> interface_tester discover --include ingress
+
+you should see:
+
+```text
+collecting tests from root = /home/pietro/canonical/charm-relation-interfaces...
+Discovered:
+ingress:
+  - v1:
+   - provider:
+     - <no tests>
+     - schema OK
+     - charms:
+       - traefik-k8s (https://github.com/canonical/traefik-k8s-operator) custom_test_setup=no
+   - requirer:
+     - <no tests>
+     - schema OK
+     - <no charms>
+```
+
+### Add interface tests
+Create a python file at `<repo-root>/interfaces/ingress/v0/interface_tests/my_tests.py` with this content:
 
 ```python
 from scenario import State
@@ -39,7 +114,32 @@ def test_data_published_on_joined(output_state: State):
     return
 ```
 
-Run the test with `python run_matrix.py --include ingress`.
+Verify that the tests are specified correctly:
+
+> interface_tester discover --include ingress
+
+You should see:
+
+```text
+collecting tests from root = /home/pietro/canonical/charm-relation-interfaces...
+Discovered:
+ingress:
+  - v1:
+   - provider:
+     - <no tests>
+     - schema OK
+     - charms:
+       - traefik-k8s (https://github.com/canonical/traefik-k8s-operator) custom_test_setup=no
+   - requirer:
+      - test_data_published_on_joined:: ingress-relation-joined (state=no, schema=SchemaConfig.default)
+     - schema OK
+     - <no charms>
+```
+
+
+Run the test: 
+
+> python run_matrix.py --include ingress
 
 You should see:
 
@@ -134,19 +234,6 @@ def test_no_data_published_on_joined_if_remote_has_not_sent_valid_data(output_st
 ```
 
 Note the usage of `SchemaConfig.empty`. That is what disables the 'default' schema validation and instructs the test runner to verify that the provider-side databags are empty instead of containing whatever they should contain according to `schema.py`.  
-
-
-## Verifying the test is discoverable
-
-Run `interface_tester discover` in a shell (in the repo root; or check out `--help` to see how to customize that), you should see:
-```yaml
-ingress:
-  - v0:
-      - requirer:
-          - tests:
-            - test_data_published_on_joined_if_remote_has_sent_valid_data:: ingress-relation-joined
-            - test_no_data_published_on_joined_if_remote_has_not_sent_valid_data:: ingress-relation-joined
-```
 
 
 # Reference: how does it work?

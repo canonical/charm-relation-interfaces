@@ -134,7 +134,7 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
     return FixtureSpec(fixture_path, fixture_id)
 
 
-def _setup_venv(charm_path: Path) -> Path:
+def _setup_venv(charm_path: Path) -> None:
     """Create the venv for a charm and return the path to its python."""
     logging.info(f"Preparing venv for {charm_path}")
 

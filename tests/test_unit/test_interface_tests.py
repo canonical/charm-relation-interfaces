@@ -65,7 +65,7 @@ def test_ingress_requirer():
         interface_name="ingress",
         state_template=State(leader=True),
     )
-    tester.run()
+    assert tester.run()
 
 
 def test_ingress_provider():
@@ -76,4 +76,4 @@ def test_ingress_provider():
         interface_name="ingress",
         state_template=State(leader=True),
     )
-    tester.run()
+    assert tester.run()
