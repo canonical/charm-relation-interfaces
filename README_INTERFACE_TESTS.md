@@ -227,7 +227,6 @@ def test_data_published_on_joined_if_remote_has_sent_valid_data(output_state: St
             }
         )]
     )
-
 )
 def test_no_data_published_on_joined_if_remote_has_not_sent_valid_data(output_state: State):
     """If the requirer has provided INcorrect data, then the provider will not write anything to its databags."""
