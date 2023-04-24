@@ -3,6 +3,8 @@ name: "my-application"
 provides:
   ingress:
     interface: ingress
+  foobarbaz:
+    interface: foobarbaz
 
 containers:
   foo: {}
