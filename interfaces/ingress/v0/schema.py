@@ -34,6 +34,11 @@ class Url(BaseModel):
 class MyProviderData(BaseModel):
     ingress: Url
 
+    @validator('ingress', pre=True)
+    def decode_ingress(cls, ingress):
+        return yaml.safe_load(ingress)
+
+
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for Ingress."""
@@ -41,7 +46,7 @@ class ProviderSchema(DataBagSchema):
 
 
 class IngressRequirerData(BaseModel):
-    port: str  # The port the application wishes to be exposed. stringified integer.
+    port: str  # The port the application wishes to be exposed. Stringified int.
     host: str  # Hostname the application wishes to be exposed.
     model: str  # the model the application is in.
     name: str  # the name of the application requesting ingress.
