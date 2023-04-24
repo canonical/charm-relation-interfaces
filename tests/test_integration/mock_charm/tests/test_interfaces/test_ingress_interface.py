@@ -20,13 +20,11 @@ def test_ingress_interface_fails(interface_tester: InterfaceTester):
             interface_tester.run()
 
 
-def test_ingress_per_unit_interface_fails(interface_tester: InterfaceTester):
-    # if we disable using the ingress lib, this test would fail schema validation.
-    with patch("charm.MyCharm.use_ingress", False):
-        interface_tester.configure(
-            # nonexistent interface
-            interface_name="foobarbaz",
-            interface_version=0,
-        )
-        with pytest.raises(NoTestsRun):
-            interface_tester.run()
+def test_notests_interface_fails(interface_tester: InterfaceTester):
+    interface_tester.configure(
+        # nonexistent interface
+        interface_name="foobarbaz",
+        interface_version=0,
+    )
+    with pytest.raises(NoTestsRun):
+        interface_tester.run()
