@@ -194,7 +194,9 @@ class _IPAEvent(RelationEvent):
         super().__init__(handle, relation)
 
         if not len(self.__args__) == len(args):
-            raise TypeError("expected {} args, got {}".format(len(self.__args__), len(args)))
+            raise TypeError(
+                "expected {} args, got {}".format(len(self.__args__), len(args))
+            )
 
         for attr, obj in zip(self.__args__, args):
             setattr(self, attr, obj)
