@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 import yaml
-from interface_tester.errors import NoTestsRun
 from interface_tester.collector import InterfaceTestSpec, gather_test_spec_for_version
+from interface_tester.errors import NoTestsRun
 from interface_tester.plugin import InterfaceTester
 from ops.charm import CharmBase
 from ops.framework import Framework
