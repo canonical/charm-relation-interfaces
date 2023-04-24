@@ -1,6 +1,6 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
-from charms.traefik_k8s.v0.ingress import IngressPerAppProvider
+from charms.traefik_k8s.v1.ingress import IngressPerAppProvider
 from ops import CharmBase, Framework
 
 KubernetesServicePatch = None

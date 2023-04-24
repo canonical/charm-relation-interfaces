@@ -7,7 +7,7 @@
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "$ref": "#/definitions/MyRequirerAppData"
+      "$ref": "#/definitions/IngressRequirerData"
     }
   },
   "required": [
@@ -25,7 +25,7 @@
       "properties": {
         "port": {
           "title": "Port",
-          "type": "integer"
+          "type": "string"
         },
         "host": {
           "title": "Host",
@@ -45,18 +45,6 @@
         "host",
         "model",
         "name"
-      ]
-    },
-    "MyRequirerAppData": {
-      "title": "MyRequirerAppData",
-      "type": "object",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/IngressRequirerData"
-        }
-      },
-      "required": [
-        "data"
       ]
     }
   }
