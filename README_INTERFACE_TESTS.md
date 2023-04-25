@@ -31,7 +31,7 @@ requirers: []
 
 Verify that the `charms.yaml` file format is correct:
 
-> interface_tester discover --include ingress
+`interface_tester discover --include ingress`
 
 You should see:
 
@@ -78,7 +78,7 @@ class ProviderSchema(DataBagSchema):
 
 Verify that the schemas are correctly specified:
 
-> interface_tester discover --include ingress
+`interface_tester discover --include ingress`
 
 you should see:
 
@@ -116,7 +116,7 @@ def test_data_published_on_joined(output_state: State):
 
 Verify that the tests are specified correctly:
 
-> interface_tester discover --include ingress
+`interface_tester discover --include ingress`
 
 You should see:
 
@@ -139,7 +139,7 @@ ingress:
 
 Run the test: 
 
-> python run_matrix.py --include ingress
+`python run_matrix.py --include ingress`
 
 You should see:
 
