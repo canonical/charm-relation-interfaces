@@ -154,16 +154,14 @@ class Bar:
     "source",
     (
         dedent(
-            """
-    import pydantic
-    class RequirerSchema:
-        pass
-    """
+            """import pydantic
+class RequirerSchema:
+    pass
+        """
         ),
         dedent(
-            """
-    RequirerSchema = 42
-    """
+            """RequirerSchema = 42
+        """
         ),
     ),
 )
