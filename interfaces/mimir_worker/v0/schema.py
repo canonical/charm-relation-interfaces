@@ -4,12 +4,25 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - ProviderSchema
 - RequirerSchema
 """
+from enum import Enum
 from typing import Dict, List
 
 import pydantic
 from pydantic import Json
 
 from interfaces.schema_base import DataBagSchema
+
+
+class MimirRole(str, Enum):
+    """Mimir component role names."""
+    query_frontend = "query_frontend"
+    querier = "querier"
+    store_gateway = "store_gateway"
+    ingester = "ingester"
+    distributor = "distributor"
+    ruler = "ruler"
+    alertmanager = "alertmanager"
+    compactor = "compactor"
 
 
 class S3Config(pydantic.BaseModel):
@@ -41,6 +54,11 @@ class MyRequirerUnitDataBag(pydantic.BaseModel):
     juju_topology: Json[JujuTopology]
 
 
+class MyRequirerAppDataBag(pydantic.BaseModel):
+    roles: List[MimirRole]
+
+
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of this interface."""
     unit: MyRequirerUnitDataBag
+    app: MyRequirerAppDataBag
