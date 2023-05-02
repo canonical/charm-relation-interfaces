@@ -1,8 +1,7 @@
 providers:
-  # list of charms using this interface as providers
-  - name: charm-using-the-provider-side
-    url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone; required
+  - name: mimir-coordinator-k8s
+    url: https://github.com/canonical/mimir-coordinator-k8s-operator
 
-# list of charms using this interface as requirers.
-# same structure as providers
-requirers: []
+requirers:
+  - name: mimir-worker-k8s
+    url: https://github.com/canonical/mimir-worker-k8s-operator
