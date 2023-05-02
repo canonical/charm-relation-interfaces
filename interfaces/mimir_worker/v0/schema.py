@@ -15,6 +15,9 @@ from interfaces.schema_base import DataBagSchema
 
 class MimirRole(str, Enum):
     """Mimir component role names."""
+    overrides_exporter = "overrides_exporter"
+    query_scheduler = "query_scheduler"
+    flusher = "flusher"
     query_frontend = "query_frontend"
     querier = "querier"
     store_gateway = "store_gateway"
