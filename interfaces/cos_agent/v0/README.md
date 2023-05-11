@@ -2,9 +2,7 @@
 
 ## Usage
 
-The `cos_agent` interface is meant to exchange information on several observability-related data streams at once.
-
-The first implementation was for the [`grafana-agent`](https://charmhub.io/grafana-agent/libraries/cos_agent) machine charm for "converting" paths to log files, alert rules and dashboards into relation data for the `loki_push_api`, `prometheus_remote_write` and `grafana_dashboards` interfaces.
+The `cos_agent` interface is meant to exchange information on several observability-related data streams at once. This is a `SUBORDINATE`, ergo MACHINE-charm-specific relation interface.
 
 
 ## Direction
