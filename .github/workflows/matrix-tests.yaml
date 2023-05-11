@@ -1,0 +1,22 @@
+name: Matrix tests for interfaces
+
+on: workflow_dispatch
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    name: Run the interface tests on all registered charms
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: pip install tox
+      - name: Run tests
+        run: tox -e run-interface-test-matrix
+

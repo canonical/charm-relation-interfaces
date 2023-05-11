@@ -1,0 +1,177 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for nginx_route.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/NginxRouteRequirerSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "NginxRouteRequirerSchema": {
+      "title": "NginxRouteRequirerSchema",
+      "type": "object",
+      "properties": {
+        "service-hostname": {
+          "title": "Service Hostname",
+          "description": "The hostname of the service to create an ingress for.",
+          "examples": [
+            "example.com"
+          ],
+          "type": "string"
+        },
+        "service-name": {
+          "title": "Service Name",
+          "description": "The name of the service to create an ingress for.",
+          "examples": [
+            "wordpress",
+            "indico"
+          ],
+          "type": "string"
+        },
+        "service-namespace": {
+          "title": "Service Namespace",
+          "description": "The namespace of the service to create an ingress for. Will default to the namespace this charm is deployed into.",
+          "examples": [],
+          "type": "string"
+        },
+        "service-port": {
+          "title": "Service Port",
+          "description": "The port of the service to create an ingress for.",
+          "examples": [
+            8080,
+            80
+          ],
+          "type": "integer"
+        },
+        "additional-hostnames": {
+          "title": "Additional Hostnames",
+          "description": "Comma-separated list of additional hostnames for this ingress to listen on.",
+          "examples": [
+            "www.example.com,example.com"
+          ],
+          "type": "string"
+        },
+        "ingress-class": {
+          "title": "Ingress Class",
+          "description": "The ingress class to target for this ingress resource. If your cluster has multiple ingress controllers, this allows you to select the correct one, by setting the ingressClassName field on the ingress resource created by the charm. This value isn't available to be set via the relation as it's a property of the cluster's configuration. If this value is empty, the charm will use whichever ingress class has the \"ingressclass.kubernetes.io/is-default-class\" annotation set to \"true\". If multiple ingress classes are so configured, no selection will be made. For more details, see:  * https://kubernetes.github.io/ingress-nginx/user-guide/multiple-ingress/  * https://kubernetes.io/docs/concepts/services-networking/ingress/#default-ingress-class ",
+          "examples": [
+            "nginx"
+          ],
+          "type": "string"
+        },
+        "limit-rps": {
+          "title": "Limit Rps",
+          "description": "Number of requests accepted from a given IP each second. The burst limit is set to this limit multiplied by 5. When clients exceed this limit a 503 error will be returned. Setting this to 0 disables rate-limiting. ",
+          "examples": [],
+          "type": "integer"
+        },
+        "limit-whitelist": {
+          "title": "Limit Whitelist",
+          "description": "If rate-limiting is set, client IP source ranges to be excluded. The value is a comma-separated list of CIDRs. ",
+          "examples": [
+            "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          ],
+          "type": "string"
+        },
+        "max-body-size": {
+          "title": "Max Body Size",
+          "description": "Max allowed body-size (for file uploads) in megabytes, set to 0 to disable limits.",
+          "examples": [],
+          "type": "integer"
+        },
+        "owasp-modsecurity-crs": {
+          "title": "Owasp Modsecurity Crs",
+          "description": "Enable OWASP ModSecurity Core Rule Set (CRS). A set of generic attack detection rules for use with ModSecurity or compatible web application firewalls. The CRS aims to protect web applications from a wide range of attacks, including the OWASP Top Ten, with a minimum of false alerts. See https://github.com/coreruleset/coreruleset for more details. ",
+          "examples": [],
+          "type": "boolean"
+        },
+        "owasp-modsecurity-custom-rules": {
+          "title": "Owasp Modsecurity Custom Rules",
+          "description": "New line ('\\n') separated list of custom rules to be added to modsecurity-snippet annotation.",
+          "examples": [
+            "SecAction id:900130,phase:1,nolog,pass,t:none,setvar:tx.crs_exclusions_wordpress=1\n"
+          ],
+          "type": "string"
+        },
+        "path-routes": {
+          "title": "Path Routes",
+          "description": "Comma separated list of the routes under the hostname that you wish to map to the relation. Example: \"/admin,/portal\" will map example.test/admin and example.test/portal only. ",
+          "examples": [
+            "/admin,/portal",
+            "/something(/|$)(.*)"
+          ],
+          "type": "string"
+        },
+        "proxy-read-timeout": {
+          "title": "Proxy Read Timeout",
+          "description": "Defines a timeout in seconds for reading a response from the proxied server.",
+          "examples": [],
+          "type": "integer"
+        },
+        "retry-errors": {
+          "title": "Retry Errors",
+          "description": "Specifies in which cases a request should be retried against the next server. Comma-separated list, e.g. \"error,timeout,http_502,http_503,http_504\". See http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_next_upstream for more details. Unrecognised values will be ignored. The nginx default will be used if this config option is set to an empty value. ",
+          "examples": [
+            "error,timeout,http_502,http_503,http_504"
+          ],
+          "type": "string"
+        },
+        "rewrite-enabled": {
+          "title": "Rewrite Enabled",
+          "description": "Whether requests should be written to the `rewrite-target`",
+          "examples": [],
+          "type": "boolean"
+        },
+        "rewrite-target": {
+          "title": "Rewrite Target",
+          "description": "The path to rewrite requests to. If not set, rewrite-target will be \"/\".",
+          "examples": [
+            "/app1",
+            "/$2"
+          ],
+          "type": "string"
+        },
+        "session-cookie-max-age": {
+          "title": "Session Cookie Max Age",
+          "description": "The max age to configure a session cookie for. Leaving unset or setting to 0 will disable session cookies and cookie-based affinity.",
+          "examples": [],
+          "type": "integer"
+        },
+        "tls-secret-name": {
+          "title": "Tls Secret Name",
+          "description": "The name of the Kubernetes TLS secret to use. Leaving this empty will configure an ingress with TLS disabled.",
+          "examples": [
+            "example-com-tls"
+          ],
+          "type": "string"
+        },
+        "whitelist-source-range": {
+          "title": "Whitelist Source Range",
+          "description": "Allowed client IP source ranges. The value is a comma separated list of CIDRs.",
+          "examples": [
+            "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "service-hostname",
+        "service-name",
+        "service-namespace",
+        "service-port"
+      ]
+    }
+  }
+}

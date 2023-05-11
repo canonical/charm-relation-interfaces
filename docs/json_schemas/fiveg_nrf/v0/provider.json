@@ -1,13 +1,13 @@
 {
   "title": "ProviderSchema",
-  "description": "Provider schema for Ingress.",
+  "description": "Provider schema for fiveg_nrf.",
   "type": "object",
   "properties": {
     "unit": {
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "$ref": "#/definitions/MyProviderData"
+      "$ref": "#/definitions/MyProviderAppData"
     }
   },
   "required": [
@@ -19,12 +19,16 @@
       "type": "object",
       "properties": {}
     },
-    "Url": {
-      "title": "Url",
+    "MyProviderAppData": {
+      "title": "MyProviderAppData",
       "type": "object",
       "properties": {
         "url": {
           "title": "Url",
+          "description": "url to reach the NRF.",
+          "examples": [
+            "https://nrf-example.com:1234"
+          ],
           "minLength": 1,
           "maxLength": 65536,
           "format": "uri",
@@ -33,18 +37,6 @@
       },
       "required": [
         "url"
-      ]
-    },
-    "MyProviderData": {
-      "title": "MyProviderData",
-      "type": "object",
-      "properties": {
-        "ingress": {
-          "$ref": "#/definitions/Url"
-        }
-      },
-      "required": [
-        "ingress"
       ]
     }
   }

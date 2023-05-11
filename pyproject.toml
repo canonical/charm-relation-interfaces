@@ -1,5 +1,8 @@
 [build-system]
-requires = ["setuptools"]
+requires = [
+    "setuptools >= 35.0.2",
+    "setuptools_scm >= 2.0.0, <3"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -16,7 +19,7 @@ license.text = "Apache-2.0"
 keywords = ["juju", "relation interfaces"]
 
 dependencies = [
-    "pydantic"
+    "pydantic==1.10.7",
 ]
 
 readme = "README.md"
@@ -26,6 +29,27 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Topic :: Utilities",
     "License :: OSI Approved :: Apache Software License",
+]
+
+[project.optional-dependencies]
+unit_tests = [
+    "ops==2.2.0",
+    "PyYAML==6.0",
+    "pytest==7.3.1",
+    "ops-scenario==2.2",
+]
+
+json_schemas = [
+    "PyYAML==6.0",
+]
+
+interface_tests = [
+    "PyYAML==6.0",
+    "pytest==7.3.1",
+    "ops-scenario==2.2",
+    "pydantic==1.10.7",
+    "requests==2.28.1",
+    "virtualenv==20.21.0"
 ]
 
 [project.urls]
@@ -44,4 +68,5 @@ include = '\.pyi?$'
 profile = "black"
 
 [bdist_wheel]
-universal=1
+universal = 1
+
