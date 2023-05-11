@@ -42,7 +42,7 @@ requirer's request, if the request specified by the requirer is not valid.
 
 The provider does not provide anything in the relation databag.
 
-[\[JSON Schema\]](./schemas/provider.py)
+[\[Pydantic Schema\]](./schema.py)
 
 ### Requirer
 
@@ -51,7 +51,7 @@ configuration of the Nginx ingress integrator charm, with the exception that
 `service-hostname`, `service-name`, `service-port`, and `service-namespace`
 are required in the relation data.
 
-[\[JSON Schema\]](./schemas/requirer.py)
+[\[Pydantic Schema\]](./schema.py)
 
 #### Example
 ```yaml
