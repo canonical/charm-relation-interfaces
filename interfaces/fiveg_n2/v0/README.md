@@ -1,4 +1,4 @@
-# `fiveg_amf_n2`
+# `fiveg_n2`
 
 ## Usage
 
@@ -13,7 +13,7 @@ flowchart TD
     Provider -- ip_address --> Requirer
 ```
 
-As with all Juju relations, the `fiveg_amf_n2` interface consists of two parties: a Provider and a Requirer.
+As with all Juju relations, the `fiveg_n2` interface consists of two parties: a Provider and a Requirer.
 
 ## Behavior
 
@@ -35,7 +35,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ```yaml
 provider:
-  app: {"n2IpAddr": "192.168.251.6"}
+  app: {"n2_ip_address": "192.168.251.6"}
   unit: {}
 requirer:
   app: {}

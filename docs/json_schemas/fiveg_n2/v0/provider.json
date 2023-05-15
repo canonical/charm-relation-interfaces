@@ -1,6 +1,6 @@
 {
   "title": "ProviderSchema",
-  "description": "Provider schema for fiveg_amf_n2.",
+  "description": "Provider schema for fiveg_n2.",
   "type": "object",
   "properties": {
     "unit": {
