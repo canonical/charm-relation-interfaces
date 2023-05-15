@@ -1,0 +1,41 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for fiveg_amf_n2.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/MyProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "MyProviderAppData": {
+      "title": "MyProviderAppData",
+      "type": "object",
+      "properties": {
+        "url": {
+          "title": "Url",
+          "description": "IP Address to reach the AMF's N2 interface.",
+          "examples": [
+            "192.168.251.6"
+          ],
+          "type": "string",
+          "format": "ipvanyaddress"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    }
+  }
+}

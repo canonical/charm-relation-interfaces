@@ -1,0 +1,4 @@
+providers:
+  - name: sdcore-amf-operator
+    url: https://github.com/canonical/sdcore-amf-operator
+requirers: []
