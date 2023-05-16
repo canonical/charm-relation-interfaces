@@ -10,7 +10,7 @@ This relation interface describes the expected behavior of any charm claiming to
 
 ```mermaid
 flowchart TD
-    Provider -- ip_address --> Requirer
+    Provider -- hostname, port --> Requirer
 ```
 
 As with all Juju relations, the `fiveg_n2` interface consists of two parties: a Provider and a Requirer.
@@ -21,11 +21,11 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide the N2 interface IP address used to connect to AMF.
+- Is expected to provide the hostname of the AMF and the NGAPP port to connect to the N2 interface.
 
 ### Requirer
 
-- Is expected to use the IP address passed by the provider to connect to the N2 interface.
+- Is expected to use the hostname and the port passed by the provider to connect to the N2 interface.
 
 ## Relation Data
 
@@ -35,7 +35,10 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ```yaml
 provider:
-  app: {"n2_ip_address": "192.168.251.6"}
+  app: {
+    "amf_hostname": "amf",
+    "ngapp_port": "38412"
+  }
   unit: {}
 requirer:
   app: {}

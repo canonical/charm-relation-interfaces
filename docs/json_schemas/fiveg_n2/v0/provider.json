@@ -7,7 +7,7 @@
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "$ref": "#/definitions/MyProviderAppData"
+      "$ref": "#/definitions/FivegN2ProviderAppData"
     }
   },
   "required": [
@@ -19,22 +19,22 @@
       "type": "object",
       "properties": {}
     },
-    "MyProviderAppData": {
-      "title": "MyProviderAppData",
+    "FivegN2ProviderAppData": {
+      "title": "FivegN2ProviderAppData",
       "type": "object",
       "properties": {
-        "n2_ip_address": {
-          "title": "N2 Ip Address",
-          "description": "IP Address to reach the AMF's N2 interface.",
-          "examples": [
-            "192.168.251.6"
-          ],
-          "type": "string",
-          "format": "ipvanyaddress"
+        "amf_hostname": {
+          "title": "Amf Hostname",
+          "type": "string"
+        },
+        "port": {
+          "title": "Port",
+          "type": "string"
         }
       },
       "required": [
-        "n2_ip_address"
+        "amf_hostname",
+        "port"
       ]
     }
   }

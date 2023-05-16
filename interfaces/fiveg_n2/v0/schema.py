@@ -5,27 +5,27 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 Examples:
     ProviderSchema:
         unit: <empty>
-        app: {"n2_ip_address": "192.168.251.6"}
+        app: {
+            "amf_hostname": "amf",
+            "ngapp_port": "38412"
+        }
     RequirerSchema:
         unit: <empty>
         app:  <empty>
 """
 
-from pydantic import BaseModel, IPvAnyAddress, Field
+from pydantic import BaseModel
 
 from interface_tester.schema_base import DataBagSchema
 
 
-class MyProviderAppData(BaseModel):
-    n2_ip_address: IPvAnyAddress = Field(
-        description="IP Address to reach the AMF's N2 interface.",
-        examples=["192.168.251.6"]
-    )
-
+class FivegN2ProviderAppData(BaseModel):
+    amf_hostname: str
+    port: str
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for fiveg_n2."""
-    app: MyProviderAppData
+    app: FivegN2ProviderAppData
 
 
 class RequirerSchema(DataBagSchema):
