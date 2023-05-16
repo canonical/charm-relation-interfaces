@@ -43,6 +43,16 @@
                 "myapp"
             ]
         },
+        "enabled-plugins": {
+            "$id": "#/properties/enabled-plugins",
+            "title": "Enabled plugins in the database",
+            "description": "A list of plugins that are enabled in the database.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "plugin-1,plugin-2"
+            ]
+        },
         "endpoints": {
             "$id": "#/properties/endpoints",
             "title": "Database Endpoints",
@@ -78,6 +88,7 @@
         "username": "relation-14",
         "password": "alphanum-32byte-random",
         "database": "myapp",
+        "enabled-plugins": "plugin-1,plugin-2",
         "endpoints": "unit-1:port,unit-2:port",
         "read-only-endpoints": "unit-1:port,unit-2:port",
         "version": "8.0.27-18"

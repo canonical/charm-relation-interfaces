@@ -26,6 +26,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
 - Is expected to provide the `endpoints` field with has address of Primary, which can be used for Read/Write queries.
 - Is expected to provide the `database` field with the database that was actually created.
+- Is expected to provide optional `enabled-plugins` field with a comma-separated list of plugins that are currently enabled in the database.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 
@@ -55,6 +56,7 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
     related-endpoint: database
     application-data:
       database: myappB
+      enabled-plugins: citext,hstore,pgtrgm,unaccent 
       endpoints: postgresql-k8s-primary:5432
       read-only-endpoints: postgresql-k8s-replicas:5432
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
