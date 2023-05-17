@@ -21,7 +21,7 @@ from interface_tester.schema_base import DataBagSchema
 
 class FivegN2ProviderAppData(BaseModel):
     amf_hostname: str
-    port: str
+    ngapp_port: str
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for fiveg_n2."""

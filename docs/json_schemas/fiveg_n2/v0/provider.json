@@ -27,14 +27,14 @@
           "title": "Amf Hostname",
           "type": "string"
         },
-        "port": {
-          "title": "Port",
+        "ngapp_port": {
+          "title": "Ngapp Port",
           "type": "string"
         }
       },
       "required": [
         "amf_hostname",
-        "port"
+        "ngapp_port"
       ]
     }
   }
