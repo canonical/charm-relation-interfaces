@@ -7,7 +7,7 @@ Examples:
         unit: <empty>
         app: {
             "amf_hostname": "amf",
-            "ngapp_port": "38412"
+            "ngapp_port": 38412
         }
     RequirerSchema:
         unit: <empty>
@@ -21,7 +21,7 @@ from interface_tester.schema_base import DataBagSchema
 
 class FivegN2ProviderAppData(BaseModel):
     amf_hostname: str
-    ngapp_port: str
+    ngapp_port: int
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for fiveg_n2."""

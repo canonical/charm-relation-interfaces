@@ -29,7 +29,7 @@
         },
         "ngapp_port": {
           "title": "Ngapp Port",
-          "type": "string"
+          "type": "integer"
         }
       },
       "required": [
