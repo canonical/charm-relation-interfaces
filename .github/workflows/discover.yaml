@@ -1,13 +1,7 @@
 name: Discover interfaces
 
 on:
-  workflow_dispatch:
-    inputs:
-      interface-name:
-        type: string
-        default: "*"
-        required: true
-        description: "Path.glob() argument to select which interface(s) to discover."
+  pull_request:
 
 jobs:
   main:
@@ -26,4 +20,4 @@ jobs:
         run: |
           python -m pip install pytest-interface-tester
       - name: run discover
-        run: interface_tester discover --include ${{ inputs.interface-name }}
+        run: interface_tester discover
