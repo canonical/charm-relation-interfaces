@@ -1,6 +1,13 @@
 name: Discover interfaces
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      interface-name:
+        type: string
+        default: "*"
+        required: true
+        description: "Path.glob() argument to select which interface(s) to discover."
 
 jobs:
   main:
