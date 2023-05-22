@@ -20,6 +20,7 @@ keywords = ["juju", "relation interfaces"]
 
 dependencies = [
     "pydantic==1.10.7",
+    "pytest-interface-tester==0.1.1"
 ]
 
 readme = "README.md"

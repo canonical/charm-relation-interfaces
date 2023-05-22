@@ -54,7 +54,7 @@ ingress:
 ### Add a relation interface schema
 Install the [interface tester package](https://github.com/canonical/interface-tester-pytest):
 
-`pip install git+https://github.com/canonical/interface-tester-pytest`
+`pip install interface-tester-pytest`
 
 Specify the schema for the `ingress` interface databags in `./interfaces/ingress/v0/schema.py`, for example:
 
