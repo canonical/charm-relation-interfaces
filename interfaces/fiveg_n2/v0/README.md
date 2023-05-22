@@ -2,7 +2,7 @@
 
 ## Usage
 
-Within 5G, The Access and Mobility Management Function (AMF) is responsible for managing access and mobility for 5G devices. The 5G radio (gNodeB) communicates with the core’s control plane, specifically the AMF, using the N2 interface and the Next Generation Application Protocol NGAP.
+Within 5G, The Access and Mobility Management Function (AMF) is responsible for managing access and mobility for 5G devices. The 5G radio (gNodeB) communicates with the core’s control plane, specifically the AMF, using the N2 interface and the Next Generation Application Protocol (NGAP).
 
 This relation interface describes the expected behavior of any charm claiming to be able to provide or consume information on connectivity to the N2 control plane.
 
@@ -21,7 +21,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide the hostname of the AMF and the NGAPP port to connect to the N2 interface.
+- Is expected to provide the hostname and port of the AMF's N2 interface.
 
 ### Requirer
 
