@@ -27,4 +27,4 @@ jobs:
         run: |
           python -m pip install git+https://github.com/canonical/interface-tester-pytest
       - name: run discover
-        uses: interface_tester discover
+        uses: interface_tester discover --include ${{ inputs.interface-name }}
