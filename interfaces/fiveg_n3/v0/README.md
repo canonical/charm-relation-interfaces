@@ -40,7 +40,7 @@ with the interface.
 
 ```yaml
 provider:
-  app: {"upf_ipaddress": "1.2.3.4"}
+  app: {"upf_ip_address": "1.2.3.4"}
   unit: {}
 requirer:
   app: {}

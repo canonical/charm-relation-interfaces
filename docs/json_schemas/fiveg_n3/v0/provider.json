@@ -23,7 +23,7 @@
       "title": "FivegN3ProviderAppData",
       "type": "object",
       "properties": {
-        "upf_ipaddress": {
+        "upf_ip_address": {
           "title": "UPF IP Address",
           "type": "string"
         }

@@ -6,7 +6,7 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-            "upf_ipaddress": "1.2.3.4"
+            "upf_ip_address": "1.2.3.4"
         }
     RequirerSchema:
         unit: <empty>
@@ -19,7 +19,7 @@ from interface_tester.schema_base import DataBagSchema
 
 
 class FivegN3ProviderAppData(BaseModel):
-    upf_ipaddress: str
+    upf_ip_address: str
 
 
 class ProviderSchema(DataBagSchema):
