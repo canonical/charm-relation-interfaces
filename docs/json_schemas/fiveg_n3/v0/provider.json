@@ -1,13 +1,13 @@
 {
   "title": "ProviderSchema",
-  "description": "Provider schema for fiveg_n3",
+  "description": "Provider schema for fiveg_n3.",
   "type": "object",
   "properties": {
     "unit": {
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "$ref": "#/definitions/FivegN#ProviderAppData"
+      "$ref": "#/definitions/FivegN3ProviderAppData"
     }
   },
   "required": [
@@ -24,12 +24,12 @@
       "type": "object",
       "properties": {
         "upf_ip_address": {
-          "title": "UPF IP Address",
+          "title": "Upf Ip Address",
           "type": "string"
         }
       },
       "required": [
-        "upf_ipaddress"
+        "upf_ip_address"
       ]
     }
   }

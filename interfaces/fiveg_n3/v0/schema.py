@@ -23,7 +23,7 @@ class FivegN3ProviderAppData(BaseModel):
 
 
 class ProviderSchema(DataBagSchema):
-    """Provider schema for fiveg_n2."""
+    """Provider schema for fiveg_n3."""
     app: FivegN3ProviderAppData
 
 
