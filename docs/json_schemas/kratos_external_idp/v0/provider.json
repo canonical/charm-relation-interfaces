@@ -1,0 +1,132 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for KratosExternalIdp.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/KratosExternalIdpProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "SecretBackend": {
+      "title": "SecretBackend",
+      "description": "An enumeration.",
+      "enum": [
+        "relation",
+        "secret",
+        "vault"
+      ]
+    },
+    "Provider": {
+      "title": "Provider",
+      "description": "An enumeration.",
+      "enum": [
+        "microsoft",
+        "apple",
+        "generic",
+        "auth0",
+        "google",
+        "facebook",
+        "github",
+        "gitlab",
+        "slack",
+        "spotify",
+        "discord",
+        "twitch",
+        "netid",
+        "yandex",
+        "vk",
+        "dingtalk"
+      ]
+    },
+    "ExternalIdpProvider": {
+      "title": "ExternalIdpProvider",
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "title": "Client Id",
+          "type": "string"
+        },
+        "client_secret": {
+          "title": "Client Secret",
+          "type": "string"
+        },
+        "secret_backend": {
+          "default": "relation",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SecretBackend"
+            }
+          ]
+        },
+        "provider": {
+          "$ref": "#/definitions/Provider"
+        },
+        "scope": {
+          "title": "Scope",
+          "type": "string"
+        },
+        "provider_id": {
+          "title": "Provider Id",
+          "type": "string"
+        },
+        "jsonnet": {
+          "title": "Jsonnet",
+          "type": "string"
+        },
+        "tenant_id": {
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "private_key": {
+          "title": "Private Key",
+          "type": "string"
+        },
+        "private_key_id": {
+          "title": "Private Key Id",
+          "type": "string"
+        },
+        "team_id": {
+          "title": "Team Id",
+          "type": "string"
+        },
+        "issuer_url": {
+          "title": "Issuer Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_id",
+        "client_secret",
+        "provider"
+      ]
+    },
+    "KratosExternalIdpProviderData": {
+      "title": "KratosExternalIdpProviderData",
+      "type": "object",
+      "properties": {
+        "providers": {
+          "title": "Providers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExternalIdpProvider"
+          }
+        }
+      },
+      "required": [
+        "providers"
+      ]
+    }
+  }
+}

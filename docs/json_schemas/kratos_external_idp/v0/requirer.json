@@ -1,0 +1,72 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for KratosExternalIdp.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/KratosExternalIdpRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "Url": {
+      "title": "Url",
+      "type": "object",
+      "properties": {
+        "url": {
+          "title": "Url",
+          "minLength": 1,
+          "maxLength": 65536,
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "ExternalIdpRequirer": {
+      "title": "ExternalIdpRequirer",
+      "type": "object",
+      "properties": {
+        "redirect_uri": {
+          "$ref": "#/definitions/Url"
+        },
+        "provider_id": {
+          "title": "Provider Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "redirect_uri",
+        "provider_id"
+      ]
+    },
+    "KratosExternalIdpRequirerData": {
+      "title": "KratosExternalIdpRequirerData",
+      "type": "object",
+      "properties": {
+        "providers": {
+          "title": "Providers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExternalIdpRequirer"
+          }
+        }
+      },
+      "required": [
+        "providers"
+      ]
+    }
+  }
+}
