@@ -1,0 +1,36 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for fiveg_n3",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/FivegN#ProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "FivegN3ProviderAppData": {
+      "title": "FivegN3ProviderAppData",
+      "type": "object",
+      "properties": {
+        "upf_ipaddress": {
+          "title": "UPF IP Address",
+          "type": "string"
+        }
+      },
+      "required": [
+        "upf_ipaddress"
+      ]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+"""This file defines the schemas for the provider and requirer sides of the `fiveg_n3` interface.
+It exposes two interfaces.schema_base.DataBagSchema subclasses called:
+- ProviderSchema
+- RequirerSchema
+Examples:
+    ProviderSchema:
+        unit: <empty>
+        app: {
+            "upf_ipaddress": "1.2.3.4"
+        }
+    RequirerSchema:
+        unit: <empty>
+        app:  <empty>
+"""
+
+from pydantic import BaseModel
+
+from interface_tester.schema_base import DataBagSchema
+
+
+class FivegN3ProviderAppData(BaseModel):
+    upf_ipaddress: str
+
+
+class ProviderSchema(DataBagSchema):
+    """Provider schema for fiveg_n2."""
+    app: FivegN3ProviderAppData
+
+
+class RequirerSchema(DataBagSchema):
+    """Requirer schema for fiveg_n3."""
