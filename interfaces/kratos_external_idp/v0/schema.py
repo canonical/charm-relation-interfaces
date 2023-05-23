@@ -70,7 +70,7 @@ class ExternalIdpProvider(BaseModel):
     provider: Provider
     scope: Optional[str]
     provider_id: Optional[str]
-    jsonnet: Optional[str]
+    jsonnet_mapper: Optional[str]
     tenant_id: Optional[str]
     private_key: Optional[str]
     private_key_id: Optional[str]

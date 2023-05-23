@@ -81,8 +81,8 @@
           "title": "Provider Id",
           "type": "string"
         },
-        "jsonnet": {
-          "title": "Jsonnet",
+        "jsonnet_mapper": {
+          "title": "Jsonnet Mapper",
           "type": "string"
         },
         "tenant_id": {
