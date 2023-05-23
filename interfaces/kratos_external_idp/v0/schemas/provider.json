@@ -13,7 +13,7 @@
                     "client_secret": "cl1ent-s3cRet",
                     "secret_backend": "relation",
                     "tenant_id": "4242424242424242",
-                    "type": "microsoft"   
+                    "type": "microsoft"
                 }
             ]
         },
@@ -53,6 +53,9 @@
                         "client_id": {"$ref": "/schemas/client_id"},
                         "client_secret": {"$ref": "/schemas/client_secret"},
                         "secret_backend": {"$ref": "/schemas/secret_backend"},
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "tenant_id": {
                             "title": "The Azure AD tenant_id which the users belong to",
                             "description": "The Azure AD tenant_id which the users belong to",
@@ -85,6 +88,9 @@
                             "type": "string"
                         },
                         "secret_backend": {"$ref": "/schemas/secret_backend"},
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "team_id": {
                             "title": "The Team ID provided by Apple",
                             "description": "The Team ID provided by Apple",
@@ -109,6 +115,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["generic"]}
                     },
                     "required": [
@@ -135,6 +144,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["auth0"]}
                     },
                     "required": [
@@ -158,6 +170,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["google"]}
                     },
                     "required": [
@@ -180,6 +195,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["facebook"]}
                     },
                     "required": [
@@ -202,6 +220,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["github"]}
                     },
                     "required": [
@@ -224,6 +245,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["gitlab"]}
                     },
                     "required": [
@@ -246,6 +270,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["slack"]}
                     },
                     "required": [
@@ -268,6 +295,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["spotify"]}
                     },
                     "required": [
@@ -290,6 +320,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["discord"]}
                     },
                     "required": [
@@ -312,6 +345,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["twitch"]}
                     },
                     "required": [
@@ -334,6 +370,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["netid"]}
                     },
                     "required": [
@@ -356,6 +395,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["yandex"]}
                     },
                     "required": [
@@ -378,6 +420,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["vk"]}
                     },
                     "required": [
@@ -400,6 +445,9 @@
                         "secret_backend": {
                             "$ref": "/schemas/secret_backend"
                         },
+                        "scope": {"$ref": "/schemas/scope"},
+                        "provider_id": {"$ref": "/schemas/provider_id"},
+                        "jsonnet": {"$ref": "/schemas/jsonnet"},
                         "provider": {"enum": ["dingtalk"]}
                     },
                     "required": [
@@ -441,6 +489,16 @@
                 "https://example.com/oidc"
             ]
         },
+        "scope": {
+            "$id": "/schemas/scope",
+            "title": "The external provider's allowed scopes",
+            "description": "A space separated list with he external provider's allowed scope. `openid` is added implicitly",
+            "type": "string",
+            "default": "profile email address phone",
+            "examples": [
+                "profile email address"
+            ]
+        },
         "secret_backend": {
             "$id": "/schemas/secret_backend",
             "title": "Where the secrets are stored",
@@ -455,6 +513,21 @@
             "examples": [
                 "relation"
             ]
+        },
+        "provider_id": {
+            "$id": "/schemas/provider_id",
+            "title": "The ID for the provider that will be used by kratos",
+            "description": "The ID for the provider that will be used by kratos",
+            "type": "string",
+            "examples": [
+                "Microsoft"
+            ]
+        },
+        "jsonnet": {
+            "$id": "/schemas/jsonnet",
+            "title": "The jsonnet that will be used for transforming the external provider's claims",
+            "description": "The jsonnet that will be used for transforming the external provider's claims",
+            "type": "string"
         }
     }
 }
