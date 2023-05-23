@@ -1,3 +1,7 @@
-providers: []
+providers:
+  - name: kratos-external-idp-integrator
+    url: https://www.github.com/canonical/kratos-external-idp-integrator
 
-requirers: []
+requirers:
+  - name: kratos
+    url: https://www.github.com/canonical/kratos-operator
