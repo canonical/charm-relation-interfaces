@@ -6,8 +6,8 @@ Within 5G, the User Plane Function (UPF) supports features and capabilities to f
 user plane operation. Examples include: packet routing and forwarding, interconnection 
 to the Data Network, policy enforcement and data buffering.
 
-This relation interface describes the expected behavior of any charm claiming to be able to provide 
-or consume the UPF information in order to establish communication over the N3 interface. 
+The `fiveg_n3` relation interface describes the expected behavior of any charm claiming to be able 
+to provide or consume the UPF information in order to establish communication over the N3 interface. 
 In a typical 5G network, the 'requirer' of this interface would be a gNodeB (a 5G base station). 
 
 ## Direction
