@@ -67,6 +67,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 | Category   | Interface                                        |                               Status                                |
 |------------|:-------------------------------------------------|:-------------------------------------------------------------------:|
 | Charmed 5G | [`fiveg_nrf`](interfaces/fiveg_nrf/v0/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| | [`fiveg_n3`](interfaces/fiveg_n3/v0/README.md)   | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
 For a more detailed explanation of statuses and how they should be used, see [the legend](https://github.com/canonical/charm-relation-interfaces/blob/main/LEGEND.md).
 
