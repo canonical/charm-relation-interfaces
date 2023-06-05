@@ -1,5 +1,5 @@
 """This file defines the schemas for the provider and requirer sides of the `fiveg_n2` interface.
-It exposes two interfaces.schema_base.DataBagSchema subclasses called:
+It exposes two interface_tester.schema_base.DataBagSchema subclasses called:
 - ProviderSchema
 - RequirerSchema
 Examples:
