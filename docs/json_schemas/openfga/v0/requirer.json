@@ -1,0 +1,36 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for OpenFGA.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/OpenFGARequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "OpenFGARequirerData": {
+      "title": "OpenFGARequirerData",
+      "type": "object",
+      "properties": {
+        "store_name": {
+          "title": "Store Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "store_name"
+      ]
+    }
+  }
+}

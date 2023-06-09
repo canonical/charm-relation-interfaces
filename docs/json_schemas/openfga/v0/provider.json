@@ -1,0 +1,56 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for OpenFGA.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/OpenFGAProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "OpenFGAProviderData": {
+      "title": "OpenFGAProviderData",
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "Address",
+          "type": "string"
+        },
+        "port": {
+          "title": "Port",
+          "type": "string"
+        },
+        "scheme": {
+          "title": "Scheme",
+          "type": "string"
+        },
+        "token": {
+          "title": "Token",
+          "type": "string"
+        },
+        "store_id": {
+          "title": "Store Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "port",
+        "scheme",
+        "token",
+        "store_id"
+      ]
+    }
+  }
+}
