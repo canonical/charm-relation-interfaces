@@ -28,8 +28,9 @@ Examples:
 """
 
 from enum import Enum
+import textwrap
 from typing import List, Optional
-from pydantic import AnyHttpUrl, BaseModel, validator
+from pydantic import AnyHttpUrl, BaseModel, Field, validator
 
 from interface_tester.schema_base import DataBagSchema
 
@@ -70,7 +71,29 @@ class ExternalIdpProvider(BaseModel):
     provider: Provider
     scope: Optional[str]
     provider_id: Optional[str]
-    jsonnet_mapper: Optional[str]
+    jsonnet_mapper: Optional[str] = Field(description=textwrap.dedent(
+        """
+        A jsonnet file that will be used to map the external claims to Kratos' claims.
+        For example:
+
+        local claims = {
+            email_verified: false,
+        } + std.extVar('claims');
+
+        {
+            identity: {
+            traits: {
+                [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+                [if 'name' in claims then 'name' else null]: claims.name,
+                [if 'given_name' in claims then 'given_name' else null]: claims.given_name,
+                [if 'family_name' in claims then 'family_name' else null]: claims.family_name,
+            },
+            },
+        }
+
+        For more info see https://www.ory.sh/docs/kratos/reference/jsonnet.
+        """)
+    )
     tenant_id: Optional[str]
     private_key: Optional[str]
     private_key_id: Optional[str]
@@ -105,10 +128,30 @@ class ExternalIdpProvider(BaseModel):
 class KratosExternalIdpProviderData(BaseModel):
     providers: List[ExternalIdpProvider]
 
+
 class ProviderSchema(DataBagSchema):
-    """Provider schema for KratosExternalIdp."""
+    """Provider schema for KratosExternalIdp.
+    This relation interface can be used to provide a set of client configurations to Kratos to connect with external providers.
+    """
     app: KratosExternalIdpProviderData
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "unit": None,
+                "app": {
+                    "providers": [
+                        {
+                            "client_id": "client_id",
+                            "client_secret": "cl1ent-s3cRet",
+                            "secret_backend": "relation",
+                            "tenant_id": "4242424242424242",
+                            "provider": "microsoft",
+                        }
+                    ]
+                }
+            }
+        }
 
 class ExternalIdpRequirer(BaseModel):
     redirect_uri: Url
@@ -120,6 +163,22 @@ class KratosExternalIdpRequirerData(BaseModel):
 
 
 class RequirerSchema(DataBagSchema):
-    """Requirer schema for KratosExternalIdp."""
+    """Requirer schema for KratosExternalIdp.
+    This relation interface can be used from Kratos to provide the redirect_uri of a client that will be used with an external provider.
+    """
     app: KratosExternalIdpRequirerData
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "unit": None,
+                "app": {
+                    "providers": [
+                        {
+                            "redirect_uri": "https://example.kratos.com/self-service/methods/oidc/callback/microsoft",
+                            "provider_id": "microsoft",
+                        }
+                    ]
+                }
+            }
+        }

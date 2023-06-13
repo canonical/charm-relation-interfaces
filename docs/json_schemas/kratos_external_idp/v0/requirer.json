@@ -1,6 +1,6 @@
 {
   "title": "RequirerSchema",
-  "description": "Requirer schema for KratosExternalIdp.",
+  "description": "Requirer schema for KratosExternalIdp.\nThis relation interface can be used from Kratos to provide the redirect_uri of a client that will be used with an external provider.",
   "type": "object",
   "properties": {
     "unit": {
@@ -13,6 +13,17 @@
   "required": [
     "app"
   ],
+  "example": {
+    "unit": null,
+    "app": {
+      "providers": [
+        {
+          "redirect_uri": "https://example.kratos.com/self-service/methods/oidc/callback/microsoft",
+          "provider_id": "microsoft"
+        }
+      ]
+    }
+  },
   "definitions": {
     "BaseModel": {
       "title": "BaseModel",

@@ -1,6 +1,6 @@
 {
   "title": "ProviderSchema",
-  "description": "Provider schema for KratosExternalIdp.",
+  "description": "Provider schema for KratosExternalIdp.\nThis relation interface can be used to provide a set of client configurations to Kratos to connect with external providers.",
   "type": "object",
   "properties": {
     "unit": {
@@ -13,6 +13,20 @@
   "required": [
     "app"
   ],
+  "example": {
+    "unit": null,
+    "app": {
+      "providers": [
+        {
+          "client_id": "client_id",
+          "client_secret": "cl1ent-s3cRet",
+          "secret_backend": "relation",
+          "tenant_id": "4242424242424242",
+          "provider": "microsoft"
+        }
+      ]
+    }
+  },
   "definitions": {
     "BaseModel": {
       "title": "BaseModel",
@@ -83,6 +97,7 @@
         },
         "jsonnet_mapper": {
           "title": "Jsonnet Mapper",
+          "description": "\nA jsonnet file that will be used to map the external claims to Kratos' claims.\nFor example:\n\nlocal claims = {\n    email_verified: false,\n} + std.extVar('claims');\n\n{\n    identity: {\n    traits: {\n        [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n        [if 'name' in claims then 'name' else null]: claims.name,\n        [if 'given_name' in claims then 'given_name' else null]: claims.given_name,\n        [if 'family_name' in claims then 'family_name' else null]: claims.family_name,\n    },\n    },\n}\n\nFor more info see https://www.ory.sh/docs/kratos/reference/jsonnet.\n",
           "type": "string"
         },
         "tenant_id": {
