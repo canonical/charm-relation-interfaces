@@ -22,7 +22,7 @@ Both the Requirer and the Provider need to adhere to the following criteria to b
 
 ### Provider
 - Is expected to create an authentication store in OpenFGA when the requirer provides the `store_name` field.
-- Is expected to provide `token`, `store_id`, `address`, `scheme` and `port` fields in the *application* databag, which can be used for OpenFGA connection, when Requirer provides the `store_name` field.
+- Is expected to expose to the Requirer `token`, `store_id`, `address`, `scheme` and `port` fields in the *application* databag.
 
 ### Requirer
 
