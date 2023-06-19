@@ -18,7 +18,7 @@ As with all Juju relations, the `openfga` interface consists of two parties: a P
 
 ## Behavior
 
-Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
+Both the Requirer and the Provider need to adhere to the following criteria to be considered compatible with the interface.
 
 ### Provider
 - Is expected to create an authentication store in OpenFGA when the requirer provides the `store_name` field.
