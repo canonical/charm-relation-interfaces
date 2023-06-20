@@ -10,11 +10,11 @@ In most cases, this will be accomplished using the [openfga library](https://git
 
 ```mermaid
 flowchart TD
-    Requirer -- openfga, store-name --> Provider
-    Provider -- openfga, store-id, token, address, scheme, port --> Requirer
+    Requirer -- store-name --> Provider
+    Provider -- store-id, token_secret_id, address, scheme, port --> Requirer
 ```
 
-As with all Juju relations, the `openfga` interface consists of two parties: a Provider (openfga charm), and a Requirer (application charm). The Requirer will be expected to provide an authentication store name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the OpenFGA store.
+As with all Juju relations, the `openfga` interface consists of two parties: a Provider (openfga charm), and a Requirer (application charm). The Requirer will be expected to expose an authentication store name, and the Provider will create and forward new unique credentials (along with other optional fields), which can be used to access the OpenFGA store.
 
 ## Behavior
 
@@ -22,11 +22,11 @@ Both the Requirer and the Provider need to adhere to the following criteria to b
 
 ### Provider
 - Is expected to create an authentication store in OpenFGA when the requirer provides the `store_name` field.
-- Is expected to expose to the Requirer `token`, `store_id`, `address`, `scheme` and `port` fields in the *application* databag.
+- Is expected to expose to the Requirer `token_secret_id`, `store_id`, `address`, `scheme` and `port` fields in the *application* databag.
 
 ### Requirer
 
-- Is expected to provide an authentication store name in the `store_name` field of the *application* databag.
+- Is expected to use the `token_secret_id`, `store_id`, `address`, `scheme` and `port` fields, when exposed by the `Provider`, to set up an OpenFGA connection.
 
 ## Relation Data
 
@@ -34,7 +34,7 @@ Both the Requirer and the Provider need to adhere to the following criteria to b
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-Provider provides `token`, `store_id`, `address`, `scheme` and `port` fields. It should be placed in the **application** databag.
+Provider exposes `token_secret_id`, `store_id`, `address`, `scheme` and `port` fields in the **application** databag.
 
 
 #### Example
@@ -43,18 +43,18 @@ Provider provides `token`, `store_id`, `address`, `scheme` and `port` fields. It
   - endpoint: openfga
     related-endpoint: openfga
     application-data:
-      token: "test-token"
+      token_secret_id: "10559c09-6416-40b0-9402-54b6e28edd3a"
       store_id: "01GK13VYZK62Q1T0X55Q2BHYD6"
       address: "10.10.0.17"
       scheme: "http"
-      port: "8080"
+      port: 8080
 ```
 
 ### Requirer
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides authorization store name. It should be placed in the **application** databag.
+The Requirer exposes the store name for which authorization is requested in the **application** databag.
 
 #### Example
 

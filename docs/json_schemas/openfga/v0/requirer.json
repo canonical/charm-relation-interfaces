@@ -24,7 +24,11 @@
       "type": "object",
       "properties": {
         "store_name": {
-          "title": "Store Name",
+          "title": "Authorization store name",
+          "description": "The name of the authentication store.",
+          "examples": [
+            "auth_store"
+          ],
           "type": "string"
         }
       },

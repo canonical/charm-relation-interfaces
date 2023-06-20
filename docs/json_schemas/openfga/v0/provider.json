@@ -24,23 +24,42 @@
       "type": "object",
       "properties": {
         "address": {
-          "title": "Address",
-          "type": "string"
+          "title": "OpenFGA address",
+          "description": "The address of the OpenFGA service.",
+          "examples": [
+            "10.10.4.1"
+          ],
+          "type": "string",
+          "format": "ipvanyaddress"
         },
         "port": {
-          "title": "Port",
-          "type": "string"
+          "title": "OpenFGA port",
+          "description": "Port on which the OpenFGA service is listening (HTTP).",
+          "examples": [
+            8080
+          ],
+          "type": "integer"
         },
         "scheme": {
-          "title": "Scheme",
+          "title": "OpenFGA scheme",
+          "description": "Scheme to be used to connect to the OpenFGA service.",
+          "examples": [
+            "http",
+            "https"
+          ],
           "type": "string"
         },
-        "token": {
-          "title": "Token",
+        "token_secret_id": {
+          "title": "Secret ID of the OpenFGA token",
+          "description": "Secret ID of the preshared token to be used to connect to the OpenFGA service.",
           "type": "string"
         },
         "store_id": {
-          "title": "Store Id",
+          "title": "OpenFGA store ID",
+          "description": "ID of the authentication stored that was created.",
+          "examples": [
+            "01GK13VYZK62Q1T0X55Q2BHYD6"
+          ],
           "type": "string"
         }
       },
@@ -48,7 +67,7 @@
         "address",
         "port",
         "scheme",
-        "token",
+        "token_secret_id",
         "store_id"
       ]
     }
