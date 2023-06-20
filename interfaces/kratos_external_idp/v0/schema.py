@@ -71,11 +71,13 @@ class ExternalIdpProvider(BaseModel):
     provider: Provider
     scope: Optional[str]
     provider_id: Optional[str]
-    jsonnet_mapper: Optional[str] = Field(description=textwrap.dedent(
+    jsonnet_mapper: Optional[str] = Field(
+        description=(
+            "A jsonnet file that will be used to map the external claims to Kratos' claims. "
+            "For more info see https://www.ory.sh/docs/kratos/reference/jsonnet."
+        ),
+        examples=[textwrap.dedent(
         """
-        A jsonnet file that will be used to map the external claims to Kratos' claims.
-        For example:
-
         local claims = {
             email_verified: false,
         } + std.extVar('claims');
@@ -90,9 +92,7 @@ class ExternalIdpProvider(BaseModel):
             },
             },
         }
-
-        For more info see https://www.ory.sh/docs/kratos/reference/jsonnet.
-        """)
+        """)]
     )
     tenant_id: Optional[str]
     private_key: Optional[str]
