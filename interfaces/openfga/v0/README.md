@@ -25,7 +25,7 @@ Both the Requirer and the Provider need to adhere to the following criteria to b
 - Is expected to expose to the Requirer `token_secret_id`, `store_id`, `address`, `scheme` and `port` fields in the *application* databag.
 
 ### Requirer
-
+- Is expected to provide the `store_name` it requires in its application databag
 - Is expected to use the `token_secret_id`, `store_id`, `address`, `scheme` and `port` fields, when exposed by the `Provider`, to set up an OpenFGA connection.
 
 ## Relation Data
