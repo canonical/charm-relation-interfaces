@@ -24,7 +24,7 @@ Examples:
 from typing import List, Literal
 
 from interface_tester.schema_base import DataBagSchema
-from pydantic import BaseModel, AnyHttpUrl, Json
+from pydantic import BaseModel, Json
 
 IngesterType = Literal['otlp_grpc', 'otlp_http', 'zipkin', 'tempo']
 
@@ -35,7 +35,7 @@ class Ingester(BaseModel):
 
 
 class TracingRequirerData(BaseModel):
-    hostname: AnyHttpUrl
+    hostname: str  # a routable fqdn
     ingesters: Json[List[Ingester]]
 
 
