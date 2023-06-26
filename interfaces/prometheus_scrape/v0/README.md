@@ -52,7 +52,7 @@ Both the Requirer and the provider need to adhere to a certain set of criterias 
 
 ```yaml
 application-data:
-  alert_rules: {
+  alert_rules: '{
     "groups": [
       {
         "name": "an_alert_rule_group",
@@ -71,22 +71,22 @@ application-data:
         ]
       }
     ]
-  }
-  scrape_jobs: [
+  }'
+  scrape_jobs: '[
     {
       "metrics_path": "/metrics", 
       "static_configs": [
         { "targets": ["*:4080"] }
       ]
     }
-  ]
-  scrape_metadata: {
+  ]'
+  scrape_metadata: '{
     "model": "cos",
     "model_uuid": "c2e9f4d5-dcb3-4870-8509-330eb9745ee8",
     "application": "zinc-k8s",
     "unit": "zinc-k8s/0",
     "charm_name": "zinc-k8s"
-  }
+  }'
 related-units:
   zinc-k8s/0:
     data:
