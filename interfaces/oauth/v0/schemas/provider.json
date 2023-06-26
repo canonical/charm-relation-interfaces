@@ -1,0 +1,122 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/oauth/schemas/provider.json",
+    "type": "object",
+    "title": "`oauth` provider schema",
+    "description": "The `oauth` root schema comprises the entire provider databag for this interface.",
+    "default": {},
+    "examples": [
+        {
+            "application-data": {
+                "issuer_url": "https://auth_server_public_url/",
+                "authorization_endpoint": "https://auth_server_public_url/authorize",
+                "token_endpoint": "https://auth_server_public_url/token",
+                "introspection_endpoint": "https://auth_server_public_url/introspect",
+                "userinfo_endpoint": "https://auth_server_public_url/userinfo",
+                "jwks_endpoint": "https://auth_server_public_url/jwks",
+                "scope": "openid profile email phone",
+                "client_id": "some_id",
+                "client_secret_id": "42174217421742"
+            },
+            "related-units": {}
+        }
+    ],
+    "properties": {
+        "application-data": {
+            "$id": "#/properties/application-data",
+            "title": "Application Databag",
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "issuer_url": {
+                    "type": "string",
+                    "title": "Issuer URL",
+                    "description": "The OpenID Connect identity provider's issuer URL.",
+                    "examples": [
+                        "https://some_url/"
+                    ]
+                },
+                "authorization_endpoint": {
+                    "type": "string",
+                    "title": "Authorization Endpoint",
+                    "description": "The OpenID Connect identity provider's authorization endpoint URL.",
+                    "examples": [
+                        "https://some_url/authorize"
+                    ]
+                },
+                "token_endpoint": {
+                    "type": "string",
+                    "title": "Token Endpoint",
+                    "description": "The OpenID Connect identity provider's token endpoint URL.",
+                    "examples": [
+                        "https://some_url/token"
+                    ]
+                },
+                "introspection_endpoint": {
+                    "type": "string",
+                    "title": "Introspection Endpoint",
+                    "description": "The OpenID Connect identity provider's introspection endpoint URL.",
+                    "examples": [
+                        "https://some_url/introspect"
+                    ]
+                },
+                "userinfo_endpoint": {
+                    "type": "string",
+                    "title": "Userinfo Endpoint",
+                    "description": "The OpenID Connect identity provider's Userinfo Userinfo URL.",
+                    "examples": [
+                        "https://some_url/userinfo"
+                    ]
+                },
+                "jwks_endpoint": {
+                    "type": "string",
+                    "title": "JWKS Endpoint",
+                    "description": "The OpenID Connect identity provider's jwks endpoint URL.",
+                    "examples": [
+                        "https://some_url/jwks"
+                    ]
+                },
+                "scope": {
+                    "type": "string",
+                    "title": "Scope",
+                    "description": "A space-separated list with the OpenID Connect identity provider's supported scopes."
+                },
+                "client_id": {
+                    "type": "string",
+                    "title": "Client ID",
+                    "description": "The client_id."
+                },
+                "client_secret_id": {
+                    "type": "string",
+                    "title": "Juju secret ID",
+                    "description": "The juju secret ID that holds the client_secret."
+                },
+                "groups": {
+                    "type": "string",
+                    "title": "Groups Claim Name",
+                    "description": "The name of the claim that represents the user's groups",
+                    "default": null
+                }
+            },
+            "required": [
+                "issuer_url",
+                "authorization_endpoint",
+                "token_endpoint",
+                "introspection_endpoint",
+                "userinfo_endpoint",
+                "jwks_endpoint",
+                "scope",
+                "client_id"
+            ]
+        },
+        "related-units": {
+            "type": "object",
+            "patternProperties": {
+                "^.*/d+$": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+            }
+        }
+    }
+}

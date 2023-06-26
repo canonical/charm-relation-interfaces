@@ -12,7 +12,7 @@ In most cases, this will be accomplished using the database provider library, al
 ```mermaid
 flowchart TD
     Requirer -- database, extra-user-roles --> Provider
-    Provider -- username, password, endpoints --> Requirer
+    Provider -- database, username, password, endpoints --> Requirer
 ```
 
 As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Requirer (application charm). The Requirer will be expected to provide a database name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the actual database cluster.
@@ -25,6 +25,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to create an application user inside the database cluster when the requirer provides the `database` field.
 - Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
 - Is expected to provide the `endpoints` field with a comma-separated list of hosts, which can be used for database connection.
+- Is expected to provide the `database` field with the database that was actually created.
 - Is expected to provide optional `replset` field with Replica Set name which is needed for proper connection to MongoDB if sharding is disabled.
 - Is expected to provide optional `uris` field with URI which can be passed to MongoDB client libraries as it is (not needed to construct it on client side).
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
@@ -32,11 +33,12 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ### Requirer
 
 - Is expected to provide a database name in the `database` field.
-- Is expected to provide indentical values in the `database` field if several requirer units provide it in the relation.
+- Is expected to provide identical values in the `database` field if several requirer units provide it in the relation.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.
 - Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
+- Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the database name received.
 
 ## Relation Data
 
@@ -65,8 +67,7 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides database name in `database` unit. Should be placed in the **unit** databag
-in at least one unit of the Requirer.
+Requirer provides database name. It should be placed in the **application** databag.
 
 #### Example
 
@@ -74,10 +75,6 @@ in at least one unit of the Requirer.
   relation-info:
   - endpoint: database
     related-endpoint: database
-    application-data: {}
-    related-units:
-      worker-a/0:
-        in-scope: true
-        data:
-          database: myappA
+    application-data:
+      database: myappA
 ```

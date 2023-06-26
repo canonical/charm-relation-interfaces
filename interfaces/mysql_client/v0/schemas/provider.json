@@ -6,6 +6,7 @@
     "type": "object",
     "default": {},
     "required": [
+        "database",
         "username",
         "password",
         "endpoints"

@@ -1,11 +1,21 @@
 providers:
-  - prometheus-k8s
-  - loki-k8s
-  - grafana-k8s
-  - prometheus-scrape-config-k8s
-  - prometheus-scrape-target-k8s
-  - alertmanager-k8s
-  - zinc-k8s
-consumers:
-  - prometheus-k8s
-  - grafana-agent-k8s
+  - name: prometheus-k8s
+    url: https://www.github.com/canonical/prometheus-k8s
+  - name: loki-k8s
+    url: https://www.github.com/canonical/loki-k8s
+  - name: grafana-k8s
+    url: https://www.github.com/canonical/grafana-k8s
+  - name: prometheus-scrape-config-k8s
+    url: https://www.github.com/canonical/prometheus-scrape-config-k8s
+  - name: prometheus-scrape-target-k8s
+    url: https://www.github.com/canonical/prometheus-scrape-target-k8s
+  - name: alertmanager-k8s
+    url: https://www.github.com/canonical/alertmanager-k8s
+  - name: zinc-k8s
+    url: https://www.github.com/canonical/zinc-k8s
+
+requirers:
+  - name: prometheus-k8s
+    url: https://www.github.com/canonical/prometheus-k8s
+  - name: grafana-agent-k8s
+    url: https://www.github.com/canonical/grafana-agent-k8s

@@ -69,12 +69,22 @@
             "topic-1",
             "appname-*"
          ]
+      },
+      "consumer-group-prefix":{
+         "title":"Kafka consumer group prefix",
+         "description":"A prefix for wildcard consumer-group ids that have been granted permissions",
+         "type":"string",
+         "default":"",
+         "examples":[
+            "relation-14-"
+         ]
       }
    },
    "examples":[
       {
          "extra-user-roles":"consumer",
-         "topic":"special-topic"
+         "topic":"special-topic",
+         "consumer-group-prefix": "my-consumer-group"
       }
    ]
 }

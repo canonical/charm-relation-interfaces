@@ -1,0 +1,43 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for fiveg_nrf.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/MyProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "MyProviderAppData": {
+      "title": "MyProviderAppData",
+      "type": "object",
+      "properties": {
+        "url": {
+          "title": "Url",
+          "description": "url to reach the NRF.",
+          "examples": [
+            "https://nrf-example.com:1234"
+          ],
+          "minLength": 1,
+          "maxLength": 65536,
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    }
+  }
+}

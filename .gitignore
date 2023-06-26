@@ -1,0 +1,7 @@
+__pycache__
+.tox
+*.egg-info
+build
+dist/
+.ruff_cache
+.pytest_cache

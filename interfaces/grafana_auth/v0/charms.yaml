@@ -1,3 +1,4 @@
 providers: []
-consumers:
-  - grafana-k8s
+requirers:
+  - name: grafana-k8s
+    url: https://github.com/canonical/grafana-k8s-operator

@@ -1,0 +1,46 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for nfs-share.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/NFSShareRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "NFSShareRequirerAppData": {
+      "title": "NFSShareRequirerAppData",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "allowlist": {
+          "title": "Allowlist",
+          "type": "string"
+        },
+        "size": {
+          "title": "Size",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "allowlist",
+        "size"
+      ]
+    }
+  }
+}
