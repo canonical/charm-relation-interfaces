@@ -1,5 +1,7 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
+import json
+
 import yaml
 
 from interface_tester.interface_test import interface_test_case, SchemaConfig
@@ -34,10 +36,10 @@ def test_no_data_on_joined(output_state: State):
             remote_app_name='remote',
             local_app_data={
                 "tempo_host": "foo.com",
-                "ingesters": [
+                "ingesters": json.dumps([
                     {"type": "otlp_grpc",
                      "port": "4242"}
-                ]
+                ])
             }
         )]
     )
