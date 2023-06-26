@@ -1,4 +1,5 @@
 providers:
-  - tempo-k8s
-consumers:
-  - tbd
+  - name: tempo-k8s
+    url: https://github.com/PietroPasotti/tempo-k8s-operator
+
+requirers: []
