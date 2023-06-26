@@ -2,8 +2,6 @@
 # See LICENSE file for licensing details.
 import json
 
-import yaml
-
 from interface_tester.interface_test import interface_test_case, SchemaConfig
 from scenario import State, Relation
 
@@ -46,4 +44,3 @@ def test_no_data_on_joined(output_state: State):
 )
 def test_data_on_changed(output_state: State):
     return
-
