@@ -26,7 +26,7 @@ from typing import List, Literal
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, AnyHttpUrl, Json
 
-IngesterType = Literal['otlp_grpc', 'otlp_http', 'zipkin']
+IngesterType = Literal['otlp_grpc', 'otlp_http', 'zipkin', 'tempo']
 
 
 class Ingester(BaseModel):
