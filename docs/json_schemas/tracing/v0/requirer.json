@@ -1,0 +1,68 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for Tracing.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/TracingRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "Ingester": {
+      "title": "Ingester",
+      "type": "object",
+      "properties": {
+        "port": {
+          "title": "Port",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "enum": [
+            "otlp_grpc",
+            "otlp_http",
+            "zipkin",
+            "tempo"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "port",
+        "type"
+      ]
+    },
+    "TracingRequirerData": {
+      "title": "TracingRequirerData",
+      "type": "object",
+      "properties": {
+        "hostname": {
+          "title": "Hostname",
+          "type": "string"
+        },
+        "ingesters": {
+          "title": "Ingesters",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Ingester"
+          }
+        }
+      },
+      "required": [
+        "hostname",
+        "ingesters"
+      ]
+    }
+  }
+}
