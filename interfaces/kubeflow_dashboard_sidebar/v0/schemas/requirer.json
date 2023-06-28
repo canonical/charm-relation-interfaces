@@ -1,0 +1,65 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/kubeflow-dashboard-sidebar/v0/schemas/requirer.json", 
+	"title": "`kubeflow-dashboard-sidebar` requirer root schema", 
+	"type": "array",
+	"examples": [
+		[
+		  {
+		    "text": "Some link text",
+		    "link": "/some-relative-link",
+		    "type": "item",
+		    "icon": "assessment"
+		  }
+		]
+	],
+	"items":{
+		"$id": "#root/items", 
+		"title": "kubeflow-dashboard-sidebar databag", 
+		"type": "object",
+		"required": [
+			"text",
+			"link",
+			"type",
+			"icon"
+		],
+		"properties": {
+			"text": {
+				"$id": "#root/items/text", 
+				"title": "Text", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"Some link text"
+				],
+			},
+			"link": {
+				"$id": "#root/items/link", 
+				"title": "Link", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"/some-relative-link"
+				],
+			},
+			"type": {
+				"$id": "#root/items/type", 
+				"title": "Type", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"item"
+				],
+			},
+			"icon": {
+				"$id": "#root/items/icon", 
+				"title": "Icon", 
+				"type": "string",
+				"default": "",
+				"examples": [
+					"assessment"
+				],
+			}
+		}
+	}
+}
