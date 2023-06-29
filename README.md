@@ -11,6 +11,7 @@ To contribute a new interface specification, open a pull request containing:
   - `charms.yaml` file consisting of a list of any `providers` and `requirers` known to adhere to the specification.
   - a `interface_tests` directory in which you can put python files containing interface tests. Read more about interface tests [here](./README_INTERFACE_TESTS.md)
 - under `docs/`, the json schemas generated from the pydantic schemas. You can use command `tox -e build-json-schemas` to generate them automatically. Do not edit those files manually.
+- in this repo's root `README.md`, add the interface to the table, if applicable.  
 
 To quickly get started, see the [template interface](https://github.com/canonical/charm-relation-interfaces/tree/main/interfaces/__template__/v0) for a template of what to include and how it should be structured. 
 
@@ -47,6 +48,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 | Category      | Interface                                                                    |                               Status                                |
 |---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
 | Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| Metadata      | [`kubeflow-dashboard-sidebar`](interfaces/kubeflow-dashboard-sidebar/v0/README.md) | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 
 ### Identity
 
