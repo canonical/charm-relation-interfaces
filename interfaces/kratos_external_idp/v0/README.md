@@ -33,6 +33,7 @@ The Provider MUST adhere to the criteria, to be considered compatible with the i
 
 ### Requirer
 - MUST provide an array of `redirect_uri`s and `provider_id`s for each provider in the Provider's databag.
+- If the Provider has placed in the databag a `provider_id`, the Requirer MUST provide the same ID.
 
 ## Relation Data
 
@@ -48,11 +49,12 @@ Provider provides client credentials and information about the external OP. It M
   - endpoint: kratos_external_idp
     relation-endpoint: kratos_external_idp
     application_data:
-      - client_id: client_id
-        client_secret: cl1ent-s3cRet
-        secret_backend: relation
-        tenant_id: 4242424242424242
-        provider: microsoft
+      providers:
+        - client_id: client_id
+          client_secret: cl1ent-s3cRet
+          secret_backend: relation
+          tenant_id: 4242424242424242
+          provider: microsoft
 ```
 
 ### Requirer
@@ -68,7 +70,8 @@ Requirer provides a redirect_uri and provider_id for every provider. It should b
   - endpoint: kratos_external_idp
     related-endpoint: kratos_external_idp
     application-data:
-      - redirect_uri: https://example.kratos.com/self-service/methods/oidc/callback/microsoft
-        provider_id: microsoft
+      providers:
+        - redirect_uri: https://example.kratos.com/self-service/methods/oidc/callback/microsoft
+          provider_id: microsoft
 ```
 

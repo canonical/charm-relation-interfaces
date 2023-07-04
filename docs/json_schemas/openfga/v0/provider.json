@@ -1,0 +1,75 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for OpenFGA.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/OpenFGAProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "OpenFGAProviderData": {
+      "title": "OpenFGAProviderData",
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "OpenFGA address",
+          "description": "The address of the OpenFGA service.",
+          "examples": [
+            "10.10.4.1"
+          ],
+          "type": "string",
+          "format": "ipvanyaddress"
+        },
+        "port": {
+          "title": "OpenFGA port",
+          "description": "Port on which the OpenFGA service is listening (HTTP).",
+          "examples": [
+            8080
+          ],
+          "type": "integer"
+        },
+        "scheme": {
+          "title": "OpenFGA scheme",
+          "description": "Scheme to be used to connect to the OpenFGA service.",
+          "examples": [
+            "http",
+            "https"
+          ],
+          "type": "string"
+        },
+        "token_secret_id": {
+          "title": "Secret ID of the OpenFGA token",
+          "description": "Secret ID of the preshared token to be used to connect to the OpenFGA service.",
+          "type": "string"
+        },
+        "store_id": {
+          "title": "OpenFGA store ID",
+          "description": "ID of the authentication stored that was created.",
+          "examples": [
+            "01GK13VYZK62Q1T0X55Q2BHYD6"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "port",
+        "scheme",
+        "token_secret_id",
+        "store_id"
+      ]
+    }
+  }
+}

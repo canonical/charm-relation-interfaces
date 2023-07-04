@@ -1,0 +1,36 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for nfs-share.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/NFSShareProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "NFSShareProviderAppData": {
+      "title": "NFSShareProviderAppData",
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "title": "Endpoint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoint"
+      ]
+    }
+  }
+}

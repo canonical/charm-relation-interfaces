@@ -1,0 +1,5 @@
+providers:
+  - name: nginx-route-integrator
+    url: https://github.com/canonical/nginx-ingress-integrator-operator
+
+consumers: []

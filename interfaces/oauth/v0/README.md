@@ -11,7 +11,7 @@ Charms claiming to provide this interface must implement the OAuth2/OIDC protoco
 ## Direction
 
 The `oauth` interface implements a provider/requirer pattern.
-The consumer is a charm that wishes to act as a oauth2 client, and the provider is a charm exposing an OAuth2/OIDC provider.
+The requirer is a charm that wishes to act as a oauth2 client, and the provider is a charm exposing an OAuth2/OIDC provider.
 
 ```mermaid
 flowchart TD

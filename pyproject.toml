@@ -1,0 +1,73 @@
+[build-system]
+requires = [
+    "setuptools >= 35.0.2",
+    "setuptools_scm >= 2.0.0, <3"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "charm-relation-interfaces"
+
+version = "0.1"
+authors = [
+    { name = "Pietro Pasotti", email = "pietro.pasotti@canonical.com" },
+    { name = "Simon Aronsson", email = "simon.aronsson@canonical.com" },
+    { name = "Guillaume Belanger", email = "guillaume.belanger@canonical.com" },
+]
+description = "Charm relation interface protocol specifications."
+license.text = "Apache-2.0"
+keywords = ["juju", "relation interfaces"]
+
+dependencies = [
+    "pydantic==1.10.7",
+    "pytest-interface-tester==0.1.1"
+]
+
+readme = "README.md"
+requires-python = ">=3.8"
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+[project.optional-dependencies]
+unit_tests = [
+    "ops==2.2.0",
+    "PyYAML==6.0",
+    "pytest==7.3.1",
+    "ops-scenario==2.2",
+]
+
+json_schemas = [
+    "PyYAML==6.0",
+]
+
+interface_tests = [
+    "PyYAML==6.0",
+    "pytest==7.3.1",
+    "ops-scenario==2.2",
+    "pydantic==1.10.7",
+    "requests==2.28.1",
+    "virtualenv==20.21.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/canonical/charm-relation-interfaces"
+"Bug Tracker" = "https://github.com/canonical/charm-relation-interfaces/issues"
+
+[tool.ruff]
+line-length = 99
+
+
+[tool.black]
+include = '\.pyi?$'
+
+
+[tool.isort]
+profile = "black"
+
+[bdist_wheel]
+universal = 1
+
