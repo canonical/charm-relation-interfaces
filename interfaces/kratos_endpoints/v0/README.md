@@ -6,11 +6,11 @@ This relation interface describes the expected behavior of charms claiming to be
 
 ## Usage
 
-The interface will provide admin and public endpoints, in case any other charm belonging to the IAM bundle requires them both.
+The interface will provide admin, public, login and sessions endpoints.
 
 ## Direction
 
-The interface will consist of a provider and a requirer. The provider is expected to supply its public and admin endpoints,
+The interface will consist of a provider and a requirer. The provider is expected to supply its public, admin, login and sessions endpoints,
 while the requirer will just read the information from the application databag.
 
 ```mermaid
@@ -25,8 +25,8 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Provider
 
-- Is expected to serve admin and public API endpoints 
-- Is expected to write the public and admin URLs to the application databag.
+- Is expected to serve admin and public API endpoints
+- Is expected to write the public, admin, login and sessions URLs to the application databag.
 
 ### Requirer
 
@@ -46,7 +46,9 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 {
   "application_data": {
     "admin_endpoint": "admin-endpoint",
-    "public_endpoint": "public-endpoint"
+    "public_endpoint": "public-endpoint",
+    "login_browser_endpoint": "login-endpoint",
+    "sessions_endpoint": "sessions-endpoint"
   }
 }
 ```

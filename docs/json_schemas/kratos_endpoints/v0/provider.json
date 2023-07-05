@@ -1,0 +1,55 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for kratos_endpoints.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/KratosEndpointsProvider"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "KratosEndpointsProvider": {
+      "title": "KratosEndpointsProvider",
+      "type": "object",
+      "properties": {
+        "admin_endpoint": {
+          "title": "Admin Endpoint",
+          "description": "Kratos admin URL.",
+          "type": "string"
+        },
+        "public_endpoint": {
+          "title": "Public Endpoint",
+          "description": "Kratos public URL.",
+          "type": "string"
+        },
+        "login_browser_endpoint": {
+          "title": "Login Browser Endpoint",
+          "description": "The Kratos endpoint that initializes a browser-based user login flow.",
+          "type": "string"
+        },
+        "sessions_endpoint": {
+          "title": "Sessions Endpoint",
+          "description": "The Kratos endpoint to check who the current session belongs to.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "admin_endpoint",
+        "public_endpoint",
+        "login_browser_endpoint",
+        "sessions_endpoint"
+      ]
+    }
+  }
+}
