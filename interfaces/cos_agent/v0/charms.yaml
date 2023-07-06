@@ -1,0 +1,8 @@
+providers:
+  - name: zookeeper
+    url: https://github.com/canonical/zookeeper-operator
+  - name: kafka
+    url: https://github.com/canonical/kafka-operator
+consumers:
+  - name: grafana-agent
+    ur: https://github.com/canonical/grafana-agent-k8s-operator

@@ -1,0 +1,86 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for ip_router.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/IPRouterProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "Route": {
+      "title": "Route",
+      "type": "object",
+      "properties": {
+        "destination": {
+          "title": "Destination",
+          "type": "string",
+          "format": "ipvanyaddress"
+        },
+        "gateway": {
+          "title": "Gateway",
+          "type": "string",
+          "format": "ipvanyaddress"
+        }
+      },
+      "required": [
+        "destination",
+        "gateway"
+      ]
+    },
+    "IPNetwork": {
+      "title": "IPNetwork",
+      "type": "object",
+      "properties": {
+        "network": {
+          "title": "Network",
+          "type": "string",
+          "format": "ipvanynetwork"
+        },
+        "gateway": {
+          "title": "Gateway",
+          "type": "string",
+          "format": "ipvanyaddress"
+        },
+        "routes": {
+          "title": "Routes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Route"
+          }
+        }
+      },
+      "required": [
+        "network",
+        "gateway"
+      ]
+    },
+    "IPRouterProviderAppData": {
+      "title": "IPRouterProviderAppData",
+      "type": "object",
+      "properties": {
+        "networks": {
+          "title": "Networks",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IPNetwork"
+          }
+        }
+      },
+      "required": [
+        "networks"
+      ]
+    }
+  }
+}
