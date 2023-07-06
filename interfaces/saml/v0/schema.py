@@ -63,7 +63,7 @@ class SamlProviderData(BaseModel):
         title="SSO REDIRECT binding",
         examples=["urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"],
     )
-    single_sign_on_service_post: Optional[AnyHttpUrl] = Field(
+    single_sign_on_service_post_url: Optional[AnyHttpUrl] = Field(
         description="URL target of the IdP where the Authentication POST Request Message will be sent.",
         title="SSO POST response URL",
         examples=["https://login.ubuntu.com/saml/"],
