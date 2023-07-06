@@ -26,7 +26,7 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 ### Provider
 
 - Is expected to serve admin and public API endpoints
-- Is expected to write the public, admin, login and sessions URLs to the application databag.
+- Is expected to write the public, admin, login and sessions endpoint URLs to the application databag.
 
 ### Requirer
 
