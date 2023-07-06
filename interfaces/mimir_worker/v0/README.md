@@ -2,10 +2,7 @@
 
 ## Usage
 
-This relation interface is used by [the Mimir Coordinator charm](/url) and [the Mimir Worker charm](/url) to exchange data.
-- The Mimir Worker charm needs to tell to the coordinator which roles it has
-- The Mimir Coordinator charm needs to tell the worker charms what their configuration is
-- The Mimir Coordinator charm needs to relate to loki and Mimir tell the worker charms what endpoints to push their telemetry to
+This relation interface is used by [the Mimir Coordinator charm](/url) and [the Mimir Worker charm](/url) to exchange Mimir Configuration data.
 
 
 ## Direction
@@ -21,15 +18,16 @@ flowchart TD
 ## Behavior
 ### Provider
 
-- Is expected to communicate which roles it was assigned by the cloud admin
+- Is expected to communicate which roles it has
 - Is expected to accept any configuration provided by the Coordinator and comply with it as if it came from juju-config 
-- List of expectations that the provider needs to fulfill. 
     
 
 ### Requirer
 
 - Is expected to communicate to each worker node:
   - a mapping from unique identifiers to component roles and URLs
+  - what their current configuration should be
+  - what endpoint(s) to push telemetry to
 
 ## Relation Data
 
