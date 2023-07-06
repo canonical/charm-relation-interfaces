@@ -26,7 +26,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 | Observability | [`grafana_auth`](interfaces/grafana_auth/v0/README.md)                       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 |               | [`ingress`](interfaces/ingress/v0/README.md)                                 | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
-|               | [`mimir_worker`](interfaces/mimir_worker/v0/README.md)             | ![Status: Live](https://img.shields.io/badge/Status-Draft-orange) |
+|               | [`mimir_worker`](interfaces/mimir_worker/v0/README.md)             | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange) |
 |               | [`prometheus_remote_write`](interfaces/prometheus_remote_write/v0/README.md) | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 |               | [`prometheus_scrape`](interfaces/prometheus_scrape/v0/README.md)             | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 | Networking    | [`ingress`](interfaces/ingress/v0/README.md)                                 | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
