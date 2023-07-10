@@ -27,8 +27,8 @@
           "title": "Port",
           "type": "string"
         },
-        "type": {
-          "title": "Type",
+        "protocol": {
+          "title": "Protocol",
           "enum": [
             "otlp_grpc",
             "otlp_http",
@@ -40,15 +40,15 @@
       },
       "required": [
         "port",
-        "type"
+        "protocol"
       ]
     },
     "TracingRequirerData": {
       "title": "TracingRequirerData",
       "type": "object",
       "properties": {
-        "hostname": {
-          "title": "Hostname",
+        "url": {
+          "title": "Url",
           "type": "string"
         },
         "ingesters": {
@@ -60,7 +60,7 @@
         }
       },
       "required": [
-        "hostname",
+        "url",
         "ingesters"
       ]
     }

@@ -34,7 +34,7 @@ flowchart LR
 ## Relation Data
 ### Requirer
 
-The requirer exposes via its application databag a single url, at which the server is reachable, and a list of `ingester` ports and protocols.
+The requirer exposes via its application databag a single `url`, at which the server is reachable, and a list of `ingesters` = ports and protocols.
 Each ingester port supports a certain tracing protocol, such as OTLP_GRPC or Jaeger. 
 The full list of supported trace protocols can change, but those supported by Tempo at the time of writing are:
 
@@ -52,10 +52,10 @@ The full list of supported trace protocols can change, but those supported by Te
 # unit_data: <empty> 
 application_data: 
   url: "http://foo.bar/my-model-my-unit-0"
-  ingester-ports: 
-    - type: otlp_grpc
+  ingesters: 
+    - protocol: otlp_grpc
       port: 1234
-    - type: otlp_http
+    - protocol: otlp_http
       port: 5678
 ```
 

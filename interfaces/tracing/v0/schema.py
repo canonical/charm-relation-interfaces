@@ -26,12 +26,12 @@ from typing import List, Literal
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Json
 
-IngesterType = Literal['otlp_grpc', 'otlp_http', 'zipkin', 'tempo']
+IngesterProtocol = Literal['otlp_grpc', 'otlp_http', 'zipkin', 'tempo']
 
 
 class Ingester(BaseModel):
     port: str
-    type: IngesterType
+    protocol: IngesterProtocol
 
 
 class TracingRequirerData(BaseModel):
