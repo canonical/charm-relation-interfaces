@@ -78,7 +78,7 @@ class SamlProviderData(BaseModel):
         title="SP Logout URL",
         examples=["https://example.com/logout"],
     )
-    single_logout_service_response_redirect_url: Optional[AnyHttpUrl] = Field(
+    single_logout_service_redirect_response_url: Optional[AnyHttpUrl] = Field(
         description="URL Location where the REDIRECT <LogoutResponse> from the IdP will sent (SP-initiated logout, reply): only specify if different from url parameter.",
         title="SSO logout REDIRECT response URL",
         examples=["https://example.com/logout"],
@@ -88,7 +88,7 @@ class SamlProviderData(BaseModel):
         title="SSO logout REDIRECT binding",
         examples=["urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"],
     )
-    single_logout_service_response_post_url: Optional[AnyHttpUrl] = Field(
+    single_logout_service_post_response_url: Optional[AnyHttpUrl] = Field(
         description="URL Location where the POST <LogoutResponse> from the IdP will sent (SP-initiated logout, reply): only specify if different from url parameter.",
         title="SSO logout POST response URL",
         examples=["https://example.com/logout"],
