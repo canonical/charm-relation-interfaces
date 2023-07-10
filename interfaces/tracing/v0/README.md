@@ -6,53 +6,52 @@ This relation interface describes the expected behavior of any charm claiming to
 
 ## Direction
 
-Tracing is done in a push-based fashion. The receiving endpoint of the tracing backend, also referred to as an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) and [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
-The tracing backend **provides**, for each protocol it supports, an endpoint at which the server is ready to accept that protocol. So the directionality of the relation flows from the observer: the trace ingester (a Tempo(-compliant) backend), to the observed: the application producing the traces, such as a mattermost charm.
+Tracing is done in a push-based fashion. 
+The receiving endpoint of the tracing backend, also referred to as an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) and [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
+The tracing backend exposes, for each protocol it supports, an endpoint at which the server is ready to accept that protocol. 
+So the directionality of the relation flows from the observed, the application producing the traces, to the observer (aka the trace ingester, tha is, a Tempo(-compliant) backend).
 
-
-This follows the convention of other push models such as `loki_push_api`.
-
-We call the data structure that is exchanged via this interface 'tracing backend'.
+We call the data structure that is exchanged via this interface the 'TracingBackend'.
 
 ```mermaid
 flowchart LR
-    Provider -- TracingBackend --> Requirer
+    Requirer[Ingester (requirer)] -- TracingBackend --> Provider[Observed app (provider)]
 ```
 
 ## Behavior
 ### Provider
 
-- Is expected to publish the hostname at which the server is reachable.
-- Is expected to run a server supporting one or more tracing protocols such as [OTLP](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification).
-- Is expected to publish, for each protocol it accepts, the port at which the server is listening.
-
-
-### Requirer
-
 - Is expected to push traces to one or more of the supported endpoints.
 - Is expected to handle cases where none of the protocols offered by the provider is supported. 
 
+### Requirer
+
+- Is expected to publish the url at which the server is reachable.
+- Is expected to run a server supporting one or more tracing protocols such as [OTLP](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification).
+- Is expected to publish, for each protocol it accepts, the port at which the server is listening along with the name of the supported protocol.
+
+
 ## Relation Data
-### Provider
+### Requirer
 
-The provider exposes via its application databag a single hostname, at which the server is reachable, and a list of `ingester-ports`.
+The requirer exposes via its application databag a single url, at which the server is reachable, and a list of `ingester` ports and protocols.
 Each ingester port supports a certain tracing protocol, such as OTLP_GRPC or Jaeger. 
-The full list of supported trace protocols can change with time, but those supported by Tempo at the time of writing are:
+The full list of supported trace protocols can change, but those supported by Tempo at the time of writing are:
 
-- tempo
-- otlp_grpc
-- otlp_http
-- jaeger
-- zipkin
+- `tempo`
+- `otlp_grpc`
+- `otlp_http`
+- `jaeger`
+- `zipkin`
 
-[\[JSON Schema\]](./schemas/provider.json)
+[\[Pydantic model\]](./schema.py)
 
 
 #### Example
 ```yaml
 # unit_data: <empty> 
 application_data: 
-  hostname: "http://foo.bar/my-model-my-unit-0"
+  url: "http://foo.bar/my-model-my-unit-0"
   ingester-ports: 
     - type: otlp_grpc
       port: 1234
@@ -60,7 +59,6 @@ application_data:
       port: 5678
 ```
 
-### Requirer
+### Provider
 
-The requirer side is not expected to publish any data via this relation's databags.
-[\[JSON Schema\]](./schemas/requirer.json)
+The provider side is not expected to publish any data via this relation's databags.

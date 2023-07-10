@@ -14,7 +14,7 @@ Examples:
     RequirerSchema:
         # unit_data: <empty>
         application_data:
-          hostname: "http://foo.bar/my-model-my-unit-0"
+          url: "http://foo.bar/my-model-my-unit-0"
           ingester-ports:
             - type: otlp_grpc
               port: 1234
@@ -35,7 +35,7 @@ class Ingester(BaseModel):
 
 
 class TracingRequirerData(BaseModel):
-    hostname: str  # a routable fqdn
+    url: str
     ingesters: Json[List[Ingester]]
 
 
