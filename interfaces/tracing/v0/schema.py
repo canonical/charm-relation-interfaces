@@ -42,3 +42,7 @@ class TracingRequirerData(BaseModel):
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Tracing."""
     app: TracingRequirerData
+
+
+class ProviderSchema(DataBagSchema):
+    """Provider schema for Tracing."""
