@@ -46,3 +46,7 @@ class RequirerSchema(DataBagSchema):
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for Tracing."""
+
+
+RequirerSchema.update_forward_refs()
+ProviderSchema.update_forward_refs()
