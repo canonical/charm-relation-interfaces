@@ -19,6 +19,17 @@
       "type": "object",
       "properties": {}
     },
+    "IngesterProtocol": {
+      "title": "IngesterProtocol",
+      "description": "An enumeration.",
+      "enum": [
+        "otlp_grpc",
+        "otlp_http",
+        "zipkin",
+        "tempo"
+      ],
+      "type": "string"
+    },
     "Ingester": {
       "title": "Ingester",
       "type": "object",
@@ -28,8 +39,7 @@
           "type": "string"
         },
         "protocol": {
-          "title": "Protocol",
-          "type": "string"
+          "$ref": "#/definitions/IngesterProtocol"
         }
       },
       "required": [
