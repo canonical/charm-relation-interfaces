@@ -21,17 +21,23 @@ Examples:
             - type: otlp_http
               port: 5678
 """
+from enum import Enum
 from typing import List, Literal
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Json
 
-IngesterProtocol = Literal['otlp_grpc', 'otlp_http', 'zipkin', 'tempo']
+
+class IngesterProtocol(str, Enum):
+    otlp_grpc = "otlp_grpc"
+    otlp_http = "otlp_http"
+    zipkin = "zipkin"
+    tempo = "tempo"
 
 
 class Ingester(BaseModel):
     port: str
-    protocol: str
+    protocol: IngesterProtocol
 
 
 class TracingRequirerData(BaseModel):
