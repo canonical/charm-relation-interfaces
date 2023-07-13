@@ -27,20 +27,20 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 - Is expected to publish the ingress url via relation data.
   The url is expected to have (by default) the following structure:
 
-    > `http://[host]:[port]/[model]-[unit]/`
+    > `http://[ingress-hostname]:[port]/[model]-[unit]/`
     
   where: 
-  - `host` is the hostname that the ingress is configured with
+  - `ingress-hostname` is the hostname that the ingress is configured with
   - `model` is the name of the model the application requesting ingress is deployed into
   - `unit` is the name of the unit this address leads to, with `/` replaced by `-` (E.g. `myapp/0` becomes `myapp-0`).
-  - `port` is the ingressed port in the unit.
+  - `port` is the port to expose in the unit.
     
   The structure of this URL is fixed in the generic ingress schema; specific ingress providers implementations may offer some way of customising it.    
 
 ### Requirer
 
-- Is expected to provide a hostname, and a model name (namespace). 
-- Is expected to provide, for each unit requesting ingress, a port and a unit name.  
+- Is expected to provide a port, application name, and a model name (namespace). 
+- Is expected to provide, for each unit requesting ingress, a hostname.  
 
 ## Relation Data
 
@@ -49,19 +49,18 @@ Pydantic schemas for provider and requirer can be found [\[here\]](./schema.py)
 ### Requirer
 
 Exposes the unit name (`name`), model name (`model`), hostname (`host`) and port (`port`) at which ingress should be provided. 
-`name` and `model` should be placed in the **application** databag. `host` and `port`, as they will differ per ingressed unit, 
-will be placed in the **unit** databags of the respective ingress-requesting units.
+`name`, `port` and `model` should be placed in the **application** databag. `host`, as it may differ per ingressed unit (e.g. if it's a fqdn), will be placed in the **unit** databags of the respective ingress-requesting units.
 Depending on the library being used (and the provider charm), additional configuration keys may be supported. 
 
 #### Example
 ```yaml
 application-data: {
  name: "app_name",
- model: "model_name"
+ model: "model_name",
+ port: 4242,
 }
 unit-data: {
  host: "hostname",
- port: 4242,
 }
 ```
 

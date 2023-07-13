@@ -47,13 +47,14 @@ class ProviderSchema(DataBagSchema):
 
 
 class IngressRequirerAppData(BaseModel):
-    host: str = Field(description="Hostname the application wishes to be exposed.")
     model: str = Field(description="The model the application is in.")
+    port: str = Field(description="The port the unit wishes to be exposed. Stringified int.")
+    name: str = Field(description="The name of the application requesting ingress.")
 
 
 class IngressRequirerUnitData(BaseModel):
-    port: str = Field(description="The port the unit wishes to be exposed. Stringified int.")
-    name: str = Field(description="the name of the unit requesting ingress.")
+    host: str = Field(description="Unit hostname to be exposed.")
+
 
 
 class RequirerSchema(DataBagSchema):

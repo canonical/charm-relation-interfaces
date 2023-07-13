@@ -39,11 +39,11 @@ def test_no_data_on_joined(output_state: State):
             remote_app_data={
                 'host': '0.0.0.42',
                 'model': 'bar',
+                'port': '42'
             },
             remote_units_data={
                 0:
-                    {'name': 'remote/0',
-                     'port': '42'}
+                    {'name': 'remote/0'}
             }
         )]
     )
