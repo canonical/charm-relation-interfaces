@@ -19,6 +19,25 @@
       "title": "IngressRequirerUnitData",
       "type": "object",
       "properties": {
+        "host": {
+          "title": "Host",
+          "description": "Unit hostname to be exposed.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "IngressRequirerAppData": {
+      "title": "IngressRequirerAppData",
+      "type": "object",
+      "properties": {
+        "model": {
+          "title": "Model",
+          "description": "The model the application is in.",
+          "type": "string"
+        },
         "port": {
           "title": "Port",
           "description": "The port the unit wishes to be exposed. Stringified int.",
@@ -26,33 +45,14 @@
         },
         "name": {
           "title": "Name",
-          "description": "the name of the unit requesting ingress.",
+          "description": "The name of the application requesting ingress.",
           "type": "string"
         }
       },
       "required": [
+        "model",
         "port",
         "name"
-      ]
-    },
-    "IngressRequirerAppData": {
-      "title": "IngressRequirerAppData",
-      "type": "object",
-      "properties": {
-        "host": {
-          "title": "Host",
-          "description": "Hostname the application wishes to be exposed.",
-          "type": "string"
-        },
-        "model": {
-          "title": "Model",
-          "description": "The model the application is in.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "host",
-        "model"
       ]
     }
   }
