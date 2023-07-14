@@ -9,7 +9,7 @@ This relation interface describes the expected behavior of any charm claiming to
 Tracing is done in a push-based fashion. 
 The receiving endpoint of the tracing backend, also referred to as an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) and [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
 The tracing backend exposes, for each protocol it supports, an endpoint at which the server is ready to accept that protocol. 
-So the directionality of the relation flows from the observed, the application producing the traces, to the observer (aka the trace ingester, tha is, a Tempo(-compliant) backend).
+So the directionality of the relation flows from the observed, the application producing the traces, to the observer (aka the trace ingester, that is, a Tempo(-compliant) backend).
 
 We call the data structure that is exchanged via this interface the 'TracingBackend'.
 
