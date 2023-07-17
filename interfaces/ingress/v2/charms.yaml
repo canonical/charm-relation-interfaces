@@ -1,6 +1,6 @@
 providers:
   - name: traefik-k8s
     url: https://github.com/canonical/traefik-k8s-operator
-    branch: fix-ingress-per-app  # todo remove when merged
+    branch: ingressv1-backwards-compat  # todo remove when merged
 
 requirers: []

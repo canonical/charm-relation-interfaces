@@ -1,13 +1,12 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
-import yaml
 
 from interface_tester.interface_test import interface_test_case, SchemaConfig
 from scenario import State, Relation
 
 
 @interface_test_case(
-    event='ingress-relation-created',
+    event='ingress-relation-create',
     role='provider',
     schema=SchemaConfig.empty
 )
@@ -37,13 +36,15 @@ def test_no_data_on_joined(output_state: State):
             interface='ingress',
             remote_app_name='remote',
             remote_app_data={
-                'host': '0.0.0.42',
                 'model': 'bar',
-                'port': '42'
+                'port': '42',
+                'name': 'remote',
             },
             remote_units_data={
                 0:
-                    {'name': 'remote/0'}
+                    {
+                        'host': '0.0.0.42',
+                    }
             }
         )]
     )
