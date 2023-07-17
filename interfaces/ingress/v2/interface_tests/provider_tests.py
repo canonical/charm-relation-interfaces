@@ -6,7 +6,7 @@ from scenario import State, Relation
 
 
 @interface_test_case(
-    event='ingress-relation-create',
+    event='ingress-relation-created',
     role='provider',
     schema=SchemaConfig.empty
 )
