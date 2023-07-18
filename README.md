@@ -48,7 +48,8 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`prometheus_remote_write`](interfaces/prometheus_remote_write/v0/README.md) |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`prometheus_scrape`](interfaces/prometheus_scrape/v0/README.md)             |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`tracing`](interfaces/tracing/v0/README.md)                                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
-| Networking    | [`ingress`](interfaces/ingress/v1/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
+| Networking    | [`ingress/v1`](interfaces/ingress/v1/README.md)                              |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
+|               | [`ingress/v2`](interfaces/ingress/v2/README.md)                              |  ![Status: Live](https://img.shields.io/badge/Status-Draft-orange)    |
 |               | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`nginx_route`](interfaces/nginx_route/v0/README.md)                         |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`ip_router`](interfaces/ip_router/v0/README.md)                             |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |

@@ -1,0 +1,59 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for Ingress.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/IngressRequirerUnitData"
+    },
+    "app": {
+      "$ref": "#/definitions/IngressRequirerAppData"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "definitions": {
+    "IngressRequirerUnitData": {
+      "title": "IngressRequirerUnitData",
+      "type": "object",
+      "properties": {
+        "host": {
+          "title": "Host",
+          "description": "Unit hostname to be exposed.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host"
+      ]
+    },
+    "IngressRequirerAppData": {
+      "title": "IngressRequirerAppData",
+      "type": "object",
+      "properties": {
+        "model": {
+          "title": "Model",
+          "description": "The model the application is in.",
+          "type": "string"
+        },
+        "port": {
+          "title": "Port",
+          "description": "The port the unit wishes to be exposed. Stringified int.",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "description": "The name of the application requesting ingress.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "port",
+        "name"
+      ]
+    }
+  }
+}
