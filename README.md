@@ -1,6 +1,21 @@
-# Charm Relation Interfaces
+<div align="center">
 
-A catalogue of opinionated and standardized interface specifications for charmed operator relations. The purpose of the repository is to outline the behavior and requirements for key interface names, ensuring that charms claiming to implement a certain interface actually are capable of being integrated with each other.
+  <h1>
+    Charm Relation Interfaces
+  </h1>
+  <small>
+    A catalogue of opinionated and standardized interface specifications for charmed operator relations.     
+  </small>
+  </br></br>
+  <p>
+    <a href="https://chat.charmhub.io/charmhub/channels/integrations">
+      <img src="https://img.shields.io/badge/Join_us_on_Mattermost-%23integrations-blue" alt="Mattermost badge" />
+    </a>
+  </p>
+</div>
+
+## Purpose
+The purpose of the repository is to outline the behavior and requirements for key interface names, ensuring that charms claiming to implement a certain interface actually are capable of being integrated with each other.
 
 ## Contributing
 To contribute a new interface specification, open a pull request containing:
