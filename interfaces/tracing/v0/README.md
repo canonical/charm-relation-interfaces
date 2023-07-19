@@ -14,8 +14,8 @@ So the directionality of the relation flows from the observed, the application p
 We call the data structure that is exchanged via this interface the 'TracingBackend'.
 
 ```mermaid
-flowchart LR
-    Requirer[Ingester (requirer)] -- TracingBackend --> Provider[Observed app (provider)]
+graph LR
+    Requirer["Ingester (requirer)"]  --> TracingBackend["TracingBackend"] --> Provider["Observed app (provider)"]
 ```
 
 ## Behavior
