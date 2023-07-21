@@ -39,11 +39,11 @@ The requirer specifies a set of client or server common names for which it requi
 ```json
 {
   "unit_name": "web-app-0",
-  "cert_requests": [
+  "cert_requests": '[
     {
       "common_name": "abcd.canonical.com"
     }
-  ]
+  ]'
 }
 ```
 
