@@ -30,15 +30,39 @@ def test_no_data_on_joined(output_state: State):
     role='provider',
     input_state=State(
         relations=[Relation(
-            # todo: endpoint is unknown/overwritten: find an elegant way to omit it here.
-            #  perhaps input state is too general: we only need this relation's db contents:
+            endpoint='ingress',
+            interface='ingress',
+            remote_app_name='remote',
+            remote_app_data={
+                'model': '"bar"',
+                'port': '42',
+                'name': '"remote"',
+            },
+            remote_units_data={
+                0:
+                    {
+                        'host': '"0.0.0.42"',
+                    }
+            }
+        )]
+    )
+)
+def test_data_published_on_changed_remote_valid(output_state: State):
+    return  # schema validation is enough for now
+
+
+@interface_test_case(
+    event='ingress-relation-changed',
+    role='provider',
+    input_state=State(
+        relations=[Relation(
             endpoint='ingress',
             interface='ingress',
             remote_app_name='remote',
             remote_app_data={
                 'model': 'bar',
                 'port': '42',
-                'name': 'remote',
+                'name': 'true',
             },
             remote_units_data={
                 0:
@@ -47,10 +71,12 @@ def test_no_data_on_joined(output_state: State):
                     }
             }
         )]
-    )
+    ),
+    schema=SchemaConfig.empty
 )
-def test_data_published_on_changed_remote_valid(output_state: State):
-    return  # schema validation is enough for now
+def test_data_published_on_changed_remote_invalid_json(output_state: State):
+    # on changed, if the remote side has sent invalid json: local side didn't publish anything either.
+    return
 
 
 @interface_test_case(

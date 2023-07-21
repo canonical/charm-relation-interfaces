@@ -45,6 +45,7 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 ## Relation Data
 
 Pydantic schemas for provider and requirer can be found [\[here\]](./schema.py)
+All fields are json-serialized.
 
 ### Requirer
 
@@ -55,12 +56,12 @@ Depending on the library being used (and the provider charm), additional configu
 #### Example
 ```yaml
 application-data: {
- name: "app_name",
- model: "model_name",
- port: 4242,
+ name: '"app_name"',
+ model: '"model_name"',
+ port: '4242',
 }
 unit-data: {
- host: "hostname",
+ host: '"hostname"',
 }
 ```
 
@@ -72,8 +73,7 @@ Exposes a `url` field containing the url at which ingress is available. Should b
 
 ```yaml
 application_data: {
-  ingress:
-    url: "http://foo.bar:80/model_name-app_name/0"
+  ingress: '{url: "http://foo.bar:80/model_name-app_name/0"}'
 }
 ```
 
