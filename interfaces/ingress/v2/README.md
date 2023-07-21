@@ -73,7 +73,7 @@ Exposes a `url` field containing the url at which ingress is available. Should b
 
 ```yaml
 application_data: {
-  ingress: '{url: "http://foo.bar:80/model_name-app_name/0"}'
+  ingress: '{"url": "http://foo.bar:80/model_name-app_name/0"}'
 }
 ```
 

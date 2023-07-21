@@ -23,6 +23,8 @@ Examples:
               "model": "model-name"
               }
 """
+import json
+
 import yaml
 from pydantic import BaseModel, AnyHttpUrl, validator, Field, Json
 
@@ -35,10 +37,6 @@ class Url(BaseModel):
 
 class MyProviderData(BaseModel):
     ingress: Json[Url]
-
-    @validator('ingress', pre=True)
-    def decode_ingress(cls, ingress):
-        return yaml.safe_load(ingress)
 
 
 class ProviderSchema(DataBagSchema):
