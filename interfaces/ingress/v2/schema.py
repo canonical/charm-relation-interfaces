@@ -23,12 +23,9 @@ Examples:
               "model": "model-name"
               }
 """
-import json
-
-import yaml
-from pydantic import BaseModel, AnyHttpUrl, validator, Field, Json
 
 from interface_tester.schema_base import DataBagSchema
+from pydantic import BaseModel, AnyHttpUrl, Field, Json
 
 
 class Url(BaseModel):
@@ -52,7 +49,6 @@ class IngressRequirerAppData(BaseModel):
 
 class IngressRequirerUnitData(BaseModel):
     host: Json[str] = Field(description="Unit hostname to be exposed.")
-
 
 
 class RequirerSchema(DataBagSchema):
