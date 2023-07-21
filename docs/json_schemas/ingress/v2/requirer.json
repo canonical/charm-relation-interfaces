@@ -41,7 +41,7 @@
         "port": {
           "title": "Port",
           "description": "The port the unit wishes to be exposed. Stringified int.",
-          "type": "string"
+          "type": "integer"
         },
         "name": {
           "title": "Name",
