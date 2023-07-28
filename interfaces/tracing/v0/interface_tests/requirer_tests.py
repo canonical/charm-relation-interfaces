@@ -8,7 +8,7 @@ from scenario import State, Relation
 
 @interface_test_case(
     event='tracing-relation-created',
-    role='requirer',
+    role='provider',
     schema=SchemaConfig.empty
 )
 def test_no_data_on_created(output_state: State):
@@ -17,7 +17,7 @@ def test_no_data_on_created(output_state: State):
 
 @interface_test_case(
     event='tracing-relation-joined',
-    role='requirer',
+    role='provider',
     schema=SchemaConfig.empty
 )
 def test_no_data_on_joined(output_state: State):
@@ -26,7 +26,7 @@ def test_no_data_on_joined(output_state: State):
 
 @interface_test_case(
     event='tracing-relation-changed',
-    role='requirer',
+    role='provider',
     input_state=State(
         relations=[Relation(
             endpoint='tracing',

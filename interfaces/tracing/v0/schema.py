@@ -40,15 +40,15 @@ class Ingester(BaseModel):
     protocol: IngesterProtocol
 
 
-class TracingRequirerData(BaseModel):
+class TracingProviderData(BaseModel):
     url: str
     ingesters: Json[List[Ingester]]
 
 
-class RequirerSchema(DataBagSchema):
-    """Requirer schema for Tracing."""
-    app: TracingRequirerData
-
-
 class ProviderSchema(DataBagSchema):
     """Provider schema for Tracing."""
+    app: TracingProviderData
+
+
+class RequirerSchema(DataBagSchema):
+    """Requirer schema for Tracing."""
