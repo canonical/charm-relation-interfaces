@@ -73,7 +73,7 @@ class SamlProviderData(BaseModel):
         title="SSO POST binding",
         examples=["urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Post"],
     )
-    single_logout_service_url: Optional[str] = AnyHttpUrl(
+    single_logout_service_url: Optional[AnyHttpUrl] = Field(
         description="URL Location where the <LogoutRequest> from the IdP will be sent (IdP-initiated logout).",
         title="SP Logout URL",
         examples=["https://example.com/logout"],
@@ -122,7 +122,9 @@ class SamlProviderData(BaseModel):
     )
 
 
-class ProviderSchema(SamlProviderData):
+class ProviderSchema(DataBagSchema):
     """Provider schema for SAML."""
     app: SamlProviderData
 
+class RequirerSchema(DataBagSchema):
+    """Requirer schema for SAML."""
