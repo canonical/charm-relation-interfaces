@@ -6,7 +6,7 @@ This relation interface describes the expected behavior between of any charm cla
 
 ## Usage
 
-In most cases, this will be accomplished using the [saml library](), although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
+In most cases, this will be accomplished using the [saml library](https://github.com/canonical/saml-integrator-operator/blob/main/lib/charms/saml_integrator/v0/saml.py), although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
 ## Direction
 
