@@ -41,7 +41,7 @@ class Ingester(BaseModel):
 
 
 class TracingProviderData(BaseModel):
-    url: str
+    host: str
     ingesters: Json[List[Ingester]]
 
 
