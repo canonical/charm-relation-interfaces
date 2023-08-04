@@ -51,8 +51,8 @@
       "title": "TracingProviderData",
       "type": "object",
       "properties": {
-        "url": {
-          "title": "Url",
+        "host": {
+          "title": "Host",
           "type": "string"
         },
         "ingesters": {
@@ -64,7 +64,7 @@
         }
       },
       "required": [
-        "url",
+        "host",
         "ingesters"
       ]
     }
