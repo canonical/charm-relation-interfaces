@@ -2,7 +2,7 @@
 
 ## Overview
 
-This relation interface describes the expected behavior between of any charm claiming to be able to interface with a SAML Provider and the SAML Provider itself.
+This relation interface describes the expected behavior between of any charm claiming to be able to interface with a SAML Provider and the SAML Provider itself. This interface has been defined to support charms that require Launchpad group information. Other Identity Providers can be used interchangeably as long as custom attributes are not required.
 
 ## Usage
 
