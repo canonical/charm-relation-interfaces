@@ -2,7 +2,7 @@
 # See LICENSE file for licensing details.
 """This file defines the schema for the provider side of the saml interface.
 
-It exposes ones interfaces.schema_base.DataBagSchema subclass called:
+It exposes one interfaces.schema_base.DataBagSchema subclass called:
 - ProviderSchema
 
 Examples:

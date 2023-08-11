@@ -10,7 +10,7 @@ In most cases, this will be accomplished using the [saml library](https://github
 
 ## Direction
 
-The `saml` interface implements a provider pattern.
+The `saml` interface implements a provider/requirer pattern.
 The requirer is a charm that wishes to act as a SAML Service Provider, and the provider is a charm exposing a SAML Identity Provider.
 
 ```mermaid
