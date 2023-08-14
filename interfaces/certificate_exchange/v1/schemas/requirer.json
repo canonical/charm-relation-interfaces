@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/certificate_exchange/schemas/requirer.json",
+  "type": "object",
+  "title": "`certificate_exchange` requirer schema",
+  "description": "The `certificate_exchange` root schema comprises the entire requirer databag for this interface.",
+  "default": {},
+  "properties": {
+    "additionalProperties": true
+  }
+}
