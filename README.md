@@ -44,7 +44,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 | Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`oauth`](interfaces/oauth/v0/README.md)                                     |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
 |               | [`openfga`](interfaces/openfga/v0/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  | 
-|               | [`saml`](interfaces/saml/v0/README.md)                                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
+|               | [`saml`](interfaces/saml/v0/README.md)                                       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Observability | [`grafana_auth`](interfaces/grafana_auth/v0/README.md)                       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`prometheus_remote_write`](interfaces/prometheus_remote_write/v0/README.md) |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`prometheus_scrape`](interfaces/prometheus_scrape/v0/README.md)             |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
