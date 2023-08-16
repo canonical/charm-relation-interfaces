@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/certificate_exchange/schemas/provider.json",
+  "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/certificate_transfer/schemas/provider.json",
   "type": "object",
-  "title": "`certificate_exchange` provider schema",
-  "description": "The `certificate_exchange` root schema comprises the entire provider application databag for this interface.",
+  "title": "`certificate_transfer` provider schema",
+  "description": "The `certificate_transfer` root schema comprises the entire provider application databag for this interface.",
   "default": {},
   "examples": [
     {
