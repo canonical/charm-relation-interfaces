@@ -4,10 +4,10 @@
   "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/UnitSecretsRequirerSchema"
+      "$ref": "#/definitions/UnitVaultKvRequirerSchema"
     },
     "app": {
-      "$ref": "#/definitions/AppSecretsProviderSchema"
+      "$ref": "#/definitions/AppVaultKvProviderSchema"
     }
   },
   "required": [
@@ -15,8 +15,8 @@
     "app"
   ],
   "definitions": {
-    "UnitSecretsRequirerSchema": {
-      "title": "UnitSecretsRequirerSchema",
+    "UnitVaultKvRequirerSchema": {
+      "title": "UnitVaultKvRequirerSchema",
       "type": "object",
       "properties": {
         "egress_subnet": {
@@ -26,8 +26,8 @@
         }
       }
     },
-    "AppSecretsProviderSchema": {
-      "title": "AppSecretsProviderSchema",
+    "AppVaultKvProviderSchema": {
+      "title": "AppVaultKvProviderSchema",
       "type": "object",
       "properties": {
         "secret_backend": {

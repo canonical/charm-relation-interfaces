@@ -7,7 +7,7 @@
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "$ref": "#/definitions/SecretsProviderSchema"
+      "$ref": "#/definitions/VaultKvProviderSchema"
     }
   },
   "required": [
@@ -47,8 +47,8 @@
         "$ref": "#/definitions/UnitCredentialsSchema"
       }
     },
-    "SecretsProviderSchema": {
-      "title": "SecretsProviderSchema",
+    "VaultKvProviderSchema": {
+      "title": "VaultKvProviderSchema",
       "type": "object",
       "properties": {
         "vault_url": {

@@ -1,4 +1,4 @@
-# `secrets`
+# `vault-kv`
 
 ## Usage
 

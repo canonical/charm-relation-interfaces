@@ -23,7 +23,7 @@ class CredentialsSchema(BaseModel):
     __root__: Mapping[str, UnitCredentialsSchema] = Field("Units' credentials")
 
 
-class SecretsProviderSchema(BaseModel):
+class VaultKvProviderSchema(BaseModel):
     vault_url: str = Field(description="The URL of the Vault server to connect to.")
     kv_mountpoint: str = Field(description="The mountpoint of the KV store to use.")
     credentials: Json[CredentialsSchema] = Field(
@@ -31,22 +31,22 @@ class SecretsProviderSchema(BaseModel):
     )
 
 
-class AppSecretsProviderSchema(BaseModel):
+class AppVaultKvProviderSchema(BaseModel):
     secret_backend: str = Field("The name of the secret backend to use.")
 
 
-class UnitSecretsRequirerSchema(BaseModel):
+class UnitVaultKvRequirerSchema(BaseModel):
     egress_subnet: str = Field("Egress subnet to use.")
 
 
 class ProviderSchema(DataBagSchema):
     """The schema for the provider side of this interface."""
 
-    app: SecretsProviderSchema
+    app: VaultKvProviderSchema
 
 
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of this interface."""
 
-    app: AppSecretsProviderSchema
-    unit: UnitSecretsRequirerSchema
+    app: AppVaultKvProviderSchema
+    unit: UnitVaultKvRequirerSchema
