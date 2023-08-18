@@ -54,7 +54,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`nginx_route`](interfaces/nginx_route/v0/README.md)                         |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`ip_router`](interfaces/ip_router/v0/README.md)                             |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
-| Security      | [`mutual_tls`](interfaces/mutual_tls/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
+| Security      | [`certificate_transfer`](interfaces/certificate_transfer/v0/README.md)       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`tls_certificates/v0`](interfaces/tls_certificates/v0/README.md)            |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`tls_certificates/v1`](interfaces/tls_certificates/v1/README.md)            |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
