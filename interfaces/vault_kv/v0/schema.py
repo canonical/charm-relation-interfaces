@@ -36,7 +36,7 @@ class AppVaultKvProviderSchema(BaseModel):
 
 
 class UnitVaultKvRequirerSchema(BaseModel):
-    egress_subnet: str = Field("Egress subnet to use.")
+    egress_subnet: str = Field("Egress subnet to use, in CIDR notation.")
 
 
 class ProviderSchema(DataBagSchema):

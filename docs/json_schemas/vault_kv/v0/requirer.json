@@ -21,7 +21,7 @@
       "properties": {
         "egress_subnet": {
           "title": "Egress Subnet",
-          "default": "Egress subnet to use.",
+          "default": "Egress subnet to use, in CIDR notation.",
           "type": "string"
         }
       }
