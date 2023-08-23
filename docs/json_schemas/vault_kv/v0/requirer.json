@@ -7,7 +7,7 @@
       "$ref": "#/definitions/UnitVaultKvRequirerSchema"
     },
     "app": {
-      "$ref": "#/definitions/AppVaultKvProviderSchema"
+      "$ref": "#/definitions/AppVaultKvRequirerSchema"
     }
   },
   "required": [
@@ -26,8 +26,8 @@
         }
       }
     },
-    "AppVaultKvProviderSchema": {
-      "title": "AppVaultKvProviderSchema",
+    "AppVaultKvRequirerSchema": {
+      "title": "AppVaultKvRequirerSchema",
       "type": "object",
       "properties": {
         "mount_suffix": {

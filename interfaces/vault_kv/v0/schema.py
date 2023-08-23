@@ -36,7 +36,7 @@ class VaultKvProviderSchema(BaseModel):
     )
 
 
-class AppVaultKvProviderSchema(BaseModel):
+class AppVaultKvRequirerSchema(BaseModel):
     mount_suffix: str = Field("Suffix to append to the mount name to get the KV mount.")
 
 
@@ -53,5 +53,5 @@ class ProviderSchema(DataBagSchema):
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of this interface."""
 
-    app: AppVaultKvProviderSchema
+    app: AppVaultKvRequirerSchema
     unit: UnitVaultKvRequirerSchema
