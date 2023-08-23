@@ -56,9 +56,9 @@
           "description": "The URL of the Vault server to connect to.",
           "type": "string"
         },
-        "kv_mountpoint": {
-          "title": "Kv Mountpoint",
-          "description": "The mountpoint of the KV store to use.",
+        "mount": {
+          "title": "Mount",
+          "description": "The KV mount available for the requirer application, respecting the pattern 'charm-<requirer app>-<user provided suffix>'.",
           "type": "string"
         },
         "credentials": {
@@ -73,7 +73,7 @@
       },
       "required": [
         "vault_url",
-        "kv_mountpoint",
+        "mount",
         "credentials"
       ]
     }

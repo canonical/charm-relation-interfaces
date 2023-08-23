@@ -8,8 +8,8 @@ Some charms require a secure key value store. This relation interface describes 
 
 ```mermaid
 flowchart TD
-    Requirer -- secret_backend, egress_subnet --> Provider
-    Provider -- vault_url, kv_mountpoint, credentials --> Requirer
+    Requirer -- mount_suffix, egress_subnet --> Provider
+    Provider -- vault_url, mount, credentials --> Requirer
 ```
 
 ## Behavior
@@ -21,19 +21,17 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 Provider expectations
 
 - Must provide the vault url
-- Must provide a key value mountpoint
+- Must provide a key value mount, the mount name shall respect the following pattern: charm-<requirer app>-<user provided suffix>
 - Must provide a role_id and role_secret_id for each unit, with access protected by unit's egress_subnet
 
 ### Requirer
 
 Requirer expectations
 
-- Must provide a secret backend name, which must start with "charm-"
+- Must provide a mount suffix
 - Must provide an egress subnet for each unit used to protect access to the secret backend
 
 ## Relation Data
-
-Describe the contents of the databags, and provide schemas for them.
 
 [\[Pydantic Schema\]](./schema.py)
 
@@ -43,7 +41,7 @@ Describe the contents of the databags, and provide schemas for them.
 provider:
   app:
     vault_url: http://10.152.183.104:8200
-    kv_mountpoint: charm-barbican
+    mount: charm-barbican-secrets
     credentials: |
       {
         "barbican-0": {
@@ -58,7 +56,7 @@ provider:
   unit: {}
 requirer:
   app:
-    secret_backend: charm-barbican
+    mount_suffix: secrets
   unit:
     barbican-0:
       egress_subnet: 10.1.166.206/32

@@ -25,14 +25,19 @@ class CredentialsSchema(BaseModel):
 
 class VaultKvProviderSchema(BaseModel):
     vault_url: str = Field(description="The URL of the Vault server to connect to.")
-    kv_mountpoint: str = Field(description="The mountpoint of the KV store to use.")
+    mount: str = Field(
+        description=(
+            "The KV mount available for the requirer application, "
+            "respecting the pattern 'charm-<requirer app>-<user provided suffix>'."
+        )
+    )
     credentials: Json[CredentialsSchema] = Field(
         description="The credentials to use to authenticate to Vault."
     )
 
 
 class AppVaultKvProviderSchema(BaseModel):
-    secret_backend: str = Field("The name of the secret backend to use.")
+    mount_suffix: str = Field("Suffix to append to the mount name to get the KV mount.")
 
 
 class UnitVaultKvRequirerSchema(BaseModel):
