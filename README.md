@@ -59,6 +59,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`tls_certificates/v1`](interfaces/tls_certificates/v1/README.md)            |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Storage       | [`s3`](interfaces/s3/v0/README.md)                                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
+|               | [`vault-kv`](interfaces/vault_kv/v0/README.md)                               |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 
 ## Project-internal Interfaces
 
