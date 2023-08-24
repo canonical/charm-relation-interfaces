@@ -39,14 +39,6 @@
         "role_secret_id"
       ]
     },
-    "CredentialsSchema": {
-      "title": "CredentialsSchema",
-      "default": "Units' credentials",
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/UnitCredentialsSchema"
-      }
-    },
     "VaultKvProviderSchema": {
       "title": "VaultKvProviderSchema",
       "type": "object",
@@ -64,11 +56,10 @@
         "credentials": {
           "title": "Credentials",
           "description": "The credentials to use to authenticate to Vault.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/CredentialsSchema"
-            }
-          ]
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/UnitCredentialsSchema"
+          }
         }
       },
       "required": [

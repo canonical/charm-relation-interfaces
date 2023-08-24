@@ -45,7 +45,7 @@ provider:
     credentials: |
       {
         "barbican-0": {
-          "role_id": 158778a2-04fc-39c5-ba13-0cb5faddb5eb",
+          "role_id": "158778a2-04fc-39c5-ba13-0cb5faddb5eb",
           "role_secret_id": "41c3e4eb-39ec-5c68-2f41-fbc1bc1e9c52"
         },
         "barbican-1": {

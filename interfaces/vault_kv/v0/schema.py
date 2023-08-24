@@ -19,10 +19,6 @@ class UnitCredentialsSchema(BaseModel):
     )
 
 
-class CredentialsSchema(BaseModel):
-    __root__: Mapping[str, UnitCredentialsSchema] = Field("Units' credentials")
-
-
 class VaultKvProviderSchema(BaseModel):
     vault_url: str = Field(description="The URL of the Vault server to connect to.")
     mount: str = Field(
@@ -31,7 +27,7 @@ class VaultKvProviderSchema(BaseModel):
             "respecting the pattern 'charm-<requirer app>-<user provided suffix>'."
         )
     )
-    credentials: Json[CredentialsSchema] = Field(
+    credentials: Json[Mapping[str, UnitCredentialsSchema]] = Field(
         description="The credentials to use to authenticate to Vault."
     )
 
