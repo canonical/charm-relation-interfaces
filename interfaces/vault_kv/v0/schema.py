@@ -23,7 +23,7 @@ class VaultKvProviderSchema(BaseModel):
     credentials: Json[Mapping[str, str]] = Field(
         description=(
             "Mapping of unit name and credentials for that unit."
-            " Credentials are a juju secret containing a role_id and role_secret_id."
+            " Credentials are a juju secret containing a role-id and role-secret-id."
         )
     )
 

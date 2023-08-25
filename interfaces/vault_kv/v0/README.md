@@ -22,9 +22,9 @@ Provider expectations
 
 - Must provide the vault url
 - Must provide a key value mount, the mount name shall respect the following pattern: charm-<requirer app>-<user provided suffix>
-- Must provide a role_id and role_secret_id for each unit.
-  The role_id and role_secret_id shall be provided in the form of a Juju secret.
-  Usage of role_id and role_secret_id to access the KV backend shall be restricted to the unit's egress_subnet.
+- Must provide a role-id and role-secret-id for each unit.
+  The role-id and role-secret-id shall be provided in the form of a Juju secret.
+  Usage of role-id and role-secret-id to access the KV backend shall be restricted to the unit's egress_subnet.
 
 ### Requirer
 
