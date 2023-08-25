@@ -22,14 +22,17 @@ Provider expectations
 
 - Must provide the vault url
 - Must provide a key value mount, the mount name shall respect the following pattern: charm-<requirer app>-<user provided suffix>
-- Must provide a role_id and role_secret_id for each unit, with access protected by unit's egress_subnet
+- Must provide a role_id and role_secret_id for each unit.
+  The role_id and role_secret_id shall be provided in the form of a Juju secret.
+  Usage of role_id and role_secret_id to access the KV backend shall be restricted to the unit's egress_subnet.
 
 ### Requirer
 
 Requirer expectations
 
 - Must provide a mount suffix
-- Must provide an egress subnet for each unit used to protect access to the secret backend
+- Must provide an egress subnet for each unit requiring access to the vault key value store.
+  The unit's egress_subnet shall be used to restrict access to the secret backend.
 
 ## Relation Data
 
@@ -44,14 +47,8 @@ provider:
     mount: charm-barbican-secrets
     credentials: |
       {
-        "barbican-0": {
-          "role_id": "158778a2-04fc-39c5-ba13-0cb5faddb5eb",
-          "role_secret_id": "41c3e4eb-39ec-5c68-2f41-fbc1bc1e9c52"
-        },
-        "barbican-1": {
-          "role_id": "38eb72db-60d0-082a-4847-6b9d1690cf02",
-          "role_secret_id": "fa1db047-3c90-e614-7ca0-76ce2ec1b6fc"
-        }
+        "barbican-0": "secret://4f7cc474-a23d-49a2-8b6e-9835c1e08325/cjk5slcrl3uc767oebp0",
+        "barbican-1": "secret://4f7cc474-a23d-49a2-8b6e-9835c1e08325/cjk5slcrl3uc767oebpg"
       }
   unit: {}
 requirer:

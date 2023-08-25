@@ -19,26 +19,6 @@
       "type": "object",
       "properties": {}
     },
-    "UnitCredentialsSchema": {
-      "title": "UnitCredentialsSchema",
-      "type": "object",
-      "properties": {
-        "role_id": {
-          "title": "Role Id",
-          "description": "The role ID to use to authenticate to Vault.",
-          "type": "string"
-        },
-        "role_secret_id": {
-          "title": "Role Secret Id",
-          "description": "The role secret ID to use to authenticate to Vault.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "role_id",
-        "role_secret_id"
-      ]
-    },
     "VaultKvProviderSchema": {
       "title": "VaultKvProviderSchema",
       "type": "object",
@@ -55,10 +35,10 @@
         },
         "credentials": {
           "title": "Credentials",
-          "description": "The credentials to use to authenticate to Vault.",
+          "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a role_id and role_secret_id.",
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/UnitCredentialsSchema"
+            "type": "string"
           }
         }
       },

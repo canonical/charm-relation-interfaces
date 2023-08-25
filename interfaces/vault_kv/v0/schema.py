@@ -12,13 +12,6 @@ from pydantic import BaseModel, Field, Json
 from interface_tester.schema_base import DataBagSchema
 
 
-class UnitCredentialsSchema(BaseModel):
-    role_id: str = Field(description="The role ID to use to authenticate to Vault.")
-    role_secret_id: str = Field(
-        description="The role secret ID to use to authenticate to Vault."
-    )
-
-
 class VaultKvProviderSchema(BaseModel):
     vault_url: str = Field(description="The URL of the Vault server to connect to.")
     mount: str = Field(
@@ -27,8 +20,11 @@ class VaultKvProviderSchema(BaseModel):
             "respecting the pattern 'charm-<requirer app>-<user provided suffix>'."
         )
     )
-    credentials: Json[Mapping[str, UnitCredentialsSchema]] = Field(
-        description="The credentials to use to authenticate to Vault."
+    credentials: Json[Mapping[str, str]] = Field(
+        description=(
+            "Mapping of unit name and credentials for that unit."
+            " Credentials are a juju secret containing a role_id and role_secret_id."
+        )
     )
 
 
