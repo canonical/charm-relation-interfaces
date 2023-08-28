@@ -20,18 +20,18 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 Provider expectations
 
-- Must provide the vault url
-- Must provide a key value mount, the mount name shall respect the following pattern: `charm-<requirer app>-<user provided suffix>`
-- Must create an approle restricted to the requiring unit's egress subnet.
-- Must create a Juju secret containing a role-id and role-secret-id for each unit
-- Must provide the Juju secret ID in the relation data.
+- Is expected to provide the vault url
+- Is expected to provide a key value mount, the mount name shall respect the following pattern: `charm-<requirer app>-<user provided suffix>`
+- Is expected to create an approle restricted to the requiring unit's egress subnet.
+- Is expected to create a Juju secret containing a role-id and role-secret-id for each unit
+- Is expected to provide the Juju secret ID in the relation data.
 
 ### Requirer
 
 Requirer expectations
 
-- Must provide a mount suffix
-- Must provide an egress subnet for each unit requiring access to the vault key value store.
+- Is expected to provide a mount suffix
+- Is expected to provide an egress subnet for each unit requiring access to the vault key value store.
   The unit's egress_subnet shall be used to restrict access to the secret backend.
 
 ## Relation Data
