@@ -21,10 +21,10 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 Provider expectations
 
 - Must provide the vault url
-- Must provide a key value mount, the mount name shall respect the following pattern: charm-<requirer app>-<user provided suffix>
-- Must provide a role-id and role-secret-id for each unit.
-  The role-id and role-secret-id shall be provided in the form of a Juju secret.
-  Usage of role-id and role-secret-id to access the KV backend shall be restricted to the unit's egress_subnet.
+- Must provide a key value mount, the mount name shall respect the following pattern: `charm-<requirer app>-<user provided suffix>`
+- Must create an approle restricted to the requiring unit's egress subnet.
+- Must create a Juju secret containing a role-id and role-secret-id for each unit
+- Must provide the Juju secret ID in the relation data.
 
 ### Requirer
 
