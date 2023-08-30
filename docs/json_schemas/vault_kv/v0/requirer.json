@@ -23,6 +23,11 @@
           "title": "Egress Subnet",
           "default": "Egress subnet to use, in CIDR notation.",
           "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "default": "Uniquely identifying value for this unit. `secrets.token_hex(16)` is recommended.",
+          "type": "string"
         }
       }
     },

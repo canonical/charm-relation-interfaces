@@ -35,7 +35,7 @@
         },
         "credentials": {
           "title": "Credentials",
-          "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a role-id and role-secret-id.",
+          "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'.",
           "type": "object",
           "additionalProperties": {
             "type": "string"

@@ -23,7 +23,7 @@ class VaultKvProviderSchema(BaseModel):
     credentials: Json[Mapping[str, str]] = Field(
         description=(
             "Mapping of unit name and credentials for that unit."
-            " Credentials are a juju secret containing a role-id and role-secret-id."
+            " Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'."
         )
     )
 
@@ -34,6 +34,9 @@ class AppVaultKvRequirerSchema(BaseModel):
 
 class UnitVaultKvRequirerSchema(BaseModel):
     egress_subnet: str = Field("Egress subnet to use, in CIDR notation.")
+    nonce: str = Field(
+        "Uniquely identifying value for this unit. `secrets.token_hex(16)` is recommended."
+    )
 
 
 class ProviderSchema(DataBagSchema):
