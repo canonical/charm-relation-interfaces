@@ -50,8 +50,7 @@ All fields are json-serialized.
 ### Requirer
 
 Exposes the unit name (`name`), model name (`model`), hostname (`host`) and port (`port`) at which ingress should be provided. 
-`name`, `port` and `model` should be placed in the **application** databag. `host`, as it may differ per ingressed unit (e.g. if it's a fqdn), will be placed in the **unit** databags of the respective ingress-requesting units.
-Depending on the library being used (and the provider charm), additional configuration keys may be supported. 
+`name`, `port` and `model` should be placed in the **application** databag. `host`, as it may differ per ingressed unit (e.g. if it's a fqdn), will be placed in the **unit** databags of the respective ingress-requesting units. 
 
 #### Example
 ```yaml
