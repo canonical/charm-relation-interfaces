@@ -33,7 +33,6 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ### Requirer
 
 - Is expected to provide a database name in the `database` field.
-- Is expected to provide identical values in the `database` field if several requirer units provide it in the relation.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.

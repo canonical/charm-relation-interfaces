@@ -1,0 +1,72 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for Tracing.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/TracingProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "IngesterProtocol": {
+      "title": "IngesterProtocol",
+      "description": "An enumeration.",
+      "enum": [
+        "otlp_grpc",
+        "otlp_http",
+        "zipkin",
+        "tempo"
+      ],
+      "type": "string"
+    },
+    "Ingester": {
+      "title": "Ingester",
+      "type": "object",
+      "properties": {
+        "port": {
+          "title": "Port",
+          "type": "string"
+        },
+        "protocol": {
+          "$ref": "#/definitions/IngesterProtocol"
+        }
+      },
+      "required": [
+        "port",
+        "protocol"
+      ]
+    },
+    "TracingProviderData": {
+      "title": "TracingProviderData",
+      "type": "object",
+      "properties": {
+        "host": {
+          "title": "Host",
+          "type": "string"
+        },
+        "ingesters": {
+          "title": "Ingesters",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Ingester"
+          }
+        }
+      },
+      "required": [
+        "host",
+        "ingesters"
+      ]
+    }
+  }
+}
