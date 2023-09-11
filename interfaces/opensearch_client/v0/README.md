@@ -85,5 +85,5 @@ Requirer provides the index name in the **application** databag.
     related-endpoint: opensearch-client
     application-data:
       index: myindex
-      secret_fields: username password tls tls-ca endpoints uris
+      secret_fields: username password tls tls-ca uris
 ```
