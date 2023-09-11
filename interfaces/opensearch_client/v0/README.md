@@ -35,7 +35,7 @@ Passing sensitive information goes via Juju secrets. Corresponding pieces of inf
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
 - If the charm has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)), it is expected to provide the CA chain as of the `tls-ca` field published within a Juju Secret. The secret itself is shared via the `secret-tls` field of the databag.
-- If the Requirer asked for other than the default secrets, Provider is expected to define a `secret-extra` field holding the URI of the particular Juju Secret containing all additional secret values.
+- If the Requirer asks for fields (via `secret_fields` field) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional fields.
 
 ### Requirer
 
