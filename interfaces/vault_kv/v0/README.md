@@ -25,6 +25,8 @@ Provider expectations
 - Is expected to create an approle restricted to the requiring unit's egress subnet.
 - Is expected to create a Juju secret containing a role-id and role-secret-id for each unit
 - Is expected to provide the Juju secret ID in the relation data, identified by the unit's nonce.
+- Is expected to have out of date credentials when requirer unit's identity change, for some unspecified amount of time
+  until new credentials have been generated. For example, during an upgrade-charm event.
 
 ### Requirer
 
