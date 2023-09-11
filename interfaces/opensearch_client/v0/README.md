@@ -35,11 +35,11 @@ Passing sensitive information goes via Juju secrets. Corresponding pieces of inf
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
 - If the charm has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)), it is expected to provide the CA chain as of the `tls-ca` field published within a Juju Secret. The secret itself is shared via the `secret-tls` field of the databag.
-- If the Requirer asks for fields (via `secret_fields` field) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional fields.
+- If the Requirer asks for additional secrets (via `secret_fields`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 
 ### Requirer
 
-- Is expected to provide a list of field names, that are not to be exposed on the relation databag, but handled within Juju Secrets. List members should be separated by ' ' (space character), and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
+- Is expected to provide `secret-fields`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. List members should be separated by ' ' (space character), and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
 - Is expected to provide an index name in the `index` field.
 - Is expected to manage its own index.
   - Indices are not created on the provider application when the relation is created. The `index` field exists to grant the correct permissions for the relation user, which the requirer charm uses to control its index.
