@@ -8,7 +8,7 @@ to the Data Network, policy enforcement and data buffering.
 
 The `fiveg_n4` relation interface describes the expected behavior of any charm claiming to be able 
 to provide or consume the UPF information in order to establish communication over the N4 interface. 
-In a typical 5G network, the N4 interface is used between UPF and AMF. 
+In a typical 5G network, the N4 interface is used between UPF and SMF. 
 
 ## Direction
 
