@@ -1,0 +1,46 @@
+{
+  "title": "RequirerSchema",
+  "description": "The schema for the requirer side of this interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/UnitVaultKvRequirerSchema"
+    },
+    "app": {
+      "$ref": "#/definitions/AppVaultKvRequirerSchema"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "definitions": {
+    "UnitVaultKvRequirerSchema": {
+      "title": "UnitVaultKvRequirerSchema",
+      "type": "object",
+      "properties": {
+        "egress_subnet": {
+          "title": "Egress Subnet",
+          "default": "Egress subnet to use, in CIDR notation.",
+          "type": "string"
+        },
+        "nonce": {
+          "title": "Nonce",
+          "default": "Uniquely identifying value for this unit. `secrets.token_hex(16)` is recommended.",
+          "type": "string"
+        }
+      }
+    },
+    "AppVaultKvRequirerSchema": {
+      "title": "AppVaultKvRequirerSchema",
+      "type": "object",
+      "properties": {
+        "mount_suffix": {
+          "title": "Mount Suffix",
+          "default": "Suffix to append to the mount name to get the KV mount.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
