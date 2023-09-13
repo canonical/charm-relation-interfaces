@@ -1,14 +1,18 @@
 """This file defines the schemas for the provider and requirer sides of the `fiveg_n4` interface.
-It exposes two interfaces.schema_base.DataBagSchema subclasses called:
-- ProviderSchema
-- RequirerSchema
+
+It exposes two `interfaces.schema_base.DataBagSchema` subclasses called:
+- `ProviderSchema`
+- `RequirerSchema`
+
 Examples:
+
     ProviderSchema:
         unit: <empty>
         app: {
             "upf_hostname": "upf.uplane-cloud.canonical.com",
             "upf_port": 8805
         }
+
     RequirerSchema:
         unit: <empty>
         app:  <empty>
