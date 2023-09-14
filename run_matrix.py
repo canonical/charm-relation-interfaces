@@ -57,18 +57,23 @@ def _clone_charm_repo(charm_config: "_CharmTestConfig", charm_path: Path):
             f"custom branch provided for {charm_config.name}; "
             f"this should only be done in staging"
         )
-    subprocess.call(
+    retcode = subprocess.call(
         f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}",
         shell=True,
         stdout=subprocess.DEVNULL,
     )
+    if retcode > 0:
+        raise SetupError(
+            f"Failed to clone repo for {charm_config.name}; "
+            "check the charms.yaml config."
+        )
 
 
 def _prepare_repo(
-    charm_config: "_CharmTestConfig",
-    interface: str,
-    version: int,
-    root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
+        charm_config: "_CharmTestConfig",
+        interface: str,
+        version: int,
+        root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
 ) -> Tuple[Path, Path]:
     """Clone the charm repository and create the venv if it hasn't been done already."""
     logging.info(f"Preparing testing environment for: {charm_config.name}")
@@ -109,7 +114,7 @@ def test_{interface}_interface({fixture_id}: InterfaceTester):
 
 
 def _generate_test(
-    interface: str, test_path: Path, fixture_id: str, version: int
+        interface: str, test_path: Path, fixture_id: str, version: int
 ) -> Path:
     """Generate a pytest file for a given charm and interface."""
     logging.info(f"Generating test file for {interface} at {test_path}")
@@ -180,7 +185,7 @@ def _run_test_with_pytest(root: Path, test_path: Path):
 
 
 def _test_charm(
-    charm_config: "_CharmTestConfig", interface: str, version: int, role: str
+        charm_config: "_CharmTestConfig", interface: str, version: int, role: str
 ) -> bool:
     """Run interface tests for a charm."""
     logging.info(f"Running tests for charm: {charm_config.name}")
@@ -205,7 +210,7 @@ def _test_charm(
 
 
 def _test_charms(
-    charm_configs: Iterable["_CharmTestConfig"], interface: str, version: int, role: str
+        charm_configs: Iterable["_CharmTestConfig"], interface: str, version: int, role: str
 ) -> "_ResultsPerCharm":
     """Test all charms against this interface and role."""
     logging.info(f"Running tests for {interface}")
@@ -218,7 +223,7 @@ def _test_charms(
 
 
 def _test_roles(
-    tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str, version: int
+        tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str, version: int
 ) -> "_ResultsPerRole":
     """Run the tests for each role of this interface."""
     results_per_role: _ResultsPerRole = {}
@@ -293,4 +298,5 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    pprint_interface_test_results(run_interface_tests(Path("."), args.include))
+    result = run_interface_tests(Path("."), args.include)
+    pprint_interface_test_results(result)

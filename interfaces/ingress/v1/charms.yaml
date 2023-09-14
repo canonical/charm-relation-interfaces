@@ -1,6 +1,5 @@
 providers:
   - name: traefik-k8s
     url: https://github.com/canonical/traefik-k8s-operator
-    branch: scenario-5.0  # todo: remove when https://github.com/canonical/traefik-k8s-operator/pull/239 lands
 
 requirers: []

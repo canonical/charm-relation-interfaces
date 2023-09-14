@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -21,7 +22,9 @@ class MyProvider(CharmBase):
         self.framework.observe(self.on.ingress_relation_changed, self._on_changed)
 
     def _on_changed(self, e):
-        if e.relation.data[e.relation.app].get("host"):
+        appdata = e.relation.data[e.relation.app]
+        # simplification of valid ingress requirer data
+        if all(appdata.get(key) for key in ("host", "port", "model", "name")):
             url = yaml.safe_dump({"url": "http://foo.com"})
             e.relation.data[self.app]["ingress"] = url
         else:
@@ -38,10 +41,10 @@ class MyRequirer(CharmBase):
     def _on_created(self, e):
         if self.unit.is_leader():
             data = {
-                "host": "foo",
-                "port": "10",
-                "model": "baz",
-                "name": self.unit.name,
+                "host": '"foo"',
+                "port": '10',
+                "model": '"baz"',
+                "name": json.dumps(self.unit.name),
             }
             e.relation.data[self.app]["data"] = yaml.safe_dump(data)
 
