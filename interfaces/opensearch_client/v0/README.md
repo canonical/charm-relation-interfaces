@@ -20,7 +20,7 @@ As with all Juju relations, the `opensearch-client` interface consists of two pa
 
 Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
 
-Passing sensitive information goes via Juju secrets. Corresponding pieces of information are grouped together in a single secret.
+Sensitive information is transmitted through Juju secrets rather than directly through the relation data bag(s). Corresponding pieces of information are grouped together in a single secret.
 
 ### Provider
 
@@ -31,10 +31,12 @@ Passing sensitive information goes via Juju secrets. Corresponding pieces of inf
 - Is not expected to create an index on relation creation.
   - Responsibility for managing an index rests with the requirer application, including creating and removing indices.
 - Is expected to provide the `index` field with the index that has been made available to the Requirer.
-- Is expected to provide unique a `secret-user` field, that contains the URI of the Juju Secret, which holds the `username` and `password` fields when Requirer provides the `index` field.
+- Is expected to provide credentials (`username` and `password`) in a Juju Secret whenever the requirer supplies the `index` field.
+- Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
-- If the charm has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)), it is expected to provide the CA chain as of the `tls-ca` field published within a Juju Secret. The secret itself is shared via the `secret-tls` field of the databag.
+- Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (for instance, by using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
+- Is expected to share the CA chain secret through the `secret-tls` field of the databag.
 - If the Requirer asks for additional secrets (via `secret_fields`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 
 ### Requirer
