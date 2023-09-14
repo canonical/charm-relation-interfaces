@@ -1,0 +1,56 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for Ingress.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "title": "App",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SidebarItem"
+      }
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "SidebarItem": {
+      "title": "SidebarItem",
+      "description": "Representation of a Kubeflow Dashboard sidebar entry.\n\nSee https://www.kubeflow.org/docs/components/central-dash/customizing-menu/ for more details.\n\nArgs:\n    text: The text shown in the sidebar\n    link: The relative link within the host (eg: /runs, not http://.../runs)\n    type: A type of sidebar entry (typically, \"item\")\n    icon: An icon for the link, from\n          https://kevingleason.me/Polymer-Todo/bower_components/iron-icons/demo/index.html",
+      "type": "object",
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "link": {
+          "title": "Link",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "icon": {
+          "title": "Icon",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "link",
+        "type",
+        "icon"
+      ]
+    }
+  }
+}
