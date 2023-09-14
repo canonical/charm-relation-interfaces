@@ -18,7 +18,7 @@ Examples:
         app:  <empty>
 """
 
-from pydantic import BaseModel, IPvAnyAddress, Field
+from pydantic import BaseModel, Field
 
 from interface_tester.schema_base import DataBagSchema
 
