@@ -14,7 +14,14 @@ requirers:
     # example: https://github.com/canonical/grafana-k8s-operator
     url: <git repository url>
 
-    # (Optional): test configuration
+    # (Optional): Configuration for the test runner. It tells the interface test 
+    # runner how to set up the context for the charm to be testable under the 
+    # conditions required by this repository. Necessary if the charm requires, 
+    # for example, a specific config, leadership, container connectivity, etc... in 
+    # order to process the relation events as requested in order to comply with 
+    # the interface.
+    # For more details, see the interface-tester-pytest documentation at:
+    #   https://github.com/canonical/interface-tester-pytest
     test_setup:
 
       # (Optional)
@@ -32,5 +39,3 @@ requirers:
 # (Mandatory) List of provider charms (and optionally their test configs)
 providers: [] # format is same as `requirers`
 ```
-
-
