@@ -29,7 +29,7 @@ providers:
 requirers: []
 ```
 
-Verify that the `charms.yaml` file format is correct:
+Verify that the [`charms.yaml` file format](CHARMS_YAML_SPEC.md) is correct:
 
 `interface_tester discover --include ingress`
 
