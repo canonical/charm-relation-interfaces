@@ -2,11 +2,11 @@
 
 ## Usage
 
-Within Charmed-5G, components that need to make configuration changes to the network need to have access to the configuration and management service.
+Within Charmed-5G, components that makes configuration changes to the network need to have access to the configuration and management service.
 
-The `sdcore_management` relation interface describes the expected behavior of any charm claiming to be able to provide or consume the information to access the SD-Core configuration service.
+The `sdcore_management` relation interface describes the expected behavior of any charm claiming to be able to provide or consume the information to access the configuration service in SD-Core.
 
-SD-Core Webui Operator that allows the configuration of the SD-Core network within Charmed-5G is a typical provider and SD-Core NMS (Network Management System) Operator that provides a user interface to manage and configure the network is a typical requirer of this relation.
+SD-Core Webui Operator that is responsible for the configuration of the SD-Core network within Charmed-5G is a typical provider and SD-Core NMS (Network Management System) Operator that provides a user interface to manage and configure the network is a typical requirer of this relation.
 
 ## Direction
 
