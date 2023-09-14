@@ -42,7 +42,7 @@ class MyRequirer(CharmBase):
         if self.unit.is_leader():
             data = {
                 "host": '"foo"',
-                "port": '10',
+                "port": "10",
                 "model": '"baz"',
                 "name": json.dumps(self.unit.name),
             }
