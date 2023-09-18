@@ -18,15 +18,19 @@ Examples:
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field, HttpUrl
 
+
 class SdcoreManagementProviderAppData(BaseModel):
     management_url: HttpUrl = Field(
         description="The endpoint to use to manage SD-Core network.",
-        examples=["http://1.2.3.4:1234"]
+        examples=["http://1.2.3.4:1234"],
     )
+
 
 class ProviderSchema(DataBagSchema):
     """The schema for the provider side of the sdcore_management interface."""
+
     app: SdcoreManagementProviderAppData
+
 
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of the sdcore_management interface."""
