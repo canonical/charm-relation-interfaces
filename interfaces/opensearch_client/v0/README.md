@@ -10,7 +10,7 @@ In most cases, this will be accomplished using the [data_interfaces library](htt
 
 ```mermaid
 flowchart TD
-    Requirer -- index, \nextra-user-roles, \nsecret_fields --> Provider
+    Requirer -- index, \nextra-user-roles, \nrequested-secrets --> Provider
     Provider -- index, \nendpoints, \nsecret-user --> Requirer
 ```
 
@@ -38,11 +38,11 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to provide the `version` field describing the installed version number of opensearch.
 - Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled.
 - Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
-- If the Requirer asks for additional secrets (via `secret_fields`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
+- If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 
 ### Requirer
 
-- Is expected to provide `secret-fields`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. List members should be separated by ' ' (space character), and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
+- Is expected to provide `requested-secrets`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. It should be JSON parsable array of strings, and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
 - Is expected to provide an index name in the `index` field.
 - Is expected to manage its own index.
   - Indices are not created on the provider application when the relation is created. The `index` field exists to grant the correct permissions for the relation user, which the requirer charm uses to control its index.
@@ -89,5 +89,5 @@ Requirer provides the index name in the **application** databag.
     related-endpoint: opensearch-client
     application-data:
       index: myindex
-      secret_fields: username password tls tls-ca uris
+      requested-secrets: ["username", "password", "tls", "tls-ca", "uris"]
 ```
