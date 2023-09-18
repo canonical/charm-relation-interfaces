@@ -33,6 +33,11 @@
           "description": "The KV mount available for the requirer application, respecting the pattern 'charm-<requirer app>-<user provided suffix>'.",
           "type": "string"
         },
+        "ca_certificate": {
+          "title": "Ca Certificate",
+          "description": "The CA certificate to use when validating the Vault server's certificate.",
+          "type": "string"
+        },
         "credentials": {
           "title": "Credentials",
           "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'.",
@@ -45,6 +50,7 @@
       "required": [
         "vault_url",
         "mount",
+        "ca_certificate",
         "credentials"
       ]
     }
