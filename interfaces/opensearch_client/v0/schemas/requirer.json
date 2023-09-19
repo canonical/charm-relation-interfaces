@@ -19,6 +19,14 @@
                 "myapp"
             ]
         },
+        "requested-secrets": {
+            "title": "Requested Secrets",
+            "description": "Any provider field which should be transfered as Juju Secret",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "extra-user-roles": {
             "title": "Extra-user-roles",
             "description": "Any extra user roles requested by the requirer",
