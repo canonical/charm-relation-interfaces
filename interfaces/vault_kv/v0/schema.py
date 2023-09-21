@@ -20,6 +20,9 @@ class VaultKvProviderSchema(BaseModel):
             "respecting the pattern 'charm-<requirer app>-<user provided suffix>'."
         )
     )
+    ca_certificate: str = Field(
+        description="The CA certificate to use when validating the Vault server's certificate."
+    )
     credentials: Json[Mapping[str, str]] = Field(
         description=(
             "Mapping of unit name and credentials for that unit."
