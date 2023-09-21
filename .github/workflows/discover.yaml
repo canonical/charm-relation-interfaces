@@ -18,7 +18,6 @@ jobs:
           python-version: 3.8
       - name: install interface-tester
         run: |
-          # TODO remove "ops<2.5": https://github.com/canonical/ops-scenario/issues/48
-          python -m pip install pytest-interface-tester "ops<2.5"
+          python -m pip install pytest-interface-tester ops
       - name: run discover
         run: interface_tester discover

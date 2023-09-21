@@ -181,6 +181,6 @@ def test_build_schemas_broken_source(tmp_path, source, caplog):
         )
 
     assert (
-        f"Found object called 'RequirerSchema' in {schema_path}; "
-        f"expecting a DataBagSchema subclass, not" in caplog.text
-    )
+        f"Found object called RequirerSchema in {schema_path}; "
+        f"expecting a DataBagSchema subclass, not "
+    ) in caplog.text
