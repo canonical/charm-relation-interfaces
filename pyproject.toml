@@ -20,7 +20,7 @@ keywords = ["juju", "relation interfaces"]
 
 dependencies = [
     "pydantic==1.10.7",
-    "pytest-interface-tester==0.1.1"
+    "pytest-interface-tester>=1.0.2"
 ]
 
 readme = "README.md"
@@ -34,20 +34,20 @@ classifiers = [
 
 [project.optional-dependencies]
 unit_tests = [
-    "ops==2.2.0",
-    "PyYAML==6.0",
-    "pytest==7.3.1",
-    "ops-scenario==2.2",
+    "ops>=2.2.0",
+    "PyYAML>=6.0",
+    "pytest>=7.3.1",
+    "ops-scenario>=5",
 ]
 
 json_schemas = [
-    "PyYAML==6.0",
+    "PyYAML>=6.0",
 ]
 
 interface_tests = [
-    "PyYAML==6.0",
-    "pytest==7.3.1",
-    "ops-scenario==2.2",
+    "PyYAML>=6.0",
+    "pytest>=7.3.1",
+    "ops-scenario>=5",
     "pydantic==1.10.7",
     "requests==2.28.1",
     "virtualenv==20.21.0"

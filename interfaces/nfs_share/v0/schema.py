@@ -23,7 +23,7 @@ Examples:
 
 from pydantic import BaseModel
 
-from interfaces.schema_base import DataBagSchema
+from interface_tester.schema_base import DataBagSchema
 
 
 class NFSShareProviderAppData(BaseModel):
