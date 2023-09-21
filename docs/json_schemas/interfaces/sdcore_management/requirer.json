@@ -1,0 +1,20 @@
+{
+  "title": "RequirerSchema",
+  "description": "The schema for the requirer side of the sdcore_management interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/BaseModel"
+    }
+  },
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    }
+  }
+}
