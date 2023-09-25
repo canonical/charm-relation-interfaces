@@ -32,13 +32,18 @@ class VaultKvProviderSchema(BaseModel):
 
 
 class AppVaultKvRequirerSchema(BaseModel):
-    mount_suffix: str = Field("Suffix to append to the mount name to get the KV mount.")
+    mount_suffix: str = Field(
+        description="Suffix to append to the mount name to get the KV mount."
+    )
 
 
 class UnitVaultKvRequirerSchema(BaseModel):
-    egress_subnet: str = Field("Egress subnet to use, in CIDR notation.")
+    egress_subnet: str = Field(description="Egress subnet to use, in CIDR notation.")
     nonce: str = Field(
-        "Uniquely identifying value for this unit. `secrets.token_hex(16)` is recommended."
+        description=(
+            "Uniquely identifying value for this unit."
+            " `secrets.token_hex(16)` is recommended."
+        )
     )
 
 
