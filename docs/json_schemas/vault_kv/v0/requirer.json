@@ -21,15 +21,19 @@
       "properties": {
         "egress_subnet": {
           "title": "Egress Subnet",
-          "default": "Egress subnet to use, in CIDR notation.",
+          "description": "Egress subnet to use, in CIDR notation.",
           "type": "string"
         },
         "nonce": {
           "title": "Nonce",
-          "default": "Uniquely identifying value for this unit. `secrets.token_hex(16)` is recommended.",
+          "description": "Uniquely identifying value for this unit. `secrets.token_hex(16)` is recommended.",
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "egress_subnet",
+        "nonce"
+      ]
     },
     "AppVaultKvRequirerSchema": {
       "title": "AppVaultKvRequirerSchema",
@@ -37,10 +41,13 @@
       "properties": {
         "mount_suffix": {
           "title": "Mount Suffix",
-          "default": "Suffix to append to the mount name to get the KV mount.",
+          "description": "Suffix to append to the mount name to get the KV mount.",
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "mount_suffix"
+      ]
     }
   }
 }
