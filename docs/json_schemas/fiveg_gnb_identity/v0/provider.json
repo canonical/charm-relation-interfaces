@@ -35,9 +35,9 @@
           "title": "Tac",
           "description": "Tracking Area Code",
           "examples": [
-            "0001"
+            1
           ],
-          "type": "string"
+          "type": "integer"
         }
       },
       "required": [

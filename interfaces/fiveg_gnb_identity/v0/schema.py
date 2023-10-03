@@ -9,7 +9,7 @@ Examples:
         unit: <empty>
         app: {
             "gnb_name": "gnb001",
-            "tac": "0001"
+            "tac": 1
         }
     RequirerSchema:
         unit: <empty>
@@ -25,9 +25,9 @@ class FivegGnbIdentityProviderAppData(BaseModel):
         description="Name of the gnB.",
         examples=["gnb001"]
     )
-    tac: str = Field(
+    tac: int = Field(
         description="Tracking Area Code",
-        examples=["0001"]
+        examples=[1]
     )
 
 

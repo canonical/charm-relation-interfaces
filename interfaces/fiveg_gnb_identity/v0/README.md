@@ -40,7 +40,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 provider:
   app: {
     "gnb_name": "gnb001",
-    "tac": "001"
+    "tac": 1
   }
   unit: {}
 requirer:
