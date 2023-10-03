@@ -9,7 +9,7 @@ Examples:
         unit: <empty>
         app: {
             "gnb_name": "gnb001",
-            "tac": "0001"
+            "tac": 1
         }
     RequirerSchema:
         unit: <empty>
