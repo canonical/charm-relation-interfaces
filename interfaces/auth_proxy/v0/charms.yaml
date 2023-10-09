@@ -1,0 +1,6 @@
+providers:
+  - name: oathkeeper-operator
+    url: https://www.github.com/canonical/oathkeeper-operator
+
+requirers:
+  []

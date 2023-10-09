@@ -1,0 +1,7 @@
+providers:
+  - name: traefik-k8s-operator
+    url: https://www.github.com/canonical/traefik-k8s-operator
+
+requirers:
+  - name: oathkeeper-operator
+    url: https://www.github.com/canonical/oathkeeper-operator
