@@ -43,6 +43,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`database_backup`](interfaces/database_backup/v0/README.md)                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`oauth`](interfaces/oauth/v0/README.md)                                     |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
+|               | [`auth_proxy`](interfaces/auth_proxy/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
 |               | [`openfga`](interfaces/openfga/v0/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  | 
 |               | [`saml`](interfaces/saml/v0/README.md)                                       |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)   |
 | Observability | [`grafana_auth`](interfaces/grafana_auth/v0/README.md)                       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
@@ -72,12 +73,13 @@ To quickly get started, see the [template interface](https://github.com/canonica
 
 ### Identity
 
-| Category      | Interface                                                                    |                               Status                                |
-|---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
-| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|               | [`kratos_external_idp`](interfaces/kratos_external_idp/v0/README.md)         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|               | [`kratos_endpoints`](interfaces/kratos_endpoints/v0/README.md)               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|               | [`login_ui_endpoints`](interfaces/login_ui_endpoints/v0/README.md)           | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| Category      | Interface                                                            |                               Status                                |
+|---------------|:---------------------------------------------------------------------|:-------------------------------------------------------------------:|
+| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`kratos_external_idp`](interfaces/kratos_external_idp/v0/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`kratos_endpoints`](interfaces/kratos_endpoints/v0/README.md)       | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`login_ui_endpoints`](interfaces/login_ui_endpoints/v0/README.md)   | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|               | [`forward_auth`](interfaces/forward_auth/v0/README.md)               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
 ### Observability
 
