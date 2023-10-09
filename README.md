@@ -41,8 +41,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`kafka_client`](interfaces/kafka_client/v0/README.md)                       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`opensearch_client`](interfaces/opensearch_client/v0/README.md)             |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`database_backup`](interfaces/database_backup/v0/README.md)                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
-| Identity      | [`hydra_endpoints`](interfaces/hydra_endpoints/v0/README.md)                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
-|               | [`oauth`](interfaces/oauth/v0/README.md)                                     |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
+| Identity      | [`oauth`](interfaces/oauth/v0/README.md)                                     |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`auth_proxy`](interfaces/auth_proxy/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
 |               | [`openfga`](interfaces/openfga/v0/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  | 
 |               | [`saml`](interfaces/saml/v0/README.md)                                       |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)   |
