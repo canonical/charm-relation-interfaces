@@ -10,7 +10,7 @@ The interface will consist of a provider and a requirer.
 
 The requirer is expected to supply configuration required to set up an Identity and Access Proxy: protected urls, allowed endpoints and headers.
 
-The provider will read the information from the application databag, transform them into access rules and forward relevant configuration to Traefik. It will not write to the application databag.
+The provider will read the information from the application databag, transform them into access rules and forward relevant configuration to Traefik or other API Gateway. It will not write to the application databag.
 
 ```mermaid
 flowchart
