@@ -7,14 +7,48 @@
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "$ref": "#/definitions/BaseModel"
+      "$ref": "#/definitions/ForwardAuthProvider"
     }
   },
+  "required": [
+    "app"
+  ],
   "definitions": {
     "BaseModel": {
       "title": "BaseModel",
       "type": "object",
       "properties": {}
+    },
+    "ForwardAuthProvider": {
+      "title": "ForwardAuthProvider",
+      "type": "object",
+      "properties": {
+        "decisions_address": {
+          "title": "Decisions Address",
+          "description": "The internal decisions endpoint address.",
+          "type": "string"
+        },
+        "app_names": {
+          "title": "App Names",
+          "description": "List of names of applications requesting to be protected by Identity and Access Proxy.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "headers": {
+          "title": "Headers",
+          "description": "List of headers to copy from the authentication server response and set on forwarded requests.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "decisions_address",
+        "app_names"
+      ]
     }
   }
 }

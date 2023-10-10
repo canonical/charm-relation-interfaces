@@ -4,7 +4,7 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 
 Examples:
-    RequirerSchema:
+    ProviderSchema:
         unit: <empty>
         app: {
           "providers": [
@@ -14,7 +14,7 @@ Examples:
           ]
         }
 
-    ProviderSchema:
+    RequirerSchema:
         unit: <empty>
         app: <empty>
 """
@@ -25,7 +25,7 @@ from pydantic import BaseModel, Field
 from interface_tester.schema_base import DataBagSchema
 
 
-class ForwardAuthRequirer(BaseModel):
+class ForwardAuthProvider(BaseModel):
     decisions_address: str = Field(
         description="The internal decisions endpoint address."
     )
@@ -39,8 +39,8 @@ class ForwardAuthRequirer(BaseModel):
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for forward_auth."""
+    app: ForwardAuthProvider
 
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for forward_auth."""
-    app: ForwardAuthRequirer
