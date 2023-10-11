@@ -1,6 +1,5 @@
 providers:
   - name: traefik-k8s
     url: https://github.com/canonical/traefik-k8s-operator
-    branch: ingress/scheme  # todo remove when merged
 
 requirers: []
