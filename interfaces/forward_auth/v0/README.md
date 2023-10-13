@@ -28,14 +28,10 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 - Is expected to provide a Policy Decision Point in IAP architecture
 - Must be able to authorize incoming HTTP requests.
 
-In the current architecture, [oathkeeper-operator](https://github.com/canonical/oathkeeper-operator) is the only known provider.
-
 ### Requirer
 
 - Is expected to be able to delegate authentication to an external service, e.g. with the use of Traefik ForwardAuth middleware
 - Is expected to transform incoming `forward_auth` data into relevant configuration (e.g. traefik routes).
-
-In the current architecture, [traefik-k8s-operator](https://github.com/canonical/traefik-k8s-operator) is the only requirer, however nginx can be considered as its equivalent for machine charms.
 
 ## Relation Data
 
@@ -48,7 +44,7 @@ In the current architecture, [traefik-k8s-operator](https://github.com/canonical
 ```json
 {
   "application_data": {
-    "decisions_address": "http://oathkeeper-0.oathkeeper-endpoints.namespace.svc.cluster.local:4456/decisions",
+    "decisions_address": "https://oathkeeper-0.oathkeeper-endpoints.namespace.svc.cluster.local:4456/decisions",
     "app_names": ["some-charm", "some-other-charm"],
     "headers": ["X-User", "X-Some-Header"]
   }

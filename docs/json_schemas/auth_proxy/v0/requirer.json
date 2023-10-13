@@ -19,22 +19,6 @@
       "type": "object",
       "properties": {}
     },
-    "Url": {
-      "title": "Url",
-      "type": "object",
-      "properties": {
-        "url": {
-          "title": "Url",
-          "minLength": 1,
-          "maxLength": 65536,
-          "format": "uri",
-          "type": "string"
-        }
-      },
-      "required": [
-        "url"
-      ]
-    },
     "AuthProxyRequirer": {
       "title": "AuthProxyRequirer",
       "type": "object",
@@ -44,7 +28,10 @@
           "description": "List of urls to be protected by Identity and Access Proxy.",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Url"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 65536,
+            "format": "uri"
           }
         },
         "allowed_endpoints": {

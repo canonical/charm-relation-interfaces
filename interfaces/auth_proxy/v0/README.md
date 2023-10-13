@@ -30,7 +30,7 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Requirer
 
-- Is expected to provide configuration required to set up access rules: protected urls, allowed endpoints and headers.
+- Is expected to provide configuration required to set up access rules: protected urls (externally accessible ingress urls), allowed endpoints and headers.
 
 ## Relation Data
 

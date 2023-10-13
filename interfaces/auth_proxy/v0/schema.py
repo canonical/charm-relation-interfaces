@@ -25,12 +25,8 @@ from pydantic import AnyHttpUrl, BaseModel, Field
 from interface_tester.schema_base import DataBagSchema
 
 
-class Url(BaseModel):
-    url: AnyHttpUrl
-
-
 class AuthProxyRequirer(BaseModel):
-    protected_urls: List[Url] = Field(
+    protected_urls: List[AnyHttpUrl] = Field(
         description="List of urls to be protected by Identity and Access Proxy."
     )
     allowed_endpoints: Optional[List[str]] = Field(
