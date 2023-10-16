@@ -8,7 +8,7 @@ Examples:
         unit: <empty>
         app: {
           "providers": [
-            "decisions_address": "http://oathkeeper-0.oathkeeper-endpoints.namespace.svc.cluster.local:4456/decisions",
+            "decisions_address": "https://oathkeeper-0.oathkeeper-endpoints.namespace.svc.cluster.local:4456/decisions",
             "app_names": ["charmed-app", "other-charmed-app"],
             "headers": ["X-User", "X-Some-Header"]
           ]
