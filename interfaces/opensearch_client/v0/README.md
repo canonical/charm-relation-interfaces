@@ -36,7 +36,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
-- Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled.
+- Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
 - Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 
@@ -89,5 +89,5 @@ Requirer provides the index name in the **application** databag.
     related-endpoint: opensearch-client
     application-data:
       index: myindex
-      requested-secrets: ["username", "password", "tls", "tls-ca", "uris"]
+      requested-secrets: ["username", "password", "tls-ca", "uris"]
 ```
