@@ -11,11 +11,11 @@ The interface will consist of a provider and a requirer.
 The provider is expected to supply configuration required to connect its Policy Decision Point with an API Gateway: decisions address, headers and names of applications (charms) to be protected by Identity and Access Proxy.
 
 The requirer will read the information from the application databag and update its configuration to forward authentication to the external service.
-It will not write to the application databag.
+It is expected to write to the databag a list of names of applications it provides ingress to.
 
 ```mermaid
 flowchart
-    Requirer ----> Provider
+    Requirer -- ingress_app_names --> Provider
     Provider -- decisions_address, app_names, headers --> Requirer
 ```
 
@@ -31,7 +31,9 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 ### Requirer
 
 - Is expected to be able to delegate authentication to an external service, e.g. with the use of Traefik ForwardAuth middleware
-- Is expected to transform incoming `forward_auth` data into relevant configuration (e.g. traefik routes).
+- Is expected to transform incoming `forward_auth` data into relevant configuration (e.g. traefik routes)
+- Is expected to provide ingress controller-like capabilities to its related applications
+- Is expected to provide a list of names of applications that are related via one of the ingress interfaces.
 
 ## Relation Data
 
@@ -55,4 +57,12 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-n/a
+#### Example
+
+```json
+{
+  "application_data": {
+    "ingress_app_names": ["charmed-app", "other-charmed-app"]
+  }
+}
+```

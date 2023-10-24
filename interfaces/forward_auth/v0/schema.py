@@ -7,16 +7,16 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-          "providers": [
             "decisions_address": "https://oathkeeper-0.oathkeeper-endpoints.namespace.svc.cluster.local:4456/decisions",
             "app_names": ["charmed-app", "other-charmed-app"],
             "headers": ["X-User", "X-Some-Header"]
-          ]
         }
 
     RequirerSchema:
         unit: <empty>
-        app: <empty>
+        app: {
+            "ingress_app_names": ["charmed-app", "other-charmed-app"]
+        }
 """
 
 from typing import List, Optional
@@ -37,6 +37,12 @@ class ForwardAuthProvider(BaseModel):
     )
 
 
+class ForwardAuthRequirer(BaseModel):
+    ingress_app_names: Optional[List[str]] = Field(
+        description="List of names of applications that are related via ingress."
+    )
+
+
 class ProviderSchema(DataBagSchema):
     """Provider schema for forward_auth."""
     app: ForwardAuthProvider
@@ -44,3 +50,4 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for forward_auth."""
+    app: ForwardAuthRequirer
