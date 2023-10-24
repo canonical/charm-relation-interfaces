@@ -30,6 +30,7 @@ Both the requirer and the provider need to adhere to a certain set of criteria t
 
 ### Requirer
 
+- Is expected to have ingress configured, e.g. with the use of traefik's `ingress-per-app/leader/unit` interface
 - Is expected to provide configuration required to set up access rules: protected urls (externally accessible ingress urls), allowed endpoints and headers.
 
 ## Relation Data
