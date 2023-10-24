@@ -5,14 +5,14 @@
 This relation interface describes the expected behaviour of any charm claiming to be able to interact with a MySQL database.
 Our intent to have different interface names with `<database>_client` pattern (like `mongodb_client`) and the same validation rules for multiple databases (e.g. MySQL, PostgreSQL, MongoDB, etc).
 
-In most cases, this will be accomplished using the database provider library, although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
+In most cases, this will be accomplished using the [data_interfaces library](https://github.com/canonical/data-platform-libs/blob/main/lib/charms/data_platform_libs/v0/data_interfaces.py), although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
 ## Direction
 
 ```mermaid
 flowchart TD
-    Requirer -- database, extra-user-roles --> Provider
-    Provider -- database, username, password, endpoints --> Requirer
+    Requirer -- database, \nextra-user-roles, \nrequested-secrets --> Provider
+    Provider -- database, \nendpoints, \nsecret-user --> Requirer
 ```
 
 As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Requirer (application charm). The Requirer will be expected to provide a database name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the actual database cluster.
@@ -21,16 +21,24 @@ As with all Juju relations, the `database` interface consists of two parties: a 
 
 Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
 
+If both sides support Juju Secrets, sensitive information is transmitted through Juju Secrets rather than directly through the relation data bag(s). Corresponding pieces of information are grouped together in a single secret.
+If any side, Provider or Requirer doesn't support Juju Secrets, sensitive information is transmitted through the relational data bag in the same fields as in Juju Secret.
+
 ### Provider
 - Is expected to create an application user inside the database cluster when the requirer provides the `database` field.
-- Is expected to provide `username` and `password` fields when Requirer provides the `database` field.
+- Is expected to provide credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `database` field.
+- Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field with the address of Primary, which can be used for Read/Write queries.
 - Is expected to provide the `database` field with the database that was actually created.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
+- Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
+- Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
+- If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 
 ### Requirer
 
+- Is expected to provide `requested-secrets`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. It should be JSON parsable array of strings, and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
 - Is expected to provide a database name in the `database` field.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
@@ -56,8 +64,8 @@ Provider provides credentials, endpoints, TLS info and database-specific fields.
       database: myappB
       endpoints: mysql-k8s-primary:5432
       read-only-endpoints: mysql-k8s-replicas:5432
-      password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
-      username: relation-68
+      secret-user: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
+      secret-tls: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog
 ```
 
 ### Requirer
@@ -74,4 +82,5 @@ Requirer provides database name. It should be placed in the **application** data
     related-endpoint: database
     application-data:
       database: myappA
+    requested-secrets: ["username", "password", "tls-ca", "uris"]
 ```
