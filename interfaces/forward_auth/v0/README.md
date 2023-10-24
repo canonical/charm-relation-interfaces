@@ -13,6 +13,9 @@ The provider is expected to supply configuration required to connect its Policy 
 The requirer will read the information from the application databag and update its configuration to forward authentication to the external service.
 It is expected to write to the databag a list of names of applications it provides ingress to.
 
+That list will be compared by the interface with application names that are related to Oathkeeper via `auth-proxy` (and forwarded to `forward-auth` as `app_names`).
+The interface will evaluate whether those applications have ingress configured and are thus eligible for requesting Identity and Access Proxy protection.
+
 ```mermaid
 flowchart
     Requirer -- ingress_app_names --> Provider
