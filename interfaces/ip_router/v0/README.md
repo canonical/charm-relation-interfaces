@@ -38,6 +38,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ```yaml
 requirer:
   app: {
+    "network-name: "<network-name-1>"
     "networks": [
       {
         "network": "192.168.250.0/24",
@@ -54,26 +55,31 @@ requirer:
   unit: { }
 provider:
   app: {
-    "networks": [
-      {
-        "network": "192.168.250.0/24",
-        "gateway": "192.168.250.1",
-        "routes": [
+    "networks":
+      "<network-name-1>: [
+        {
+          "network": "192.168.250.0/24",
+          "gateway": "192.168.250.1",
+          "routes": [
+            {
+              "destination": "172.250.0.0/16",
+              "gateway": "192.168.250.3"
+            }
+          ]
+        },
+        "<network-name-2>: [
           {
-            "destination": "172.250.0.0/16",
-            "gateway": "192.168.250.3"
+            "network": "192.168.252.0/24",
+            "gateway": "192.168.252.1",
+          }
+        ],
+        "<network-name-3>":[
+          {
+            "network": "192.168.251.0/24",
+            "gateway": "192.168.251.1/24"
           }
         ]
-      },
-      {
-        "network": "192.168.252.0/24",
-        "gateway": "192.168.252.1",
-      },
-      {
-        "network": "192.168.251.0/24",
-        "gateway": "192.168.251.1/24"
-      }
-    ]
+      ]
   }
   unit: { }
 ```
