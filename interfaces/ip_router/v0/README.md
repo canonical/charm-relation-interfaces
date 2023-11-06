@@ -37,26 +37,9 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ```yaml
 requirer:
-  app: {
-    "network-name: "<network-name-1>"
-    "networks": [
-      {
-        "network": "192.168.250.0/24",
-        "gateway": "192.168.250.1",
-        "routes": [
-          {
-            "destination": "172.250.0.0/16",
-            "gateway": "192.168.250.3"
-          }
-        ]
-      }
-    ]
-  }
-  unit: { }
-provider:
-  app: {
-    "networks":
-      "<network-name-1>: [
+  app:
+    "app-network": {
+      "networks":
         {
           "network": "192.168.250.0/24",
           "gateway": "192.168.250.1",
@@ -66,20 +49,35 @@ provider:
               "gateway": "192.168.250.3"
             }
           ]
-        },
-        "<network-name-2>: [
+        }
+      }
+  unit: { }
+provider:
+  app: {
+    "networks": [
+      "app-network": 
+      {
+        "network": "192.168.250.0/24",
+        "gateway": "192.168.250.1",
+        "routes": [
           {
-            "network": "192.168.252.0/24",
-            "gateway": "192.168.252.1",
-          }
-        ],
-        "<network-name-3>":[
-          {
-            "network": "192.168.251.0/24",
-            "gateway": "192.168.251.1/24"
+            "destination": "172.250.0.0/16",
+            "gateway": "192.168.250.3"
           }
         ]
-      ]
+      },
+      "other-network":
+      {
+        "network": "192.168.252.0/24",
+        "gateway": "192.168.252.1",
+      }
+      ,
+      "another-network":
+      {
+        "network": "192.168.251.0/24",
+        "gateway": "192.168.251.1/24"
+      }
+    ]
   }
   unit: { }
 ```
