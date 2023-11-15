@@ -54,7 +54,7 @@ class JujuTopology(pydantic.BaseModel):
 
 
 class MyRequirerUnitDataBag(pydantic.BaseModel):
-    juju_topology: Json[JujuTopology]
+    juju_topology: Json[JujuTopology]  # todo [Luca]: change to whatever 'find this unit' info we need, e.g. an address
 
 
 class MyRequirerAppDataBag(pydantic.BaseModel):
