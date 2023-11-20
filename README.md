@@ -54,9 +54,10 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`ingress_per_unit`](interfaces/ingress_per_unit/v0/README.md)               |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`nginx_route`](interfaces/nginx_route/v0/README.md)                         |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`ip_router`](interfaces/ip_router/v0/README.md)                             |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
-| Security      | [`mutual_tls`](interfaces/mutual_tls/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
+| Security      | [`certificate_transfer`](interfaces/certificate_transfer/v0/README.md)       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`tls_certificates/v0`](interfaces/tls_certificates/v0/README.md)            |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`tls_certificates/v1`](interfaces/tls_certificates/v1/README.md)            |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
+|               | [`vault-kv`](interfaces/vault_kv/v0/README.md)                               |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Storage       | [`s3`](interfaces/s3/v0/README.md)                                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 
@@ -87,11 +88,15 @@ To quickly get started, see the [template interface](https://github.com/canonica
 
 ### Telco
 
-| Category   | Interface                                        |                               Status                                |
-|------------|:-------------------------------------------------|:-------------------------------------------------------------------:|
-| Charmed 5G | [`fiveg_nrf`](interfaces/fiveg_nrf/v0/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|            | [`fiveg_n2`](interfaces/fiveg_n2/v0/README.md)   | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
-|          | [`fiveg_n3`](interfaces/fiveg_n3/v0/README.md)     | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+| Category   | Interface                                         |                               Status                                |
+|------------|:--------------------------------------------------|:-------------------------------------------------------------------:|
+| Charmed 5G | [`fiveg_gnb_identity`](interfaces/fiveg_gnb_identity/v0/README.md) | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|            | [`fiveg_nrf`](interfaces/fiveg_nrf/v0/README.md)  | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|            | [`fiveg_n2`](interfaces/fiveg_n2/v0/README.md)    | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|            | [`fiveg_n3`](interfaces/fiveg_n3/v0/README.md)    | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|            | [`fiveg_n4`](interfaces/fiveg_n4/v0/README.md)    | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|            | [`sdcore_management`](interfaces/sdcore_management/v0/README.md)   | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+
 
 For a more detailed explanation of statuses and how they should be used, see [the legend](https://github.com/canonical/charm-relation-interfaces/blob/main/LEGEND.md).
 

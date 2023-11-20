@@ -10,8 +10,8 @@ In most cases, this will be accomplished using the [data_interfaces library](htt
 
 ```mermaid
 flowchart TD
-    Requirer -- index, \nextra-user-roles --> Provider
-    Provider -- index, \nusername, \npassword, \nendpoints --> Requirer
+    Requirer -- index, \nextra-user-roles, \nrequested-secrets --> Provider
+    Provider -- index, \nendpoints, \nsecret-user --> Requirer
 ```
 
 As with all Juju relations, the `opensearch-client` interface consists of two parties: a Provider (opensearch charm), and a Requirer (application charm). The Requirer will be expected to provide an index name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the index itself.
@@ -19,6 +19,9 @@ As with all Juju relations, the `opensearch-client` interface consists of two pa
 ## Behavior
 
 Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface.
+
+If both sides support Juju Secrets, sensitive information is transmitted through Juju Secrets rather than directly through the relation data bag(s). Corresponding pieces of information are grouped together in a single secret.
+If any side, Provider or Requirer doesn't support Juju Secrets, sensitive information is transmitted through the relational data bag in the same fields as in Juju Secret.
 
 ### Provider
 
@@ -29,13 +32,17 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is not expected to create an index on relation creation.
   - Responsibility for managing an index rests with the requirer application, including creating and removing indices.
 - Is expected to provide the `index` field with the index that has been made available to the Requirer.
-- Is expected to provide unique `username` and `password` fields as Juju Secrets when Requirer provides the `index` field.
+- Is expected to provide credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `index` field.
+- Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
-- If the charm has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)), it is expected to provide the CA chain in the `tls-ca` field as a Juju Secret.
+- Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
+- Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
+- If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 
 ### Requirer
 
+- Is expected to provide `requested-secrets`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. It should be JSON parsable array of strings, and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
 - Is expected to provide an index name in the `index` field.
 - Is expected to manage its own index.
   - Indices are not created on the provider application when the relation is created. The `index` field exists to grant the correct permissions for the relation user, which the requirer charm uses to control its index.
@@ -64,8 +71,8 @@ Provider provides credentials, endpoint addresses, TLS info and index-specific f
     related-endpoint: opensearch-app-consumer
     application-data:
       endpoints: 10.180.162.200:9200,10.180.162.75:9200
-      password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
-      username: opensearch-client_4_user
+      secret-user: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
+      secret-tls: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog
 ```
 
 ### Requirer
@@ -82,4 +89,5 @@ Requirer provides the index name in the **application** databag.
     related-endpoint: opensearch-client
     application-data:
       index: myindex
+      requested-secrets: ["username", "password", "tls-ca", "uris"]
 ```

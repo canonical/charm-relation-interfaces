@@ -1,0 +1,49 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for fiveg_n4.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/FivegN4ProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "FivegN4ProviderAppData": {
+      "title": "FivegN4ProviderAppData",
+      "type": "object",
+      "properties": {
+        "upf_hostname": {
+          "title": "Upf Hostname",
+          "description": "Name of the host exposing the UPF's N4 interface.",
+          "examples": [
+            "upf.uplane-cloud.canonical.com"
+          ],
+          "type": "string"
+        },
+        "upf_port": {
+          "title": "Upf Port",
+          "description": "Port on which UPF's N4 interface is exposed.",
+          "examples": [
+            8805
+          ],
+          "type": "integer"
+        }
+      },
+      "required": [
+        "upf_hostname",
+        "upf_port"
+      ]
+    }
+  }
+}

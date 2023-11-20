@@ -29,7 +29,7 @@ providers:
 requirers: []
 ```
 
-Verify that the `charms.yaml` file format is correct:
+Verify that the [`charms.yaml` file format](README_CHARMS_YAML.md) is correct:
 
 `interface_tester discover --include ingress`
 
@@ -89,29 +89,32 @@ ingress:
   - v1:
    - provider:
      - <no tests>
-     - schema OK
+     - schema OK # schema found and valid
      - charms:
        - traefik-k8s (https://github.com/canonical/traefik-k8s-operator) custom_test_setup=no
    - requirer:
      - <no tests>
-     - schema OK
+     - schema OK # schema found and valid
      - <no charms>
 ```
 
 ### Add interface tests
-Create a python file at `<repo-root>/interfaces/ingress/v0/interface_tests/my_tests.py` with this content:
+An interface test is any function named `test_*` that we can find in either file: 
+- `<repo-root>/interfaces/ingress/v0/interface_tests/test_provider.py`
+- `<repo-root>/interfaces/ingress/v0/interface_tests/test_requirer.py`
+
+The name is important!
+
+Create a python file at `<repo-root>/interfaces/ingress/v0/interface_tests/test_requirer.py` with this content:
 
 ```python
 from scenario import State
-from interface_tester.interface_test import interface_test_case
+from interface_tester import Tester
 
-
-@interface_test_case(
-    event='ingress-relation-joined',
-    role='requirer',
-)
-def test_data_published_on_joined(output_state: State):
-    return
+def test_data_published_on_joined():
+    t = Tester(State())
+    t.run("ingress-relation-joined")
+    t.assert_relation_data_empty()
 ```
 
 Verify that the tests are specified correctly:
@@ -131,7 +134,7 @@ ingress:
      - charms:
        - traefik-k8s (https://github.com/canonical/traefik-k8s-operator) custom_test_setup=no
    - requirer:
-      - test_data_published_on_joined:: ingress-relation-joined (state=no, schema=SchemaConfig.default)
+      - test_data_published_on_joined
      - schema OK
      - <no charms>
 ```
@@ -168,15 +171,15 @@ The test would then become:
 
 ```python
 from scenario import State
-from interface_tester.interface_test import interface_test_case
+from interface_tester import Tester
 
 
-@interface_test_case(
-    event='ingress-relation-joined',
-    role='requirer',
-)
-def test_data_published_on_joined(output_state: State):
-    assert output_state.status.unit.name == 'active'
+def test_data_published_on_joined():
+    t = Tester()
+    state_out: State = t.run("ingress-relation-joined")
+    t.assert_relation_data_empty()
+    
+    assert state_out.unit_status.name == 'active'
 ```
 
 
@@ -191,33 +194,31 @@ This becomes two test cases:
 
 ```python
 from scenario import State, Relation
-from interface_tester.interface_test import interface_test_case, SchemaConfig
+from interface_tester import Tester
 
 
-@interface_test_case(
-    event='ingress-relation-joined',
-    role='provider',
-    input_state=State(
+def test_data_published_on_joined_if_remote_has_sent_valid_data(output_state: State):
+    """If the requirer has provided correct data, then the provider will populate its side of the databag."""
+
+    t = Tester(State(
         relations=[Relation(
             endpoint='foo',
             interface='ingress',
-            remote_app_name='remote',  # this is our simulated requirer
+            remote_app_name='remote',
             remote_app_data={
                 'data': 'foo-bar',
                 'baz': 'qux'
             }
         )]
-    )
-)
-def test_data_published_on_joined_if_remote_has_sent_valid_data(output_state: State):
-    """If the requirer has provided correct data, then the provider will populate its side of the databag."""
-
+    ))
+    state_out: State = t.run("ingress-relation-joined")
+    t.assert_schema_valid()
     
-@interface_test_case(
-    event='ingress-relation-joined',
-    role='provider',
-    schema=SchemaConfig.empty,
-    input_state=State(
+    assert state_out.unit_status.name == 'blocked'
+
+def test_no_data_published_on_joined_if_remote_has_not_sent_valid_data():
+    """If the requirer has provided INcorrect data, then the provider will not write anything to its databags."""
+    t = Tester(State(
         relations=[Relation(
             endpoint='foo',
             interface='ingress',
@@ -226,23 +227,25 @@ def test_data_published_on_joined_if_remote_has_sent_valid_data(output_state: St
                 'some': 'rubbish'
             }
         )]
-    )
-)
-def test_no_data_published_on_joined_if_remote_has_not_sent_valid_data(output_state: State):
-    """If the requirer has provided INcorrect data, then the provider will not write anything to its databags."""
+    ))
+    state_out: State = t.run("ingress-relation-joined")
+    t.assert_relation_data_empty()
+    
+    assert state_out.unit_status.name == 'blocked'
+
 ```
 
-Note the usage of `SchemaConfig.empty`. That is what disables the 'default' schema validation and instructs the test runner to verify that the provider-side databags are empty instead of containing whatever they should contain according to `schema.py`.  
+Note the usage of `assert_relation_data_empty/assert_schema_valid`. Within the scope of an interface test you must call one of the two (or disable schema checking altogether with `skip_schema_validation`).
 
 
 # Reference: how does it work?
 Each interface test maps to a [Scenario test](https://github.com/canonical/ops-scenario).
 
-The metadata passed to `interface_test_case`, along with metadata gathered from the charm being tested, is used to assemble a scenario test. Once that is done, each interface test can be broken down in three steps, each one verifying separate things in order:
+The arguments passed to `Tester`, along with metadata gathered from the charm being tested, are used to assemble a scenario test. Once that is done, each interface test can be broken down in three steps, each one verifying separate things in order:
 
 - verify that the scenario test runs (i.e. it can produce an output state without the charm raising exceptions)
-- verify that the output state is valid (by the interface-test-writer's definition)
-- validate the local relation databags against the role's relation schema provided in `schema.py`
+- verify that the output state is valid (by the interface-test-writer's definition): i.e. that the test function returns without raising any exception
+- validate the local relation databags against the role's relation schema provided in `schema.py` (or against a custom schema)
 
 If any of these steps fail, the test as a whole is considered failed.
 
@@ -264,20 +267,42 @@ If it says `NOT OK`, there is an error in the schema format or the filename.
 
 ### Referencing the schema in an interface test
 When you write an interface test for `ingress`, by default, the test case will validate the relation against the schema provider in `schema.py` (using the appropriate role).
+In more complex cases, e.g. if the schema can assume one of multiple shapes depending on the position in a sequence of data exchanges, it can be handy to override that default.
 
-`interface_tester.interface_test_case` accepts a `schema` argument that allows you to configure this behaviour. It can take one of four possible values:
-- `interface_tester.interface_test.SchemaConfig.default` (or the string `"default"`): validate any `ingress` relation found in the `state_out` against the schema found in `schema.py`. If this interface test case is for the requirer, it will use the `RequirerSchema`; otherwise the `ProviderSchema`.
-- `interface_tester.interface_test.SchemaConfig.skip` (or the string`"skip"`): skip schema validation for this test.
-- `interface_tester.interface_test.SchemaConfig.empty` (or the string`"empty"`): assert that any `ingress` relation found in the `state_out` has **no relation data** at all (local side).
-- you can pass a custom `interface_tester.schema_base.DataBagSchema` subclass, which will be used to validate any `ingress` relation found in `state_out`. This will replace the default one found in `schema.py` for this test only.
-
+`Tester.assert_schema_valid` accepts a `schema` argument that allows you to configure the expected schema.
+Pass to it a custom `interface_tester.DataBagSchema` subclass and that will replace the default schema for this test.
 
 # Matrix-testing interface compliance
 If we have:
 - a `../interfaces/ingress/v0/charms.yaml` listing some providers and some requirers of the `ingress` interface.
 - a `../interfaces/ingress/v0/schema.py` specifying the interface schema (optional: schema validation will be skipped if not found)
-- a `../interfaces/ingress/v0/interface_tests/my_tests.py` providing a list of interface tests for either role
+- two `../interfaces/ingress/v0/interface_tests/test_[requirer|provider].py` files providing a list of interface tests for either role
 
 You can then run `python ./run_matrix.py ingress`.
 This will attempt to run the interface tests on all charms in `.../interfaces/ingress/v0/charms.yaml`.
 Omitting the `ingress` argument will run the tests for all interfaces (warning: might take some time.)
+
+# Charm repo configuration
+When developing the tests, it can be useful to run them against a specific branch of a charm repo. To do that, write in `charms.yaml`:
+
+```yaml
+providers:
+  - name: traefik-k8s
+    url: https://github.com/canonical/traefik-k8s-operator
+    branch: develop  # any custom branch
+
+requirers: []
+```
+
+Also it can be useful to configure where, relative to the repo root, the tester fixture can be found and what it is called.
+
+```yaml
+providers:
+  - name: traefik-k8s
+    url: https://github.com/canonical/traefik-k8s-operator
+    test_setup: 
+      - location: foo/bar/baz.py  # location of the identifier
+        identifier: qux  # name of a pytest fixture yielding a configured InterfaceTester
+
+requirers: []
+```

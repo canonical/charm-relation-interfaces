@@ -23,8 +23,10 @@ Examples:
               "model": "model-name"
               }
 """
+import json
+
 import yaml
-from pydantic import BaseModel, AnyHttpUrl, validator, Field
+from pydantic import BaseModel, AnyHttpUrl, validator, Field, Json
 
 from interface_tester.schema_base import DataBagSchema
 
@@ -34,11 +36,7 @@ class Url(BaseModel):
 
 
 class MyProviderData(BaseModel):
-    ingress: Url
-
-    @validator('ingress', pre=True)
-    def decode_ingress(cls, ingress):
-        return yaml.safe_load(ingress)
+    ingress: Json[Url]
 
 
 class ProviderSchema(DataBagSchema):
@@ -47,13 +45,13 @@ class ProviderSchema(DataBagSchema):
 
 
 class IngressRequirerAppData(BaseModel):
-    model: str = Field(description="The model the application is in.")
-    port: str = Field(description="The port the unit wishes to be exposed. Stringified int.")
-    name: str = Field(description="The name of the application requesting ingress.")
+    model: Json[str] = Field(description="The model the application is in.")
+    port: Json[int] = Field(description="The port the unit wishes to be exposed. Stringified int.")
+    name: Json[str] = Field(description="The name of the application requesting ingress.")
 
 
 class IngressRequirerUnitData(BaseModel):
-    host: str = Field(description="Unit hostname to be exposed.")
+    host: Json[str] = Field(description="Unit hostname to be exposed.")
 
 
 

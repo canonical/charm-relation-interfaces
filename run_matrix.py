@@ -57,11 +57,16 @@ def _clone_charm_repo(charm_config: "_CharmTestConfig", charm_path: Path):
             f"custom branch provided for {charm_config.name}; "
             f"this should only be done in staging"
         )
-    subprocess.call(
+    retcode = subprocess.call(
         f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}",
         shell=True,
         stdout=subprocess.DEVNULL,
     )
+    if retcode > 0:
+        raise SetupError(
+            f"Failed to clone repo for {charm_config.name}; "
+            "check the charms.yaml config."
+        )
 
 
 def _prepare_repo(
@@ -293,4 +298,5 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    pprint_interface_test_results(run_interface_tests(Path("."), args.include))
+    result = run_interface_tests(Path("."), args.include)
+    pprint_interface_test_results(result)

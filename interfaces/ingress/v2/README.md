@@ -45,22 +45,22 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 ## Relation Data
 
 Pydantic schemas for provider and requirer can be found [\[here\]](./schema.py)
+All fields are json-serialized.
 
 ### Requirer
 
 Exposes the unit name (`name`), model name (`model`), hostname (`host`) and port (`port`) at which ingress should be provided. 
-`name`, `port` and `model` should be placed in the **application** databag. `host`, as it may differ per ingressed unit (e.g. if it's a fqdn), will be placed in the **unit** databags of the respective ingress-requesting units.
-Depending on the library being used (and the provider charm), additional configuration keys may be supported. 
+`name`, `port` and `model` should be placed in the **application** databag. `host`, as it may differ per ingressed unit (e.g. if it's a fqdn), will be placed in the **unit** databags of the respective ingress-requesting units. 
 
 #### Example
 ```yaml
 application-data: {
- name: "app_name",
- model: "model_name",
- port: 4242,
+ name: '"app_name"',
+ model: '"model_name"',
+ port: '4242',
 }
 unit-data: {
- host: "hostname",
+ host: '"hostname"',
 }
 ```
 
@@ -72,8 +72,7 @@ Exposes a `url` field containing the url at which ingress is available. Should b
 
 ```yaml
 application_data: {
-  ingress:
-    url: "http://foo.bar:80/model_name-app_name/0"
+  ingress: '{"url": "http://foo.bar:80/model_name-app_name/0"}'
 }
 ```
 

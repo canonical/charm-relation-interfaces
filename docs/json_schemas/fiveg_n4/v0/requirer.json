@@ -1,0 +1,20 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for fiveg_n4.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/BaseModel"
+    }
+  },
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    }
+  }
+}
