@@ -1,0 +1,69 @@
+{
+  "title": "ProviderSchema",
+  "description": "The schema for the provider side of the ldap interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/LdapProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "LdapProviderData": {
+      "title": "LdapProviderData",
+      "type": "object",
+      "properties": {
+        "ldap_url": {
+          "title": "Ldap Url",
+          "description": "The LDAP URL",
+          "example": "ldap://ldap.canonical.com",
+          "minLength": 1,
+          "maxLength": 65536,
+          "format": "uri",
+          "type": "string"
+        },
+        "base_dn": {
+          "title": "Base Dn",
+          "description": "The base entry as the starting point for LDAP search operation",
+          "example": "dc=canonical,dc=com",
+          "type": "string"
+        },
+        "bind_dn": {
+          "title": "Bind Dn",
+          "description": "The DN of the bind account",
+          "example": "cn=admin,ou=engineering,dc=canonical,dc=com",
+          "type": "string"
+        },
+        "bind_password": {
+          "title": "Bind Password",
+          "description": "The juju secret URI of the bind account's password",
+          "example": "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0",
+          "type": "string"
+        },
+        "auth_method": {
+          "title": "Auth Method",
+          "description": "The LDAP authentication method",
+          "example": "simple",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ldap_url",
+        "base_dn",
+        "bind_dn",
+        "bind_password",
+        "auth_method"
+      ]
+    }
+  }
+}

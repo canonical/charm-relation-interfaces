@@ -1,0 +1,43 @@
+{
+  "title": "RequirerSchema",
+  "description": "The schema for the requirer side of the ldap interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/LdapRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "LdapRequirerData": {
+      "title": "LdapRequirerData",
+      "type": "object",
+      "properties": {
+        "app": {
+          "title": "App",
+          "description": "The Juju application name of the requirer charmed operator",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "description": "The Juju model name of the requirer charmed operator",
+          "type": "string"
+        }
+      },
+      "required": [
+        "app",
+        "model"
+      ]
+    }
+  }
+}
