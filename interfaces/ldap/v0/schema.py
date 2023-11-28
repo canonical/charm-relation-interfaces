@@ -6,9 +6,10 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from pydantic import AnyUrl, BaseModel, Field
+from typing import Optional
 
 from interface_tester.schema_base import DataBagSchema
+from pydantic import AnyUrl, BaseModel, Field
 
 
 class LdapProviderData(BaseModel):
@@ -33,15 +34,18 @@ class LdapProviderData(BaseModel):
         description="The LDAP authentication method",
         example="simple",
     )
+    starttls_enabled: bool = Field(
+        description="The indicator of StartTLS operation enabled or not",
+        example=True,
+    )
 
 
 class LdapRequirerData(BaseModel):
-    app: str = Field(
-        description="The Juju application name of the requirer charmed "
-                    "operator",
+    user: Optional[str] = Field(
+        description="The user name provided by the requirer charmed operator",
     )
-    model: str = Field(
-        description="The Juju model name of the requirer charmed operator",
+    group: Optional[str] = Field(
+        description="The group name provided by the requirer charmed operator",
     )
 
 

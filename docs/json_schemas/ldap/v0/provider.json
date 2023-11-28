@@ -55,6 +55,12 @@
           "description": "The LDAP authentication method",
           "example": "simple",
           "type": "string"
+        },
+        "starttls_enabled": {
+          "title": "Starttls Enabled",
+          "description": "The indicator of StartTLS operation enabled or not",
+          "example": true,
+          "type": "boolean"
         }
       },
       "required": [
@@ -62,7 +68,8 @@
         "base_dn",
         "bind_dn",
         "bind_password",
-        "auth_method"
+        "auth_method",
+        "starttls_enabled"
       ]
     }
   }

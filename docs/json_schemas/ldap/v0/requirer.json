@@ -23,21 +23,17 @@
       "title": "LdapRequirerData",
       "type": "object",
       "properties": {
-        "app": {
-          "title": "App",
-          "description": "The Juju application name of the requirer charmed operator",
+        "user": {
+          "title": "User",
+          "description": "The user name provided by the requirer charmed operator",
           "type": "string"
         },
-        "model": {
-          "title": "Model",
-          "description": "The Juju model name of the requirer charmed operator",
+        "group": {
+          "title": "Group",
+          "description": "The group name provided by the requirer charmed operator",
           "type": "string"
         }
-      },
-      "required": [
-        "app",
-        "model"
-      ]
+      }
     }
   }
 }

@@ -9,8 +9,8 @@ be able to provide or consume the LDAP authentication configuration data.
 
 ```mermaid
 flowchart TD
-    Requirer -- app, \nmodel --> Provider
-    Provider -- ldap_url, \nbase_dn, \nbind_dn, \nbind_password, \nauth_method --> Requirer
+    Requirer -- user, \ngroup --> Provider
+    Provider -- ldap_url, \nbase_dn, \nbind_dn, \nbind_password, \nauth_method, \starttls_enabled --> Requirer
 ```
 
 ## Behavior
@@ -33,7 +33,8 @@ through the relation databag(s).
 ### Requirer
 
 - Is expected to provide the client information for the `provider` to generate
-  the bind DN.
+  the bind DN. If it is not provided, the `provider` leverages `requirer`
+  charmed operator's information by default.
 - Is expected to consume the LDAP configuration data provided by the `provider`
   to configure the charmed application.
 - Is expected to update the charmed application configuration when
@@ -59,6 +60,7 @@ It should be placed in the **application** databag.
         bind_dn: cn=app,ou=model,dc=canonical,dc=com
         bind_password: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
         auth_method: simple
+        starttls_enabled: true
 ``````
 
 ### Requirer
@@ -73,6 +75,6 @@ The `requirer` provides LDAP client information. It should be placed in the
     - endpoint: ldap
       related-endpoint: ldap
       application-data:
-        app: sssd
-        model: machine-localhost
+        user: sssd
+        group: machine-localhost
 ```
