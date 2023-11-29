@@ -15,7 +15,7 @@ from pydantic import AnyUrl, BaseModel, Field
 class LdapProviderData(BaseModel):
     ldap_url: AnyUrl = Field(
         description="The LDAP URL",
-        example="ldap://ldap.canonical.com",
+        example="ldap://ldap.canonical.com:3893",
     )
     base_dn: str = Field(
         description="The base entry as the starting point for LDAP search "

@@ -10,7 +10,7 @@ be able to provide or consume the LDAP authentication configuration data.
 ```mermaid
 flowchart TD
     Requirer -- user, \ngroup --> Provider
-    Provider -- ldap_url, \nbase_dn, \nbind_dn, \nbind_password, \nauth_method, \starttls_enabled --> Requirer
+    Provider -- ldap_url, \nbase_dn, \nbind_dn, \nbind_password, \nauth_method, \nstarttls_enabled --> Requirer
 ```
 
 ## Behavior
@@ -26,7 +26,7 @@ through the relation databag(s).
 - Is expected to provide the `requirer` with necessary configuration for
   performing LDAP authentications and operations.
 - Is expected to create a bind DN in the DIT (Data Information Tree) for
-  the `requirer` to use for `bind` operation.
+  the `requirer` to use for the `bind` operation.
 - Is expected to update the application databag if any field's data is changed
   in the `provider` charmed application.
 
@@ -39,6 +39,10 @@ through the relation databag(s).
   to configure the charmed application.
 - Is expected to update the charmed application configuration when
   the `provider` updates the application databag.
+
+**Note**: try to avoid
+the [special characters](https://datatracker.ietf.org/doc/html/rfc2253#section-2.4)
+for the `user` and `group` in the `requirer`'s databag.
 
 ## Relation Data
 
