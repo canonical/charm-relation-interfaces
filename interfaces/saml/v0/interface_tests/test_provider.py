@@ -10,10 +10,10 @@ def test_data_published_on_created():
             endpoint="saml",
             interface="saml",
         )],
-        # config={
-        #     "entity_id": "https://login.staging.ubuntu.com",
-        #     "metadata_url": "https://login.staging.ubuntu.com/saml/metadata"
-        # },
+        config={
+            "entity_id": "https://login.staging.ubuntu.com",
+            "metadata_url": "https://login.staging.ubuntu.com/saml/metadata"
+        },
     ))
     t.run("saml-relation-created")
     t.assert_schema_valid()
