@@ -6,7 +6,6 @@ from scenario import Relation, State
 
 def test_data_published_on_created():
     t = Tester(State(
-        leader=True,
         relations=[Relation(
             endpoint="saml",
             interface="saml",
