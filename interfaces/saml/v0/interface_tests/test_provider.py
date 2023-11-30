@@ -11,6 +11,9 @@ def test_data_published_on_created():
             endpoint="saml",
             interface="saml",
         )],
+        meta={
+            "name": "saml-integrator"
+        },
     ))
     t.run("saml-relation-created")
     t.assert_schema_valid()
