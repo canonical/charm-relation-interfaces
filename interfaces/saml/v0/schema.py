@@ -68,7 +68,7 @@ class SamlProviderData(BaseModel):
         title="SSO POST response URL",
         examples=["https://login.ubuntu.com/saml/"],
     )
-    single_sign_on_service_post_binding: str = Field(
+    single_sign_on_service_post_binding: Optional[str] = Field(
         description="SAML protocol binding to be used when returning the POST <Response> message.",
         title="SSO POST binding",
         examples=["urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Post"],
