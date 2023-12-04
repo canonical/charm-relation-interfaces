@@ -20,8 +20,9 @@ Examples:
                 }
              }
 """
+from enum import Enum
 from interface_tester.schema_base import DataBagSchema
-from pydantic import AnyHttpUrl, BaseModel, Field
+from pydantic import BaseModel, Field
 from typing import Optional
 
 
