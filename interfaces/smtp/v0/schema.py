@@ -1,6 +1,6 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
-"""This file defines the schema for the provider side of the saml interface.
+"""This file defines the schema for the provider side of the smtp interface.
 
 It exposes one interfaces.schema_base.DataBagSchema subclass called:
 - ProviderSchema
@@ -75,7 +75,7 @@ class SmtpProviderData(BaseModel):
     )
     password_id: Optional[str] = Field(
         description="Secret ID for the SMTP password.",
-        title="Password id",
+        title="Password ID",
         examples=["01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2"],
     )
     auth_type: AuthType = Field(
