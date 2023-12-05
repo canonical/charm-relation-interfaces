@@ -80,7 +80,7 @@
         },
         "password_id": {
           "title": "Password ID",
-          "description": "Secret ID for the SMTP password.",
+          "description": "Juju secret ID for the SMTP password.",
           "examples": [
             "secret:123213123123123123123"
           ],
