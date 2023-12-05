@@ -74,6 +74,11 @@ class SmtpProviderData(BaseModel):
         examples=["some_user"],
     )
     password_id: Optional[str] = Field(
+        description="SMTP password.",
+        title="Password",
+        examples=["somepasswd"],
+    )
+    password_id: Optional[str] = Field(
         description="Secret ID for the SMTP password.",
         title="Password ID",
         examples=["01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2"],

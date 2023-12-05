@@ -18,6 +18,13 @@ flowchart TD
     Provider -- host, port, user, password_id, auth_type, transport_security, domain --> Requirer
 ```
 
+or alternatively, if secrets are not supported by both sides
+
+```mermaid
+flowchart TD
+    Provider -- host, port, user, password, auth_type, transport_security, domain --> Requirer
+```
+
 ## Behavior
 
 The requirer and the provider must adhere to a certain set of criteria to be considered compatible with the interface.
