@@ -1,6 +1,6 @@
 {
   "title": "RequirerSchema",
-  "description": "Requirer schema for SAML.",
+  "description": "Requirer schema for SMTP.",
   "type": "object",
   "properties": {
     "unit": {
