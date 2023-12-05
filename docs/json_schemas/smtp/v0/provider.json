@@ -70,11 +70,19 @@
           ],
           "type": "string"
         },
+        "password": {
+          "title": "Password",
+          "description": "SMTP password.",
+          "examples": [
+            "somepasswd"
+          ],
+          "type": "string"
+        },
         "password_id": {
           "title": "Password ID",
           "description": "Secret ID for the SMTP password.",
           "examples": [
-            "01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2"
+            "secret:123213123123123123123"
           ],
           "type": "string"
         },
