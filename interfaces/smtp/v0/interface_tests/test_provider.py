@@ -5,11 +5,15 @@ from scenario import Relation, State
 
 
 def test_data_published_on_created():
-    t = Tester(State(
-        relations=[Relation(
-            endpoint="smtp",
-            interface="smtp",
-        )],
-    ))
+    t = Tester(
+        State(
+            relations=[
+                Relation(
+                    endpoint="smtp",
+                    interface="smtp",
+                )
+            ],
+        )
+    )
     t.run("smtp-relation-created")
     t.assert_schema_valid()

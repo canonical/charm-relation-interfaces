@@ -53,6 +53,7 @@ class AuthType(str, Enum):
     NOT_PROVIDED = "not_provided"
     PLAIN = "plain"
 
+
 class SmtpProviderData(BaseModel):
     host: str = Field(
         ...,
@@ -61,7 +62,8 @@ class SmtpProviderData(BaseModel):
         title="Host",
         examples=["example.smtp"],
     )
-    port: int = Field(None,
+    port: int = Field(
+        None,
         ge=1,
         le=65536,
         description="SMTP port.",
@@ -73,7 +75,7 @@ class SmtpProviderData(BaseModel):
         title="User",
         examples=["some_user"],
     )
-    password_id: Optional[str] = Field(
+    password: Optional[str] = Field(
         description="SMTP password.",
         title="Password",
         examples=["somepasswd"],
@@ -81,7 +83,7 @@ class SmtpProviderData(BaseModel):
     password_id: Optional[str] = Field(
         description="Secret ID for the SMTP password.",
         title="Password ID",
-        examples=["01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2"],
+        examples=["secret:123213123123123123123"],
     )
     auth_type: AuthType = Field(
         description="The type used to authenticate with the SMTP relay.",
@@ -102,7 +104,9 @@ class SmtpProviderData(BaseModel):
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for SMTP."""
+
     app: SmtpProviderData
+
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for SMTP."""

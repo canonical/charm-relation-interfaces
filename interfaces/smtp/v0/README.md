@@ -31,22 +31,22 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 
 ### Provider
 
-- Is expected to provide the host in the relation databag.
-- Is expected to provide the port in the relation databag.
-- Is expected to provide the auth_type in the relation databag.
-- Is expected to provide the transport_security in the relation databag.
+- Is expected to publish the `host` in the relation databag.
+- Is expected to publish the `port` in the relation databag.
+- Is expected to publish the `auth_type` in the relation databag.
+- Is expected to publish the `transport_security` in the relation databag.
 
 ### Requirer
 
-- Is not expected to provide anything
+- Is not expected to publish anything
 
 ## Relation Data
 
 ### Provider
 
-[\[JSON Schema\]](./schemas/provider.json)
+[\[Pydantic Schema\]](./schema.py)
 
-Provider provides the SMTP configuration. It should be placed in the **application** databag.
+Provider publishes the SMTP configuration. It should be placed in the **application** databag.
 
 #### Example
 
