@@ -2,7 +2,7 @@
 
 ## Overview
 
-This relation interface describes the expected behavior between of any charm claiming to be able to interface with a SMTP Provider and the SMTP Provider itself.
+This relation interface specification describes the expected behavior of charms integrating over the `smtp` Juju interface to provide or consume SMTP data.
 
 ## Usage
 
