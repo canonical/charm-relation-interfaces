@@ -8,7 +8,7 @@ def test_unhappy():
     t = Tester(state_in=scenario.State())
 
     # WHEN we get a relation-changed event (or any other, for that matter)
-    t.run("mimir_cluster_relation_changed")
+    t.run("update-status")
 
     # THEN we don't publish anything either
     t.assert_relation_data_empty()
