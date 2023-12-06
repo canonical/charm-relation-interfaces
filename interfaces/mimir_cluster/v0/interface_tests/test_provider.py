@@ -16,23 +16,24 @@ def test_unhappy():
 
 def test_happy():
     # GIVEN an initial state where the worker did submit roles
+    relation = scenario.Relation(
+        "mimir-cluster",
+        interface="mimir_cluster",
+        # supposing this is the correct format:
+        remote_app_data={"roles": yaml.safe_dump(
+            ["write", "read", "querier", "collector"]
+        )
+        }
+    )
     t = Tester(
         state_in=scenario.State(
-            relations=[scenario.Relation(
-                "mimir-cluster",
-                interface="mimir_cluster",
-                # supposing this is the correct format:
-                remote_app_data={"roles": yaml.safe_dump(
-                    ["write", "read", "querier", "collector"]
-                )
-                }
-            )
-            ]
+            relations=[relation
+                       ]
         )
     )
 
     # WHEN we get a relation-changed event
-    t.run("mimir_cluster_relation_changed")
+    t.run(relation.changed_event)
 
     # THEN we have done our part
     t.assert_schema_valid()
