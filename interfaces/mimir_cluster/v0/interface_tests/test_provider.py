@@ -19,7 +19,7 @@ def test_happy():
     t = Tester(
         state_in=scenario.State(
             relations=[scenario.Relation(
-                "foo",
+                "mimir_cluster",
                 interface="mimir_cluster",
                 # supposing this is the correct format:
                 remote_app_data={"roles": yaml.safe_dump(
