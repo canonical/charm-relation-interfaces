@@ -5,12 +5,19 @@
 This relation interface describes the expected behavior of any charm claiming to
 be able to provide or consume the LDAP authentication configuration data.
 
+## Glossary of LDAP Terms
+
+| Abbreviation |            Term            |
+|:------------:|:--------------------------:|
+|      DN      |     Distinguished Name     |
+|     DIT      | Directory Information Tree |
+
 ## Direction
 
 ```mermaid
 flowchart TD
     Requirer -- user, \ngroup --> Provider
-    Provider -- ldap_url, \nbase_dn, \nbind_dn, \nbind_password, \nauth_method, \nstarttls_enabled --> Requirer
+    Provider -- url, \nbase_dn, \nbind_dn, \nbind_password_secret, \nauth_method, \nstarttls --> Requirer
 ```
 
 ## Behavior
@@ -23,26 +30,26 @@ through the relation databag(s).
 
 ### Provider
 
+- Is expected to use `user` and `group` provided by the `requirer` to create a
+  bind DN in the DIT for the `requirer` to use for the `bind` operation. If
+  the `requirer` does not provide `user` and `group`, the `provider`
+  leverages `requirer`'s Juju application name and model name.
 - Is expected to provide the `requirer` with necessary configuration for
   performing LDAP authentications and operations.
-- Is expected to create a bind DN in the DIT (Data Information Tree) for
-  the `requirer` to use for the `bind` operation.
 - Is expected to update the application databag if any field's data is changed
   in the `provider` charmed application.
 
 ### Requirer
 
-- Is expected to provide the client information for the `provider` to generate
-  the bind DN. If it is not provided, the `provider` leverages `requirer`
-  charmed operator's information by default.
+- Is expected to optionally provide `user` and `group` for the `provider` to
+  generate the bind DN.
 - Is expected to consume the LDAP configuration data provided by the `provider`
-  to configure the charmed application.
-- Is expected to update the charmed application configuration when
-  the `provider` updates the application databag.
+  to configure the `requirer`'s charmed application.
 
-**Note**: try to avoid
-the [special characters](https://datatracker.ietf.org/doc/html/rfc2253#section-2.4)
-for the `user` and `group` in the `requirer`'s databag.
+> #### ⚠️ Use of special characters
+> Try to avoid the special characters
+> listed [here](https://datatracker.ietf.org/doc/html/rfc2253#section-2.4)
+> for the `user` and `group` in the `requirer`'s databag.
 
 ## Relation Data
 
@@ -59,12 +66,12 @@ It should be placed in the **application** databag.
     - endpoint: ldap
       related-endpoint: ldap
       application-data:
-        ldap_url: ldap://ldap.canonical.com:3893
+        url: ldap://ldap.canonical.com:3893
         base_dn: dc=canonical,dc=com
         bind_dn: cn=app,ou=model,dc=canonical,dc=com
-        bind_password: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
+        bind_password_secret: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
         auth_method: simple
-        starttls_enabled: true
+        starttls: true
 ``````
 
 ### Requirer

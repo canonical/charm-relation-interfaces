@@ -13,29 +13,34 @@ from pydantic import AnyUrl, BaseModel, Field
 
 
 class LdapProviderData(BaseModel):
-    ldap_url: AnyUrl = Field(
+    url: AnyUrl = Field(
         description="The LDAP URL",
+        title="LDAP URL",
         example="ldap://ldap.canonical.com:3893",
     )
     base_dn: str = Field(
         description="The base entry as the starting point for LDAP search "
                     "operation",
+        title="Base DN",
         example="dc=canonical,dc=com",
     )
     bind_dn: str = Field(
-        description="The DN of the bind account",
+        description="The distinguished name (DN) of the bind account",
+        title="Bind DN",
         example="cn=admin,ou=engineering,dc=canonical,dc=com",
     )
-    bind_password: str = Field(
-        description="The juju secret URI of the bind account's password",
+    bind_password_secret: str = Field(
+        description="The juju secret ID of the bind account's password",
         example="secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"
     )
     auth_method: str = Field(
         description="The LDAP authentication method",
+        title="Authentication Method",
         example="simple",
     )
-    starttls_enabled: bool = Field(
+    starttls: bool = Field(
         description="The indicator of StartTLS operation enabled or not",
+        title="StartTLS",
         example=True,
     )
 
