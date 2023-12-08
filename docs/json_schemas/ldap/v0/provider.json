@@ -1,0 +1,76 @@
+{
+  "title": "ProviderSchema",
+  "description": "The schema for the provider side of the ldap interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/LdapProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "LdapProviderData": {
+      "title": "LdapProviderData",
+      "type": "object",
+      "properties": {
+        "url": {
+          "title": "LDAP URL",
+          "description": "The LDAP URL",
+          "example": "ldap://ldap.canonical.com:3893",
+          "minLength": 1,
+          "maxLength": 65536,
+          "format": "uri",
+          "type": "string"
+        },
+        "base_dn": {
+          "title": "Base DN",
+          "description": "The base entry as the starting point for LDAP search operation",
+          "example": "dc=canonical,dc=com",
+          "type": "string"
+        },
+        "bind_dn": {
+          "title": "Bind DN",
+          "description": "The distinguished name (DN) of the bind account",
+          "example": "cn=admin,ou=engineering,dc=canonical,dc=com",
+          "type": "string"
+        },
+        "bind_password_secret": {
+          "title": "Bind Password Secret",
+          "description": "The juju secret ID of the bind account's password",
+          "example": "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0",
+          "type": "string"
+        },
+        "auth_method": {
+          "title": "Authentication Method",
+          "description": "The LDAP authentication method",
+          "example": "simple",
+          "type": "string"
+        },
+        "starttls": {
+          "title": "StartTLS",
+          "description": "The indicator of StartTLS operation enabled or not",
+          "example": true,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "url",
+        "base_dn",
+        "bind_dn",
+        "bind_password_secret",
+        "auth_method",
+        "starttls"
+      ]
+    }
+  }
+}
