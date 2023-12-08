@@ -1,0 +1,37 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for forward_auth.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/ForwardAuthRequirer"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "ForwardAuthRequirer": {
+      "title": "ForwardAuthRequirer",
+      "type": "object",
+      "properties": {
+        "ingress_app_names": {
+          "title": "Ingress App Names",
+          "description": "List of names of applications that are related via ingress.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

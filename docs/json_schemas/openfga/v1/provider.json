@@ -1,0 +1,61 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for OpenFGA.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/OpenFGAProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "OpenFGAProviderData": {
+      "title": "OpenFGAProviderData",
+      "type": "object",
+      "properties": {
+        "grpc_api_url": {
+          "title": "gRPC URL",
+          "description": "The URL of the gRPC API.",
+          "type": "string"
+        },
+        "http_api_url": {
+          "title": "HTTP URL",
+          "description": "The URL of the HTTP API.",
+          "type": "string"
+        },
+        "token_secret_id": {
+          "title": "Secret ID of the OpenFGA token",
+          "description": "Secret ID of the preshared token to be used to connect to the OpenFGA service.",
+          "type": "string"
+        },
+        "token": {
+          "title": "The OpenFGA token",
+          "description": "The preshared token to be used to connect to the OpenFGA service, to be used when juju secrets are not available.",
+          "type": "string"
+        },
+        "store_id": {
+          "title": "OpenFGA store ID",
+          "description": "ID of the authentication store that was created.",
+          "examples": [
+            "01GK13VYZK62Q1T0X55Q2BHYD6"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "grpc_api_url",
+        "http_api_url"
+      ]
+    }
+  }
+}
