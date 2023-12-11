@@ -27,13 +27,7 @@ from typing import Optional
 
 
 class TransportSecurity(str, Enum):
-    """Represent the transport security values.
-
-    Attributes:
-        NONE: none
-        STARTTLS: starttls
-        TLS: tls
-    """
+    """Represent the transport security values."""
 
     NONE = "none"
     STARTTLS = "starttls"
@@ -41,13 +35,7 @@ class TransportSecurity(str, Enum):
 
 
 class AuthType(str, Enum):
-    """Represent the auth type values.
-
-    Attributes:
-        NONE: none
-        NOT_PROVIDED: not_provided
-        PLAIN: plain
-    """
+    """Represent the auth type values."""
 
     NONE = "none"
     NOT_PROVIDED = "not_provided"
