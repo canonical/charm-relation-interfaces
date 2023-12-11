@@ -74,7 +74,7 @@
         },
         "password": {
           "title": "Password",
-          "description": "SMTP password.",
+          "description": "SMTP password. Populated instead of password_id when secrets are not supported.",
           "examples": [
             "somepasswd"
           ],
@@ -82,7 +82,7 @@
         },
         "password_id": {
           "title": "Password ID",
-          "description": "Juju secret ID for the SMTP password.",
+          "description": "Juju secret ID for the SMTP password. Populated instead of password when secrets are supported.",
           "examples": [
             "secret:123213123123123123123"
           ],
@@ -102,7 +102,7 @@
         },
         "transport_security": {
           "title": "Transport security",
-          "description": "The security protocol to use for the outgoing SMTP relay.",
+          "description": "The security protocol to use for the SMTP relay.",
           "examples": [
             "none"
           ],
@@ -123,6 +123,7 @@
       },
       "required": [
         "host",
+        "port",
         "auth_type",
         "transport_security"
       ]
