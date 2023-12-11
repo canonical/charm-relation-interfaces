@@ -56,7 +56,7 @@ class SmtpProviderData(BaseModel):
         le=65536,
         description="SMTP port.",
         title="Port",
-        examples=[25],
+        examples=[25, 587, 465],
     )
     user: Optional[str] = Field(
         description="SMTP user.",
