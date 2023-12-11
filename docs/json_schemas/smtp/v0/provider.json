@@ -21,7 +21,7 @@
     },
     "AuthType": {
       "title": "AuthType",
-      "description": "Represent the auth type values.\n\nAttributes:\n    NONE: none\n    NOT_PROVIDED: not_provided\n    PLAIN: plain",
+      "description": "Represent the auth type values.",
       "enum": [
         "none",
         "not_provided",
@@ -31,7 +31,7 @@
     },
     "TransportSecurity": {
       "title": "TransportSecurity",
-      "description": "Represent the transport security values.\n\nAttributes:\n    NONE: none\n    STARTTLS: starttls\n    TLS: tls",
+      "description": "Represent the transport security values.",
       "enum": [
         "none",
         "starttls",
@@ -48,7 +48,7 @@
           "description": "SMTP host.",
           "minLength": 1,
           "examples": [
-            "example.smtp"
+            "example.com"
           ],
           "type": "string"
         },
@@ -58,7 +58,9 @@
           "minimum": 1,
           "maximum": 65536,
           "examples": [
-            25
+            25,
+            587,
+            465
           ],
           "type": "integer"
         },
@@ -114,7 +116,7 @@
           "title": "Domain",
           "description": "The domain used by the sent emails from SMTP relay.",
           "examples": [
-            "domain"
+            "example.com"
           ],
           "type": "string"
         }
