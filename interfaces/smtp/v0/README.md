@@ -31,10 +31,7 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 
 ### Provider
 
-- Is expected to publish the `host` in the relation databag.
-- Is expected to publish the `port` in the relation databag.
-- Is expected to publish the `auth_type` in the relation databag.
-- Is expected to publish the `transport_security` in the relation databag.
+- Is expected to provide the SMTP details so that the requirer can connect.
 
 ### Requirer
 
