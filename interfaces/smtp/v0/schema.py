@@ -64,7 +64,7 @@ class SmtpProviderData(BaseModel):
         examples=["some_user"],
     )
     password: Optional[str] = Field(
-        description="SMTP password.",
+        description="SMTP password. Populated instead of password_id when secrets are not supported.",
         title="Password",
         examples=["somepasswd"],
     )
