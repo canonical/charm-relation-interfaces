@@ -16,7 +16,7 @@ Examples:
                     "password_id": "secret:123213123123123123123",
                     "auth_type": "plain",
                     "transport_security": "tls",
-                    "domain": "domain",
+                    "domain": "example.com",
                 }
              }
 """

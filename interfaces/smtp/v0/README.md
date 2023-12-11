@@ -59,6 +59,6 @@ application_data: {
   "password_id": "01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2",
   "auth_type": "plain",
   "transport_security": "tls",
-  "domain": "domain",
+  "domain": "example.com",
 }
 ```
