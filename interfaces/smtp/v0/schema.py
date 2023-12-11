@@ -79,7 +79,7 @@ class SmtpProviderData(BaseModel):
         examples=[AuthType.NONE],
     )
     transport_security: TransportSecurity = Field(
-        description="The security protocol to use for the outgoing SMTP relay.",
+        description="The security protocol to use for the SMTP relay.",
         title="Transport security",
         examples=[TransportSecurity.NONE],
     )
