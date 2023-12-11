@@ -18,7 +18,7 @@ flowchart TD
     Provider -- host, port, user, password_id, auth_type, transport_security, domain --> Requirer
 ```
 
-or alternatively, if secrets are not supported by both sides
+or alternatively, if secrets are not supported by either sides
 
 ```mermaid
 flowchart TD
