@@ -13,7 +13,7 @@ Examples:
                     "host": "example.smtp",
                     "port": "25",
                     "user": "example_user",
-                    "password_id": "01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2",
+                    "password_id": "secret:123213123123123123123",
                     "auth_type": "plain",
                     "transport_security": "tls",
                     "domain": "domain",
