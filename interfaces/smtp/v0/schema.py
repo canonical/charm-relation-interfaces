@@ -44,14 +44,12 @@ class AuthType(str, Enum):
 
 class SmtpProviderData(BaseModel):
     host: str = Field(
-        ...,
         min_length=1,
         description="SMTP host.",
         title="Host",
         examples=["example.com"],
     )
     port: int = Field(
-        None,
         ge=1,
         le=65536,
         description="SMTP port.",
