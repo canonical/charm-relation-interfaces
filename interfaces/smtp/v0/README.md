@@ -53,8 +53,8 @@ Provider publishes the SMTP configuration. It should be placed in the **applicat
 ```yaml
 related-units: {}
 application_data: {
-  "host": "example.smtp",
-  "port": "25",
+  "host": "example.com",
+  "port": "587",
   "user": "example_user",
   "password_id": "01548499c9233d4612352c989162d940f6a9e6f6d5cc058dfcf66f51575e09c2",
   "auth_type": "plain",

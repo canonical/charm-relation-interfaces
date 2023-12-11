@@ -10,8 +10,8 @@ Examples:
         unit: <empty>
         app: {"smtp":
                  {
-                    "host": "example.smtp",
-                    "port": "25",
+                    "host": "example.com",
+                    "port": "587",
                     "user": "example_user",
                     "password_id": "secret:123213123123123123123",
                     "auth_type": "plain",
@@ -48,7 +48,7 @@ class SmtpProviderData(BaseModel):
         min_length=1,
         description="SMTP host.",
         title="Host",
-        examples=["example.smtp"],
+        examples=["example.com"],
     )
     port: int = Field(
         None,
