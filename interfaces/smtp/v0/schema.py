@@ -69,7 +69,7 @@ class SmtpProviderData(BaseModel):
         examples=["somepasswd"],
     )
     password_id: Optional[str] = Field(
-        description="Juju secret ID for the SMTP password.",
+        description="Juju secret ID for the SMTP password. Populated instead of password when secrets are supported.",
         title="Password ID",
         examples=["secret:123213123123123123123"],
     )
