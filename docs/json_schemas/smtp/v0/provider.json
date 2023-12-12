@@ -114,7 +114,7 @@
         },
         "domain": {
           "title": "Domain",
-          "description": "The domain used by the sent emails from SMTP relay.",
+          "description": "The EMAIL FROM domain for the outgoing email.",
           "examples": [
             "example.com"
           ],
