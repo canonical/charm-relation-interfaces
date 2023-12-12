@@ -82,7 +82,7 @@ class SmtpProviderData(BaseModel):
         examples=[TransportSecurity.NONE],
     )
     domain: Optional[str] = Field(
-        description="The domain used by the sent emails from SMTP relay.",
+        description="The EMAIL FROM domain for the outgoing email.",
         title="Domain",
         examples=["example.com"],
     )
