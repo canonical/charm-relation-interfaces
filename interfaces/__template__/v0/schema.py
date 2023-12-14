@@ -5,7 +5,7 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from interfaces.schema_base import DataBagSchema
+from interface_tester.schema_base import DataBagSchema
 
 
 class ProviderSchema(DataBagSchema):
