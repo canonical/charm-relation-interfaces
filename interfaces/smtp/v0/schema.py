@@ -82,7 +82,7 @@ class SmtpProviderData(BaseModel):
         examples=[TransportSecurity.NONE],
     )
     domain: Optional[str] = Field(
-        description="The EMAIL FROM domain for the outgoing email.",
+        description="The MAIL FROM domain for the outgoing email.",
         title="Domain",
         examples=["example.com"],
     )
