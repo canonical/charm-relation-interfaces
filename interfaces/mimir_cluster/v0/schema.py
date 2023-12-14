@@ -41,7 +41,7 @@ class Scheme(str, enum.Enum):
 
 
 class MimirClusterProviderAppData(pydantic.BaseModel):
-    mimir_config: typing.Dict[str: any]
+    mimir_config: typing.Dict[str, typing.Any]
 
 
 class ProviderSchema(DataBagSchema):
