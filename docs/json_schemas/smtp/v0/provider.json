@@ -114,7 +114,7 @@
         },
         "domain": {
           "title": "Domain",
-          "description": "The EMAIL FROM domain for the outgoing email.",
+          "description": "The MAIL FROM domain for the outgoing email.",
           "examples": [
             "example.com"
           ],
