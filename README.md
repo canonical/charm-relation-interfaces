@@ -45,6 +45,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`auth_proxy`](interfaces/auth_proxy/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
 |               | [`openfga`](interfaces/openfga/v0/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  | 
 |               | [`saml`](interfaces/saml/v0/README.md)                                       |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)   |
+|               | [`smtp`](interfaces/smtp/v0/README.md)                                       |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)   |
 | Observability | [`grafana_auth`](interfaces/grafana_auth/v0/README.md)                       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`prometheus_remote_write`](interfaces/prometheus_remote_write/v0/README.md) |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`prometheus_scrape`](interfaces/prometheus_scrape/v0/README.md)             |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |

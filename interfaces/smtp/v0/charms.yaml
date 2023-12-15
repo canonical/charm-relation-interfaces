@@ -1,0 +1,6 @@
+providers:
+  - name: smtp-integrator
+    url: https://github.com/canonical/smtp-integrator-operator
+
+requirers:
+  []

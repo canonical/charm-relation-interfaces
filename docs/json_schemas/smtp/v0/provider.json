@@ -1,0 +1,132 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for SMTP.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/SmtpProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "AuthType": {
+      "title": "AuthType",
+      "description": "Represent the auth type values.",
+      "enum": [
+        "none",
+        "not_provided",
+        "plain"
+      ],
+      "type": "string"
+    },
+    "TransportSecurity": {
+      "title": "TransportSecurity",
+      "description": "Represent the transport security values.",
+      "enum": [
+        "none",
+        "starttls",
+        "tls"
+      ],
+      "type": "string"
+    },
+    "SmtpProviderData": {
+      "title": "SmtpProviderData",
+      "type": "object",
+      "properties": {
+        "host": {
+          "title": "Host",
+          "description": "SMTP host.",
+          "minLength": 1,
+          "examples": [
+            "example.com"
+          ],
+          "type": "string"
+        },
+        "port": {
+          "title": "Port",
+          "description": "SMTP port.",
+          "minimum": 1,
+          "maximum": 65536,
+          "examples": [
+            25,
+            587,
+            465
+          ],
+          "type": "integer"
+        },
+        "user": {
+          "title": "User",
+          "description": "SMTP user.",
+          "examples": [
+            "some_user"
+          ],
+          "type": "string"
+        },
+        "password": {
+          "title": "Password",
+          "description": "SMTP password. Populated instead of password_id when secrets are not supported.",
+          "examples": [
+            "somepasswd"
+          ],
+          "type": "string"
+        },
+        "password_id": {
+          "title": "Password ID",
+          "description": "Juju secret ID for the SMTP password. Populated instead of password when secrets are supported.",
+          "examples": [
+            "secret:123213123123123123123"
+          ],
+          "type": "string"
+        },
+        "auth_type": {
+          "title": "Auth type",
+          "description": "The type used to authenticate with the SMTP relay.",
+          "examples": [
+            "none"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/definitions/AuthType"
+            }
+          ]
+        },
+        "transport_security": {
+          "title": "Transport security",
+          "description": "The security protocol to use for the SMTP relay.",
+          "examples": [
+            "none"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/definitions/TransportSecurity"
+            }
+          ]
+        },
+        "domain": {
+          "title": "Domain",
+          "description": "The MAIL FROM domain for the outgoing email.",
+          "examples": [
+            "example.com"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "host",
+        "port",
+        "auth_type",
+        "transport_security"
+      ]
+    }
+  }
+}
