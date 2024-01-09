@@ -4,12 +4,12 @@
     Charm Relation Interfaces
   </h1>
   <small>
-    A catalogue of opinionated and standardized interface specifications for charmed operator relations.     
+    A catalogue of opinionated and standardized interface specifications for charmed operator relations.
   </small>
   </br></br>
   <p>
-    <a href="https://chat.charmhub.io/charmhub/channels/integrations">
-      <img src="https://img.shields.io/badge/Join_us_on_Mattermost-%23integrations-blue" alt="Mattermost badge" />
+    <a href="https://matrix.to/#/#charmhub-integrations:ubuntu.com">
+      <img src="https://img.shields.io/badge/Join%20us%20on%20Matrix-%23charmhub--integrations%3Aubuntu.com-blue" alt="Mattermost badge" />
     </a>
   </p>
 </div>
@@ -22,13 +22,13 @@ To contribute a new interface specification, open a pull request containing:
 
 - a new directory: `/interfaces/{your-interface-name}`. In it, there should be:
   - a `README.md` explaining the purpose of the interface and the protocol
-  - a `schema.py` file containing pydantic models that specify the app and unit databag model for either side of the interface. 
+  - a `schema.py` file containing pydantic models that specify the app and unit databag model for either side of the interface.
   - `charms.yaml` file consisting of a list of any `providers` and `requirers` known to adhere to the specification.
   - a `interface_tests` directory in which you can put python files containing interface tests. Read more about interface tests [here](./README_INTERFACE_TESTS.md)
 - under `docs/`, the json schemas generated from the pydantic schemas. You can use command `tox -e build-json-schemas` to generate them automatically. Do not edit those files manually.
-- in this repo's root `README.md`, add the interface to the table, if applicable.  
+- in this repo's root `README.md`, add the interface to the table, if applicable.
 
-To quickly get started, see the [template interface](https://github.com/canonical/charm-relation-interfaces/tree/main/interfaces/__template__/v0) for a template of what to include and how it should be structured. 
+To quickly get started, see the [template interface](https://github.com/canonical/charm-relation-interfaces/tree/main/interfaces/__template__/v0) for a template of what to include and how it should be structured.
 
 
 ## Interfaces
@@ -42,8 +42,8 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |               | [`opensearch_client`](interfaces/opensearch_client/v0/README.md)             |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 |               | [`database_backup`](interfaces/database_backup/v0/README.md)                 |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
 | Identity      | [`oauth`](interfaces/oauth/v0/README.md)                                     |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
-|               | [`auth_proxy`](interfaces/auth_proxy/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   | 
-|               | [`openfga`](interfaces/openfga/v0/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  | 
+|               | [`auth_proxy`](interfaces/auth_proxy/v0/README.md)                           |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
+|               | [`openfga`](interfaces/openfga/v0/README.md)                                 |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)  |
 |               | [`saml`](interfaces/saml/v0/README.md)                                       |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)   |
 |               | [`smtp`](interfaces/smtp/v0/README.md)                                       |  ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen)   |
 | Observability | [`grafana_auth`](interfaces/grafana_auth/v0/README.md)                       |  ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)   |
