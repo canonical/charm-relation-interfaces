@@ -87,6 +87,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 | Category      | Interface                                                            |                               Status                                |
 |---------------|:---------------------------------------------------------------------|:-------------------------------------------------------------------:|
 | Observability | [`cos_agent`](interfaces/cos_agent/v0/README.md)                     | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
+|                       | [`mimir_cluster`](interfaces/mimir_cluster/v0)                               | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 
 ### Telco
 
