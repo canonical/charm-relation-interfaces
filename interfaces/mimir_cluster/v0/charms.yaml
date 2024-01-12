@@ -1,0 +1,7 @@
+providers:
+  - name: mimir-coordinator
+    url: https://github.com/canonical/mimir-coordinator-k8s-operator
+
+requirers:
+  - name: mimir-worker
+    url: https://github.com/canonical/mimir-worker-k8s-operator
