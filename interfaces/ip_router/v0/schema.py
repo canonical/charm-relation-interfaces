@@ -6,8 +6,8 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-              "networks": [
-                {
+              "networks": {
+                "app-1-network": {
                   "network": "192.168.250.0/24",
                   "gateway": "192.168.250.1",
                   "routes": [
@@ -17,37 +17,36 @@ Examples:
                     }
                   ]
                 },
-                {
+                "app-2-network: {
                   "network": "192.168.252.0/24",
                   "gateway": "192.168.252.1",
-
                 },
-                {
+                "app-3-network: {
                   "network": "192.168.251.0/24",
                   "gateway": "192.168.251.1/24"
                 }
-              ]
+              }
             }
     RequirerSchema:
         unit: <empty>
         app:  {
-              "networks": [
-                {
-                  "network": "192.168.250.0/24",
-                  "gateway": "192.168.250.1",
-                  "routes": [
-                    {
-                      "destination": "172.250.0.0/16",
-                      "gateway": "192.168.250.3"
-                    }
-                  ]
+              "networks": {
+                  "app-1-network": {
+                    "network": "192.168.250.0/24",
+                    "gateway": "192.168.250.1",
+                    "routes": [
+                      {
+                        "destination": "172.250.0.0/16",
+                        "gateway": "192.168.250.3"
+                      }
+                    ]
+                  }
                 }
-              ]
-            }
+              }
 """
 
 from pydantic import BaseModel, IPvAnyAddress, IPvAnyNetwork
-from typing import Optional, List
+from typing import Optional, List, Dict
 from interface_tester.schema_base import DataBagSchema
 
 
@@ -63,18 +62,20 @@ class IPNetwork(BaseModel):
 
 
 class IPRouterProviderAppData(BaseModel):
-    networks: List[IPNetwork]
+    networks: Dict[str, IPNetwork]
 
 
 class IPRouterRequirerAppData(BaseModel):
-    networks: List[IPNetwork]
+    networks: Dict[str, IPNetwork]
 
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for ip_router."""
+
     app: IPRouterProviderAppData
 
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for ip_router."""
+
     app: IPRouterRequirerAppData
