@@ -1,0 +1,39 @@
+{
+  "title": "RequirerSchema",
+  "description": "The schema for the requirer side of the ldap interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/LdapRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "LdapRequirerData": {
+      "title": "LdapRequirerData",
+      "type": "object",
+      "properties": {
+        "user": {
+          "title": "User",
+          "description": "The user name provided by the requirer charmed operator",
+          "type": "string"
+        },
+        "group": {
+          "title": "Group",
+          "description": "The group name provided by the requirer charmed operator",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

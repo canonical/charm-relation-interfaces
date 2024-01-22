@@ -146,7 +146,6 @@
         "entity_id",
         "single_sign_on_service_redirect_url",
         "single_sign_on_service_redirect_binding",
-        "single_sign_on_service_post_binding",
         "x509certs"
       ]
     }
