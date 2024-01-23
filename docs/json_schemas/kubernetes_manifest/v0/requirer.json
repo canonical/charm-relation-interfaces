@@ -1,0 +1,41 @@
+{
+  "title": "RequirerSchema",
+  "description": "The schema for the requirer side of kubernetes_manifest interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "title": "App",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/KubernetesManifest"
+      }
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "KubernetesManifest": {
+      "title": "KubernetesManifest",
+      "description": "Representation of a Kubernetes Object sent to Kubernetes Manifests.\n\nArgs:\n    manifest_content: the content of the Kubernetes manifest file",
+      "type": "object",
+      "properties": {
+        "manifest_content": {
+          "title": "Manifest Content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "manifest_content"
+      ]
+    }
+  }
+}
