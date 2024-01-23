@@ -70,6 +70,7 @@ To quickly get started, see the [template interface](https://github.com/canonica
 |---------------|:-----------------------------------------------------------------------------|:-------------------------------------------------------------------:|
 | Metadata      | [`k8s-service`](interfaces/k8s-service/v0/README.md)                         | ![Status: Draft](https://img.shields.io/badge/Status-Draft-orange)  |
 | Metadata      | [`kubeflow-dashboard-sidebar`](interfaces/kubeflow_dashboard_sidebar/v0/README.md) | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
+| Metadata      | [`kubernetes_manifest`](interfaces/kubernetes_manifest/v0/README.md) | ![Status: Live](https://img.shields.io/badge/Status-Live-darkgreen) |
 
 ### Identity
 
