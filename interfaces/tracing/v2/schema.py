@@ -9,13 +9,16 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 Examples:
     ProviderSchema:
         unit_data: <empty>
-        application_data: <empty>
+        application_data:
+          ingesters:
+            - otlp_grpc
+            - otlp_http
 
     RequirerSchema:
         # unit_data: <empty>
         application_data:
           url: "http://foo.bar/my-model-my-unit-0"
-          ingester-ports:
+          ingesters:
             - type: otlp_grpc
               port: 1234
             - type: otlp_http
@@ -52,3 +55,4 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Tracing."""
+    ingesters: Json[List[IngesterProtocol]]
