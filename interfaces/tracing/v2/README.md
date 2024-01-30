@@ -49,7 +49,7 @@ For examples, see below.
 ```yaml
 # unit_data: <empty> 
 application_data: 
-  ingesters: 
+  protocols: 
     - otlp_grpc
     - otlp_http
 ```

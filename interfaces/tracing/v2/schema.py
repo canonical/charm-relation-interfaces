@@ -55,4 +55,4 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Tracing."""
-    ingesters: Json[List[IngesterProtocol]]
+    protocols: Json[List[IngesterProtocol]]
