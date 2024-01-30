@@ -15,7 +15,7 @@ The directionality of the relation flows from the observer, Tempo(-compliant) ba
 
 ```mermaid
 graph LR
-    Requirer["Observed app (requirer)"]  --> Protocols --> Requirer["Ingester (provider)"]
+    Requirer["Observed app (requirer)"]  --> Protocols --> Provider["Ingester (provider)"]
     Provider["Ingester (provider)"]  --> TracingBackends --> Requirer["Observed app (requirer)"]
 ```
 
