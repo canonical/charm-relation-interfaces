@@ -1,5 +1,6 @@
 providers:
   - name: tempo-k8s
     url: https://github.com/canonical/tempo-k8s-operator
+    branch: tracing-v2
 
 requirers: []
