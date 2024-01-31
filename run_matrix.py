@@ -164,6 +164,8 @@ def _setup_venv(charm_path: Path) -> None:
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
+        logging.info(f"Installed {(charm_path/'requirements.txt').read_text()}")
+
     except subprocess.CalledProcessError as e:
         raise SetupError("venv setup failed") from e
     os.chdir(original_wd)
@@ -266,9 +268,12 @@ def _test_interface_version(tests_per_version, interface: str) -> "_ResultsPerVe
     return results_per_version
 
 
-def run_interface_tests(path: Path, include: str = "*") -> "_ResultsPerInterface":
+def run_interface_tests(
+    path: Path, include: str = "*", keep_cache: bool = False
+) -> "_ResultsPerInterface":
     """Run the tests for the specified interfaces, defaulting to all."""
-    _clean()
+    if not keep_cache:
+        _clean()
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
@@ -288,15 +293,23 @@ def pprint_interface_test_results(test_results: dict):
 
 
 if __name__ == "__main__":
-    import argparse
+    # import argparse
+    #
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument(
+    #     "--include",
+    #     default="*",
+    #     help="Glob to filter what interfaces to include in the test matrix.",
+    # )
+    # parser.add_argument(
+    #     "--keep-cache",
+    #     default=False,
+    #     help="Keep the charm cache intact before running the tests. "
+    #          "This will save some time when running the tests again "
+    #          "(assuming the charms haven't changed).",
+    # )
+    # args = parser.parse_args()
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--include",
-        default="*",
-        help="Glob to filter what interfaces to include in the test matrix.",
-    )
-    args = parser.parse_args()
-
-    result = run_interface_tests(Path("."), args.include)
+    # result = run_interface_tests(Path("."), args.include, args.keep_cache)
+    result = run_interface_tests(Path("."), "tracing", False)
     pprint_interface_test_results(result)
