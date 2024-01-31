@@ -1,31 +1,51 @@
 {
-  "title": "RequirerSchema",
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
   "description": "Requirer schema for Tracing.",
-  "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/BaseModel"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "app": {
-      "$ref": "#/definitions/BaseModel"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "protocols": {
-      "title": "Protocols",
+      "contentMediaType": "application/json",
+      "contentSchema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
       "description": "List of protocols that the requirer wishes to use.",
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "title": "Protocols",
+      "type": "string"
     }
   },
   "required": [
     "protocols"
   ],
-  "definitions": {
-    "BaseModel": {
-      "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    }
-  }
+  "title": "RequirerSchema",
+  "type": "object"
 }

@@ -1,72 +1,83 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for Tracing.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/TracingProviderData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    },
-    "IngesterProtocol": {
-      "title": "IngesterProtocol",
-      "description": "An enumeration.",
-      "enum": [
-        "otlp_grpc",
-        "otlp_http",
-        "zipkin",
-        "tempo"
-      ],
-      "type": "string"
+      "type": "object"
     },
     "Ingester": {
-      "title": "Ingester",
-      "type": "object",
       "properties": {
         "port": {
           "title": "Port",
           "type": "string"
         },
         "protocol": {
-          "$ref": "#/definitions/IngesterProtocol"
+          "$ref": "#/$defs/IngesterProtocol"
         }
       },
       "required": [
         "port",
         "protocol"
-      ]
+      ],
+      "title": "Ingester",
+      "type": "object"
+    },
+    "IngesterProtocol": {
+      "enum": [
+        "otlp_grpc",
+        "otlp_http",
+        "zipkin",
+        "tempo"
+      ],
+      "title": "IngesterProtocol",
+      "type": "string"
     },
     "TracingProviderData": {
-      "title": "TracingProviderData",
-      "type": "object",
       "properties": {
         "host": {
           "title": "Host",
           "type": "string"
         },
         "ingesters": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "$ref": "#/$defs/Ingester"
+            },
+            "type": "array"
+          },
           "title": "Ingesters",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Ingester"
-          }
+          "type": "string"
         }
       },
       "required": [
         "host",
         "ingesters"
-      ]
+      ],
+      "title": "TracingProviderData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for Tracing.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/TracingProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

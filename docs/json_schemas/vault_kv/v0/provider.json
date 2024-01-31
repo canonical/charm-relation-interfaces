@@ -1,50 +1,38 @@
 {
-  "title": "ProviderSchema",
-  "description": "The schema for the provider side of this interface.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/VaultKvProviderSchema"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "VaultKvProviderSchema": {
-      "title": "VaultKvProviderSchema",
-      "type": "object",
       "properties": {
         "vault_url": {
-          "title": "Vault Url",
           "description": "The URL of the Vault server to connect to.",
+          "title": "Vault Url",
           "type": "string"
         },
         "mount": {
-          "title": "Mount",
           "description": "The KV mount available for the requirer application, respecting the pattern 'charm-<requirer app>-<user provided suffix>'.",
+          "title": "Mount",
           "type": "string"
         },
         "ca_certificate": {
-          "title": "Ca Certificate",
           "description": "The CA certificate to use when validating the Vault server's certificate.",
+          "title": "Ca Certificate",
           "type": "string"
         },
         "credentials": {
-          "title": "Credentials",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
           "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+          "title": "Credentials",
+          "type": "string"
         }
       },
       "required": [
@@ -52,7 +40,31 @@
         "mount",
         "ca_certificate",
         "credentials"
-      ]
+      ],
+      "title": "VaultKvProviderSchema",
+      "type": "object"
     }
-  }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/VaultKvProviderSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

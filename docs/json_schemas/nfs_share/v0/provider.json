@@ -1,27 +1,11 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for nfs-share.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/NFSShareProviderAppData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "NFSShareProviderAppData": {
-      "title": "NFSShareProviderAppData",
-      "type": "object",
       "properties": {
         "endpoint": {
           "title": "Endpoint",
@@ -30,7 +14,31 @@
       },
       "required": [
         "endpoint"
-      ]
+      ],
+      "title": "NFSShareProviderAppData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for nfs-share.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/NFSShareProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

@@ -1,54 +1,70 @@
 {
-  "title": "ProviderSchema",
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ForwardAuthProvider": {
+      "properties": {
+        "decisions_address": {
+          "description": "The internal decisions endpoint address.",
+          "title": "Decisions Address",
+          "type": "string"
+        },
+        "app_names": {
+          "description": "List of names of applications requesting to be protected by Identity and Access Proxy.",
+          "items": {
+            "type": "string"
+          },
+          "title": "App Names",
+          "type": "array"
+        },
+        "headers": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of headers to copy from the authentication server response and set on forwarded requests.",
+          "title": "Headers"
+        }
+      },
+      "required": [
+        "decisions_address",
+        "app_names",
+        "headers"
+      ],
+      "title": "ForwardAuthProvider",
+      "type": "object"
+    }
+  },
   "description": "Provider schema for forward_auth.",
-  "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/BaseModel"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "app": {
-      "$ref": "#/definitions/ForwardAuthProvider"
+      "$ref": "#/$defs/ForwardAuthProvider"
     }
   },
   "required": [
     "app"
   ],
-  "definitions": {
-    "BaseModel": {
-      "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    },
-    "ForwardAuthProvider": {
-      "title": "ForwardAuthProvider",
-      "type": "object",
-      "properties": {
-        "decisions_address": {
-          "title": "Decisions Address",
-          "description": "The internal decisions endpoint address.",
-          "type": "string"
-        },
-        "app_names": {
-          "title": "App Names",
-          "description": "List of names of applications requesting to be protected by Identity and Access Proxy.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "headers": {
-          "title": "Headers",
-          "description": "List of headers to copy from the authentication server response and set on forwarded requests.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "decisions_address",
-        "app_names"
-      ]
-    }
-  }
+  "title": "ProviderSchema",
+  "type": "object"
 }

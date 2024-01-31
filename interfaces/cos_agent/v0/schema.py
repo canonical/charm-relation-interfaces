@@ -84,9 +84,12 @@ class GrafanaDashboard(str):
 
 class NestedDataModel(BaseModel):
     """Nested model for `config` in ProviderUnitData."""
+    model_config = {
+        "arbitrary_types_allowed": True,
+    }
     metrics_alert_rules: dict
     log_alert_rules: dict
-    dashboards: List[GrafanaDashboard]
+    dashboards: List[str]  # IRL it's GrafanaDashboard
     metrics_scrape_jobs: List[Dict]
     log_slots: List[str]
 

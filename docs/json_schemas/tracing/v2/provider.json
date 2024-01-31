@@ -1,40 +1,23 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for Tracing.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/TracingProviderData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "Receiver": {
-      "title": "Receiver",
       "description": "Specification of an active receiver.",
-      "type": "object",
       "properties": {
         "port": {
-          "title": "Port",
           "description": "Port at which the receiver is listening.",
           "examples": [
             42,
             9098
           ],
-          "type": "string"
+          "title": "Port",
+          "type": "integer"
         },
         "protocol": {
-          "title": "Protocol",
           "description": "Receiver protocol name. What protocols are supported (and what they are called) may differ per provider.",
           "examples": [
             "otlp_grpc",
@@ -42,39 +25,68 @@
             "tempo_http",
             "jaeger_thrift_compact"
           ],
+          "title": "Protocol",
           "type": "string"
         }
       },
       "required": [
         "port",
         "protocol"
-      ]
+      ],
+      "title": "Receiver",
+      "type": "object"
     },
     "TracingProviderData": {
-      "title": "TracingProviderData",
-      "type": "object",
       "properties": {
         "host": {
-          "title": "Host",
           "description": "Hostname of the tracing server.",
           "examples": [
             "example.com"
           ],
+          "title": "Host",
           "type": "string"
         },
         "receivers": {
-          "title": "Receivers",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "$ref": "#/$defs/Receiver"
+            },
+            "type": "array"
+          },
           "description": "List of the receivers that this server has enabled, and their ports.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Receiver"
-          }
+          "title": "Receivers",
+          "type": "string"
         }
       },
       "required": [
         "host",
         "receivers"
-      ]
+      ],
+      "title": "TracingProviderData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for Tracing.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/TracingProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

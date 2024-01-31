@@ -1,37 +1,55 @@
 {
-  "title": "RequirerSchema",
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ForwardAuthRequirer": {
+      "properties": {
+        "ingress_app_names": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of names of applications that are related via ingress.",
+          "title": "Ingress App Names"
+        }
+      },
+      "required": [
+        "ingress_app_names"
+      ],
+      "title": "ForwardAuthRequirer",
+      "type": "object"
+    }
+  },
   "description": "Requirer schema for forward_auth.",
-  "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/BaseModel"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "app": {
-      "$ref": "#/definitions/ForwardAuthRequirer"
+      "$ref": "#/$defs/ForwardAuthRequirer"
     }
   },
   "required": [
     "app"
   ],
-  "definitions": {
-    "BaseModel": {
-      "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    },
-    "ForwardAuthRequirer": {
-      "title": "ForwardAuthRequirer",
-      "type": "object",
-      "properties": {
-        "ingress_app_names": {
-          "title": "Ingress App Names",
-          "description": "List of names of applications that are related via ingress.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    }
-  }
+  "title": "RequirerSchema",
+  "type": "object"
 }

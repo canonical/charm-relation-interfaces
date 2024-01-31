@@ -1,59 +1,82 @@
 {
-  "title": "RequirerSchema",
+  "$defs": {
+    "AuthProxyRequirer": {
+      "properties": {
+        "protected_urls": {
+          "description": "List of urls to be protected by Identity and Access Proxy.",
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Protected Urls",
+          "type": "array"
+        },
+        "allowed_endpoints": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of endpoints that are allowed to bypass authentication.",
+          "title": "Allowed Endpoints"
+        },
+        "headers": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of headers to be returned upon a successful authentication.",
+          "title": "Headers"
+        }
+      },
+      "required": [
+        "protected_urls",
+        "allowed_endpoints",
+        "headers"
+      ],
+      "title": "AuthProxyRequirer",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
   "description": "Requirer schema for auth_proxy.",
-  "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/BaseModel"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "app": {
-      "$ref": "#/definitions/AuthProxyRequirer"
+      "$ref": "#/$defs/AuthProxyRequirer"
     }
   },
   "required": [
     "app"
   ],
-  "definitions": {
-    "BaseModel": {
-      "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    },
-    "AuthProxyRequirer": {
-      "title": "AuthProxyRequirer",
-      "type": "object",
-      "properties": {
-        "protected_urls": {
-          "title": "Protected Urls",
-          "description": "List of urls to be protected by Identity and Access Proxy.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 65536,
-            "format": "uri"
-          }
-        },
-        "allowed_endpoints": {
-          "title": "Allowed Endpoints",
-          "description": "List of endpoints that are allowed to bypass authentication.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "headers": {
-          "title": "Headers",
-          "description": "List of headers to be returned upon a successful authentication.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "protected_urls"
-      ]
-    }
-  }
+  "title": "RequirerSchema",
+  "type": "object"
 }

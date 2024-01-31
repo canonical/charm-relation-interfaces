@@ -1,51 +1,63 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for Ingress.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/MyProviderData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
+    },
+    "MyProviderData": {
+      "properties": {
+        "ingress": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/Url"
+          },
+          "title": "Ingress",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ingress"
+      ],
+      "title": "MyProviderData",
+      "type": "object"
     },
     "Url": {
-      "title": "Url",
-      "type": "object",
       "properties": {
         "url": {
-          "title": "Url",
-          "minLength": 1,
-          "maxLength": 65536,
           "format": "uri",
+          "minLength": 1,
+          "title": "Url",
           "type": "string"
         }
       },
       "required": [
         "url"
-      ]
-    },
-    "MyProviderData": {
-      "title": "MyProviderData",
-      "type": "object",
-      "properties": {
-        "ingress": {
-          "$ref": "#/definitions/Url"
-        }
-      },
-      "required": [
-        "ingress"
-      ]
+      ],
+      "title": "Url",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for Ingress.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/MyProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

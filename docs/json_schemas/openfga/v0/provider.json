@@ -1,65 +1,49 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for OpenFGA.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/OpenFGAProviderData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "OpenFGAProviderData": {
-      "title": "OpenFGAProviderData",
-      "type": "object",
       "properties": {
         "address": {
-          "title": "OpenFGA address",
           "description": "The address of the OpenFGA service.",
           "examples": [
             "10.10.4.1"
           ],
-          "type": "string",
-          "format": "ipvanyaddress"
+          "format": "ipvanyaddress",
+          "title": "OpenFGA address",
+          "type": "string"
         },
         "port": {
-          "title": "OpenFGA port",
           "description": "Port on which the OpenFGA service is listening (HTTP).",
           "examples": [
             8080
           ],
+          "title": "OpenFGA port",
           "type": "integer"
         },
         "scheme": {
-          "title": "OpenFGA scheme",
           "description": "Scheme to be used to connect to the OpenFGA service.",
           "examples": [
             "http",
             "https"
           ],
+          "title": "OpenFGA scheme",
           "type": "string"
         },
         "token_secret_id": {
-          "title": "Secret ID of the OpenFGA token",
           "description": "Secret ID of the preshared token to be used to connect to the OpenFGA service.",
+          "title": "Secret ID of the OpenFGA token",
           "type": "string"
         },
         "store_id": {
-          "title": "OpenFGA store ID",
           "description": "ID of the authentication stored that was created.",
           "examples": [
             "01GK13VYZK62Q1T0X55Q2BHYD6"
           ],
+          "title": "OpenFGA store ID",
           "type": "string"
         }
       },
@@ -69,7 +53,31 @@
         "scheme",
         "token_secret_id",
         "store_id"
-      ]
+      ],
+      "title": "OpenFGAProviderData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for OpenFGA.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/OpenFGAProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

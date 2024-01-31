@@ -1,23 +1,12 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for CosAgent.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/ProviderUnitData"
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
     },
-    "app": {
-      "$ref": "#/definitions/BaseModel"
-    }
-  },
-  "required": [
-    "unit"
-  ],
-  "definitions": {
     "NestedDataModel": {
-      "title": "NestedDataModel",
       "description": "Nested model for `config` in ProviderUnitData.",
-      "type": "object",
       "properties": {
         "metrics_alert_rules": {
           "title": "Metrics Alert Rules",
@@ -28,25 +17,25 @@
           "type": "object"
         },
         "dashboards": {
-          "title": "Dashboards",
-          "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "Dashboards",
+          "type": "array"
         },
         "metrics_scrape_jobs": {
-          "title": "Metrics Scrape Jobs",
-          "type": "array",
           "items": {
             "type": "object"
-          }
+          },
+          "title": "Metrics Scrape Jobs",
+          "type": "array"
         },
         "log_slots": {
-          "title": "Log Slots",
-          "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "Log Slots",
+          "type": "array"
         }
       },
       "required": [
@@ -55,25 +44,49 @@
         "dashboards",
         "metrics_scrape_jobs",
         "log_slots"
-      ]
+      ],
+      "title": "NestedDataModel",
+      "type": "object"
     },
     "ProviderUnitData": {
-      "title": "ProviderUnitData",
       "description": "Unit databag model for `cos-agent` relation.",
-      "type": "object",
       "properties": {
         "config": {
-          "$ref": "#/definitions/NestedDataModel"
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/NestedDataModel"
+          },
+          "title": "Config",
+          "type": "string"
         }
       },
       "required": [
         "config"
-      ]
-    },
-    "BaseModel": {
-      "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      ],
+      "title": "ProviderUnitData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for CosAgent.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/ProviderUnitData"
+    },
+    "app": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "unit"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

@@ -121,7 +121,7 @@ def _generate_test(
     test_content = _TEST_CONTENT.format(
         interface=interface, fixture_id=fixture_id, version=version
     )
-    test_filename = f"interface-test-{interface}.py"
+    test_filename = f"interface_test_{interface}.py"
     with open(test_path / test_filename, "w") as file:
         file.write(test_content)
     return test_path / test_filename
