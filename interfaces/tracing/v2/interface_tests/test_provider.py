@@ -21,18 +21,16 @@ def test_no_data_on_joined():
 def test_data_on_changed():
     tester = Tester(
         state_in=State(
-            relations=[Relation(
-                endpoint='tracing',
-                interface='tracing',
-                remote_app_name='remote',
-                local_app_data={
-                    "host": "foo.com",
-                    "ingesters": json.dumps([
-                        {"protocol": "otlp_grpc",
-                         "port": "4242"}
-                    ])
-                }
-            )]
+            relations=[
+                Relation(
+                    endpoint='tracing',
+                    interface='tracing',
+                    remote_app_name='remote',
+                    remote_app_data={
+                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
+                    }
+                )
+            ]
         )
     )
     tester.run('tracing-relation-changed')
