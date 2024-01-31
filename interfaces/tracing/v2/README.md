@@ -15,8 +15,8 @@ The directionality of the relation flows from the observer, Tempo(-compliant) ba
 
 ```mermaid
 graph LR
-    Requirer["Observed app (requirer)"]  --> Protocols --> Provider["Ingester (provider)"]
-    Provider["Ingester (provider)"]  --> TracingBackends --> Requirer["Observed app (requirer)"]
+    Requirer["Observed app (requirer)"]  --> RequestedProtocols --> Provider["Receiver (provider)"]
+    Provider["Receiver (provider)"]  --> TracingBackends --> Requirer["Observed app (requirer)"]
 ```
 
 ## Behavior
@@ -30,7 +30,7 @@ graph LR
 ### Provider
 
 - Is expected to publish the url at which the server is reachable. (This will happen in any case and doubles down as an acknowledgement of receipt)
-- Is expected to comply as good as possible with the requested protocols, activating the corresponding ingesters.
+- Is expected to comply as good as possible with the requested protocols, activating the corresponding receivers.
 - Is expected to run a server accepting trace submissions on **all** the supported **and** requested tracing protocols.
 - Is expected to publish, for each protocol it accepts, the port at which the server is listening along with the name of the supported protocol.
 

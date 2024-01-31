@@ -10,7 +10,7 @@ Examples:
     ProviderSchema:
         unit_data: <empty>
         application_data:
-          ingesters:
+          receivers:
             - otlp_grpc
             - otlp_http
 
@@ -18,34 +18,35 @@ Examples:
         # unit_data: <empty>
         application_data:
           url: "http://foo.bar/my-model-my-unit-0"
-          ingesters:
+          receivers:
             - type: otlp_grpc
               port: 1234
             - type: otlp_http
               port: 5678
 """
-from enum import Enum
-from typing import List, Literal
+from typing import List
 
 from interface_tester.schema_base import DataBagSchema
-from pydantic import BaseModel, Json
+from pydantic import BaseModel, Json, Field
 
 
-class IngesterProtocol(str, Enum):
-    otlp_grpc = "otlp_grpc"
-    otlp_http = "otlp_http"
-    zipkin = "zipkin"
-    tempo = "tempo"
-
-
-class Ingester(BaseModel):
-    port: str
-    protocol: IngesterProtocol
+class Receiver(BaseModel):
+    """Specification of an active receiver."""
+    port: str = Field(...,
+                      description="Port at which the receiver is listening.",
+                      examples=[42, 9098])
+    protocol: str = Field(
+        ...,
+        description="Receiver protocol name. What protocols are supported (and what they are called) "
+                    "may differ per provider.",
+        examples=["otlp_grpc", "otlp_http", "tempo_http", "jaeger_thrift_compact"])
 
 
 class TracingProviderData(BaseModel):
-    host: str
-    ingesters: Json[List[Ingester]]
+    host: str = Field(..., description="Hostname of the tracing server.", examples=["example.com"])
+    receivers: Json[List[Receiver]] = Field(
+        ...,
+        description="List of the receivers that this server has enabled, and their ports.")
 
 
 class ProviderSchema(DataBagSchema):
@@ -55,4 +56,7 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Tracing."""
-    protocols: Json[List[IngesterProtocol]]
+    protocols: Json[List[str]] = Field(
+        ...,
+        description="List of protocols that the requirer wishes to use."
+    )
