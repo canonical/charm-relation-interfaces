@@ -24,7 +24,7 @@ Examples:
             - type: otlp_http
               port: 5678
 """
-from typing import List
+from typing import List, Optional
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Json, Field
