@@ -1,7 +1,7 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
 import json
-from typing import List
+from typing import List, Any
 
 from interface_tester import DataBagSchema
 from interface_tester.interface_test import Tester
@@ -11,7 +11,7 @@ from scenario import State, Relation
 
 class LegacyTracingProviderData(BaseModel):
     host: str
-    ingesters: Json[List[str]]
+    ingesters: Json[List[Any]]
 
 
 class LegacyProviderSchema(DataBagSchema):
