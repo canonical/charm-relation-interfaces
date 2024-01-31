@@ -32,7 +32,7 @@ from pydantic import BaseModel, Json, Field
 
 class Receiver(BaseModel):
     """Specification of an active receiver."""
-    port: str = Field(...,
+    port: int = Field(...,
                       description="Port at which the receiver is listening.",
                       examples=[42, 9098])
     protocol: str = Field(
