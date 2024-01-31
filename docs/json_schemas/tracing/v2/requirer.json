@@ -10,9 +10,11 @@
       "$ref": "#/definitions/BaseModel"
     },
     "protocols": {
+      "title": "Protocols",
+      "description": "List of protocols that the requirer wishes to use.",
       "type": "array",
       "items": {
-        "$ref": "#/definitions/IngesterProtocol"
+        "type": "string"
       }
     }
   },
@@ -24,17 +26,6 @@
       "title": "BaseModel",
       "type": "object",
       "properties": {}
-    },
-    "IngesterProtocol": {
-      "title": "IngesterProtocol",
-      "description": "An enumeration.",
-      "enum": [
-        "otlp_grpc",
-        "otlp_http",
-        "zipkin",
-        "tempo"
-      ],
-      "type": "string"
     }
   }
 }
