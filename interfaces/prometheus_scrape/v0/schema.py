@@ -7,7 +7,7 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 
 Examples:
     ProviderSchema:
-        application_data: {
+        app: {
             "alert_rules": {
                 "groups": [
                     {
@@ -48,13 +48,11 @@ Examples:
                 "charm_name": "zinc-k8s"
             }
         },
-        related_units: {
-            "zinc-k8s/0": {
-                "data": {
-                    "prometheus_scrape_unit_address": "zinc-k8s-0.zinc-k8s-endpoints.cos.svc.cluster.local",
-                    "prometheus_scrape_unit_name": "zinc-k8s/0"
-                }
-            }
+        unit: {
+            "prometheus_scrape_unit_address": "zinc-k8s-0.zinc-k8s-endpoints.cos.svc.cluster.local",
+            "prometheus_scrape_unit_name": "zinc-k8s/0"
+            "prometheus_scrape_unit_path": null
+
         }
 """
 
@@ -123,7 +121,7 @@ class ScrapeMetadataModel(BaseModel):
 class ApplicationDataModel(BaseModel):
     alert_rules: AlertRulesModel = Field(
         description="Alert rules provided by the charm. By default, loaded from "
-                    "`<charm_parent_dir>/prometheus_alert_rules`."
+        "`<charm_parent_dir>/prometheus_alert_rules`."
     )
     scrape_jobs: List[ScrapeJobModel] = Field(
         description="List of Prometheus scrape job configurations specifying metrics scraping targets."
