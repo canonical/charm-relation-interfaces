@@ -21,10 +21,17 @@
       "properties": {
         "prometheus_scrape_unit_address": {
           "title": "Prometheus Scrape Unit Address",
+          "description": "The address provided by the unit for Prometheus scraping. This address is where Prometheus can retrieve metrics data from the unit.",
           "type": "string"
         },
         "prometheus_scrape_unit_name": {
           "title": "Prometheus Scrape Unit Name",
+          "description": "The name provided by the unit for Prometheus scraping. This name uniquely identifies the unit as a target for Prometheus to collect metrics data.",
+          "type": "string"
+        },
+        "prometheus_scrape_unit_path": {
+          "title": "Prometheus Scrape Unit Path",
+          "description": "An optional path provided by the unit for Prometheus scraping. It is present when the provider charm is backed by an Ingress or a Proxy.",
           "type": "string"
         }
       },
@@ -106,6 +113,7 @@
       "properties": {
         "groups": {
           "title": "Groups",
+          "description": "List of alert rule groups.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/AlertGroupModel"
@@ -147,7 +155,7 @@
       "properties": {
         "job_name": {
           "title": "Job Name",
-          "description": "Name of the Prometheus scrape job, each job must be given a unique name",
+          "description": "Name of the Prometheus scrape job, each job must be given a unique name &  should be a fixed string (e.g. hardcoded literal)",
           "type": "string"
         },
         "metrics_path": {
@@ -157,6 +165,7 @@
         },
         "static_configs": {
           "title": "Static Configs",
+          "description": "List of static configurations for scrape targets.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ScrapeStaticConfigModel"
@@ -174,18 +183,22 @@
       "properties": {
         "model": {
           "title": "Model",
+          "description": "Juju model name.",
           "type": "string"
         },
         "model_uuid": {
           "title": "Model Uuid",
+          "description": "Juju model UUID.",
           "type": "string"
         },
         "application": {
           "title": "Application",
+          "description": "Juju application name.",
           "type": "string"
         },
         "unit": {
           "title": "Unit",
+          "description": "Juju unit name.",
           "type": "string"
         }
       },
@@ -201,17 +214,30 @@
       "type": "object",
       "properties": {
         "alert_rules": {
-          "$ref": "#/definitions/AlertRulesModel"
+          "title": "Alert Rules",
+          "description": "Alert rules provided by the charm. By default, loaded from `<charm_parent_dir>/prometheus_alert_rules`.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlertRulesModel"
+            }
+          ]
         },
         "scrape_jobs": {
           "title": "Scrape Jobs",
+          "description": "List of Prometheus scrape job configurations specifying metrics scraping targets.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ScrapeJobModel"
           }
         },
         "scrape_metadata": {
-          "$ref": "#/definitions/ScrapeMetadataModel"
+          "title": "Scrape Metadata",
+          "description": "Metadata providing information about the Juju topology.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ScrapeMetadataModel"
+            }
+          ]
         }
       },
       "required": [

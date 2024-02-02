@@ -45,7 +45,7 @@ Both the Requirer and the provider need to adhere to a certain set of criterias 
 [\[JSON Schema\]](./schemas/provider.json)
 
 - Exposes all scrape jobs the requirer should scrape metrics through. Should be placed in the **application** databag.
-- Exposes the unit address of each unit to scrape, as well as the unit name of each address. Should be placed in the **unit** databag of each scrapable unit.
+- Exposes the unit address of each unit to be scraped, along with the unit name. Additionally, it includes an optional path provided by the unit for Prometheus scraping. This path is present when the provider charm is backed by an Ingress or a Proxy. Should be placed in the **unit** databag of each scrapable unit.
 
 #### Example
 
@@ -92,12 +92,14 @@ related-units:
     data:
       prometheus_scrape_unit_address: zinc-k8s-0.zinc-k8s-endpoints.cos.svc.cluster.local
       prometheus_scrape_unit_name: zinc-k8s/0
+      prometheus_scrape_unit_path: ""
       # ...
     # ...
   zinc-k8s/1:
     data:
       prometheus_scrape_unit_address: zinc-k8s-1.zinc-k8s-endpoints.cos.svc.cluster.local
       prometheus_scrape_unit_name: zinc-k8s/1
+      prometheus_scrape_unit_path: ""
       # ...
     # ...
 ```

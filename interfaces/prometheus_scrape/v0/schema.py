@@ -84,10 +84,13 @@ class AlertGroupModel(BaseModel):
 
 
 class AlertRulesModel(BaseModel):
-    groups: List[AlertGroupModel]
+    groups: List[AlertGroupModel] = Field(description="List of alert rule groups.")
 
 
 class ScrapeStaticConfigModel(BaseModel):
+    class Config:
+        extra = "allow"
+
     targets: List[str] = Field(
         description='List of scrape targets. Accepts wildcard ("*")'
     )
@@ -95,38 +98,54 @@ class ScrapeStaticConfigModel(BaseModel):
         description="Optional labels for the scrape targets", default=None
     )
 
+
+class ScrapeJobModel(BaseModel):
     class Config:
         extra = "allow"
 
-
-class ScrapeJobModel(BaseModel):
     job_name: Optional[str] = Field(
-        description="Name of the Prometheus scrape job, each job must be given a unique name",
+        description="Name of the Prometheus scrape job, each job must be given a unique name &  should be a fixed string (e.g. hardcoded literal)",
         default=None,
     )
     metrics_path: str = Field(description="Path for metrics scraping.")
-    static_configs: List[ScrapeStaticConfigModel]
-
-    class Config:
-        extra = "allow"
+    static_configs: List[ScrapeStaticConfigModel] = Field(
+        description="List of static configurations for scrape targets."
+    )
 
 
 class ScrapeMetadataModel(BaseModel):
-    model: str
-    model_uuid: str
-    application: str
-    unit: str
+    model: str = Field(description="Juju model name.")
+    model_uuid: str = Field(description="Juju model UUID.")
+    application: str = Field(description="Juju application name.")
+    unit: str = Field(description="Juju unit name.")
 
 
 class ApplicationDataModel(BaseModel):
-    alert_rules: AlertRulesModel
-    scrape_jobs: List[ScrapeJobModel]
-    scrape_metadata: ScrapeMetadataModel
+    alert_rules: AlertRulesModel = Field(
+        description="Alert rules provided by the charm. By default, loaded from "
+                    "`<charm_parent_dir>/prometheus_alert_rules`."
+    )
+    scrape_jobs: List[ScrapeJobModel] = Field(
+        description="List of Prometheus scrape job configurations specifying metrics scraping targets."
+    )
+    scrape_metadata: ScrapeMetadataModel = Field(
+        description="Metadata providing information about the Juju topology."
+    )
 
 
 class UnitDataModel(BaseModel):
-    prometheus_scrape_unit_address: str
-    prometheus_scrape_unit_name: str
+    prometheus_scrape_unit_address: str = Field(
+        description="The address provided by the unit for Prometheus scraping. "
+        "This address is where Prometheus can retrieve metrics data from the unit."
+    )
+    prometheus_scrape_unit_name: str = Field(
+        description="The name provided by the unit for Prometheus scraping. "
+        "This name uniquely identifies the unit as a target for Prometheus to collect metrics data."
+    )
+    prometheus_scrape_unit_path: Optional[str] = Field(
+        description="An optional path provided by the unit for Prometheus scraping. "
+        "It is present when the provider charm is backed by an Ingress or a Proxy."
+    )
 
 
 class ProviderSchema(DataBagSchema):
