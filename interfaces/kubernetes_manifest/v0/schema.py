@@ -3,34 +3,27 @@
 Examples:
     RequirerSchema:
         unit: <empty>
-        kubernetes_manifests: [
-                                {
-                                    "apiVersion":"v1",
-                                    "kind":"Secret",
-                                    "metadata":{
-                                        "name":"seldon-rclone-secret",
-                                        "labels":{
-                                            "user.kubeflow.org/enabled":"true"
-                                        }
-                                    },
-                                    "stringData":{
-                                        "RCLONE_CONFIG_MYS3_TYPE":"test"
-                                    }
-                                },
-                                {
-                                    "apiVersion":"v1",
-                                    "kind":"Secret",
-                                    "metadata":{
-                                        "name":"mlpipeline-minio-artifact",
-                                        "labels":{
-                                            "user.kubeflow.org/enabled":"true"
-                                        }
-                                    },
-                                    "stringData":{
-                                        "AWS_ACCESS_KEY_ID":"access_key"
-                                    }
-                                }
-                            ]
+        app:
+            kubernetes_manifests: [
+                                        {
+                                            "apiVersion": "v1",
+                                            "kind": "Secret",
+                                            "metadata": {
+                                                "name": "seldon-rclone-secret",
+                                                "labels": {"user.kubeflow.org/enabled": "true"},
+                                            },
+                                            "stringData": {"RCLONE_CONFIG_MYS3_TYPE": "test"},
+                                        },
+                                        {
+                                            "apiVersion": "v1",
+                                            "kind": "Secret",
+                                            "metadata": {
+                                                "name": "mlpipeline-minio-artifact",
+                                                "labels": {"user.kubeflow.org/enabled": "true"},
+                                            },
+                                            "stringData": {"AWS_ACCESS_KEY_ID": "access_key"},
+                                        },
+                                    ]
 """
 
 from typing import List
@@ -53,4 +46,4 @@ class KubernetesManifest(BaseModel):
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of kubernetes_manifest interface."""
 
-    app: List[KubernetesManifest]
+    kubernetes_manifests: List[KubernetesManifest]

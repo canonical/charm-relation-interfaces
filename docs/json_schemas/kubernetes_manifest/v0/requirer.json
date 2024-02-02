@@ -7,7 +7,10 @@
       "$ref": "#/definitions/BaseModel"
     },
     "app": {
-      "title": "App",
+      "$ref": "#/definitions/BaseModel"
+    },
+    "kubernetes_manifests": {
+      "title": "Kubernetes Manifests",
       "type": "array",
       "items": {
         "$ref": "#/definitions/KubernetesManifest"
@@ -15,7 +18,7 @@
     }
   },
   "required": [
-    "app"
+    "kubernetes_manifests"
   ],
   "definitions": {
     "BaseModel": {
