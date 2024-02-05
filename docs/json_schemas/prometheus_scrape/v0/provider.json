@@ -1,0 +1,250 @@
+{
+  "title": "ProviderSchema",
+  "description": "Provider schema for Prometheus Scrape.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/UnitDataModel"
+    },
+    "app": {
+      "$ref": "#/definitions/ApplicationDataModel"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "definitions": {
+    "UnitDataModel": {
+      "title": "UnitDataModel",
+      "type": "object",
+      "properties": {
+        "prometheus_scrape_unit_address": {
+          "title": "Prometheus Scrape Unit Address",
+          "description": "The address provided by the unit for Prometheus scraping. This address is where Prometheus can retrieve metrics data from the unit.",
+          "type": "string"
+        },
+        "prometheus_scrape_unit_name": {
+          "title": "Prometheus Scrape Unit Name",
+          "description": "The name provided by the unit for Prometheus scraping. This name uniquely identifies the unit as a target for Prometheus to collect metrics data.",
+          "type": "string"
+        },
+        "prometheus_scrape_unit_path": {
+          "title": "Prometheus Scrape Unit Path",
+          "description": "An optional path provided by the unit for Prometheus scraping. It is present when the provider charm is backed by an Ingress or a Proxy.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prometheus_scrape_unit_address",
+        "prometheus_scrape_unit_name"
+      ]
+    },
+    "AlertRuleModel": {
+      "title": "AlertRuleModel",
+      "type": "object",
+      "properties": {
+        "alert": {
+          "title": "Alert",
+          "description": "The name of the alert rule.",
+          "type": "string"
+        },
+        "expr": {
+          "title": "Expr",
+          "description": "The expression for the alert rule.",
+          "type": "string"
+        },
+        "for": {
+          "title": "For",
+          "description": "The duration for which the conditions must be true for the alert to be firing.",
+          "type": "string"
+        },
+        "labels": {
+          "title": "Labels",
+          "description": "Labels associated with the alert rule.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "title": "Annotations",
+          "description": "Annotations associated with the alert rule.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "alert",
+        "expr",
+        "for",
+        "labels",
+        "annotations"
+      ]
+    },
+    "AlertGroupModel": {
+      "title": "AlertGroupModel",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "The name of the alert group.",
+          "type": "string"
+        },
+        "rules": {
+          "title": "Rules",
+          "description": "List of alert rules within the group.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AlertRuleModel"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "rules"
+      ]
+    },
+    "AlertRulesModel": {
+      "title": "AlertRulesModel",
+      "type": "object",
+      "properties": {
+        "groups": {
+          "title": "Groups",
+          "description": "List of alert rule groups.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AlertGroupModel"
+          }
+        }
+      },
+      "required": [
+        "groups"
+      ]
+    },
+    "ScrapeStaticConfigModel": {
+      "title": "ScrapeStaticConfigModel",
+      "type": "object",
+      "properties": {
+        "targets": {
+          "title": "Targets",
+          "description": "List of scrape targets. Accepts wildcard (\"*\")",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labels": {
+          "title": "Labels",
+          "description": "Optional labels for the scrape targets",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "targets"
+      ]
+    },
+    "ScrapeJobModel": {
+      "title": "ScrapeJobModel",
+      "type": "object",
+      "properties": {
+        "job_name": {
+          "title": "Job Name",
+          "description": "Name of the Prometheus scrape job, each job must be given a unique name &  should be a fixed string (e.g. hardcoded literal)",
+          "type": "string"
+        },
+        "metrics_path": {
+          "title": "Metrics Path",
+          "description": "Path for metrics scraping.",
+          "type": "string"
+        },
+        "static_configs": {
+          "title": "Static Configs",
+          "description": "List of static configurations for scrape targets.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScrapeStaticConfigModel"
+          }
+        }
+      },
+      "required": [
+        "metrics_path",
+        "static_configs"
+      ]
+    },
+    "ScrapeMetadataModel": {
+      "title": "ScrapeMetadataModel",
+      "type": "object",
+      "properties": {
+        "model": {
+          "title": "Model",
+          "description": "Juju model name.",
+          "type": "string"
+        },
+        "model_uuid": {
+          "title": "Model Uuid",
+          "description": "Juju model UUID.",
+          "type": "string"
+        },
+        "application": {
+          "title": "Application",
+          "description": "Juju application name.",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "description": "Juju unit name.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "model_uuid",
+        "application",
+        "unit"
+      ]
+    },
+    "ApplicationDataModel": {
+      "title": "ApplicationDataModel",
+      "type": "object",
+      "properties": {
+        "alert_rules": {
+          "title": "Alert Rules",
+          "description": "Alert rules provided by the charm. By default, loaded from `<charm_parent_dir>/prometheus_alert_rules`.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlertRulesModel"
+            }
+          ]
+        },
+        "scrape_jobs": {
+          "title": "Scrape Jobs",
+          "description": "List of Prometheus scrape job configurations specifying metrics scraping targets.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScrapeJobModel"
+          }
+        },
+        "scrape_metadata": {
+          "title": "Scrape Metadata",
+          "description": "Metadata providing information about the Juju topology.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ScrapeMetadataModel"
+            }
+          ]
+        }
+      },
+      "required": [
+        "alert_rules",
+        "scrape_jobs",
+        "scrape_metadata"
+      ]
+    }
+  }
+}
