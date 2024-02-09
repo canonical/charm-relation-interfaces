@@ -57,7 +57,7 @@ Examples:
 """
 
 from typing import List, Dict, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Json
 from interface_tester.schema_base import DataBagSchema
 
 
@@ -112,6 +112,9 @@ class ScrapeJobModel(BaseModel):
 
 
 class ScrapeMetadataModel(BaseModel):
+    class Config:
+        extra = "allow"
+
     model: str = Field(description="Juju model name.")
     model_uuid: str = Field(description="Juju model UUID.")
     application: str = Field(description="Juju application name.")
@@ -119,19 +122,22 @@ class ScrapeMetadataModel(BaseModel):
 
 
 class ApplicationDataModel(BaseModel):
-    alert_rules: AlertRulesModel = Field(
+    alert_rules: Json[AlertRulesModel] = Field(
         description="Alert rules provided by the charm. By default, loaded from "
         "`<charm_parent_dir>/prometheus_alert_rules`."
     )
-    scrape_jobs: List[ScrapeJobModel] = Field(
+    scrape_jobs: Json[List[ScrapeJobModel]] = Field(
         description="List of Prometheus scrape job configurations specifying metrics scraping targets."
     )
-    scrape_metadata: ScrapeMetadataModel = Field(
+    scrape_metadata: Json[ScrapeMetadataModel] = Field(
         description="Metadata providing information about the Juju topology."
     )
 
 
 class UnitDataModel(BaseModel):
+    class Config:
+        extra = "allow"
+
     prometheus_scrape_unit_address: str = Field(
         description="The address provided by the unit for Prometheus scraping. "
         "This address is where Prometheus can retrieve metrics data from the unit."
