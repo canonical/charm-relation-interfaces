@@ -35,6 +35,15 @@
             "examples": [
                 "default,admin"
             ]
+        },
+        "external-node-connectivity": {
+            "title": "External node connectivity",
+            "description": "Provide external connectivity, if subordinate router",
+            "type": "string",
+            "default": "true",
+            "examples": [
+                "true"
+            ]
         }
     },
     "examples": [{
