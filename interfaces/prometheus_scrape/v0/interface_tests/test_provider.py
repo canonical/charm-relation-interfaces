@@ -72,7 +72,7 @@ valid_app_data["scrape_metadata"] = json.dumps(valid_app_data["scrape_metadata"]
 valid_app_data["scrape_jobs"] = json.dumps(valid_app_data["scrape_jobs"])
 valid_app_data["alert_rules"] = json.dumps(valid_app_data["alert_rules"])
 
-def test_no_data_on_changed_with_existing_valid_data():
+def test_on_changed_with_existing_valid_data():
     relation = Relation(
         endpoint="prometheus_scrape",
         interface="prometheus_scrape",
