@@ -16,7 +16,7 @@ Examples:
                             {
                                 "alert": "SomethingIsUp",
                                 "expr": "something_bad == 1",
-                                "for_": "0m",
+                                "for": "0m",
                                 "labels": {
                                     "some-label": "some-value"
                                 },
