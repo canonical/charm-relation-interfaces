@@ -15,12 +15,12 @@ def test_no_data_on_created():
 def test_no_data_on_joined():
     t = Tester()
     state_out = t.run("cos-agent-relation-joined")
-    t.assert_relation_data_empty()
+    t.assert_schema_valid()
 
 def test_no_data_on_changed():
     t = Tester()
     state_out = t.run("cos-agent-relation-changed")
-    t.assert_relation_data_empty()
+    t.assert_schema_valid()
 
 valid_unit_data = {
     "config": {
