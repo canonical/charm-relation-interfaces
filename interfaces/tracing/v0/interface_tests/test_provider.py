@@ -10,19 +10,19 @@ from scenario import State, Relation
 
 def test_data_on_created():
     tester = Tester()
-    tester.run('tracing-relation-created')
+    tester.run('foo-relation-created')
     tester.assert_schema_valid()
 
 
 def test_data_on_joined():
     tester = Tester()
-    tester.run('tracing-relation-joined')
+    tester.run('foo-relation-joined')
     tester.assert_schema_valid()
 
 
 def test_data_on_changed():
     tester = Tester()
-    tester.run('tracing-relation-changed')
+    tester.run('foo-relation-changed')
     tester.assert_schema_valid()
 
 
@@ -31,7 +31,7 @@ def test_data_on_changed_bad_remote_data():
     tester = Tester(
         state_in=State(
             relations=[Relation(
-                endpoint='tracing',
+                endpoint='foo',
                 interface='tracing',
                 remote_app_name='remote',
                 remote_app_data={
@@ -40,5 +40,5 @@ def test_data_on_changed_bad_remote_data():
             )]
         )
     )
-    tester.run('tracing-relation-changed')
+    tester.run('foo-relation-changed')
     tester.assert_schema_valid()

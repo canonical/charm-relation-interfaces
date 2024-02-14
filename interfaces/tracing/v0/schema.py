@@ -29,6 +29,8 @@ from pydantic import BaseModel, Json
 
 
 class IngesterProtocol(str, Enum):
+    jaeger_grpc = "jaeger_grpc"
+    jaeger_http_thrift = "jaeger_http_thrift"
     otlp_grpc = "otlp_grpc"
     otlp_http = "otlp_http"
     zipkin = "zipkin"
@@ -36,7 +38,7 @@ class IngesterProtocol(str, Enum):
 
 
 class Ingester(BaseModel):
-    port: str
+    port: int
     protocol: IngesterProtocol
 
 
