@@ -45,7 +45,8 @@ Examples:
                     ],
                     "log_slots": [
                       "charmed-zookeeper:logs"
-                    ]
+                    ],
+                    "metrics_scrape_jobs": [{"job_name": "kafka_0", "path": "/metrics", "port": 9101}],
                   }
                 }
     RequirerSchema:

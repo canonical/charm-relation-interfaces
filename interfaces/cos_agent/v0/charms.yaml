@@ -6,4 +6,4 @@ providers:
 
 requirers:
   - name: grafana-agent
-    ur: https://github.com/canonical/grafana-agent-operator
+    url: https://github.com/canonical/grafana-agent-operator
