@@ -19,6 +19,7 @@
           "type": "string"
         },
         "model_uuid": {
+          "description": "Juju model UUID.",
           "title": "Model Uuid",
           "type": "string"
         }

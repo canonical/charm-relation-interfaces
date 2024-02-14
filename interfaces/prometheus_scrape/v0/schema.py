@@ -116,7 +116,8 @@ class ScrapeMetadataModel(BaseModel):
         extra = "allow"
 
     model: str = Field(description="Juju model name.")
-    model_uuid: str = Field(description="Juju model UUID.")
+    # in pydantic v2, `model_` is a protected namespace
+    juju_model_uuid: str = Field(description="Juju model UUID.", alias="model_uuid")
     application: str = Field(description="Juju application name.")
     unit: str = Field(description="Juju unit name.")
 
