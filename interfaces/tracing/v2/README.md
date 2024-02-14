@@ -7,9 +7,9 @@ This relation interface describes the expected behavior of any charm claiming to
 ## Direction
 
 Tracing is done in a push-based fashion.
-The receiving endpoint of the tracing backend, also referred to as an ingester, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) and [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
-The requirer initializes the interface by publishing a list of ingester protocols it intends to use to send traces to the provider.
-The provider replies with, for each requested interface, an endpoint at which the server is ready to accept that protocol. If the provider does not support a requested interface, it will omit that from the response. This entails that if no requested protocol is supported, the reply may contain no protocol-specific ingestion ports (it will still contain the API url).
+The receiving endpoint of the tracing backend, also referred to as a _receiver_, can support a number of different protocols, such as [otlp-grpc](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlpgrpc) and [otlp-http](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#otlphttp).
+The requirer initializes the interface by publishing a list of receiver protocols it intends to use to send traces to the provider.
+The provider replies with, for each requested interface, an endpoint at which the server is ready to accept that protocol. If the provider does not support a requested interface, it will omit that from the response. This entails that if no requested protocol is supported, the reply may contain no protocol-specific receiver ports (it will still contain the API url).
 
 The directionality of the relation flows from the observer, Tempo(-compliant) backend, to the observed: the application producing the traces.
 
@@ -57,15 +57,10 @@ application_data:
 
 ### Provider
 
-The provider exposes via its application databag a single `url`, at which the server is reachable, and a list of `ingesters` = ports and protocols.
-Each ingester port supports a certain tracing protocol, such as OTLP_GRPC or Jaeger. 
-The full list of supported trace protocols can change, but those supported by Tempo at the time of writing are:
-
-- `tempo`
-- `otlp_grpc`
-- `otlp_http`
-- `jaeger`
-- `zipkin`
+The provider exposes via its application databag a single `url`, at which the server is reachable, and a list of `receivers` = ports and protocols.
+Each receiver port supports a specific telemetry protocol, such as `otlp_grpc` or Jaeger. 
+The full list of supported trace protocols can change. The ones built into tempo are `otlp_http` and `otlp_grpc`.
+For a full list see https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver
 
 [\[Pydantic model\]](./schema.py)
 
@@ -75,7 +70,7 @@ The full list of supported trace protocols can change, but those supported by Te
 # unit_data: <empty> 
 application_data: 
   url: "http://foo.bar/my-model-my-unit-0"
-  ingesters: 
+  receivers: 
     - protocol: otlp_grpc
       port: 1234
     - protocol: otlp_http
