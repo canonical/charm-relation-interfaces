@@ -26,8 +26,8 @@ def test_data_on_changed():
     tester.assert_schema_valid()
 
 
-# even if the remote side sends rubbish
-def test_data_on_changed_bad_remote_data():
+# also if the remote side sends rubbish
+def test_no_data_on_changed_bad_remote_data():
     tester = Tester(
         state_in=State(
             relations=[Relation(
@@ -41,4 +41,4 @@ def test_data_on_changed_bad_remote_data():
         )
     )
     tester.run('foo-relation-changed')
-    tester.assert_schema_valid()
+    tester.assert_relation_data_empty()
