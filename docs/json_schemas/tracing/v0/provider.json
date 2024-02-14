@@ -9,7 +9,7 @@
       "properties": {
         "port": {
           "title": "Port",
-          "type": "string"
+          "type": "integer"
         },
         "protocol": {
           "$ref": "#/$defs/IngesterProtocol"
@@ -24,6 +24,8 @@
     },
     "IngesterProtocol": {
       "enum": [
+        "jaeger_grpc",
+        "jaeger_http_thrift",
         "otlp_grpc",
         "otlp_http",
         "zipkin",
