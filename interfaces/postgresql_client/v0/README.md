@@ -7,11 +7,13 @@ Our intent to have different interface names with `<database>_client` pattern (l
 
 In most cases, this will be accomplished using the [data_interfaces library](https://github.com/canonical/data-platform-libs/blob/main/lib/charms/data_platform_libs/v0/data_interfaces.py), although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
+Some Providers may be subordinate charms aimed at providing mainly a local service within a principal. In cases where the Requirer needs to expose the service beyond its host, it should request for external connectivity by the Provider. An example use case would be the data-integrator charm integrating with a subordinate router.
+
 ## Direction
 
 ```mermaid
 flowchart TD
-    Requirer -- database, \nextra-user-roles, \nrequested-secrets --> Provider
+    Requirer -- database, \nextra-user-roles, \nrequested-secrets\nexternal-node-connectivity --> Provider
     Provider -- database, \nendpoints, \nsecret-user --> Requirer
 ```
 
@@ -35,6 +37,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
 - Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
+- Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to respected or not, in case the charm is capable of such.
 
 ### Requirer
 
@@ -45,6 +48,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to allow multiple different Juju applications to access the same database name.
 - Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the database name received.
+- May require external connectivity (via `external-node-connectivity`).
 
 ## Relation Data
 
