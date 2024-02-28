@@ -48,7 +48,6 @@ interface_tests = [
     "PyYAML>=6.0",
     "pytest>=7.3.1",
     "ops-scenario>=5",
-    "pydantic>2",
     "requests==2.28.1",
     "virtualenv==20.21.0"
 ]
