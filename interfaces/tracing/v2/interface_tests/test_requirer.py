@@ -1,11 +1,10 @@
-# Copyright 2023 Canonical
+# Copyright 2024 Canonical
 # See LICENSE file for licensing details.
 
 from interface_tester.interface_test import Tester
 
 
 # on created, joined, changed: the requirer is expected to publish a list of requested receivers
-
 def test_data_on_created():
     tester = Tester()
     tester.run('tracing-relation-created')
