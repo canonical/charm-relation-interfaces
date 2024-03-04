@@ -1,0 +1,20 @@
+{
+  "title": "RequirerSchema",
+  "description": "Requirer schema for CosAgent.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/BaseModel"
+    }
+  },
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

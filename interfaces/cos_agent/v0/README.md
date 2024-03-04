@@ -86,7 +86,8 @@ As all Juju relations, the `cos_agent` interface consists of a provider and a re
     ],
     "log_slots": [
       "charmed-zookeeper:logs"
-    ]
+    ],
+    "metrics_scrape_jobs": [{"job_name": "kafka_0", "path": "/metrics", "port": 9101}],
   }
 }
 ```
