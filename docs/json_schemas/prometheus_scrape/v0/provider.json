@@ -142,9 +142,16 @@
           "title": "Job Name"
         },
         "metrics_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "description": "Path for metrics scraping.",
-          "title": "Metrics Path",
-          "type": "string"
+          "title": "Metrics Path"
         },
         "static_configs": {
           "description": "List of static configurations for scrape targets.",
