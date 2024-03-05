@@ -105,7 +105,7 @@ class ScrapeJobModel(BaseModel):
         description="Name of the Prometheus scrape job, each job must be given a unique name &  should be a fixed string (e.g. hardcoded literal)",
         default=None,
     )
-    metrics_path: str = Field(description="Path for metrics scraping.")
+    metrics_path: Optional[str] = Field(description="Path for metrics scraping.")
     static_configs: List[ScrapeStaticConfigModel] = Field(
         description="List of static configurations for scrape targets."
     )
