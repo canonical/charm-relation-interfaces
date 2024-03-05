@@ -5,56 +5,63 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "Ingester": {
+    "Receiver": {
+      "description": "Specification of an active receiver.",
       "properties": {
         "port": {
+          "description": "Port at which the receiver is listening.",
+          "examples": [
+            42,
+            9098
+          ],
           "title": "Port",
           "type": "integer"
         },
         "protocol": {
-          "$ref": "#/$defs/IngesterProtocol"
+          "description": "Receiver protocol name. What protocols are supported (and what they are called) may differ per provider.",
+          "examples": [
+            "otlp_grpc",
+            "otlp_http",
+            "tempo_http",
+            "jaeger_thrift_compact"
+          ],
+          "title": "Protocol",
+          "type": "string"
         }
       },
       "required": [
         "port",
         "protocol"
       ],
-      "title": "Ingester",
+      "title": "Receiver",
       "type": "object"
-    },
-    "IngesterProtocol": {
-      "enum": [
-        "jaeger_grpc",
-        "jaeger_http_thrift",
-        "otlp_grpc",
-        "otlp_http",
-        "zipkin",
-        "tempo"
-      ],
-      "title": "IngesterProtocol",
-      "type": "string"
     },
     "TracingProviderData": {
       "properties": {
         "host": {
+          "description": "Hostname of the tracing server.",
+          "examples": [
+            "example.com"
+          ],
           "title": "Host",
           "type": "string"
         },
-        "ingesters": {
+        "receivers": {
           "contentMediaType": "application/json",
           "contentSchema": {
             "items": {
-              "$ref": "#/$defs/Ingester"
+              "$ref": "#/$defs/Receiver"
             },
             "type": "array"
           },
-          "title": "Ingesters",
+          "description": "List of the receivers that this server has enabled, and their ports.",
+          "title": "Receivers",
           "type": "string"
         }
       },
       "required": [
         "host",
-        "ingesters"
+        "receivers"
       ],
       "title": "TracingProviderData",
       "type": "object"

@@ -1,27 +1,11 @@
 {
-  "title": "RequirerSchema",
-  "description": "Requirer schema for Ingress.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/IngressRequirerData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "IngressRequirerData": {
-      "title": "IngressRequirerData",
-      "type": "object",
       "properties": {
         "port": {
           "title": "Port",
@@ -45,7 +29,31 @@
         "host",
         "model",
         "name"
-      ]
+      ],
+      "title": "IngressRequirerData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Requirer schema for Ingress.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/IngressRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
 }

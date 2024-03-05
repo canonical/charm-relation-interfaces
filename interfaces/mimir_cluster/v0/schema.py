@@ -54,7 +54,8 @@ class JujuTopology(pydantic.BaseModel):
     app: str
     charm: str
     model: str
-    model_uuid: str
+    # in pydantic v2, `model_` is a protected namespace
+    juju_model_uuid: str = pydantic.Field(description="Juju model UUID.", alias="model_uuid")
 
 
 class MimirClusterRequirerUnitData(pydantic.BaseModel):

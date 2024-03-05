@@ -1,57 +1,14 @@
 {
-  "title": "RequirerSchema",
-  "description": "Requirer schema for KratosExternalIdp.\nThis relation interface can be used from Kratos to provide the redirect_uri of a client that will be used with an external provider.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/KratosExternalIdpRequirerData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "example": {
-    "unit": null,
-    "app": {
-      "providers": [
-        {
-          "redirect_uri": "https://example.kratos.com/self-service/methods/oidc/callback/microsoft",
-          "provider_id": "microsoft"
-        }
-      ]
-    }
-  },
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    },
-    "Url": {
-      "title": "Url",
-      "type": "object",
-      "properties": {
-        "url": {
-          "title": "Url",
-          "minLength": 1,
-          "maxLength": 65536,
-          "format": "uri",
-          "type": "string"
-        }
-      },
-      "required": [
-        "url"
-      ]
+      "type": "object"
     },
     "ExternalIdpRequirer": {
-      "title": "ExternalIdpRequirer",
-      "type": "object",
       "properties": {
         "redirect_uri": {
-          "$ref": "#/definitions/Url"
+          "$ref": "#/$defs/Url"
         },
         "provider_id": {
           "title": "Provider Id",
@@ -61,23 +18,62 @@
       "required": [
         "redirect_uri",
         "provider_id"
-      ]
+      ],
+      "title": "ExternalIdpRequirer",
+      "type": "object"
     },
     "KratosExternalIdpRequirerData": {
-      "title": "KratosExternalIdpRequirerData",
-      "type": "object",
       "properties": {
         "providers": {
-          "title": "Providers",
-          "type": "array",
           "items": {
-            "$ref": "#/definitions/ExternalIdpRequirer"
-          }
+            "$ref": "#/$defs/ExternalIdpRequirer"
+          },
+          "title": "Providers",
+          "type": "array"
         }
       },
       "required": [
         "providers"
-      ]
+      ],
+      "title": "KratosExternalIdpRequirerData",
+      "type": "object"
+    },
+    "Url": {
+      "properties": {
+        "url": {
+          "format": "uri",
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "Url",
+      "type": "object"
     }
-  }
+  },
+  "description": "Requirer schema for KratosExternalIdp.\nThis relation interface can be used from Kratos to provide the redirect_uri of a client that will be used with an external provider.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KratosExternalIdpRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
 }

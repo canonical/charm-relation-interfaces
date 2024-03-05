@@ -1,39 +1,65 @@
 {
-  "title": "RequirerSchema",
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "LdapRequirerData": {
+      "properties": {
+        "user": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The user name provided by the requirer charmed operator",
+          "title": "User"
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The group name provided by the requirer charmed operator",
+          "title": "Group"
+        }
+      },
+      "required": [
+        "user",
+        "group"
+      ],
+      "title": "LdapRequirerData",
+      "type": "object"
+    }
+  },
   "description": "The schema for the requirer side of the ldap interface.",
-  "type": "object",
   "properties": {
     "unit": {
-      "$ref": "#/definitions/BaseModel"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "app": {
-      "$ref": "#/definitions/LdapRequirerData"
+      "$ref": "#/$defs/LdapRequirerData"
     }
   },
   "required": [
     "app"
   ],
-  "definitions": {
-    "BaseModel": {
-      "title": "BaseModel",
-      "type": "object",
-      "properties": {}
-    },
-    "LdapRequirerData": {
-      "title": "LdapRequirerData",
-      "type": "object",
-      "properties": {
-        "user": {
-          "title": "User",
-          "description": "The user name provided by the requirer charmed operator",
-          "type": "string"
-        },
-        "group": {
-          "title": "Group",
-          "description": "The group name provided by the requirer charmed operator",
-          "type": "string"
-        }
-      }
-    }
-  }
+  "title": "RequirerSchema",
+  "type": "object"
 }

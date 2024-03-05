@@ -1,50 +1,157 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for KratosExternalIdp.\nThis relation interface can be used to provide a set of client configurations to Kratos to connect with external providers.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/KratosExternalIdpProviderData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "example": {
-    "unit": null,
-    "app": {
-      "providers": [
-        {
-          "client_id": "client_id",
-          "client_secret": "cl1ent-s3cRet",
-          "secret_backend": "relation",
-          "tenant_id": "4242424242424242",
-          "provider": "microsoft"
-        }
-      ]
-    }
-  },
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
-    "SecretBackend": {
-      "title": "SecretBackend",
-      "description": "An enumeration.",
-      "enum": [
-        "relation",
-        "secret",
-        "vault"
-      ]
+    "ExternalIdpProvider": {
+      "properties": {
+        "client_id": {
+          "title": "Client Id",
+          "type": "string"
+        },
+        "client_secret": {
+          "title": "Client Secret",
+          "type": "string"
+        },
+        "secret_backend": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/SecretBackend"
+            }
+          ],
+          "default": "relation"
+        },
+        "provider": {
+          "$ref": "#/$defs/Provider"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Scope"
+        },
+        "provider_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Id"
+        },
+        "jsonnet_mapper": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "A jsonnet file that will be used to map the external claims to Kratos' claims. For more info see https://www.ory.sh/docs/kratos/reference/jsonnet.",
+          "examples": [
+            "\nlocal claims = {\n    email_verified: false,\n} + std.extVar('claims');\n\n{\n    identity: {\n    traits: {\n        [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n        [if 'name' in claims then 'name' else null]: claims.name,\n        [if 'given_name' in claims then 'given_name' else null]: claims.given_name,\n        [if 'family_name' in claims then 'family_name' else null]: claims.family_name,\n    },\n    },\n}\n"
+          ],
+          "title": "Jsonnet Mapper"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tenant Id"
+        },
+        "private_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Private Key"
+        },
+        "private_key_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Private Key Id"
+        },
+        "team_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Team Id"
+        },
+        "issuer_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Issuer Url"
+        }
+      },
+      "required": [
+        "client_id",
+        "client_secret",
+        "provider",
+        "scope",
+        "provider_id",
+        "jsonnet_mapper",
+        "tenant_id",
+        "private_key",
+        "private_key_id",
+        "team_id",
+        "issuer_url"
+      ],
+      "title": "ExternalIdpProvider",
+      "type": "object"
+    },
+    "KratosExternalIdpProviderData": {
+      "properties": {
+        "providers": {
+          "items": {
+            "$ref": "#/$defs/ExternalIdpProvider"
+          },
+          "title": "Providers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "providers"
+      ],
+      "title": "KratosExternalIdpProviderData",
+      "type": "object"
     },
     "Provider": {
-      "title": "Provider",
-      "description": "An enumeration.",
       "enum": [
         "microsoft",
         "apple",
@@ -62,89 +169,40 @@
         "yandex",
         "vk",
         "dingtalk"
-      ]
+      ],
+      "title": "Provider",
+      "type": "string"
     },
-    "ExternalIdpProvider": {
-      "title": "ExternalIdpProvider",
-      "type": "object",
-      "properties": {
-        "client_id": {
-          "title": "Client Id",
-          "type": "string"
-        },
-        "client_secret": {
-          "title": "Client Secret",
-          "type": "string"
-        },
-        "secret_backend": {
-          "default": "relation",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SecretBackend"
-            }
-          ]
-        },
-        "provider": {
-          "$ref": "#/definitions/Provider"
-        },
-        "scope": {
-          "title": "Scope",
-          "type": "string"
-        },
-        "provider_id": {
-          "title": "Provider Id",
-          "type": "string"
-        },
-        "jsonnet_mapper": {
-          "title": "Jsonnet Mapper",
-          "description": "A jsonnet file that will be used to map the external claims to Kratos' claims. For more info see https://www.ory.sh/docs/kratos/reference/jsonnet.",
-          "examples": [
-            "\nlocal claims = {\n    email_verified: false,\n} + std.extVar('claims');\n\n{\n    identity: {\n    traits: {\n        [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n        [if 'name' in claims then 'name' else null]: claims.name,\n        [if 'given_name' in claims then 'given_name' else null]: claims.given_name,\n        [if 'family_name' in claims then 'family_name' else null]: claims.family_name,\n    },\n    },\n}\n"
-          ],
-          "type": "string"
-        },
-        "tenant_id": {
-          "title": "Tenant Id",
-          "type": "string"
-        },
-        "private_key": {
-          "title": "Private Key",
-          "type": "string"
-        },
-        "private_key_id": {
-          "title": "Private Key Id",
-          "type": "string"
-        },
-        "team_id": {
-          "title": "Team Id",
-          "type": "string"
-        },
-        "issuer_url": {
-          "title": "Issuer Url",
-          "type": "string"
-        }
-      },
-      "required": [
-        "client_id",
-        "client_secret",
-        "provider"
-      ]
-    },
-    "KratosExternalIdpProviderData": {
-      "title": "KratosExternalIdpProviderData",
-      "type": "object",
-      "properties": {
-        "providers": {
-          "title": "Providers",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ExternalIdpProvider"
-          }
-        }
-      },
-      "required": [
-        "providers"
-      ]
+    "SecretBackend": {
+      "enum": [
+        "relation",
+        "secret",
+        "vault"
+      ],
+      "title": "SecretBackend",
+      "type": "string"
     }
-  }
+  },
+  "description": "Provider schema for KratosExternalIdp.\nThis relation interface can be used to provide a set of client configurations to Kratos to connect with external providers.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KratosExternalIdpProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

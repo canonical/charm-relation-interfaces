@@ -58,15 +58,18 @@ def _clone_charm_repo(charm_config: "_CharmTestConfig", charm_path: Path):
             f"custom branch provided for {charm_config.name}; "
             f"this should only be done in staging"
         )
+    cmd = f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}"
+
     retcode = subprocess.call(
-        f"git clone --quiet --depth 1 {branch_option} {charm_config.url} {charm_path}",
+        cmd,
         shell=True,
         stdout=subprocess.DEVNULL,
     )
     if retcode > 0:
         raise SetupError(
-            f"Failed to clone repo for {charm_config.name}; "
-            "check the charms.yaml config."
+            f"Failed to clone repo {charm_config.url} for {charm_config.name}; "
+            "check the charms.yaml config.\n"
+            f"\t command: {cmd!r}"
         )
 
 
@@ -122,7 +125,7 @@ def _generate_test(
     test_content = _TEST_CONTENT.format(
         interface=interface, fixture_id=fixture_id, version=version
     )
-    test_filename = f"interface-test-{interface}.py"
+    test_filename = f"interface_test_{interface}.py"
     with open(test_path / test_filename, "w") as file:
         file.write(test_content)
     return test_path / test_filename
@@ -165,6 +168,8 @@ def _setup_venv(charm_path: Path) -> None:
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
+        logging.info(f"Installed {(charm_path/'requirements.txt').read_text()}")
+
     except subprocess.CalledProcessError as e:
         raise SetupError("venv setup failed") from e
     os.chdir(original_wd)
@@ -267,9 +272,12 @@ def _test_interface_version(tests_per_version, interface: str) -> "_ResultsPerVe
     return results_per_version
 
 
-def run_interface_tests(path: Path, include: str = "*") -> "_ResultsPerInterface":
+def run_interface_tests(
+    path: Path, include: str = "*", keep_cache: bool = False
+) -> "_ResultsPerInterface":
     """Run the tests for the specified interfaces, defaulting to all."""
-    _clean()
+    if not keep_cache:
+        _clean()
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
@@ -289,15 +297,23 @@ def pprint_interface_test_results(test_results: dict):
 
 
 if __name__ == "__main__":
-    import argparse
+    # import argparse
+    #
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument(
+    #     "--include",
+    #     default="*",
+    #     help="Glob to filter what interfaces to include in the test matrix.",
+    # )
+    # parser.add_argument(
+    #     "--keep-cache",
+    #     default=False,
+    #     help="Keep the charm cache intact before running the tests. "
+    #          "This will save some time when running the tests again "
+    #          "(assuming the charms haven't changed).",
+    # )
+    # args = parser.parse_args()
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--include",
-        default="*",
-        help="Glob to filter what interfaces to include in the test matrix.",
-    )
-    args = parser.parse_args()
-
-    result = run_interface_tests(Path("."), args.include)
+    # result = run_interface_tests(Path("."), args.include, args.keep_cache)
+    result = run_interface_tests(Path("."), "tracing", False)
     pprint_interface_test_results(result)

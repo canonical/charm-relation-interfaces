@@ -57,30 +57,32 @@ Examples:
 import base64
 import json
 import lzma
-from pydantic import BaseModel, Field, Json
 from typing import Dict, List, Union
+
 from interface_tester.schema_base import DataBagSchema
+from pydantic import (
+    AfterValidator,
+    PlainSerializer,
+    WithJsonSchema,
+)
+from pydantic import BaseModel, Field, Json
+from typing_extensions import Annotated
 
 
-class GrafanaDashboard(str):
-    """Grafana Dashboard encoded json; lzma-compressed."""
+def _serialize_grafana_dashboard(raw_json: Union[str, bytes]) -> "GrafanaDashboard":
+    if not isinstance(raw_json, bytes):
+        raw_json = raw_json.encode("utf-8")
+    encoded = base64.b64encode(lzma.compress(raw_json)).decode("utf-8")
+    return GrafanaDashboard(encoded)
 
-    # TODO Replace this with a custom type when pydantic v2 released (end of 2023 Q1?)
-    # https://github.com/pydantic/pydantic/issues/4887
-    @staticmethod
-    def _serialize(raw_json: Union[str, bytes]) -> "GrafanaDashboard":
-        if not isinstance(raw_json, bytes):
-            raw_json = raw_json.encode("utf-8")
-        encoded = base64.b64encode(lzma.compress(raw_json)).decode("utf-8")
-        return GrafanaDashboard(encoded)
 
-    def _deserialize(self) -> Dict:
-        raw = lzma.decompress(base64.b64decode(self.encode("utf-8"))).decode()
-        return json.loads(raw)
-
-    def __repr__(self):
-        """Return string representation of self."""
-        return "<GrafanaDashboard>"
+# custom data type, pydantic 2
+GrafanaDashboard = Annotated[
+    str,
+    AfterValidator(lambda x: json.loads(lzma.decompress(base64.b64decode(x.encode("utf-8"))).decode())),
+    PlainSerializer(lambda x: _serialize_grafana_dashboard, return_type=str),
+    WithJsonSchema({'type': 'string'}, mode='serialization'),
+]
 
 
 class NestedDataModel(BaseModel):

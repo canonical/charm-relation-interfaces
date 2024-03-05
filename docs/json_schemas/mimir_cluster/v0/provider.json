@@ -1,27 +1,11 @@
 {
-  "title": "ProviderSchema",
-  "description": "The schema for the provider side of this interface.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/MimirClusterProviderAppData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "MimirClusterProviderAppData": {
-      "title": "MimirClusterProviderAppData",
-      "type": "object",
       "properties": {
         "mimir_config": {
           "title": "Mimir Config",
@@ -30,7 +14,31 @@
       },
       "required": [
         "mimir_config"
-      ]
+      ],
+      "title": "MimirClusterProviderAppData",
+      "type": "object"
     }
-  }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/MimirClusterProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }
