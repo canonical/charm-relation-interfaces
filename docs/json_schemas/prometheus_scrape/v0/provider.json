@@ -173,7 +173,6 @@
         }
       },
       "required": [
-        "metrics_path",
         "static_configs"
       ]
     },
