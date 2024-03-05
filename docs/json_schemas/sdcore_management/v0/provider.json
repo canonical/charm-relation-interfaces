@@ -1,43 +1,51 @@
 {
-  "title": "ProviderSchema",
-  "description": "The schema for the provider side of the sdcore_management interface.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/SdcoreManagementProviderAppData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "SdcoreManagementProviderAppData": {
-      "title": "SdcoreManagementProviderAppData",
-      "type": "object",
       "properties": {
         "management_url": {
-          "title": "Management Url",
           "description": "The endpoint to use to manage SD-Core network.",
           "examples": [
             "http://1.2.3.4:1234"
           ],
-          "minLength": 1,
-          "maxLength": 2083,
           "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "title": "Management Url",
           "type": "string"
         }
       },
       "required": [
         "management_url"
-      ]
+      ],
+      "title": "SdcoreManagementProviderAppData",
+      "type": "object"
     }
-  }
+  },
+  "description": "The schema for the provider side of the sdcore_management interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/SdcoreManagementProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

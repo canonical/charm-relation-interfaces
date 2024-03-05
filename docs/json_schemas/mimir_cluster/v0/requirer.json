@@ -1,23 +1,6 @@
 {
-  "title": "RequirerSchema",
-  "description": "The schema for the requirer side of this interface.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/MimirClusterRequirerUnitData"
-    },
-    "app": {
-      "$ref": "#/definitions/MimirClusterRequirerAppData"
-    }
-  },
-  "required": [
-    "unit",
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "JujuTopology": {
-      "title": "JujuTopology",
-      "type": "object",
       "properties": {
         "unit": {
           "title": "Unit",
@@ -36,6 +19,7 @@
           "type": "string"
         },
         "model_uuid": {
+          "description": "Juju model UUID.",
           "title": "Model Uuid",
           "type": "string"
         }
@@ -46,23 +30,30 @@
         "charm",
         "model",
         "model_uuid"
-      ]
-    },
-    "Scheme": {
-      "title": "Scheme",
-      "description": "Scheme strings.",
-      "enum": [
-        "http",
-        "https"
       ],
-      "type": "string"
+      "title": "JujuTopology",
+      "type": "object"
+    },
+    "MimirClusterRequirerAppData": {
+      "properties": {
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/MimirRole"
+          },
+          "title": "Roles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "roles"
+      ],
+      "title": "MimirClusterRequirerAppData",
+      "type": "object"
     },
     "MimirClusterRequirerUnitData": {
-      "title": "MimirClusterRequirerUnitData",
-      "type": "object",
       "properties": {
         "juju_topology": {
-          "$ref": "#/definitions/JujuTopology"
+          "$ref": "#/$defs/JujuTopology"
         },
         "address": {
           "title": "Address",
@@ -73,7 +64,7 @@
           "type": "integer"
         },
         "scheme": {
-          "$ref": "#/definitions/Scheme"
+          "$ref": "#/$defs/Scheme"
         }
       },
       "required": [
@@ -81,10 +72,11 @@
         "address",
         "port",
         "scheme"
-      ]
+      ],
+      "title": "MimirClusterRequirerUnitData",
+      "type": "object"
     },
     "MimirRole": {
-      "title": "MimirRole",
       "description": "Mimir component role names.",
       "enum": [
         "overrides-exporter",
@@ -103,22 +95,32 @@
         "backend",
         "all"
       ],
+      "title": "MimirRole",
       "type": "string"
     },
-    "MimirClusterRequirerAppData": {
-      "title": "MimirClusterRequirerAppData",
-      "type": "object",
-      "properties": {
-        "roles": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MimirRole"
-          }
-        }
-      },
-      "required": [
-        "roles"
-      ]
+    "Scheme": {
+      "description": "Scheme strings.",
+      "enum": [
+        "http",
+        "https"
+      ],
+      "title": "Scheme",
+      "type": "string"
     }
-  }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/MimirClusterRequirerUnitData"
+    },
+    "app": {
+      "$ref": "#/$defs/MimirClusterRequirerAppData"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
 }

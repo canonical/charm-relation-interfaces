@@ -36,7 +36,7 @@ def test_dump_json_schema(tmp_path):
             dedent(
                 """import pydantic
 class RequirerSchema(pydantic.BaseModel):
-    foo = 1"""
+    foo: int = 1"""
             ),
             "RequirerSchema",
         ),
@@ -44,7 +44,7 @@ class RequirerSchema(pydantic.BaseModel):
             dedent(
                 """import pydantic
 class ProviderSchema(pydantic.BaseModel):
-    foo = 2"""
+    foo: int = 2"""
             ),
             "ProviderSchema",
         ),
@@ -79,9 +79,9 @@ def test_build_schemas_from_source_both(tmp_path):
         dedent(
             """import pydantic
 class RequirerSchema(pydantic.BaseModel):
-    foo = 1
+    foo: int = 1
 class ProviderSchema(pydantic.BaseModel):
-    foo = 2"""
+    foo: int = 2"""
         )
     )
     build_schemas_from_source(schema_path=schema_path, output_location=pth)

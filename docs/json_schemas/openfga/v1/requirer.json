@@ -1,40 +1,48 @@
 {
-  "title": "RequirerSchema",
-  "description": "Requirer schema for OpenFGA.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/OpenFGARequirerData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "OpenFGARequirerData": {
-      "title": "OpenFGARequirerData",
-      "type": "object",
       "properties": {
         "store_name": {
-          "title": "Authorization store name",
           "description": "The name of the authorization store.",
           "examples": [
             "auth_store"
           ],
+          "title": "Authorization store name",
           "type": "string"
         }
       },
       "required": [
         "store_name"
-      ]
+      ],
+      "title": "OpenFGARequirerData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Requirer schema for OpenFGA.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/OpenFGARequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
 }

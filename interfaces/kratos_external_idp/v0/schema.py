@@ -30,7 +30,7 @@ Examples:
 from enum import Enum
 import textwrap
 from typing import List, Optional
-from pydantic import AnyHttpUrl, BaseModel, Field, validator
+from pydantic import AnyHttpUrl, BaseModel, Field, field_validator
 
 from interface_tester.schema_base import DataBagSchema
 
@@ -100,27 +100,27 @@ class ExternalIdpProvider(BaseModel):
     team_id: Optional[str]
     issuer_url: Optional[str]
 
-    @validator("tenant_id")
-    def provider_must_be_microsoft(cls, v, values):
-        if v and values["provider"].value != "microsoft":
+    @field_validator("tenant_id")
+    def provider_must_be_microsoft(cls, v, info):
+        if v and info.data.get("provider") != "microsoft":
             raise ValueError("Provider must be microsoft to use key: `tenant_id`")
-        elif not v and values["provider"].value == "microsoft":
+        elif not v and info.data.get("provider") == "microsoft":
             raise ValueError("`tenant_id` is required with provider microsoft")
         return v
 
-    @validator("private_key", "private_key_id", "team_id", always=True)
-    def provider_must_be_apple(cls, v, values, field):
-        if v and values["provider"].value != "apple":
-            raise ValueError(f"Provider must be apple to use key: `{field.name}`")
-        elif not v and values["provider"].value == "apple":
-            raise ValueError(f"`{field.name}` is required with apple provider")
+    @field_validator("private_key", "private_key_id", "team_id")
+    def provider_must_be_apple(cls, v, info):
+        if v and info.data.get("provider") != "apple":
+            raise ValueError(f"Provider must be apple to use key: `{info.data.get('name')}`")
+        elif not v and info.data.get("provider") == "apple":
+            raise ValueError(f"`{info.data.get('name')}` is required with apple provider")
         return v
 
-    @validator("issuer_url")
-    def issuer_url_allowed(cls, v, values):
-        if v and values["provider"].value in ["generic", "auth0"]:
-            raise ValueError(f"`issuer_url` not allowed with provider: {values['provider']}")
-        elif not v and values["provider"].value in ["generic", "auth0"]:
+    @field_validator("issuer_url")
+    def issuer_url_allowed(cls, v, info):
+        if v and info.data.get("provider") in ["generic", "auth0"]:
+            raise ValueError(f"`issuer_url` not allowed with provider: {info.data.get('provider')}")
+        elif not v and info.data.get("provider") in ["generic", "auth0"]:
             raise ValueError("`issuer_url` is required with {values['provider'] provider")
         return v
 

@@ -1,61 +1,45 @@
 {
-  "title": "ProviderSchema",
-  "description": "Provider schema for login_ui_endpoints.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/MyProviderAppData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "MyProviderAppData": {
-      "title": "MyProviderAppData",
-      "type": "object",
       "properties": {
         "consent_url": {
-          "title": "Consent Url",
           "description": "Endpoint Hydra forwards users for consent related operations.",
+          "title": "Consent Url",
           "type": "string"
         },
         "error_url": {
-          "title": "Error Url",
           "description": "Endpoint Kratos forwards users to fetch full error messages.",
+          "title": "Error Url",
           "type": "string"
         },
         "index_url": {
-          "title": "Index Url",
           "description": "Endpoint Kratos forwards users to access index page of Public Login UI.",
+          "title": "Index Url",
           "type": "string"
         },
         "login_url": {
-          "title": "Login Url",
           "description": "Endpoint Hydra forwards users signing in.",
+          "title": "Login Url",
           "type": "string"
         },
         "oidc_error_url": {
-          "title": "Oidc Error Url",
           "description": "Endpoint Hydra forwards users to access error operations related to OpenID Connect.",
+          "title": "Oidc Error Url",
           "type": "string"
         },
         "registration_url": {
-          "title": "Registration Url",
           "description": "Endpoint Kratos forwards users to register.",
+          "title": "Registration Url",
           "type": "string"
         },
         "default_url": {
-          "title": "Default Url",
           "description": "Default Browser endpoint Kratos forwards users to.",
+          "title": "Default Url",
           "type": "string"
         }
       },
@@ -67,7 +51,31 @@
         "oidc_error_url",
         "registration_url",
         "default_url"
-      ]
+      ],
+      "title": "MyProviderAppData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Provider schema for login_ui_endpoints.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/MyProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
 }

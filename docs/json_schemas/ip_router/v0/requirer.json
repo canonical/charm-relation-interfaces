@@ -1,86 +1,102 @@
 {
-  "title": "RequirerSchema",
-  "description": "Requirer schema for ip_router.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/IPRouterRequirerAppData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
-    "Route": {
-      "title": "Route",
-      "type": "object",
+    "IPNetwork": {
       "properties": {
-        "destination": {
-          "title": "Destination",
-          "type": "string",
-          "format": "ipvanyaddress"
+        "network": {
+          "format": "ipvanynetwork",
+          "title": "Network",
+          "type": "string"
         },
         "gateway": {
+          "format": "ipvanyaddress",
           "title": "Gateway",
-          "type": "string",
-          "format": "ipvanyaddress"
+          "type": "string"
+        },
+        "routes": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Route"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Routes"
+        }
+      },
+      "required": [
+        "network",
+        "gateway",
+        "routes"
+      ],
+      "title": "IPNetwork",
+      "type": "object"
+    },
+    "IPRouterRequirerAppData": {
+      "properties": {
+        "networks": {
+          "items": {
+            "$ref": "#/$defs/IPNetwork"
+          },
+          "title": "Networks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "networks"
+      ],
+      "title": "IPRouterRequirerAppData",
+      "type": "object"
+    },
+    "Route": {
+      "properties": {
+        "destination": {
+          "format": "ipvanyaddress",
+          "title": "Destination",
+          "type": "string"
+        },
+        "gateway": {
+          "format": "ipvanyaddress",
+          "title": "Gateway",
+          "type": "string"
         }
       },
       "required": [
         "destination",
         "gateway"
-      ]
-    },
-    "IPNetwork": {
-      "title": "IPNetwork",
-      "type": "object",
-      "properties": {
-        "network": {
-          "title": "Network",
-          "type": "string",
-          "format": "ipvanynetwork"
-        },
-        "gateway": {
-          "title": "Gateway",
-          "type": "string",
-          "format": "ipvanyaddress"
-        },
-        "routes": {
-          "title": "Routes",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Route"
-          }
-        }
-      },
-      "required": [
-        "network",
-        "gateway"
-      ]
-    },
-    "IPRouterRequirerAppData": {
-      "title": "IPRouterRequirerAppData",
-      "type": "object",
-      "properties": {
-        "networks": {
-          "title": "Networks",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IPNetwork"
-          }
-        }
-      },
-      "required": [
-        "networks"
-      ]
+      ],
+      "title": "Route",
+      "type": "object"
     }
-  }
+  },
+  "description": "Requirer schema for ip_router.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/IPRouterRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
 }

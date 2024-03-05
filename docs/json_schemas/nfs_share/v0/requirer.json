@@ -1,27 +1,11 @@
 {
-  "title": "RequirerSchema",
-  "description": "Requirer schema for nfs-share.",
-  "type": "object",
-  "properties": {
-    "unit": {
-      "$ref": "#/definitions/BaseModel"
-    },
-    "app": {
-      "$ref": "#/definitions/NFSShareRequirerAppData"
-    }
-  },
-  "required": [
-    "app"
-  ],
-  "definitions": {
+  "$defs": {
     "BaseModel": {
+      "properties": {},
       "title": "BaseModel",
-      "type": "object",
-      "properties": {}
+      "type": "object"
     },
     "NFSShareRequirerAppData": {
-      "title": "NFSShareRequirerAppData",
-      "type": "object",
       "properties": {
         "name": {
           "title": "Name",
@@ -40,7 +24,31 @@
         "name",
         "allowlist",
         "size"
-      ]
+      ],
+      "title": "NFSShareRequirerAppData",
+      "type": "object"
     }
-  }
+  },
+  "description": "Requirer schema for nfs-share.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/NFSShareRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
 }
