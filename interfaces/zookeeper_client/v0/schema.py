@@ -38,13 +38,13 @@ Endpoints = Annotated[str, AfterValidator(parse_endpoints)]
 
 class ZookeeperProviderAppData(BaseModel):
     database: str = Field(
-        description="The zNode granted to the requirer",
+        description="The parent chroot zNode granted to the requirer",
         examples=["/myAppb"],
         title="zNode",
     )
 
     endpoints: Endpoints = Field(
-        description="A comma-seperated list of ZooKeeper server uris, and zNode",
+        description="A comma-seperated list of ZooKeeper server uris, and parent chroot zNode",
         examples=["10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/myappB"],
         title="ZooKeeper URIs",
     )
@@ -61,13 +61,13 @@ class ZookeeperProviderAppData(BaseModel):
         alias="secret-tls",
         description="The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled.",
         examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"],
-        title="Tls Secret Name",
+        title="TLS Secret Name",
     )
 
 
 class ZookeeperRequirerAppData(BaseModel):
     database: str = Field(
-        description="The zNode requested by the requirer",
+        description="The parent chroot zNode requested by the requirer",
         examples=["/myappA"],
         title="zNode",
     )

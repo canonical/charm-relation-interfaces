@@ -8,7 +8,7 @@
     "ZookeeperRequirerAppData": {
       "properties": {
         "database": {
-          "description": "The zNode requested by the requirer",
+          "description": "The parent chroot zNode requested by the requirer",
           "examples": [
             "/myappA"
           ],

@@ -8,7 +8,7 @@
     "ZookeeperProviderAppData": {
       "properties": {
         "database": {
-          "description": "The zNode granted to the requirer",
+          "description": "The parent chroot zNode granted to the requirer",
           "examples": [
             "/myAppb"
           ],
@@ -16,7 +16,7 @@
           "type": "string"
         },
         "endpoints": {
-          "description": "A comma-seperated list of ZooKeeper server uris, and zNode",
+          "description": "A comma-seperated list of ZooKeeper server uris, and parent chroot zNode",
           "examples": [
             "10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/myappB"
           ],
@@ -45,7 +45,7 @@
           "examples": [
             "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
           ],
-          "title": "Tls Secret Name"
+          "title": "TLS Secret Name"
         }
       },
       "required": [
