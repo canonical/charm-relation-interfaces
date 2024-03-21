@@ -1,0 +1,4 @@
+providers:
+  - name: resource-dispatcher
+    url: https://github.com/canonical/resource-dispatcher
+requirers: []
