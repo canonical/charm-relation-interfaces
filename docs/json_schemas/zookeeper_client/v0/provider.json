@@ -10,7 +10,7 @@
         "database": {
           "description": "The parent chroot zNode granted to the requirer",
           "examples": [
-            "/myAppb"
+            "/myappB"
           ],
           "title": "zNode",
           "type": "string"
