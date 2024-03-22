@@ -2,7 +2,7 @@
 
 ## Usage
 
-This relation interface describes the expected behavior of any charm claiming to be able to interface with a Zookeeper cluster as a client.
+This relation interface describes the expected behavior of any charm claiming to be able to interface with a Zookeeper cluster.
 
 ## Direction
 

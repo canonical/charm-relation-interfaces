@@ -39,7 +39,7 @@ Endpoints = Annotated[str, AfterValidator(parse_endpoints)]
 class ZookeeperProviderAppData(BaseModel):
     database: str = Field(
         description="The parent chroot zNode granted to the requirer",
-        examples=["/myAppb"],
+        examples=["/myappB"],
         title="zNode",
     )
 
