@@ -11,11 +11,13 @@ Examples:
         app: {
           "dns-domains": [
             {
+              "uuid": "550e8400-e29b-41d4-a716-446655440000",
               "domain": "cloud.canonical.com",
               "username": "user1",
               "password": "secret:123213123123123123123"
             },
             {
+              "uuid": "550e8400-e29b-41d4-a716-446655440001",
               "domain": "staging.ubuntu.com",
               "username": "user2",
               "password": "secret:123213123123123123123"
@@ -23,6 +25,7 @@ Examples:
           ],
           "dns-entries": [
             {
+              "uuid": "550e8400-e29b-41d4-a716-446655440002",
               "domain": "canonical.com",
               "host_label": "admin",
               "ttl": 600,
@@ -31,6 +34,7 @@ Examples:
               "record_data": "91.189.91.48"
             },
             {
+              "uuid": "550e8400-e29b-41d4-a716-446655440003",
               "domain": "canonical.com",
               "host_label": "www",
               "record_data": "91.189.91.47"
@@ -43,25 +47,23 @@ Examples:
         app: {
           "dns-domains": [
             {
-              "domain": "cloud.canonical.com",
+              "uuid": "550e8400-e29b-41d4-a716-446655440000",
               "status": "denied",
               "status_description": "incorrect username and password"
             },
             {
-              "domain": "staging.ubuntu.com",
+              "uuid": "550e8400-e29b-41d4-a716-446655440001",
               "status": "approved"
             }
           ],
           "dns-entries": [
             {
-              "domain": "cloud.canonical.com",
-              "host_label": "admin",
-              "record_type": "A",
+              "uuid": "550e8400-e29b-41d4-a716-446655440002",
               "status": "denied",
               "status_description": "incorrect username & password"
             },
             {
-              "domain": "canonical.com",
+              "uuid": "550e8400-e29b-41d4-a716-446655440003",
               "host_label": "www",
               "status": "approved"
             }

@@ -38,26 +38,23 @@ Provider provides the result of the requirer request. It should be placed in the
   "application-data": {
     "dns-domains": [
       {
-        "domain": "cloud.canonical.com",
+        "uuid": "550e8400-e29b-41d4-a716-446655440000",
         "status": "denied",
         "status_description": "incorrect username & password"
       },
       {
-        "domain": "staging.ubuntu.com",
+        "uuid": "550e8400-e29b-41d4-a716-446655440001",
         "status": "approved"
       }
     ],
     "dns-entries": [
       {
-        "domain": "cloud.canonical.com",
-        "host_label": "admin",
-        "record_type": "A",
+        "uuid": "550e8400-e29b-41d4-a716-446655440002",
         "status": "denied",
         "status_description": "incorrect username & password"
       },
       {
-        "domain": "canonical.com",
-        "host_label": "www",
+        "uuid": "550e8400-e29b-41d4-a716-446655440003",
         "status": "approved"
       }
     ]
@@ -77,11 +74,13 @@ Requirer request the details of one or more DNS records. It should be placed in 
   "application-data": {
     "dns-domains": [
       {
+        "uuid": "550e8400-e29b-41d4-a716-446655440000",
         "domain": "cloud.canonical.com",
         "username": "user1",
         "password": "password1 (as juju secret)"
       },
       {
+        "uuid": "550e8400-e29b-41d4-a716-446655440001",
         "domain": "staging.ubuntu.com",
         "username": "user2",
         "password": "password2 (as juju secret)"
@@ -89,6 +88,7 @@ Requirer request the details of one or more DNS records. It should be placed in 
     ],
     "dns-entries": [
       {
+        "uuid": "550e8400-e29b-41d4-a716-446655440002",
         "domain": "canonical.com",
         "host_label": "admin",
         "ttl": 600,
@@ -97,6 +97,7 @@ Requirer request the details of one or more DNS records. It should be placed in 
         "record_data": "91.189.91.48"
       },
       {
+        "uuid": "550e8400-e29b-41d4-a716-446655440003",
         "domain": "canonical.com",
         "host_label": "www",
         "record_data": "91.189.91.47"
