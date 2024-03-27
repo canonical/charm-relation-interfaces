@@ -221,7 +221,6 @@ class RequirerEntries(BaseModel):
         examples=[RecordType.A, RecordType.CNAME]
     )
     record_data: IPvAnyAddress = Field(
-        min_length=1,
         name="Record data",
         description="The DNS record value.",
         examples=["91.189.91.47", "91.189.91.48"]

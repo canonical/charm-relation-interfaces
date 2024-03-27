@@ -201,7 +201,6 @@
             "91.189.91.48"
           ],
           "format": "ipvanyaddress",
-          "minLength": 1,
           "name": "Record data",
           "title": "Record Data",
           "type": "string"
