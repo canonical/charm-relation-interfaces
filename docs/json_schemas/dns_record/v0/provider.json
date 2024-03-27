@@ -1,0 +1,177 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "DNSRecordProvider": {
+      "description": "List statuses for the DNS records informed by the requirer.",
+      "properties": {
+        "dns_domains": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ProviderDomains"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List statuses for the domains requested by the requirer.",
+          "title": "Dns Domains"
+        },
+        "dns_entries": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ProviderEntries"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of statuses for the DNS records requested by the requirer.",
+          "title": "Dns Entries"
+        }
+      },
+      "required": [
+        "dns_domains",
+        "dns_entries"
+      ],
+      "title": "DNSRecordProvider",
+      "type": "object"
+    },
+    "ProviderDomains": {
+      "properties": {
+        "uuid": {
+          "description": "UUID for this domain as specified by the requirer.",
+          "examples": "550e8400-e29b-41d4-a716-446655440000",
+          "minLength": 1,
+          "name": "UUID",
+          "title": "Uuid",
+          "type": "string"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Status for the domain request.",
+          "examples": [
+            "approved",
+            "denied"
+          ],
+          "name": "Status"
+        },
+        "status_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Status description.",
+          "examples": [
+            "incorrect username and password"
+          ],
+          "name": "Status description",
+          "title": "Status Description"
+        }
+      },
+      "required": [
+        "uuid",
+        "status",
+        "status_description"
+      ],
+      "title": "ProviderDomains",
+      "type": "object"
+    },
+    "ProviderEntries": {
+      "properties": {
+        "uuid": {
+          "description": "UUID for this entry as specified by the requirer.",
+          "examples": "550e8400-e29b-41d4-a716-446655440000",
+          "minLength": 1,
+          "name": "UUID",
+          "title": "Uuid",
+          "type": "string"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Status for the domain request.",
+          "examples": [
+            "approved",
+            "denied"
+          ],
+          "name": "Status"
+        },
+        "status_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Status description.",
+          "examples": [
+            "incorrect username and password"
+          ],
+          "name": "Status description",
+          "title": "Status Description"
+        }
+      },
+      "required": [
+        "uuid",
+        "status",
+        "status_description"
+      ],
+      "title": "ProviderEntries",
+      "type": "object"
+    },
+    "Status": {
+      "description": "Represent the status values.",
+      "enum": [
+        "approved",
+        "denied"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "description": "Provider schema for dns_record.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/DNSRecordProvider"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
