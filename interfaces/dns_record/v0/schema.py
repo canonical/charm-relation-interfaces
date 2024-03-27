@@ -154,7 +154,7 @@ class ProviderEntries(BaseModel):
     )
 
 
-class DnsRecordProvider(BaseModel):
+class DNSRecordProvider(BaseModel):
     """List statuses for the DNS records informed by the requirer."""
     dns_domains: Optional[List[ProviderDomains]] = Field(
         description="List statuses for the domains requested by the requirer."
@@ -230,7 +230,7 @@ class RequirerEntries(BaseModel):
     )
 
 
-class DnsRecordRequirer(BaseModel):
+class DNSRecordRequirer(BaseModel):
     """List of domains for the provider to manage."""
     dns_domains: Optional[List[RequirerDomains]] = Field(
         description="List of domains for the provider to manage."
@@ -242,9 +242,9 @@ class DnsRecordRequirer(BaseModel):
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for dns_record."""
-    app: DnsRecordProvider
+    app: DNSRecordProvider
 
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for dns_record."""
-    app: DnsRecordRequirer
+    app: DNSRecordRequirer

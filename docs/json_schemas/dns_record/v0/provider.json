@@ -5,7 +5,7 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "DnsRecordProvider": {
+    "DNSRecordProvider": {
       "description": "List statuses for the DNS records informed by the requirer.",
       "properties": {
         "dns_domains": {
@@ -43,7 +43,7 @@
         "dns_domains",
         "dns_entries"
       ],
-      "title": "DnsRecordProvider",
+      "title": "DNSRecordProvider",
       "type": "object"
     },
     "ProviderDomains": {
@@ -166,7 +166,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/DnsRecordProvider"
+      "$ref": "#/$defs/DNSRecordProvider"
     }
   },
   "required": [
