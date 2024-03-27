@@ -9,8 +9,8 @@ This relation interface describes the expected behavior of any charm claiming to
 The `dns_record` interface implements a provider/requirer pattern. The requirer is a charm that wishes to create a set of DNS records, and the provider is a the charm managing those..
 ```mermaid
 flowchart TD
-  Requirer -- dns-domains --> Provider
-  Provider -- dns-domains --> Requirer
+  Requirer -- dns-domains, dns-entries --> Provider
+  Provider -- dns-domains, dns-entries --> Requirer
 ```
 
 ## Behavior
@@ -34,9 +34,9 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 Provider provides the result of the requirer request. It should be placed in the application databag.
 
 #### Example
-```yaml
-  application-data:
-    dns-domains: ‘[
+```json
+  "application-data": {
+    "dns-domains": [
       {
         "domain": "cloud.canonical.com",
         "status": "denied",
@@ -46,7 +46,22 @@ Provider provides the result of the requirer request. It should be placed in the
         "domain": "staging.ubuntu.com",
         "status": "approved"
       }
-    ]’
+    ],
+    "dns-entries": [
+      {
+        "domain": "cloud.canonical.com",
+        "host_label": "admin",
+        "record_type": "A",
+        "status": "denied",
+        "status_description": "incorrect username & password"
+      },
+      {
+        "domain": "canonical.com",
+        "host_label": "www",
+        "status": "approved"
+      }
+    ]
+  }
 
 ```
 
@@ -58,9 +73,9 @@ Requirer request the details of one or more DNS records. It should be placed in 
 
 #### Example
 
-```yaml
-  application-data:
-    dns-domains: ‘[
+```json
+  "application-data": {
+    "dns-domains": [
       {
         "domain": "cloud.canonical.com",
         "username": "user1",
@@ -71,5 +86,21 @@ Requirer request the details of one or more DNS records. It should be placed in 
         "username": "user2",
         "password": "password2 (as juju secret)"
       }
-    ]’
+    ],
+    "dns-entries": [
+      {
+        "domain": "canonical.com",
+        "host_label": "admin",
+        "ttl": 600,
+        "record_class": "IN",
+        "record_type": "A",
+        "record_data": "91.189.91.48"
+      },
+      {
+        "domain": "canonical.com",
+        "host_label": "www",
+        "record_data": "91.189.91.47"
+      }
+    ]
+  }
 ```

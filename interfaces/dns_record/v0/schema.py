@@ -21,7 +21,7 @@ Examples:
               "password": "secret:123213123123123123123"
             }
           ],
-          dns-entries: ‘[
+          "dns-entries": [
             {
               "domain": "canonical.com",
               "host_label": "admin",
@@ -29,13 +29,13 @@ Examples:
               "record_class": "IN",
               "record_type": "A",
               "record_data": "91.189.91.48"
-            },{
+            },
+            {
               "domain": "canonical.com",
               "host_label": "www",
               "record_data": "91.189.91.47"
             }
-        ]’
-
+          ]
         }
 
     ProviderSchema:
@@ -52,7 +52,7 @@ Examples:
               "status": "approved"
             }
           ],
-          dns-entries: [
+          "dns-entries": [
             {
               "domain": "cloud.canonical.com",
               "host_label": "admin",
