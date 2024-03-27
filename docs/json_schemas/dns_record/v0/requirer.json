@@ -1,0 +1,244 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "DnsRecordRequirer": {
+      "description": "List of domains for the provider to manage.",
+      "properties": {
+        "dns_domains": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/RequirerDomains"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of domains for the provider to manage.",
+          "title": "Dns Domains"
+        },
+        "dns_entries": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/RequirerEntries"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of DNS records for the provider to manage.",
+          "title": "Dns Entries"
+        }
+      },
+      "required": [
+        "dns_domains",
+        "dns_entries"
+      ],
+      "title": "DnsRecordRequirer",
+      "type": "object"
+    },
+    "RecordClass": {
+      "description": "Represent the DNS record classes.",
+      "enum": [
+        "IN",
+        "CH",
+        "HS"
+      ],
+      "title": "RecordClass",
+      "type": "string"
+    },
+    "RecordType": {
+      "description": "Represent the DNS record types.",
+      "enum": [
+        "A",
+        "AAAA",
+        "CNAME",
+        "MX",
+        "DKIM",
+        "SPF",
+        "DMARC",
+        "TXT",
+        "CAA",
+        "SRV",
+        "SVCB",
+        "HTTPS",
+        "PTR",
+        "SOA",
+        "NS",
+        "DS",
+        "DNSKEY"
+      ],
+      "title": "RecordType",
+      "type": "string"
+    },
+    "RequirerDomains": {
+      "properties": {
+        "domain": {
+          "description": "Domain name for the provider to manage.",
+          "examples": [
+            "cloud.canonical.com",
+            "staging.ubuntu.com"
+          ],
+          "minLength": 1,
+          "name": "Domain",
+          "title": "Domain",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username for authentication.",
+          "examples": [
+            "user1",
+            "user2"
+          ],
+          "name": "Username",
+          "title": "Username",
+          "type": "string"
+        },
+        "password": {
+          "description": "Juju secret containing the user password.",
+          "examples": [
+            "secret:123213123123123123123"
+          ],
+          "name": "Password",
+          "title": "Password",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain",
+        "username",
+        "password"
+      ],
+      "title": "RequirerDomains",
+      "type": "object"
+    },
+    "RequirerEntries": {
+      "properties": {
+        "domain": {
+          "description": "Domain name requested.",
+          "examples": [
+            "cloud.canonical.com",
+            "staging.ubuntu.com"
+          ],
+          "minLength": 1,
+          "name": "Domain",
+          "title": "Domain",
+          "type": "string"
+        },
+        "host_label": {
+          "examples": [
+            "admin",
+            "www"
+          ],
+          "minLength": 1,
+          "name": "Host label",
+          "status_description": "Host label",
+          "title": "Host Label",
+          "type": "string"
+        },
+        "ttl": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "examples": [
+            600,
+            1200
+          ],
+          "name": "TTL",
+          "status_description": "The DNS time to live",
+          "title": "Ttl"
+        },
+        "record_class": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordClass"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "examples": [
+            "IN",
+            "HS"
+          ],
+          "name": "Record class",
+          "status_description": "The DNS record class."
+        },
+        "record_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "examples": [
+            "A",
+            "CNAME"
+          ],
+          "name": "Record type",
+          "status_description": "The DNS record type."
+        },
+        "record_data": {
+          "description": "The DNS record value.",
+          "examples": [
+            "91.189.91.47",
+            "91.189.91.48"
+          ],
+          "format": "ipvanyaddress",
+          "minLength": 1,
+          "name": "Record data",
+          "title": "Record Data",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain",
+        "host_label",
+        "ttl",
+        "record_class",
+        "record_type",
+        "record_data"
+      ],
+      "title": "RequirerEntries",
+      "type": "object"
+    }
+  },
+  "description": "Requirer schema for dns_record.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/DnsRecordRequirer"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

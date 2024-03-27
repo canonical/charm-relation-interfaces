@@ -1,0 +1,236 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "DnsRecordProvider": {
+      "description": "List statuses for the DNS records informed by the requirer.",
+      "properties": {
+        "dns_domains": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ProviderDomains"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List statuses for the domains requested by the requirer.",
+          "title": "Dns Domains"
+        },
+        "dns_entries": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ProviderEntries"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of statuses for the DNS records requested by the requirer.",
+          "title": "Dns Entries"
+        }
+      },
+      "required": [
+        "dns_domains",
+        "dns_entries"
+      ],
+      "title": "DnsRecordProvider",
+      "type": "object"
+    },
+    "ProviderDomains": {
+      "properties": {
+        "domain": {
+          "description": "Domain name requested.",
+          "examples": [
+            "cloud.canonical.com",
+            "staging.ubuntu.com"
+          ],
+          "minLength": 1,
+          "name": "Domain",
+          "title": "Domain",
+          "type": "string"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Status for the domain request.",
+          "examples": [
+            "approved",
+            "denied"
+          ],
+          "name": "Status"
+        },
+        "status_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Status description.",
+          "examples": [
+            "incorrect username and password"
+          ],
+          "name": "Status description",
+          "title": "Status Description"
+        }
+      },
+      "required": [
+        "domain",
+        "status",
+        "status_description"
+      ],
+      "title": "ProviderDomains",
+      "type": "object"
+    },
+    "ProviderEntries": {
+      "properties": {
+        "domain": {
+          "description": "Domain name requested.",
+          "examples": [
+            "cloud.canonical.com",
+            "staging.ubuntu.com"
+          ],
+          "minLength": 1,
+          "name": "Domain",
+          "title": "Domain",
+          "type": "string"
+        },
+        "host_label": {
+          "examples": [
+            "admin",
+            "www"
+          ],
+          "minLength": 1,
+          "name": "Host label",
+          "status_description": "Host label",
+          "title": "Host Label",
+          "type": "string"
+        },
+        "record_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecordType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "examples": [
+            "A",
+            "CNAME"
+          ],
+          "name": "Record type label",
+          "status_description": "The DNS record type."
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Status for the domain request.",
+          "examples": [
+            "approved",
+            "denied"
+          ],
+          "name": "Status"
+        },
+        "status_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Status description.",
+          "examples": [
+            "incorrect username and password"
+          ],
+          "name": "Status description",
+          "title": "Status Description"
+        }
+      },
+      "required": [
+        "domain",
+        "host_label",
+        "record_type",
+        "status",
+        "status_description"
+      ],
+      "title": "ProviderEntries",
+      "type": "object"
+    },
+    "RecordType": {
+      "description": "Represent the DNS record types.",
+      "enum": [
+        "A",
+        "AAAA",
+        "CNAME",
+        "MX",
+        "DKIM",
+        "SPF",
+        "DMARC",
+        "TXT",
+        "CAA",
+        "SRV",
+        "SVCB",
+        "HTTPS",
+        "PTR",
+        "SOA",
+        "NS",
+        "DS",
+        "DNSKEY"
+      ],
+      "title": "RecordType",
+      "type": "string"
+    },
+    "Status": {
+      "description": "Represent the status values.",
+      "enum": [
+        "approved",
+        "denied"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "description": "Provider schema for dns_record.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/DnsRecordProvider"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
