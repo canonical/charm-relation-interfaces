@@ -115,11 +115,11 @@ class RecordClass(str, Enum):
 
 
 class ProviderDomains(BaseModel):
-    domain: str = Field(
+    uuid: str = Field(
         min_length=1,
-        name="Domain",
-        description="Domain name requested.",
-        examples=["cloud.canonical.com", "staging.ubuntu.com"]
+        name="UUID",
+        description="UUID for this domain as specified by the requirer.",
+        examples="550e8400-e29b-41d4-a716-446655440000"
     )
     status: Status = Field(
         name="Status",
@@ -134,22 +134,11 @@ class ProviderDomains(BaseModel):
 
 
 class ProviderEntries(BaseModel):
-    domain: str = Field(
+    uuid: str = Field(
         min_length=1,
-        name="Domain",
-        description="Domain name requested.",
-        examples=["cloud.canonical.com", "staging.ubuntu.com"]
-    )
-    host_label: str = Field(
-        min_length=1,
-        name="Host label",
-        status_description="Host label",
-        examples=["admin", "www"]
-    )
-    record_type: Optional[RecordType] =Field(
-        name="Record type label",
-        status_description="The DNS record type.",
-        examples=[RecordType.A, RecordType.CNAME]
+        name="UUID",
+        description="UUID for this entry as specified by the requirer.",
+        examples="550e8400-e29b-41d4-a716-446655440000"
     )
     status: Status = Field(
         name="Status",
@@ -190,6 +179,12 @@ class RequirerDomains(BaseModel):
         description="Juju secret containing the user password.",
         examples=["secret:123213123123123123123"],
     )
+    uuid: str = Field(
+        min_length=1,
+        name="UUID",
+        description="UUID for this domain.",
+        examples="550e8400-e29b-41d4-a716-446655440000"
+    )
 
 
 class RequirerEntries(BaseModel):
@@ -202,12 +197,12 @@ class RequirerEntries(BaseModel):
     host_label: str = Field(
         min_length=1,
         name="Host label",
-        status_description="Host label",
+        status_description="Host label.",
         examples=["admin", "www"]
     )
     ttl: Optional[int] = Field(
         name="TTL",
-        status_description="The DNS time to live",
+        status_description="The DNS time to live.",
         examples=[600, 1200]
     )
     record_class: Optional[RecordClass] = Field(
@@ -224,6 +219,12 @@ class RequirerEntries(BaseModel):
         name="Record data",
         description="The DNS record value.",
         examples=["91.189.91.47", "91.189.91.48"]
+    )
+    uuid: str = Field(
+        min_length=1,
+        name="UUID",
+        description="UUID for this entry.",
+        examples="550e8400-e29b-41d4-a716-446655440000"
     )
 
 

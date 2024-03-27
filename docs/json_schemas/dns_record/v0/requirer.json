@@ -111,12 +111,21 @@
           "name": "Password",
           "title": "Password",
           "type": "string"
+        },
+        "uuid": {
+          "description": "UUID for this domain.",
+          "examples": "550e8400-e29b-41d4-a716-446655440000",
+          "minLength": 1,
+          "name": "UUID",
+          "title": "Uuid",
+          "type": "string"
         }
       },
       "required": [
         "domain",
         "username",
-        "password"
+        "password",
+        "uuid"
       ],
       "title": "RequirerDomains",
       "type": "object"
@@ -141,7 +150,7 @@
           ],
           "minLength": 1,
           "name": "Host label",
-          "status_description": "Host label",
+          "status_description": "Host label.",
           "title": "Host Label",
           "type": "string"
         },
@@ -159,7 +168,7 @@
             1200
           ],
           "name": "TTL",
-          "status_description": "The DNS time to live",
+          "status_description": "The DNS time to live.",
           "title": "Ttl"
         },
         "record_class": {
@@ -204,6 +213,14 @@
           "name": "Record data",
           "title": "Record Data",
           "type": "string"
+        },
+        "uuid": {
+          "description": "UUID for this entry.",
+          "examples": "550e8400-e29b-41d4-a716-446655440000",
+          "minLength": 1,
+          "name": "UUID",
+          "title": "Uuid",
+          "type": "string"
         }
       },
       "required": [
@@ -212,7 +229,8 @@
         "ttl",
         "record_class",
         "record_type",
-        "record_data"
+        "record_data",
+        "uuid"
       ],
       "title": "RequirerEntries",
       "type": "object"
