@@ -19,11 +19,11 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 
 ### Provider
 
-- Is expected to provide a list of dns-domains in the relation databag, each containing the domain, the status and optionally the status_description.
+- Is expected to provide a list of dns-domains and/or a lister of dns-entries in the relation databag, each containing the domain, the status and optionally the status_description.
 
 ### Requirer
 
-- Is expected to provide a list of dns-domains in the relation databag, each containing the domain it is requesting a DNS record for, the username and the password containing a juju secret to authenticate the request.
+- Is expected to provide a list of dns-domains and/or a lister of dns-entries in the relation databag, each containing the domain it is requesting a DNS record for, the username and the password containing a juju secret to authenticate the request.
 
 ## Relation Data
 
