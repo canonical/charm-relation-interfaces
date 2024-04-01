@@ -12,7 +12,7 @@
           "anyOf": [
             {
               "items": {
-                "$ref": "#/$defs/ProviderDomains"
+                "$ref": "#/$defs/DnsProviderData"
               },
               "type": "array"
             },
@@ -27,7 +27,7 @@
           "anyOf": [
             {
               "items": {
-                "$ref": "#/$defs/ProviderEntries"
+                "$ref": "#/$defs/DnsProviderData"
               },
               "type": "array"
             },
@@ -46,7 +46,7 @@
       "title": "DNSRecordProvider",
       "type": "object"
     },
-    "ProviderDomains": {
+    "DnsProviderData": {
       "properties": {
         "uuid": {
           "description": "UUID for this domain as specified by the requirer.",
@@ -91,55 +91,7 @@
         "status",
         "status_description"
       ],
-      "title": "ProviderDomains",
-      "type": "object"
-    },
-    "ProviderEntries": {
-      "properties": {
-        "uuid": {
-          "description": "UUID for this entry as specified by the requirer.",
-          "examples": "550e8400-e29b-41d4-a716-446655440000",
-          "minLength": 1,
-          "name": "UUID",
-          "title": "Uuid",
-          "type": "string"
-        },
-        "status": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Status"
-            }
-          ],
-          "description": "Status for the domain request.",
-          "examples": [
-            "approved",
-            "denied"
-          ],
-          "name": "Status"
-        },
-        "status_description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Status description.",
-          "examples": [
-            "incorrect username and password"
-          ],
-          "name": "Status description",
-          "title": "Status Description"
-        }
-      },
-      "required": [
-        "uuid",
-        "status",
-        "status_description"
-      ],
-      "title": "ProviderEntries",
+      "title": "DnsProviderData",
       "type": "object"
     },
     "Status": {

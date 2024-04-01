@@ -47,12 +47,8 @@
       "type": "object"
     },
     "RecordClass": {
+      "const": "IN",
       "description": "Represent the DNS record classes.",
-      "enum": [
-        "IN",
-        "CH",
-        "HS"
-      ],
       "title": "RecordClass",
       "type": "string"
     },
@@ -181,8 +177,7 @@
             }
           ],
           "examples": [
-            "IN",
-            "HS"
+            "IN"
           ],
           "name": "Record class",
           "status_description": "The DNS record class."

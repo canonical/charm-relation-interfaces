@@ -114,7 +114,7 @@ class RecordClass(str, Enum):
     IN = "IN"
 
 
-class ProviderDomains(BaseModel):
+class DnsProviderData(BaseModel):
     uuid: str = Field(
         min_length=1,
         name="UUID",
@@ -133,31 +133,12 @@ class ProviderDomains(BaseModel):
     )
 
 
-class ProviderEntries(BaseModel):
-    uuid: str = Field(
-        min_length=1,
-        name="UUID",
-        description="UUID for this entry as specified by the requirer.",
-        examples="550e8400-e29b-41d4-a716-446655440000"
-    )
-    status: Status = Field(
-        name="Status",
-        description="Status for the domain request.",
-        examples=[Status.APPROVED, Status.DENIED]
-    )
-    status_description: Optional[str] = Field(
-        name="Status description",
-        description="Status description.",
-        examples=["incorrect username and password"]
-    )
-
-
 class DNSRecordProvider(BaseModel):
     """List statuses for the DNS records informed by the requirer."""
-    dns_domains: Optional[List[ProviderDomains]] = Field(
+    dns_domains: Optional[List[DnsProviderData]] = Field(
         description="List statuses for the domains requested by the requirer."
     )
-    dns_entries: Optional[List[ProviderEntries]] = Field(
+    dns_entries: Optional[List[DnsProviderData]] = Field(
         description="List of statuses for the DNS records requested by the requirer."
     )
 
@@ -208,7 +189,7 @@ class RequirerEntries(BaseModel):
     record_class: Optional[RecordClass] = Field(
         name="Record class",
         status_description="The DNS record class.",
-        examples=[RecordClass.IN, RecordClass.HS]
+        examples=[RecordClass.IN]
     )
     record_type: Optional[RecordType] =Field(
         name="Record type",
