@@ -112,8 +112,6 @@ class RecordClass(str, Enum):
     """Represent the DNS record classes."""
 
     IN = "IN"
-    CH = "CH"
-    HS = "HS"
 
 
 class ProviderDomains(BaseModel):
