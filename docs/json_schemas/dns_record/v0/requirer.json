@@ -9,40 +9,24 @@
       "description": "List of domains for the provider to manage.",
       "properties": {
         "dns_domains": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/RequirerDomains"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
+          "default": null,
           "description": "List of domains for the provider to manage.",
-          "title": "Dns Domains"
+          "items": {
+            "$ref": "#/$defs/RequirerDomains"
+          },
+          "title": "Dns Domains",
+          "type": "array"
         },
         "dns_entries": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/RequirerEntries"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
+          "default": null,
           "description": "List of DNS records for the provider to manage.",
-          "title": "Dns Entries"
+          "items": {
+            "$ref": "#/$defs/RequirerEntries"
+          },
+          "title": "Dns Entries",
+          "type": "array"
         }
       },
-      "required": [
-        "dns_domains",
-        "dns_entries"
-      ],
       "title": "DNSRecordRequirer",
       "type": "object"
     },
@@ -151,31 +135,23 @@
           "type": "string"
         },
         "ttl": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
+          "default": null,
           "examples": [
             600,
             1200
           ],
           "name": "TTL",
           "status_description": "The DNS time to live.",
-          "title": "Ttl"
+          "title": "Ttl",
+          "type": "integer"
         },
         "record_class": {
-          "anyOf": [
+          "allOf": [
             {
               "$ref": "#/$defs/RecordClass"
-            },
-            {
-              "type": "null"
             }
           ],
+          "default": null,
           "examples": [
             "IN"
           ],
@@ -183,14 +159,12 @@
           "status_description": "The DNS record class."
         },
         "record_type": {
-          "anyOf": [
+          "allOf": [
             {
               "$ref": "#/$defs/RecordType"
-            },
-            {
-              "type": "null"
             }
           ],
+          "default": null,
           "examples": [
             "A",
             "CNAME"
@@ -221,9 +195,6 @@
       "required": [
         "domain",
         "host_label",
-        "ttl",
-        "record_class",
-        "record_type",
         "record_data",
         "uuid"
       ],

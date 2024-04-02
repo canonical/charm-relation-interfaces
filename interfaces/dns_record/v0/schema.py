@@ -73,7 +73,7 @@ Examples:
 """
 
 from enum import Enum
-from typing import List, Optional
+from typing import List
 from pydantic import IPvAnyAddress, BaseModel, Field
 
 from interface_tester.schema_base import DataBagSchema
@@ -126,7 +126,8 @@ class DnsProviderData(BaseModel):
         description="Status for the domain request.",
         examples=[Status.APPROVED, Status.DENIED]
     )
-    status_description: Optional[str] = Field(
+    status_description: str = Field(
+        default=None,
         name="Status description",
         description="Status description.",
         examples=["incorrect username and password"]
@@ -135,10 +136,11 @@ class DnsProviderData(BaseModel):
 
 class DNSRecordProvider(BaseModel):
     """List statuses for the DNS records informed by the requirer."""
-    dns_domains: Optional[List[DnsProviderData]] = Field(
+    dns_domains: List[DnsProviderData] = Field(
+        default=None,
         description="List statuses for the domains requested by the requirer."
     )
-    dns_entries: Optional[List[DnsProviderData]] = Field(
+    dns_entries: List[DnsProviderData] = Field(
         description="List of statuses for the DNS records requested by the requirer."
     )
 
@@ -181,17 +183,20 @@ class RequirerEntries(BaseModel):
         status_description="Host label.",
         examples=["admin", "www"]
     )
-    ttl: Optional[int] = Field(
+    ttl: int = Field(
+        default=None,
         name="TTL",
         status_description="The DNS time to live.",
         examples=[600, 1200]
     )
-    record_class: Optional[RecordClass] = Field(
+    record_class: RecordClass = Field(
+        default=None,
         name="Record class",
         status_description="The DNS record class.",
         examples=[RecordClass.IN]
     )
-    record_type: Optional[RecordType] =Field(
+    record_type: RecordType =Field(
+        default=None,
         name="Record type",
         status_description="The DNS record type.",
         examples=[RecordType.A, RecordType.CNAME]
@@ -211,10 +216,12 @@ class RequirerEntries(BaseModel):
 
 class DNSRecordRequirer(BaseModel):
     """List of domains for the provider to manage."""
-    dns_domains: Optional[List[RequirerDomains]] = Field(
+    dns_domains: List[RequirerDomains] = Field(
+        default=None,
         description="List of domains for the provider to manage."
     )
-    dns_entries: Optional[List[RequirerEntries]] = Field(
+    dns_entries: List[RequirerEntries] = Field(
+        default=None,
         description="List of DNS records for the provider to manage."
     )
 

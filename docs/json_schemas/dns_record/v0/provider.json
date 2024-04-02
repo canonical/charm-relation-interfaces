@@ -9,38 +9,24 @@
       "description": "List statuses for the DNS records informed by the requirer.",
       "properties": {
         "dns_domains": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/DnsProviderData"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
+          "default": null,
           "description": "List statuses for the domains requested by the requirer.",
-          "title": "Dns Domains"
+          "items": {
+            "$ref": "#/$defs/DnsProviderData"
+          },
+          "title": "Dns Domains",
+          "type": "array"
         },
         "dns_entries": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/DnsProviderData"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
           "description": "List of statuses for the DNS records requested by the requirer.",
-          "title": "Dns Entries"
+          "items": {
+            "$ref": "#/$defs/DnsProviderData"
+          },
+          "title": "Dns Entries",
+          "type": "array"
         }
       },
       "required": [
-        "dns_domains",
         "dns_entries"
       ],
       "title": "DNSRecordProvider",
@@ -70,26 +56,19 @@
           "name": "Status"
         },
         "status_description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
+          "default": null,
           "description": "Status description.",
           "examples": [
             "incorrect username and password"
           ],
           "name": "Status description",
-          "title": "Status Description"
+          "title": "Status Description",
+          "type": "string"
         }
       },
       "required": [
         "uuid",
-        "status",
-        "status_description"
+        "status"
       ],
       "title": "DnsProviderData",
       "type": "object"
