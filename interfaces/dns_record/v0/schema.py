@@ -143,6 +143,7 @@ class DNSRecordProvider(BaseModel):
         description="List statuses for the domains requested by the requirer."
     )
     dns_entries: List[DnsProviderData] = Field(
+        default=None,
         description="List of statuses for the DNS records requested by the requirer."
     )
 
