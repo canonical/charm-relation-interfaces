@@ -83,7 +83,9 @@ class Status(str, Enum):
     """Represent the status values."""
 
     APPROVED = "approved"
-    DENIED = "denied"
+    INVALID_CREDENTIALS = "invalid_credentials"
+    PERMISSION_DENIED = "permission_denied"
+    FAILURE = "failure"
 
 
 class RecordType(str, Enum):
@@ -124,7 +126,7 @@ class DnsProviderData(BaseModel):
     status: Status = Field(
         name="Status",
         description="Status for the domain request.",
-        examples=[Status.APPROVED, Status.DENIED]
+        examples=[Status.APPROVED, Status.INVALID_CREDENTIALS]
     )
     status_description: str = Field(
         default=None,
