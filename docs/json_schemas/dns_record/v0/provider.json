@@ -18,6 +18,7 @@
           "type": "array"
         },
         "dns_entries": {
+          "default": null,
           "description": "List of statuses for the DNS records requested by the requirer.",
           "items": {
             "$ref": "#/$defs/DnsProviderData"
@@ -26,9 +27,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "dns_entries"
-      ],
       "title": "DNSRecordProvider",
       "type": "object"
     },
