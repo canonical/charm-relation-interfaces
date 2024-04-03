@@ -80,7 +80,6 @@
         "conflict",
         "validation",
         "failure",
-        "unknown",
         "pending"
       ],
       "title": "Status",

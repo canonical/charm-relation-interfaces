@@ -88,7 +88,6 @@ class Status(str, Enum):
     CONFLICT = "conflict"
     VALIDATION = "validation"
     FAILURE = "failure"
-    UNKNOWN = "unknown"
     PENDING = "pending"
 
 
