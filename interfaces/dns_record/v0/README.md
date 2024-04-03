@@ -39,7 +39,7 @@ Provider provides the result of the requirer request. It should be placed in the
     "dns-domains": [
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440000",
-        "status": "denied",
+        "status": "failure",
         "status_description": "incorrect username & password"
       },
       {
@@ -50,7 +50,7 @@ Provider provides the result of the requirer request. It should be placed in the
     "dns-entries": [
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440002",
-        "status": "denied",
+        "status": "failure",
         "status_description": "incorrect username & password"
       },
       {

@@ -77,7 +77,11 @@
         "approved",
         "invalid_credentials",
         "permission_denied",
-        "failure"
+        "conflict",
+        "validation",
+        "failure",
+        "unknown",
+        "pending"
       ],
       "title": "Status",
       "type": "string"

@@ -48,7 +48,7 @@ Examples:
           "dns-domains": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440000",
-              "status": "denied",
+              "status": "failure",
               "status_description": "incorrect username and password"
             },
             {
@@ -59,7 +59,7 @@ Examples:
           "dns-entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
-              "status": "denied",
+              "status": "failure",
               "status_description": "incorrect username & password"
             },
             {
@@ -85,7 +85,11 @@ class Status(str, Enum):
     APPROVED = "approved"
     INVALID_CREDENTIALS = "invalid_credentials"
     PERMISSION_DENIED = "permission_denied"
+    CONFLICT = "conflict"
+    VALIDATION = "validation"
     FAILURE = "failure"
+    UNKNOWN = "unknown"
+    PENDING = "pending"
 
 
 class RecordType(str, Enum):
