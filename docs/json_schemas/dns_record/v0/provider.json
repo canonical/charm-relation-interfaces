@@ -78,7 +78,7 @@
         "invalid_credentials",
         "permission_denied",
         "conflict",
-        "validation",
+        "invalid_data",
         "failure",
         "pending"
       ],

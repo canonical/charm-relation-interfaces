@@ -86,7 +86,7 @@ class Status(str, Enum):
     INVALID_CREDENTIALS = "invalid_credentials"
     PERMISSION_DENIED = "permission_denied"
     CONFLICT = "conflict"
-    VALIDATION = "validation"
+    INVALID_DATA = "invalid_data"
     FAILURE = "failure"
     PENDING = "pending"
 
