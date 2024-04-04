@@ -26,7 +26,7 @@ Examples:
           "dns-entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
-              "domain": "canonical.com",
+              "domain": "cloud.canonical.com",
               "host_label": "admin",
               "ttl": 600,
               "record_class": "IN",
@@ -35,7 +35,7 @@ Examples:
             },
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440003",
-              "domain": "canonical.com",
+              "domain": "staging.canonical.com",
               "host_label": "www",
               "record_data": "91.189.91.47"
             }
