@@ -83,13 +83,13 @@
           "title": "Username",
           "type": "string"
         },
-        "password": {
+        "password_id": {
           "description": "Juju secret containing the user password.",
           "examples": [
             "secret:123213123123123123123"
           ],
           "name": "Password",
-          "title": "Password",
+          "title": "Password Id",
           "type": "string"
         },
         "uuid": {
@@ -104,7 +104,7 @@
       "required": [
         "domain",
         "username",
-        "password",
+        "password_id",
         "uuid"
       ],
       "title": "RequirerDomains",

@@ -14,13 +14,13 @@ Examples:
               "uuid": "550e8400-e29b-41d4-a716-446655440000",
               "domain": "cloud.canonical.com",
               "username": "user1",
-              "password": "secret:123213123123123123123"
+              "password_id": "secret:123213123123123123123"
             },
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440001",
               "domain": "staging.ubuntu.com",
               "username": "user2",
-              "password": "secret:123213123123123123123"
+              "password_id": "secret:123213123123123123123"
             }
           ],
           "dns-entries": [
@@ -134,7 +134,7 @@ class DnsProviderData(BaseModel):
         default=None,
         name="Status description",
         description="Status description.",
-        examples=["invalid_credentials"]
+        examples=["incorrect username and password"]
     )
 
 
@@ -162,7 +162,7 @@ class RequirerDomains(BaseModel):
         description="Username for authentication.",
         examples=["user1", "user2"],
     )
-    password: str = Field(
+    password_id: str = Field(
         name="Password",
         description="Juju secret containing the user password.",
         examples=["secret:123213123123123123123"],

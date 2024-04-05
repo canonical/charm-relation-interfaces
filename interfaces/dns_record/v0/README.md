@@ -77,13 +77,13 @@ Requirer request the details of one or more DNS records. It should be placed in 
         "uuid": "550e8400-e29b-41d4-a716-446655440000",
         "domain": "cloud.canonical.com",
         "username": "user1",
-        "password": "secret:123213123123123123123"
+        "password_id": "secret:123213123123123123123"
       },
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440001",
         "domain": "staging.ubuntu.com",
         "username": "user2",
-        "password": "secret:123213123123123123122"
+        "password_id": "secret:123213123123123123122"
       }
     ],
     "dns-entries": [
