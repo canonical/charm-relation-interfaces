@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/dns_record/schemas/provider.json",
-    "title": "`dns_record` provider schema",
-    "description": "The `dns_record` root schema comprises the entire provider databag for this interface.",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/database_backup/schemas/provider.json",
+    "title": "`database_backup` provider schema",
+    "description": "The `database_backup` root schema comprises the entire provider databag for this interface.",
     "type": "object",
     "default": {},
     "additionalProperties": true,
