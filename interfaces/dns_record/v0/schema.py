@@ -74,6 +74,7 @@ Examples:
 from enum import Enum
 from typing import List
 from pydantic import IPvAnyAddress, BaseModel, Field
+from uuid import UUID
 
 from interface_tester.schema_base import DataBagSchema
 
@@ -119,8 +120,7 @@ class RecordClass(str, Enum):
 
 
 class DnsProviderData(BaseModel):
-    uuid: str = Field(
-        min_length=1,
+    uuid: UUID = Field(
         name="UUID",
         description="UUID for this domain as specified by the requirer.",
         examples="550e8400-e29b-41d4-a716-446655440000"
@@ -167,8 +167,7 @@ class RequirerDomains(BaseModel):
         description="Juju secret containing the user password.",
         examples=["secret:123213123123123123123"],
     )
-    uuid: str = Field(
-        min_length=1,
+    uuid: UUID = Field(
         name="UUID",
         description="UUID for this domain.",
         examples="550e8400-e29b-41d4-a716-446655440000"
@@ -211,8 +210,7 @@ class RequirerEntries(BaseModel):
         description="The DNS record value.",
         examples=["91.189.91.47", "91.189.91.48"]
     )
-    uuid: str = Field(
-        min_length=1,
+    uuid: UUID = Field(
         name="UUID",
         description="UUID for this entry.",
         examples="550e8400-e29b-41d4-a716-446655440000"

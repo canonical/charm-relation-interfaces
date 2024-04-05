@@ -95,7 +95,7 @@
         "uuid": {
           "description": "UUID for this domain.",
           "examples": "550e8400-e29b-41d4-a716-446655440000",
-          "minLength": 1,
+          "format": "uuid",
           "name": "UUID",
           "title": "Uuid",
           "type": "string"
@@ -186,7 +186,7 @@
         "uuid": {
           "description": "UUID for this entry.",
           "examples": "550e8400-e29b-41d4-a716-446655440000",
-          "minLength": 1,
+          "format": "uuid",
           "name": "UUID",
           "title": "Uuid",
           "type": "string"
