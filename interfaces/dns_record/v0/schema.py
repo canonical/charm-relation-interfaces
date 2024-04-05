@@ -192,7 +192,7 @@ class RequirerEntries(BaseModel):
     ttl: int = Field(
         default=None,
         name="TTL",
-        status_description="The DNS time to live.",
+        status_description="The DNS time to live (seconds).",
         examples=[600, 1200]
     )
     record_class: RecordClass = Field(

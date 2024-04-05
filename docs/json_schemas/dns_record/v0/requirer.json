@@ -141,7 +141,7 @@
             1200
           ],
           "name": "TTL",
-          "status_description": "The DNS time to live.",
+          "status_description": "The DNS time to live (seconds).",
           "title": "Ttl",
           "type": "integer"
         },
