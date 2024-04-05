@@ -49,7 +49,7 @@ Examples:
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440000",
               "status": "failure",
-              "status_description": "incorrect username and password"
+              "description": "incorrect username and password"
             },
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440001",
@@ -60,7 +60,7 @@ Examples:
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
               "status": "failure",
-              "status_description": "incorrect username & password"
+              "description": "incorrect username & password"
             },
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440003",
@@ -131,7 +131,7 @@ class DnsProviderData(BaseModel):
         description="Status for the domain request.",
         examples=[Status.APPROVED, Status.INVALID_CREDENTIALS]
     )
-    status_description: str = Field(
+    description: str = Field(
         default=None,
         name="Status description",
         description="Status description.",
@@ -186,25 +186,25 @@ class RequirerEntries(BaseModel):
     host_label: str = Field(
         min_length=1,
         name="Host label",
-        status_description="Host label.",
+        description="Host label.",
         examples=["admin", "www"]
     )
     ttl: int = Field(
         default=None,
         name="TTL",
-        status_description="The DNS time to live (seconds).",
+        description="The DNS time to live (seconds).",
         examples=[600, 1200]
     )
     record_class: RecordClass = Field(
         default=None,
         name="Record class",
-        status_description="The DNS record class.",
+        description="The DNS record class.",
         examples=[RecordClass.IN]
     )
     record_type: RecordType =Field(
         default=None,
         name="Record type",
-        status_description="The DNS record type.",
+        description="The DNS record type.",
         examples=[RecordType.A, RecordType.CNAME]
     )
     record_data: IPvAnyAddress = Field(

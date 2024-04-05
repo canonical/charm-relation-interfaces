@@ -124,24 +124,24 @@
           "type": "string"
         },
         "host_label": {
+          "description": "Host label.",
           "examples": [
             "admin",
             "www"
           ],
           "minLength": 1,
           "name": "Host label",
-          "status_description": "Host label.",
           "title": "Host Label",
           "type": "string"
         },
         "ttl": {
           "default": null,
+          "description": "The DNS time to live (seconds).",
           "examples": [
             600,
             1200
           ],
           "name": "TTL",
-          "status_description": "The DNS time to live (seconds).",
           "title": "Ttl",
           "type": "integer"
         },
@@ -152,11 +152,11 @@
             }
           ],
           "default": null,
+          "description": "The DNS record class.",
           "examples": [
             "IN"
           ],
-          "name": "Record class",
-          "status_description": "The DNS record class."
+          "name": "Record class"
         },
         "record_type": {
           "allOf": [
@@ -165,12 +165,12 @@
             }
           ],
           "default": null,
+          "description": "The DNS record type.",
           "examples": [
             "A",
             "CNAME"
           ],
-          "name": "Record type",
-          "status_description": "The DNS record type."
+          "name": "Record type"
         },
         "record_data": {
           "description": "The DNS record value.",

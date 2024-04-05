@@ -19,7 +19,7 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 
 ### Provider
 
-- Is expected to provide a list of dns-domains and/or a list of dns-entries in the relation databag, each containing the domain, the status and optionally the status_description.
+- Is expected to provide a list of dns-domains and/or a list of dns-entries in the relation databag, each containing the domain, the status and optionally the description.
 
 ### Requirer
 
@@ -40,7 +40,7 @@ Provider provides the result of the requirer request. It should be placed in the
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440000",
         "status": "failure",
-        "status_description": "incorrect username & password"
+        "description": "incorrect username & password"
       },
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440001",
@@ -51,7 +51,7 @@ Provider provides the result of the requirer request. It should be placed in the
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440002",
         "status": "failure",
-        "status_description": "incorrect username & password"
+        "description": "incorrect username & password"
       },
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440003",

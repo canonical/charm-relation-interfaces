@@ -53,14 +53,14 @@
           ],
           "name": "Status"
         },
-        "status_description": {
+        "description": {
           "default": null,
           "description": "Status description.",
           "examples": [
             "incorrect username and password"
           ],
           "name": "Status description",
-          "title": "Status Description",
+          "title": "Description",
           "type": "string"
         }
       },
