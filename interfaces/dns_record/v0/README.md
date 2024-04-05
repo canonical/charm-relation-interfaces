@@ -6,7 +6,7 @@ This relation interface describes the expected behavior of any charm claiming to
 
 ## Direction
 
-The `dns_record` interface implements a provider/requirer pattern. The requirer is a charm that wishes to create a set of DNS records, and the provider is the charm managing those..
+The `dns_record` interface implements a provider/requirer pattern. The requirer is a charm that wishes to create a set of DNS records, and the provider is the charm managing those.
 ```mermaid
 flowchart TD
   Requirer -- dns-domains, dns-entries --> Provider
