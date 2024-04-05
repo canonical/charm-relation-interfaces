@@ -1,4 +1,4 @@
-# Copyright 2023 Canonical
+# Copyright 2024 Canonical
 # See LICENSE file for licensing details.
 """This file defines the schemas for the provider and requirer sides of the dns_record interface.
 It exposes two interfaces.schema_base.DataBagSchema subclasses called:
