@@ -140,10 +140,12 @@ class DnsProviderData(BaseModel):
 
 class DNSRecordProvider(BaseModel):
     """List statuses for the DNS records informed by the requirer."""
-    dns_domains: conlist(DnsProviderData, min_length=1) = Field(
+    dns_domains: conlist(DnsProviderData) = Field(
+        min_items=1,
         description="List statuses for the domains requested by the requirer."
     )
-    dns_entries: conlist(DnsProviderData, min_length=1) = Field(
+    dns_entries: conlist(DnsProviderData) = Field(
+        min_items=1,
         description="List of statuses for the DNS records requested by the requirer."
     )
 
@@ -217,10 +219,12 @@ class RequirerEntries(BaseModel):
 
 class DNSRecordRequirer(BaseModel):
     """List of domains for the provider to manage."""
-    dns_domains: conlist(RequirerDomains, min_length=1) = Field(
+    dns_domains: conlist(RequirerDomains) = Field(
+        min_items=1,
         description="List of domains for the provider to manage."
     )
-    dns_entries: conlist(RequirerEntries, min_length=1) = Field(
+    dns_entries: conlist(RequirerEntries) = Field(
+        min_items=1,
         description="List of DNS records for the provider to manage."
     )
 
