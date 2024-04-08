@@ -13,7 +13,7 @@
           "items": {
             "$ref": "#/$defs/RequirerDomains"
           },
-          "minItems": 1,
+          "name": "DNS domains",
           "title": "Dns Domains",
           "type": "array"
         },
@@ -22,7 +22,7 @@
           "items": {
             "$ref": "#/$defs/RequirerEntries"
           },
-          "minItems": 1,
+          "name": "DNS entries",
           "title": "Dns Entries",
           "type": "array"
         }
