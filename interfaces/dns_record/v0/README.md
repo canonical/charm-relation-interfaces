@@ -20,7 +20,7 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 ### Provider
 
 - Is expected to provide a list of dns-domains and a list of dns-entries in the relation databag, each containing the domain, the status and optionally the description corresponding to the dns-domains and dns-entries requirested by the requirer.
-- Is expected to authenticate requests for dns-domains based on internal business rules/processes at the organisation where this charm is deployed."
+- Is expected to authenticate requests for dns-domains based on internal business rules/processes at the organisation where this charm is deployed.
 
 ### Requirer
 
