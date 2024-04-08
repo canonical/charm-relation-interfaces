@@ -9,24 +9,28 @@
       "description": "List statuses for the DNS records informed by the requirer.",
       "properties": {
         "dns_domains": {
-          "default": null,
           "description": "List statuses for the domains requested by the requirer.",
           "items": {
             "$ref": "#/$defs/DnsProviderData"
           },
+          "minItems": 1,
           "title": "Dns Domains",
           "type": "array"
         },
         "dns_entries": {
-          "default": null,
           "description": "List of statuses for the DNS records requested by the requirer.",
           "items": {
             "$ref": "#/$defs/DnsProviderData"
           },
+          "minItems": 1,
           "title": "Dns Entries",
           "type": "array"
         }
       },
+      "required": [
+        "dns_domains",
+        "dns_entries"
+      ],
       "title": "DNSRecordProvider",
       "type": "object"
     },
