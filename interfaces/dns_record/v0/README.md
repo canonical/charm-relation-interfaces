@@ -80,30 +80,30 @@ Requirer request the details of one or more DNS records. It should be placed in 
         "uuid": "550e8400-e29b-41d4-a716-446655440000",
         "domain": "cloud.canonical.com",
         "username": "user1",
-        "password_id": "secret:123213123123123123123"
+        "password-id": "secret:123213123123123123123"
       },
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440001",
         "domain": "staging.ubuntu.com",
         "username": "user2",
-        "password_id": "secret:123213123123123123122"
+        "password-id": "secret:123213123123123123122"
       }
     ],
     "dns-entries": [
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440002",
         "domain": "cloud.canonical.com",
-        "host_label": "admin",
+        "host-label": "admin",
         "ttl": 600,
-        "record_class": "IN",
-        "record_type": "A",
-        "record_data": "91.189.91.48"
+        "record-class": "IN",
+        "record-type": "A",
+        "record-data": "91.189.91.48"
       },
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440003",
         "domain": "staging.canonical.com",
-        "host_label": "www",
-        "record_data": "91.189.91.47"
+        "host-label": "www",
+        "record-data": "91.189.91.47"
       }
     ]
   }
