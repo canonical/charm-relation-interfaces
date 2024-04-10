@@ -9,7 +9,7 @@ Examples:
     RequirerSchema:
         unit: <empty>
         app: {
-          "dns-domains": [
+          "dns_domains": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440000",
               "domain": "cloud.canonical.com",
@@ -23,7 +23,7 @@ Examples:
               "password_id": "secret:123213123123123123123"
             }
           ],
-          "dns-entries": [
+          "dns_entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
               "domain": "cloud.canonical.com",
@@ -45,7 +45,7 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-          "dns-domains": [
+          "dns_domains": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440000",
               "status": "invalid_credentials",
@@ -56,7 +56,7 @@ Examples:
               "status": "approved"
             }
           ],
-          "dns-entries": [
+          "dns_entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
               "status": "invalid_credentials",
