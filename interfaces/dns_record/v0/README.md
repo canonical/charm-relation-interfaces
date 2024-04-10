@@ -26,7 +26,7 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 
 - Is expected to provide a list of dns-domains in the relation databag, each containing the domain it is requesting a DNS record for, the username and the password containing a juju secret for the provider to authenticate the request.
 - Is expected to provide a list of dns-entries mains in the relation databag, containing at least the dns-domain, the host-label and record-data. The dns-domain must be present in the list of dns-domains for authentication.
-
+- Is expected to authenticate requests for dns-domains based on internal business rules/processes at the organisation where this charm is deployed. The credentials need to be negotiated outside of the charm relation.
 
 ## Relation Data
 
