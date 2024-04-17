@@ -1,0 +1,4 @@
+providers:
+  - name: sdcore-webui-k8s-operator
+    url: https://github.com/canonical/sdcore-webui-k8s-operator
+requirers: []
