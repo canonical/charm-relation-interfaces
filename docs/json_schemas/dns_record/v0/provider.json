@@ -8,15 +8,6 @@
     "DNSRecordProvider": {
       "description": "List statuses for the DNS records informed by the requirer.",
       "properties": {
-        "dns_domains": {
-          "description": "List statuses for the domains requested by the requirer.",
-          "items": {
-            "$ref": "#/$defs/DnsProviderData"
-          },
-          "name": "DNS domains",
-          "title": "Dns Domains",
-          "type": "array"
-        },
         "dns_entries": {
           "description": "List of statuses for the DNS records requested by the requirer.",
           "items": {
@@ -28,7 +19,6 @@
         }
       },
       "required": [
-        "dns_domains",
         "dns_entries"
       ],
       "title": "DNSRecordProvider",
