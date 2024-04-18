@@ -24,7 +24,7 @@ The following is the criteria that a Provider and Requirer need to adhere to be 
 
 ### Requirer
 
-- Is expected to provide a service_account user to authenticate so that the requests can be autheticated.
+- Is expected to provide a service_account for the provider to authenticate the requests.
 - Is expected to provide a list of dns_entries mains in the relation databag, containing at least the dns-domain, the host-label and record-data. The dns-domain must be present in the list of dns_domains for authentication.
 
 
@@ -64,10 +64,7 @@ Requirer request the details of one or more DNS records. It should be placed in 
 
 ```json
   "application-data": {
-    "service_account": {
-      "username": "user1",
-      "password_id": "secret:123213123123123123123" 
-    },
+    "service_account": "secret:123213123123123123123",
     "dns_entries": [
       {
         "uuid": "550e8400-e29b-41d4-a716-446655440002",

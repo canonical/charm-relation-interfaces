@@ -9,13 +9,11 @@
       "description": "List of domains for the provider to manage.",
       "properties": {
         "service_account": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/ServiceAccount"
-            }
-          ],
           "description": "Service account for authentication.",
-          "name": "Service account"
+          "examples": "secret:123213123123123123123",
+          "name": "Service account",
+          "title": "Service Account",
+          "type": "string"
         },
         "dns_entries": {
           "description": "List of DNS records for the provider to manage.",
@@ -153,35 +151,6 @@
         "uuid"
       ],
       "title": "RequirerEntries",
-      "type": "object"
-    },
-    "ServiceAccount": {
-      "properties": {
-        "username": {
-          "description": "Username for authentication.",
-          "examples": [
-            "user1",
-            "user2"
-          ],
-          "name": "Username",
-          "title": "Username",
-          "type": "string"
-        },
-        "password_id": {
-          "description": "Juju secret containing the user password.",
-          "examples": [
-            "secret:123213123123123123123"
-          ],
-          "name": "Password",
-          "title": "Password Id",
-          "type": "string"
-        }
-      },
-      "required": [
-        "username",
-        "password_id"
-      ],
-      "title": "ServiceAccount",
       "type": "object"
     }
   },

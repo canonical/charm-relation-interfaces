@@ -9,10 +9,7 @@ Examples:
     RequirerSchema:
         unit: <empty>
         app: {
-          "service_account":  {
-            "username": "user1",
-            "password_id": "secret:123213123123123123123"
-          },
+          "service_account": "secret:123213123123123123123",
           "dns_entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
@@ -113,7 +110,7 @@ class DnsProviderData(BaseModel):
         default=None,
         name="Status description",
         description="Status description.",
-        examples=["incorrect username and password"]
+        examples=["incorrect credentials"]
     )
 
 
@@ -122,19 +119,6 @@ class DNSRecordProvider(BaseModel):
     dns_entries: List[DnsProviderData] = Field(
         name="DNS entries",
         description="List of statuses for the DNS records requested by the requirer."
-    )
-
-
-class ServiceAccount(BaseModel):
-    username: str = Field(
-        name="Username",
-        description="Username for authentication.",
-        examples=["user1", "user2"],
-    )
-    password_id: str = Field(
-        name="Password",
-        description="Juju secret containing the user password.",
-        examples=["secret:123213123123123123123"],
     )
 
 
@@ -183,9 +167,10 @@ class RequirerEntries(BaseModel):
 
 class DNSRecordRequirer(BaseModel):
     """List of domains for the provider to manage."""
-    service_account: ServiceAccount = Field(
+    service_account: str = Field(
         name="Service account",
-        description="Service account for authentication."
+        description="Service account for authentication.",
+        examples="secret:123213123123123123123"
     )
     dns_entries: List[RequirerEntries] = Field(
         name="DNS entries",

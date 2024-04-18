@@ -51,7 +51,7 @@
           "default": null,
           "description": "Status description.",
           "examples": [
-            "incorrect username and password"
+            "incorrect credentials"
           ],
           "name": "Status description",
           "title": "Description",
