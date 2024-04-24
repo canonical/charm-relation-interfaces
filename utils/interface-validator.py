@@ -1,7 +1,7 @@
 # Copyright 2024 Canonical
 # See LICENSE file for licensing details.
 
-"""Schem validator for `interface.yaml`"""
+"""Schema validator for `interface.yaml` files."""
 import yaml
 import glob
 import re 
