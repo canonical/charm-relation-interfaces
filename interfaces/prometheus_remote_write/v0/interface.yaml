@@ -1,0 +1,11 @@
+interface: prometheus_remote_write
+version: 0
+status: live
+
+providers:
+  - name: prometheus-k8s
+    url: https://www.github.com/canonical/prometheus-k8s
+
+requirers:
+  - name: grafana-agent-k8s
+    url: https://www.github.com/canonical/grafana-agent-k8s

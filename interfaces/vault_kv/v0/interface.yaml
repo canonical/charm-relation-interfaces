@@ -1,0 +1,9 @@
+interface: vault_kv
+version: 0
+status: draft
+
+providers: []
+
+# list of charms using this interface as requirers.
+# same structure as providers
+requirers: []

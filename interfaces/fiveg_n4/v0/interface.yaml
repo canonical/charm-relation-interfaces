@@ -1,0 +1,8 @@
+interface: fiveg_n4
+internal: true
+
+version: 0
+status: draft
+
+providers: []
+requirers: []

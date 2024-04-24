@@ -1,0 +1,13 @@
+interface: kratos_external_idp
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: kratos-external-idp-integrator
+    url: https://www.github.com/canonical/kratos-external-idp-integrator
+
+requirers:
+  - name: kratos
+    url: https://www.github.com/canonical/kratos-operator

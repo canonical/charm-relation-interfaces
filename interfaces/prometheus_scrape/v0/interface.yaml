@@ -1,0 +1,26 @@
+interface: prometheus_scrape
+
+version: 0
+status: live
+
+providers:
+  - name: prometheus-k8s
+    url: https://www.github.com/canonical/prometheus-k8s-operator
+  - name: loki-k8s
+    url: https://www.github.com/canonical/loki-k8s-operator
+  - name: grafana-k8s
+    url: https://www.github.com/canonical/grafana-k8s-operator
+  - name: prometheus-scrape-config-k8s
+    url: https://www.github.com/canonical/prometheus-scrape-config-k8s-operator
+  - name: prometheus-scrape-target-k8s
+    url: https://www.github.com/canonical/prometheus-scrape-target-k8s-operator
+  - name: alertmanager-k8s
+    url: https://www.github.com/canonical/alertmanager-k8s-operator
+  - name: zinc-k8s
+    url: https://github.com/jnsgruk/zinc-k8s-operator
+
+requirers:
+  - name: prometheus-k8s
+    url: https://www.github.com/canonical/prometheus-k8s-operator
+  - name: grafana-agent-k8s
+    url: https://www.github.com/canonical/grafana-agent-k8s-operator

@@ -1,8 +1,0 @@
-providers:
-  - name: traefik-k8s
-    url: https://github.com/canonical/traefik-k8s-operator
-requirers:
-  - name: prometheus-k8s
-    url: https://github.com/canonical/prometheus-k8s-operator
-  - name: loki-k8s
-    url: https://github.com/canonical/loki-k8s-operator

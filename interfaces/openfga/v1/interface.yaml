@@ -1,0 +1,6 @@
+interface: openfga
+version: 1
+status: live
+
+providers: []
+requirers: []

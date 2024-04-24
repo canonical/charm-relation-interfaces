@@ -1,0 +1,27 @@
+interface: k8s-service
+internal: true
+
+version: 0
+status: live
+
+
+# TODO: the kfp charms are in a multi-charm repo. Some setup will be required to configure the tester
+#       to use the charm-specific subpath
+
+providers:
+  - name: kfp-api
+    url: https://github.com/canonical/kfp-operators
+  - name: kfp-viz
+    url: https://github.com/canonical/kfp-operators
+  - name: kubeflow-profiles
+    url: https://github.com/canonical/kubeflow-profiles-operator
+
+requirers:
+  - name: kfp-api
+    url: https://github.com/canonical/kfp-operators
+  - name: kfp-ui
+    url: https://github.com/canonical/kfp-operators
+  - name: kfp-persistence
+    url: https://github.com/canonical/kfp-operators
+  - name: kubeflow-dashboard
+    url: https://github.com/canonical/kubeflow-dashboard-operator

@@ -1,0 +1,32 @@
+# `name` of the interface, as it should be referenced by charms.
+# This should be the same as the name of the interface specification directory.
+# The name corresponds to the line with the arrow in the charm `metadata.yaml` snippet below:
+#
+# ```yaml
+# provides:
+#   self-metrics-endpoint:
+#     interface: prometheus_scrape <--
+# ```
+#
+interface: template
+
+# uncomment the key/value pair below if the interface is to be considered internal, meaning that it
+# is not designed to be used by others, nor should it appear on charmhub:
+#
+# internal: true
+
+# `version` starts at `0` and increments with every breaking change in the interface specification.
+version: 0
+
+# `status` describes where the interface is in it's lifecycle. Valid values are described in LEGEND.md.
+status: draft
+
+# `providers` lists charms that implement the providing side of the interface.
+# to be included in this list, charms must pass all tests defined in the `interface_tests` directory.
+providers:
+  - name: charm-using-the-provider-side
+    url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone for the tests; required
+
+# `requirers` list charms that implement the requiring side of the interface.
+# this follows the same structure as `providers`. 
+requirers: []

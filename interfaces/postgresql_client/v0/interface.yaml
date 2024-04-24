@@ -1,0 +1,11 @@
+interface: postgresql_client
+version: 0
+status: draft
+
+providers:
+  - name: postgresql-operator
+    url: https://www.github.com/canonical/postgresql-operator
+  - name: postgresql-k8s-operator
+    url: https://www.github.com/canonical/postgresql-k8s-operator
+
+requirers: []

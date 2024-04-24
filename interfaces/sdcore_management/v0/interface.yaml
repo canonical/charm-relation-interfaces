@@ -1,0 +1,8 @@
+interface: sdcore_management
+internal: true
+
+version: 0
+status: draft
+
+providers: []
+requirers: []

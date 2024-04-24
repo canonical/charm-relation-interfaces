@@ -1,0 +1,6 @@
+interface: database_backup
+version: 0
+status: draft
+
+providers: []
+requirers: []

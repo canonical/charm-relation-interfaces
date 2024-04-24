@@ -1,7 +1,0 @@
-providers:
-  - name: nfs-server-proxy-operator
-    url: https://github.com/canonical/nfs-server-proxy-operator
-
-consumers:
-  - name: nfs-client-operator
-    url: https://github.com/canonical/nfs-client-operator

@@ -1,0 +1,6 @@
+interface: tls_certificates
+version: 1
+status: live
+
+providers: []
+requirers: []

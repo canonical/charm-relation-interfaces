@@ -1,0 +1,10 @@
+interface: fiveg_n2
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: sdcore-amf-operator
+    url: https://github.com/canonical/sdcore-amf-operator
+requirers: []
