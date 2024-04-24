@@ -1,4 +1,4 @@
-# Copyright 2023 Canonical
+# Copyright 2024 Canonical
 # See LICENSE file for licensing details.
 
 """Schem validator for `interface.yaml`"""
