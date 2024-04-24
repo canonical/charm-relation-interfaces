@@ -1,4 +1,4 @@
-interface: kafka_client
+name: kafka_client
 version: 0
 status: draft
 

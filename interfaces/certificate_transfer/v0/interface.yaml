@@ -1,4 +1,4 @@
-interface: certificate_transfer
+name: certificate_transfer
 version: 0
 status: draft
 

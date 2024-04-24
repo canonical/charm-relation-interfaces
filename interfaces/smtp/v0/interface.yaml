@@ -1,4 +1,4 @@
-interface: smtp
+name: smtp
 
 version: 0
 status: live

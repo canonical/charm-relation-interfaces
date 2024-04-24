@@ -1,4 +1,4 @@
-interface: oauth
+name: oauth
 version: 0
 status: draft
 

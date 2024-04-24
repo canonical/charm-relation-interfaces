@@ -1,4 +1,4 @@
-interface: k8s-service
+name: k8s-service
 internal: true
 
 version: 0

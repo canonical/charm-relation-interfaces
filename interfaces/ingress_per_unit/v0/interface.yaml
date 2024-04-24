@@ -1,4 +1,4 @@
-interface: ingress_per_unit
+name: ingress_per_unit
 version: 0
 status: live
 

@@ -1,4 +1,4 @@
-interface: tls_certificates
+name: tls_certificates
 version: 1
 status: live
 

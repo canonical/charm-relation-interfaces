@@ -1,4 +1,4 @@
-interface: mongodb_client
+name: mongodb_client
 version: 0
 status: draft
 

@@ -1,4 +1,4 @@
-interface: login_ui_endpoints
+name: login_ui_endpoints
 internal: true
 
 version: 0

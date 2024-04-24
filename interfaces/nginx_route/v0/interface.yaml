@@ -1,4 +1,4 @@
-interface: nginx_route
+name: nginx_route
 version: 0
 status: draft
 

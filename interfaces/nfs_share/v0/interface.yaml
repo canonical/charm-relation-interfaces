@@ -1,4 +1,4 @@
-interface: nfs_share
+name: nfs_share
 version: 0
 status: draft
 

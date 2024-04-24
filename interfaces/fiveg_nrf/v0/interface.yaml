@@ -1,4 +1,4 @@
-interface: fiveg_nrf
+name: fiveg_nrf
 internal: true
 
 version: 0

@@ -1,4 +1,4 @@
-interface: database_backup
+name: database_backup
 version: 0
 status: draft
 

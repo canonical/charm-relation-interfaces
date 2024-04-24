@@ -1,4 +1,4 @@
-interface: sdcore_config
+name: sdcore_config
 internal: true
 
 version: 0

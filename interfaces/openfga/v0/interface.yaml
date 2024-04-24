@@ -1,4 +1,4 @@
-interface: openfga
+name: openfga
 version: 0
 status: retired
 

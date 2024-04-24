@@ -1,4 +1,4 @@
-interface: mysql_client
+name: mysql_client
 version: 0
 status: live
 

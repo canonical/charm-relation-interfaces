@@ -1,4 +1,4 @@
-interface: saml
+name: saml
 
 version: 0
 status: live

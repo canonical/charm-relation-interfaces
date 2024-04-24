@@ -1,4 +1,4 @@
-interface: prometheus_scrape
+name: prometheus_scrape
 
 version: 0
 status: live

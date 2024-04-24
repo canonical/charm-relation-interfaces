@@ -1,4 +1,4 @@
-interface: dns_record
+name: dns_record
 internal: false
 
 version: 0

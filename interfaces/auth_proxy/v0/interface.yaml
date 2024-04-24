@@ -1,4 +1,4 @@
-interface: auth_proxy
+name: auth_proxy
 version: 0
 status: draft
 

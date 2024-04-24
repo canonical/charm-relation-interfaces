@@ -1,4 +1,4 @@
-interface: opensearch_client
+name: opensearch_client
 version: 0
 status: draft
 

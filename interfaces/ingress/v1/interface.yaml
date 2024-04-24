@@ -1,4 +1,4 @@
-interface: ingress
+name: ingress
 version: 1
 status: retired
 

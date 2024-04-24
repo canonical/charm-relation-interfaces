@@ -1,4 +1,4 @@
-interface: ip_router
+name: ip_router
 version: 0
 status: draft
 

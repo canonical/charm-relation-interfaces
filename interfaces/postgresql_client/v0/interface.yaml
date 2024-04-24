@@ -1,4 +1,4 @@
-interface: postgresql_client
+name: postgresql_client
 version: 0
 status: draft
 

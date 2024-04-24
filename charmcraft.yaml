@@ -2,8 +2,6 @@ name: interfaces
 type: charm
 title: Charm Relation Interfaces
 summary: Reusable interface libraries 
-
-
 description: |
   A metacharm that serves as the home of generic charm relation interface libraries.   
 
@@ -11,8 +9,10 @@ description: |
 
 bases:
   - build-on:
-    - name: ubuntu
+    - name: "ubuntu"
       channel: "22.04"
+      architectures: ["amd64"]
     run-on:
-    - name: ubuntu
+    - name: "ubuntu"
       channel: "22.04"
+      architectures: ["amd64"]

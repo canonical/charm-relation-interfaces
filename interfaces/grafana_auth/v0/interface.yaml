@@ -1,4 +1,4 @@
-interface: grafana_auth
+name: grafana_auth
 version: 0
 status: draft
 

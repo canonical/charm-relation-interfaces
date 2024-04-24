@@ -1,4 +1,4 @@
-interface: tracing
+name: tracing
 
 version: 0
 status: retired

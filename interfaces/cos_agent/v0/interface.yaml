@@ -1,4 +1,4 @@
-interface: cos_agent
+name: cos_agent
 internal: true
 
 version: 0

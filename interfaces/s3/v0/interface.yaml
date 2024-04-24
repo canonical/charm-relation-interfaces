@@ -1,4 +1,4 @@
-interface: s3
+name: s3
 version: 0
 status: draft
 

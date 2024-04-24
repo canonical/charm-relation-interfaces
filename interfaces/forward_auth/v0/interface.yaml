@@ -1,4 +1,4 @@
-interface: forward_auth
+name: forward_auth
 internal: true
 
 version: 0

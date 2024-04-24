@@ -1,4 +1,4 @@
-interface: ldap
+name: ldap
 version: 0
 status: draft
 
