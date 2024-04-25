@@ -46,7 +46,7 @@ class InterfaceModel(BaseModel):
     providers: List[CharmEntry]
 
 class MatchError(Exception):
-    pass
+    """Error raised when the location of an interface.yaml spec file is inconsistent with its contents."""
 
 
 class Validator:
