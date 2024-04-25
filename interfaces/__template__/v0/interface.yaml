@@ -22,7 +22,7 @@ version: 0
 status: draft
 
 # `providers` lists charms that implement the providing side of the interface.
-# to be included in this list, charms must pass all tests defined in the `interface_tests` directory.
+# To be included in this list, charms must pass all tests defined in the `interface_tests` directory.
 providers:
   - name: charm-using-the-provider-side
     url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone for the tests; required
