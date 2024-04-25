@@ -18,7 +18,7 @@ name: __template__
 # `version` starts at `0` and increments with every breaking change in the interface specification.
 version: 0
 
-# `status` describes where the interface is in it's lifecycle. Valid values are described in LEGEND.md.
+# `status` describes where the interface is in its lifecycle. Valid values are described in LEGEND.md.
 status: draft
 
 # `providers` lists charms that implement the providing side of the interface.
