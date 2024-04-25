@@ -10,7 +10,7 @@
 #
 name: __template__
 
-# uncomment the key/value pair below if the interface is to be considered internal, meaning that it
+# Uncomment the line below if the interface is to be considered internal, meaning that it
 # is not designed to be used by others, nor should it appear on charmhub:
 #
 # internal: true
