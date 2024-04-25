@@ -1,7 +1,7 @@
 name: smtp
 
 version: 0
-status: live
+status: published
 
 providers:
   - name: smtp-integrator

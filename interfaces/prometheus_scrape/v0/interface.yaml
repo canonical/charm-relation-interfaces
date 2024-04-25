@@ -1,7 +1,7 @@
 name: prometheus_scrape
 
 version: 0
-status: live
+status: published
 
 providers:
   - name: prometheus-k8s

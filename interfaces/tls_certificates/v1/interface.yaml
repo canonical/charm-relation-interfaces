@@ -1,6 +1,6 @@
 name: tls_certificates
 version: 1
-status: live
+status: published
 
 providers: []
 requirers: []

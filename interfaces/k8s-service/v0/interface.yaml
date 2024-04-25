@@ -2,7 +2,7 @@ name: k8s-service
 internal: true
 
 version: 0
-status: live
+status: published
 
 
 # TODO: the kfp charms are in a multi-charm repo. Some setup will be required to configure the tester

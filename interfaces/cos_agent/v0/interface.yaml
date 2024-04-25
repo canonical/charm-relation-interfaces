@@ -2,7 +2,7 @@ name: cos_agent
 internal: true
 
 version: 0
-status: live
+status: published
 
 providers:
   - name: zookeeper

@@ -1,6 +1,6 @@
 name: ingress
 version: 2
-status: live
+status: published
 
 providers:
   - name: traefik-k8s

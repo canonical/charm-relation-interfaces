@@ -8,19 +8,36 @@ import re
 
 from enum import Enum
 from typing import List, Optional
-from pydantic import AnyHttpUrl, BaseModel, Field, ValidationError
+from pydantic import AnyHttpUrl, BaseModel, Field, ValidationError, ConfigDict
+
+class text:
+   BOLD = '\033[1m'
+   CYAN = '\033[96m'
+
+   END = '\033[0m'
 
 
 class StatusEnum(str, Enum):
-    draft = "draft"
-    live = "live"
-    retired = "retired"
+    DRAFT = "draft"
+    PUBLISHED = "published"
+    RETIRED = "retired"
+
+class TestSetup(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+
+    location: Optional[str] = None
+    identifier: Optional[str] = None
 
 class CharmEntry(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+
     name: str
     url: AnyHttpUrl
+    test_setup: Optional[TestSetup] = None
 
 class InterfaceModel(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+
     name: str
     version: int
     internal: Optional[bool] = False
@@ -42,12 +59,12 @@ class Validator:
     def _get_files(self):
         return glob.glob('./interfaces/**/interface.yaml', recursive=True)
     
-    def _check_match(self, file, model):
+    def _validate_against_path(self, file, model):
         result = re.search(r"\/([a-zA-Z0-9-_]+)\/v(\d)+\/interface\.yaml$", file)
         if not result:
             raise MatchError("invalid folder structure. should be <name>/v<version>/interface.yaml")
         if model.name != result.group(1):
-            raise MatchError("name does not match folder structure")
+            raise MatchError(f"name '{model.name}' does not match folder structure '{result.group(1)}'")
         if model.version != int(result.group(2)):
             raise MatchError("version ({result.group(2)}) does not match folder structure")
 
@@ -60,19 +77,18 @@ class Validator:
         for file in files:
             try: 
                 raw_interface = self._read_yaml(file)
-            except yaml.errors.YAMLError:
-                errors.append(f" - {file} contains invalid yaml.")
-            try:
                 model = InterfaceModel(**raw_interface)
-                self._check_match(file, model)
-            
+                self._validate_against_path(file, model)
+            except yaml.error.YAMLError as e:
+                errors.append(f"{text.BOLD + text.CYAN + file + text.END}:\n{str(e)}")
             except MatchError as e:
-                errors.append(f"- {file} {str(e)}")
-            except ValidationError:
-                errors.append(f"- {file} failed validation")
+                errors.append(f"{text.BOLD + text.CYAN + file + text.END}:\n{str(e)}")
+            except ValidationError as e:
+                errors.append(f"{text.BOLD + text.CYAN + file + text.END}:\n{str(e)}")
+
         
         if errors:
-            exit("\nValidation completed with errors:\n" + '\n'.join(errors) + "\n")
+            exit("\nValidation completed with errors:\n\n" + '\n---\n'.join(errors) + "\n")
 
 if __name__ == "__main__":
     Validator().run()

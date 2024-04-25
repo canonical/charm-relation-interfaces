@@ -1,6 +1,6 @@
 name: ingress_per_unit
 version: 0
-status: live
+status: published
 
 providers:
   - name: traefik-k8s

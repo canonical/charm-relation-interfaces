@@ -1,6 +1,6 @@
 name: prometheus_remote_write
 version: 0
-status: live
+status: published
 
 providers:
   - name: prometheus-k8s
