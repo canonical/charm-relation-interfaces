@@ -1,0 +1,11 @@
+name: nfs_share
+version: 0
+status: draft
+
+providers:
+  - name: nfs-server-proxy-operator
+    url: https://github.com/canonical/nfs-server-proxy-operator
+
+requirers:
+  - name: nfs-client-operator
+    url: https://github.com/canonical/nfs-client-operator
