@@ -1,7 +1,7 @@
 # `name` of the interface, as it should be referenced by charms.
 # This should be the same as the name of the interface specification directory.
 # When proposing a new interface, opt for underscores over dashes.
-# The name corresponds to the line with the arrow in the charm `metadata.yaml` snippet below:
+# The name corresponds to the line with the arrow in the charm metadata snippet below:
 #
 # ```yaml
 # provides:
