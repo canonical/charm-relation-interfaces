@@ -22,7 +22,7 @@ The purpose of the repository is to outline the behavior and requirements for ke
 
 ## Interfaces
 
-For the time being, browsing available interfaces, their statuses and schemas, go [here](./interfaces).
+For the time being, to see available interfaces, their statuses, and schemas, browse the [interfaces directory](./interfaces).
 
 # Relation interface testers
 
