@@ -5,11 +5,11 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from typing import Annotated
+from typing import Annotated, TypeAlias
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import (
-    AfterValidator,
+    # AfterValidator,
     BaseModel,
     Field,
     IPvAnyAddress,
@@ -33,7 +33,8 @@ def parse_endpoints(value: str):
     [URI(val) for val in uris.split(",")]
 
 
-Endpoints = Annotated[str, AfterValidator(parse_endpoints)]
+# Endpoints = Annotated[str, AfterValidator(parse_endpoints)]
+Endpoints: TypeAlias = str
 
 
 class ZookeeperProviderAppData(BaseModel):
