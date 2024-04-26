@@ -1,8 +1,42 @@
-from scenario import State
+from scenario import State, Relation
 from interface_tester import Tester
 
-def test_data_published_on_joined():
-    t = Tester(State())
+
+def test_no_data_on_created():
+    t = Tester(
+        State(
+            leader=True,
+            relations=[Relation(endpoint="database", interface="zookeeper_client")],
+        )
+    )
+    t.run("database-relation-created")
+    t.assert_relation_data_empty()
+
+
+def test_no_data_on_joined():
+    t = Tester(
+        State(
+            leader=True,
+            relations=[
+                Relation(
+                    endpoint="database",
+                    interface="zookeeper_client",
+                )
+            ],
+        )
+    )
     t.run("database-relation-joined")
     t.assert_relation_data_empty()
 
+
+def test_data_published_on_changed_remote_valid():
+    zk = Relation(
+        endpoint="database",
+        interface="zookeeper_client",
+        remote_app_data={
+            "database": "/myapp",
+        },
+    )
+    t = Tester(State(leader=True, relations=[zk]))
+    t.run(zk.changed_event)
+    t.assert_schema_valid()
