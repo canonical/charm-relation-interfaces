@@ -8,7 +8,7 @@ To contribute a new interface specification, open a pull request containing:
 
 - a new directory: `/interfaces/{your-interface-name}`. In it, there should be:
   - a `README.md` explaining the purpose of the interface and the protocol
-  - a `schema.py` file containing pydantic models that specify the app and unit databag model for either side of the interface.
+  - a `schema.py` file containing [Pydantic](https://pydantic.dev/) models that specify the app and unit databag model for either side of the interface.
   - an `interface.yaml` file. See the template linked below for an explanation of what it is expected to include.
 
   - a `interface_tests` directory in which you can put python files containing interface tests. Read more about interface tests [here](./README_INTERFACE_TESTS.md)
