@@ -12,7 +12,7 @@
 name: __template__
 
 # Uncomment the line below if the interface is to be considered internal, meaning that it
-# is not designed to be used by others, nor should it appear on charmhub:
+# is not designed to be used by others, nor should it appear on Charmhub:
 #
 # internal: true
 
