@@ -18,7 +18,7 @@
 The purpose of the repository is to outline the behavior and requirements for key interface names, ensuring that charms claiming to implement a certain interface actually are capable of being integrated with each other.
 
 ## Contributing
-Instructions for contributing are available [here](./CONTRIBUTING.md)
+[Contributing a new interface specification is a lightweight process](./CONTRIBUTING.md).
 
 ## Interfaces
 
