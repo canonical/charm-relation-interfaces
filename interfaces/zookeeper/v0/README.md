@@ -47,7 +47,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 provider:
   app: 
     database: /myappB
-    endpoints: 10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/myappB
+    endpoints: 10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181
     secret-user: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
     secret-tls: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog
 requirer:

@@ -45,8 +45,8 @@ class ZookeeperProviderAppData(BaseModel):
     )
 
     endpoints: Endpoints = Field(
-        description="A comma-seperated list of ZooKeeper server uris, and parent chroot zNode",
-        examples=["10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/myappB"],
+        description="A comma-seperated list of ZooKeeper server and ports",
+        examples=["10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181"],
         title="ZooKeeper URIs",
     )
 
@@ -71,6 +71,14 @@ class ZookeeperRequirerAppData(BaseModel):
         description="The parent chroot zNode requested by the requirer",
         examples=["/myappA"],
         title="zNode",
+    )
+
+    extra_user_roles: str | None = Field(
+        None,
+        alias="extra-user-roles",
+        description="ACL string representation for the parent chroot",
+        examples=["cdrwa"],
+        title="User roles"
     )
 
     requested_secrets: list[str] = Field(

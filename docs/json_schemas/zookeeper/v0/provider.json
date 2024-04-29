@@ -16,9 +16,9 @@
           "type": "string"
         },
         "endpoints": {
-          "description": "A comma-seperated list of ZooKeeper server uris, and parent chroot zNode",
+          "description": "A comma-seperated list of ZooKeeper server and ports",
           "examples": [
-            "10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181/myappB"
+            "10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181"
           ],
           "title": "ZooKeeper URIs",
           "type": "string"

@@ -15,6 +15,22 @@
           "title": "zNode",
           "type": "string"
         },
+        "extra-user-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ACL string representation for the parent chroot",
+          "examples": [
+            "cdrwa"
+          ],
+          "title": "User roles"
+        },
         "requested-secrets": {
           "description": "Any provider field which should be transfered as Juju Secret",
           "examples": [
