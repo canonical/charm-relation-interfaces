@@ -6,7 +6,7 @@ def test_no_data_on_created():
     t = Tester(
         State(
             leader=True,
-            relations=[Relation(endpoint="database", interface="zookeeper_client")],
+            relations=[Relation(endpoint="database", interface="zookeeper")],
         )
     )
     t.run("database-relation-created")
@@ -20,7 +20,7 @@ def test_no_data_on_joined():
             relations=[
                 Relation(
                     endpoint="database",
-                    interface="zookeeper_client",
+                    interface="zookeeper",
                 )
             ],
         )
@@ -32,7 +32,7 @@ def test_no_data_on_joined():
 def test_data_published_on_changed_remote_valid():
     zk = Relation(
         endpoint="database",
-        interface="zookeeper_client",
+        interface="zookeeper",
         remote_app_data={
             "database": "/myapp",
             "requested-secrets": """["username","password","tls","tls-ca","uris"]""",

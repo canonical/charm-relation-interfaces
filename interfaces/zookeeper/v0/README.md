@@ -1,4 +1,4 @@
-# `zookeeper_client`
+# `zookeeper`
 
 ## Usage
 
@@ -36,6 +36,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same zNode.
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the zNode received.
+- Can optionally provide the `extra-user-roles` field specifying a ACL string for the client application.
 
 ## Relation Data
 

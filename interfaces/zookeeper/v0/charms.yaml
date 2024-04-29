@@ -1,0 +1,15 @@
+providers:
+  # list of charms using this interface as providers
+  - name: zookeeper
+    url: https://github.com/canonical/zookeeper-operator
+    branch: feat/DPE-3737-client-interface
+  # - name: zookeeper-k8s
+  #   url: https://github.com/canonical/zookeeper-k8s-operator
+
+# list of charms using this interface as requirers.
+# same structure as providers
+requirers: []
+  # - name: kafka
+  #   url: https://github.com/canonical/kafka-operator
+  # - name: kafka-k8s
+  #   url: https://github.com/canonical/kafka-k8s-operator
