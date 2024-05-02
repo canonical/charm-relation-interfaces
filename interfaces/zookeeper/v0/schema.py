@@ -17,7 +17,7 @@ from pydantic import (
 )
 
 
-class URI(BaseModel):
+class Endpoint(BaseModel):
     ip: IPvAnyAddress
     port: conint(ge=0, le=65535) | None
 
@@ -29,8 +29,7 @@ class URI(BaseModel):
 
 
 def parse_endpoints(value: str):
-    uris, _, znode = value.partition("/")
-    [URI(val) for val in uris.split(",")]
+    [Endpoint(val) for val in value.split(",")]
 
 
 Endpoints = Annotated[str, AfterValidator(parse_endpoints)]
@@ -46,7 +45,7 @@ class ZookeeperProviderAppData(BaseModel):
     endpoints: Endpoints = Field(
         description="A comma-seperated list of ZooKeeper server and ports",
         examples=["10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181"],
-        title="ZooKeeper URIs",
+        title="ZooKeeper endpoints",
     )
 
     secret_user: str = Field(

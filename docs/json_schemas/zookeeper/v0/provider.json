@@ -20,7 +20,7 @@
           "examples": [
             "10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181"
           ],
-          "title": "ZooKeeper URIs",
+          "title": "ZooKeeper endpoints",
           "type": "string"
         },
         "secret-user": {
