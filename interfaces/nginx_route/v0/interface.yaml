@@ -1,0 +1,9 @@
+name: nginx_route
+version: 0
+status: draft
+
+providers:
+  - name: nginx-route-integrator
+    url: https://github.com/canonical/nginx-ingress-integrator-operator
+
+requirers: []

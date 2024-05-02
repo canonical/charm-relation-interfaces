@@ -1,0 +1,15 @@
+name: cos_agent
+internal: true
+
+version: 0
+status: published
+
+providers:
+  - name: zookeeper
+    url: https://github.com/canonical/zookeeper-operator
+  - name: kafka
+    url: https://github.com/canonical/kafka-operator
+
+requirers:
+  - name: grafana-agent
+    url: https://github.com/canonical/grafana-agent-operator

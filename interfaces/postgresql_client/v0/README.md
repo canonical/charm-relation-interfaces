@@ -13,8 +13,8 @@ Some Providers may be subordinate charms aimed at providing mainly a local servi
 
 ```mermaid
 flowchart TD
-    Requirer -- database, \nextra-user-roles, \nrequested-secrets\nexternal-node-connectivity --> Provider
-    Provider -- database, \nendpoints, \nsecret-user --> Requirer
+    Requirer -- database, \nextra-user-roles, \nrequested-secrets, \nexternal-node-connectivity --> Provider
+    Provider -- database, \nendpoints, \nsecret-user, \nsubordinated, \nstate--> Requirer
 ```
 
 As with all Juju relations, the `database` interface consists of two parties: a Provider (database charm), and a Requirer (application charm). The Requirer will be expected to provide a database name, and the Provider will provide new unique credentials (along with other optional fields), which can be used to access the actual database cluster.
@@ -32,12 +32,14 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field with the address of Primary, which can be used for Read/Write queries.
 - Is expected to provide the `database` field with the database that was actually created.
+- Is expected to provide the `uris` field with the connection string, in libpq's URI format, which can be used for direct connection to the db.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 - Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
 - Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
-- Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to respected or not, in case the charm is capable of such.
+- Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to be respected or not, in case the charm is capable of such.
+- May require delays (via `subordinated`) to provide service on Requirer scale up. If so, it is expected to set unit level `state` data when it is `ready` to serve.
 
 ### Requirer
 
@@ -48,6 +50,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to allow multiple different Juju applications to access the same database name.
 - Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the database name received.
+- Is expected to respect the `subordinated` flag when scaling up and start emitting events only once unit level `state` is `ready`.
 - May require external connectivity (via `external-node-connectivity`).
 
 ## Relation Data

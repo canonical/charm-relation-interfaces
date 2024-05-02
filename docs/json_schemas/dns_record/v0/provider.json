@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "DNSRecordProvider": {
+      "description": "List statuses for the DNS records informed by the requirer.",
+      "properties": {
+        "dns_entries": {
+          "description": "List of statuses for the DNS records requested by the requirer.",
+          "items": {
+            "$ref": "#/$defs/DnsProviderData"
+          },
+          "name": "DNS entries",
+          "title": "Dns Entries",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dns_entries"
+      ],
+      "title": "DNSRecordProvider",
+      "type": "object"
+    },
+    "DnsProviderData": {
+      "properties": {
+        "uuid": {
+          "description": "UUID for this domain as specified by the requirer.",
+          "examples": "550e8400-e29b-41d4-a716-446655440000",
+          "format": "uuid",
+          "name": "UUID",
+          "title": "Uuid",
+          "type": "string"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Status"
+            }
+          ],
+          "description": "Status for the domain request.",
+          "examples": [
+            "approved",
+            "invalid_credentials"
+          ],
+          "name": "Status"
+        },
+        "description": {
+          "default": null,
+          "description": "Status description.",
+          "examples": [
+            "incorrect credentials"
+          ],
+          "name": "Status description",
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "status"
+      ],
+      "title": "DnsProviderData",
+      "type": "object"
+    },
+    "Status": {
+      "description": "Represent the status values.",
+      "enum": [
+        "approved",
+        "invalid_credentials",
+        "permission_denied",
+        "conflict",
+        "invalid_data",
+        "failure",
+        "pending"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "description": "Provider schema for dns_record.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/DNSRecordProvider"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

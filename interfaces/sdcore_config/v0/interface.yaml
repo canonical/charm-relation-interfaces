@@ -1,0 +1,28 @@
+name: sdcore_config
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: sdcore-nms-k8s
+    url: https://github.com/canonical/sdcore-nms-k8s-operator
+
+requirers:
+  - name: sdcore-amf-k8s
+    url: https://github.com/canonical/sdcore-amf-k8s-operator
+  - name: sdcore-ausfr-k8s
+    url: https://github.com/canonical/sdcore-ausf-k8s-operator
+  - name: sdcore-nrf-k8s
+    url: https://github.com/canonical/sdcore-nrf-k8s-operator
+  - name: sdcore-nssf-k8s
+    url: https://github.com/canonical/sdcore-nssf-k8s-operator
+  - name: sdcore-pcf-k8s
+    url: https://github.com/canonical/sdcore-pcf-k8s-operator
+  - name: sdcore-smf-k8s
+    url: https://github.com/canonical/sdcore-smf-k8s-operator
+  - name: sdcore-udm-k8s
+    url: https://github.com/canonical/sdcore-udm-k8s-operator
+  - name: sdcore-udr-k8s
+    url: https://github.com/canonical/sdcore-udr-k8s-operator
+

@@ -1,0 +1,48 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "SdcoreConfigProviderAppData": {
+      "properties": {
+        "webui_url": {
+          "description": "GRPC address of the Webui including Webui hostname and a fixed GRPC port.",
+          "examples": [
+            "sdcore-webui-k8s:9876"
+          ],
+          "title": "Webui Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "webui_url"
+      ],
+      "title": "SdcoreConfigProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of the sdcore_config interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/SdcoreConfigProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

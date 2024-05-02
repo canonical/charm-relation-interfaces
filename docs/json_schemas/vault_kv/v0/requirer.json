@@ -6,6 +6,19 @@
           "description": "Suffix to append to the mount name to get the KV mount.",
           "title": "Mount Suffix",
           "type": "string"
+        },
+        "wrap_ttl": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether to request approle secret_id as a response-wrapping token with a certain TTL. If not set, no wrapping will be made to secret_id. Otherwise, wrap_ttl specifies the duration of seconds before the expiration of the response-wrapping token.",
+          "title": "Wrap TTL"
         }
       },
       "required": [
@@ -17,7 +30,7 @@
     "UnitVaultKvRequirerSchema": {
       "properties": {
         "egress_subnet": {
-          "description": "Egress subnet to use, in CIDR notation.",
+          "description": "A string of egress subnets separated by commas, in CIDR notation.",
           "title": "Egress Subnet",
           "type": "string"
         },

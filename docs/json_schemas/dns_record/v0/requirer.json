@@ -1,0 +1,182 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "DNSRecordRequirer": {
+      "description": "List of domains for the provider to manage.",
+      "properties": {
+        "service_account": {
+          "description": "Service account for authentication.",
+          "examples": "secret:123213123123123123123",
+          "name": "Service account",
+          "title": "Service Account",
+          "type": "string"
+        },
+        "dns_entries": {
+          "description": "List of DNS records for the provider to manage.",
+          "items": {
+            "$ref": "#/$defs/RequirerEntries"
+          },
+          "name": "DNS entries",
+          "title": "Dns Entries",
+          "type": "array"
+        }
+      },
+      "required": [
+        "service_account",
+        "dns_entries"
+      ],
+      "title": "DNSRecordRequirer",
+      "type": "object"
+    },
+    "RecordClass": {
+      "const": "IN",
+      "description": "Represent the DNS record classes.",
+      "enum": [
+        "IN"
+      ],
+      "title": "RecordClass",
+      "type": "string"
+    },
+    "RecordType": {
+      "description": "Represent the DNS record types.",
+      "enum": [
+        "A",
+        "AAAA",
+        "CNAME",
+        "MX",
+        "DKIM",
+        "SPF",
+        "DMARC",
+        "TXT",
+        "CAA",
+        "SRV",
+        "SVCB",
+        "HTTPS",
+        "PTR",
+        "SOA",
+        "NS",
+        "DS",
+        "DNSKEY"
+      ],
+      "title": "RecordType",
+      "type": "string"
+    },
+    "RequirerEntries": {
+      "properties": {
+        "domain": {
+          "description": "Domain name requested.",
+          "examples": [
+            "cloud.canonical.com",
+            "staging.ubuntu.com"
+          ],
+          "minLength": 1,
+          "name": "Domain",
+          "title": "Domain",
+          "type": "string"
+        },
+        "host_label": {
+          "description": "Host label.",
+          "examples": [
+            "admin",
+            "www"
+          ],
+          "minLength": 1,
+          "name": "Host label",
+          "title": "Host Label",
+          "type": "string"
+        },
+        "ttl": {
+          "default": null,
+          "description": "The DNS time to live (seconds).",
+          "examples": [
+            600,
+            1200
+          ],
+          "name": "TTL",
+          "title": "Ttl",
+          "type": "integer"
+        },
+        "record_class": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/RecordClass"
+            }
+          ],
+          "default": null,
+          "description": "The DNS record class.",
+          "examples": [
+            "IN"
+          ],
+          "name": "Record class"
+        },
+        "record_type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/RecordType"
+            }
+          ],
+          "default": null,
+          "description": "The DNS record type.",
+          "examples": [
+            "A",
+            "CNAME"
+          ],
+          "name": "Record type"
+        },
+        "record_data": {
+          "description": "The DNS record value.",
+          "examples": [
+            "91.189.91.47",
+            "91.189.91.48"
+          ],
+          "format": "ipvanyaddress",
+          "name": "Record data",
+          "title": "Record Data",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "UUID for this entry.",
+          "examples": "550e8400-e29b-41d4-a716-446655440000",
+          "format": "uuid",
+          "name": "UUID",
+          "title": "Uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain",
+        "host_label",
+        "record_data",
+        "uuid"
+      ],
+      "title": "RequirerEntries",
+      "type": "object"
+    }
+  },
+  "description": "Requirer schema for dns_record.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/DNSRecordRequirer"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

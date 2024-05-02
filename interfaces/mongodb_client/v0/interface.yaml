@@ -1,0 +1,11 @@
+name: mongodb_client
+version: 0
+status: draft
+
+providers:
+  - name: mongodb-operator
+    url: https://www.github.com/canonical/mongodb-operator
+  - name: mongodb-k8s-operator
+    url: https://www.github.com/canonical/mongodb-k8s-operator
+
+requirers: []
