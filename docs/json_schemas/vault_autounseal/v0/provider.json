@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "VaultAutounsealProviderSchema": {
+      "description": "Provider side of the vault-autounseal relation interface.",
+      "properties": {
+        "address": {
+          "description": "The address of the Vault server to connect to.",
+          "title": "Address",
+          "type": "string"
+        },
+        "credentials_secret_id": {
+          "description": "The secret id of the Juju secret which stores the credentials for authenticating with the Vault server.",
+          "title": "Credentials Secret Id",
+          "type": "string"
+        },
+        "ca_certificate": {
+          "description": "The CA certificate to use when validating the Vault server's certificate.",
+          "title": "Ca Certificate",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "credentials_secret_id",
+        "ca_certificate"
+      ],
+      "title": "VaultAutounsealProviderSchema",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/VaultAutounsealProviderSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

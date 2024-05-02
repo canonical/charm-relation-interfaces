@@ -1,0 +1,43 @@
+{
+  "title": "ProviderSchema",
+  "description": "The schema for the provider side of this interface.",
+  "type": "object",
+  "properties": {
+    "unit": {
+      "$ref": "#/definitions/BaseModel"
+    },
+    "app": {
+      "$ref": "#/definitions/VaultTransitProviderSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "definitions": {
+    "BaseModel": {
+      "title": "BaseModel",
+      "type": "object",
+      "properties": {}
+    },
+    "VaultTransitProviderSchema": {
+      "title": "VaultTransitProviderSchema",
+      "type": "object",
+      "properties": {
+        "address": {
+          "title": "Address",
+          "description": "The address of the Vault server to connect to.",
+          "type": "string"
+        },
+        "token_secret_id": {
+          "title": "Token Secret Id",
+          "description": "The secret id of the Juju secret which stores is token for authenticating with the Vault server.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "token_secret_id"
+      ]
+    }
+  }
+}
