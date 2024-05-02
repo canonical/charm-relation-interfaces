@@ -1,0 +1,10 @@
+name: mysql_client
+version: 0
+status: published
+
+providers:
+  - name: mysql-operator
+    url: https://www.github.com/canonical/mysql-operator
+  - name: mysql-k8s-operator
+    url: https://www.github.com/canonical/mysql-k8s-operator
+requirers: []

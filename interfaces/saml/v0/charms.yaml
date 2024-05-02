@@ -1,6 +1,0 @@
-providers:
-  - name: saml-integrator
-    url: https://github.com/canonical/saml-integrator-operator
-
-requirers:
-  []

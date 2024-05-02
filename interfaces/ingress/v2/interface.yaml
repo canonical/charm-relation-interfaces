@@ -1,0 +1,9 @@
+name: ingress
+version: 2
+status: published
+
+providers:
+  - name: traefik-k8s
+    url: https://github.com/canonical/traefik-k8s-operator
+
+requirers: []

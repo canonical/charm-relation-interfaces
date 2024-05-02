@@ -1,0 +1,23 @@
+name: tls_certificates
+version: 0
+status: retired
+
+providers:
+  - name: vault
+    url: https://www.github.com/openstack/charm-vault
+  - name: tls-certificates-operator
+    url: https://www.github.com/canonical/tls-certificates-operator
+
+requirers:
+  - name: keystone
+    url: https://www.github.com/openstack/charm-keystone
+  - name: nova-cloud-controller
+    url: https://www.github.com/openstack/charm-nova-cloud-controller
+  - name: cinder
+    url: https://www.github.com/openstack/charm-cinder
+  - name: neutron-api
+    url: https://www.github.com/openstack/charm-neutron-api
+  - name: glance
+    url: https://www.github.com/openstack/charm-glance
+  - name: charm-ceph-dashboard
+    url: https://www.github.com/openstack/charm-ceph-dashboard

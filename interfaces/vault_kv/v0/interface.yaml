@@ -1,0 +1,6 @@
+name: vault_kv
+version: 0
+status: draft
+
+providers: []
+requirers: []

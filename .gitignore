@@ -6,3 +6,5 @@ dist/
 .ruff_cache
 .pytest_cache
 .idea/
+venv
+*.charm

@@ -1,6 +1,0 @@
-providers:
-  - name: kafka-operator
-    url: https://www.github.com/canonical/kafka-operator
-  - name: kafka-k8s-operator
-    url: https://www.github.com/canonical/kafka-k8s-operator
-requirers: []
