@@ -5,19 +5,10 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "Receiver": {
-      "description": "Specification of an active receiver.",
+    "ProtocolType": {
+      "description": "Protocol Type.",
       "properties": {
-        "port": {
-          "description": "Port at which the receiver is listening.",
-          "examples": [
-            42,
-            9098
-          ],
-          "title": "Port",
-          "type": "integer"
-        },
-        "protocol": {
+        "name": {
           "description": "Receiver protocol name. What protocols are supported (and what they are called) may differ per provider.",
           "examples": [
             "otlp_grpc",
@@ -25,13 +16,56 @@
             "tempo_http",
             "jaeger_thrift_compact"
           ],
-          "title": "Protocol",
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/TransportProtocolType"
+            }
+          ],
+          "description": "The transport protocol used by this receiver.",
+          "examples": [
+            "http",
+            "grpc"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ],
+      "title": "ProtocolType",
+      "type": "object"
+    },
+    "Receiver": {
+      "description": "Specification of an active receiver.",
+      "properties": {
+        "protocol": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ProtocolType"
+            }
+          ],
+          "description": "Receiver protocol name and type."
+        },
+        "url": {
+          "description": "URL at which the receiver is reachable. If there's an ingress, it would be the external URL. Otherwise, it would be the service's fqdn or internal IP",
+          "examples": [
+            "http://traefik_address:2331",
+            "https://traefik_address:2331",
+            "http://tempo_public_ip:2331",
+            "https://tempo_public_ip:2331",
+            "tempo_public_ip:2331"
+          ],
+          "title": "Url",
           "type": "string"
         }
       },
       "required": [
-        "port",
-        "protocol"
+        "protocol",
+        "url"
       ],
       "title": "Receiver",
       "type": "object"
@@ -65,6 +99,15 @@
       ],
       "title": "TracingProviderData",
       "type": "object"
+    },
+    "TransportProtocolType": {
+      "description": "Receiver Type.",
+      "enum": [
+        "http",
+        "grpc"
+      ],
+      "title": "TransportProtocolType",
+      "type": "string"
     }
   },
   "description": "Provider schema for Tracing.",
