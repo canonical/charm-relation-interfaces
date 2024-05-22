@@ -58,7 +58,7 @@ application_data:
 ### Provider
 
 The provider exposes via its application databag a list of `receivers`.
-A `receiver` consists of a `url`, a telemetry `protocol`, such as `otlp_grpc` or Jaeger that the `url` accepts, and the `transport_protocol` of the `url`, such as `http` or `grpc`. 
+A `receiver` consists of a `url`, a `protocol` object that consists of `type`, which is the telemetry protocol that the `url` accepts, and the `name` of the protocol used, such as `http` or `grpc`. 
 The full list of supported trace protocols can change. For a full list see https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver
 
 [\[Pydantic model\]](./schema.py)
