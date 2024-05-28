@@ -49,7 +49,7 @@ For examples, see below.
 ```yaml
 # unit_data: <empty> 
 application_data: 
-  protocols: 
+  receivers: 
     - otlp_grpc
     - otlp_http
 ```
@@ -58,7 +58,7 @@ application_data:
 ### Provider
 
 The provider exposes via its application databag a list of `receivers`.
-A `receiver` consists of a `url`, a `protocol` object that consists of `type`, which is the telemetry protocol that the `url` accepts, and the `name` of the protocol used, such as `http` or `grpc`. 
+A `receiver` consists of a `url`, a `protocol` object that consists of `name`, which is the telemetry protocol that the `url` accepts, and the `type` of the protocol used, such as `http` or `grpc`. 
 The full list of supported trace protocols can change. For a full list see https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver
 
 [\[Pydantic model\]](./schema.py)

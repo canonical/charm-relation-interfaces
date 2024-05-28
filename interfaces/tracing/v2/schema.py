@@ -32,7 +32,7 @@ from typing import List
 import enum
 
 from interface_tester.schema_base import DataBagSchema
-from pydantic import BaseModel, Json, Field
+from pydantic import BaseModel, Json, Field, ConfigDict
 
 
 class TransportProtocolType(str, enum.Enum):
@@ -42,6 +42,12 @@ class TransportProtocolType(str, enum.Enum):
     
 class ProtocolType(BaseModel):
     """Protocol Type."""
+    model_config = ConfigDict(
+        # Allow serializing enum values.
+        use_enum_values=True
+    )
+    """Pydantic config."""
+    
     name: str = Field(
       ...,
         description="Receiver protocol name. What protocols are supported (and what they are called) "
@@ -54,7 +60,6 @@ class ProtocolType(BaseModel):
     
 class Receiver(BaseModel):
     """Specification of an active receiver."""
-    
     
     protocol: ProtocolType = Field(
         ...,
@@ -71,10 +76,9 @@ class Receiver(BaseModel):
 
 
 class TracingProviderData(BaseModel):
-    host: str = Field(..., description="Hostname of the tracing server.", examples=["example.com"])
     receivers: Json[List[Receiver]] = Field(
         ...,
-        description="List of the receivers that this server has enabled, and their ports.")
+        description="A list of enabled receivers in the form of the protocol they use and their resolvable server url.")
 
 
 class ProviderSchema(DataBagSchema):
@@ -84,7 +88,7 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Tracing."""
-    protocols: Json[List[str]] = Field(
+    receivers: Json[List[str]] = Field(
         ...,
         description="List of protocols that the requirer wishes to use."
     )
