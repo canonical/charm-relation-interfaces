@@ -54,7 +54,7 @@
                     "description": "The grant types the client wishes to use, must be a subset of the Provider's allowed grant types.",
                     "default": null,
                     "items": {
-                        "enum": ["authorization_code", "client_credentials", "refresh_token"],
+                        "enum": ["authorization_code", "client_credentials", "refresh_token", "urn:ietf:params:oauth:grant-type:device_code"],
                         "type": "string"
                     }
                 },
