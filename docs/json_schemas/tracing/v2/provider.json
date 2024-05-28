@@ -72,14 +72,6 @@
     },
     "TracingProviderData": {
       "properties": {
-        "host": {
-          "description": "Hostname of the tracing server.",
-          "examples": [
-            "example.com"
-          ],
-          "title": "Host",
-          "type": "string"
-        },
         "receivers": {
           "contentMediaType": "application/json",
           "contentSchema": {
@@ -88,13 +80,12 @@
             },
             "type": "array"
           },
-          "description": "List of the receivers that this server has enabled, and their ports.",
+          "description": "A list of enabled receivers in the form of the protocol they use and their resolvable server url.",
           "title": "Receivers",
           "type": "string"
         }
       },
       "required": [
-        "host",
         "receivers"
       ],
       "title": "TracingProviderData",
