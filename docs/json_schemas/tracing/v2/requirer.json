@@ -30,7 +30,7 @@
       ],
       "default": null
     },
-    "protocols": {
+    "receivers": {
       "contentMediaType": "application/json",
       "contentSchema": {
         "items": {
@@ -39,12 +39,12 @@
         "type": "array"
       },
       "description": "List of protocols that the requirer wishes to use.",
-      "title": "Protocols",
+      "title": "Receivers",
       "type": "string"
     }
   },
   "required": [
-    "protocols"
+    "receivers"
   ],
   "title": "RequirerSchema",
   "type": "object"
