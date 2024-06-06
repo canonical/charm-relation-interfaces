@@ -6,3 +6,5 @@ dist/
 .ruff_cache
 .pytest_cache
 .idea/
+/facade-charm/mocks/provide/
+/facade-charm/mocks/require/
