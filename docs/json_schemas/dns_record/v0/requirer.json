@@ -8,14 +8,12 @@
     "DNSRecordRequirer": {
       "description": "List of domains for the provider to manage.",
       "properties": {
-        "dns_domains": {
-          "description": "List of domains for the provider to manage.",
-          "items": {
-            "$ref": "#/$defs/RequirerDomains"
-          },
-          "name": "DNS domains",
-          "title": "Dns Domains",
-          "type": "array"
+        "service_account": {
+          "description": "Service account for authentication.",
+          "examples": "secret:123213123123123123123",
+          "name": "Service account",
+          "title": "Service Account",
+          "type": "string"
         },
         "dns_entries": {
           "description": "List of DNS records for the provider to manage.",
@@ -28,7 +26,7 @@
         }
       },
       "required": [
-        "dns_domains",
+        "service_account",
         "dns_entries"
       ],
       "title": "DNSRecordRequirer",
@@ -66,56 +64,6 @@
       ],
       "title": "RecordType",
       "type": "string"
-    },
-    "RequirerDomains": {
-      "properties": {
-        "domain": {
-          "description": "Domain name for the provider to manage.",
-          "examples": [
-            "cloud.canonical.com",
-            "staging.ubuntu.com"
-          ],
-          "minLength": 1,
-          "name": "Domain",
-          "title": "Domain",
-          "type": "string"
-        },
-        "username": {
-          "description": "Username for authentication.",
-          "examples": [
-            "user1",
-            "user2"
-          ],
-          "name": "Username",
-          "title": "Username",
-          "type": "string"
-        },
-        "password_id": {
-          "description": "Juju secret containing the user password.",
-          "examples": [
-            "secret:123213123123123123123"
-          ],
-          "name": "Password",
-          "title": "Password Id",
-          "type": "string"
-        },
-        "uuid": {
-          "description": "UUID for this domain.",
-          "examples": "550e8400-e29b-41d4-a716-446655440000",
-          "format": "uuid",
-          "name": "UUID",
-          "title": "Uuid",
-          "type": "string"
-        }
-      },
-      "required": [
-        "domain",
-        "username",
-        "password_id",
-        "uuid"
-      ],
-      "title": "RequirerDomains",
-      "type": "object"
     },
     "RequirerEntries": {
       "properties": {

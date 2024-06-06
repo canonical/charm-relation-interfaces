@@ -1,0 +1,10 @@
+name: kubeflow_dashboard_links
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: kubeflow-dashboard
+    url: https://github.com/canonical/kubeflow-dashboard-operator
+requirers: []

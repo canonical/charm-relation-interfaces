@@ -1,0 +1,11 @@
+name: saml
+
+version: 0
+status: published
+
+providers:
+  - name: saml-integrator
+    url: https://github.com/canonical/saml-integrator-operator
+
+requirers:
+  []

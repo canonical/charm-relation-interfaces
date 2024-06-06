@@ -1,0 +1,8 @@
+name: dns_record
+internal: false
+
+version: 0
+status: draft
+
+providers: []
+requirers: []

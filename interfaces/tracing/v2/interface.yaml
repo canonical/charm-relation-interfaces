@@ -1,0 +1,10 @@
+name: tracing
+
+version: 2
+status: published
+
+providers:
+  - name: tempo-k8s
+    url: https://github.com/canonical/tempo-k8s-operator
+
+requirers: []

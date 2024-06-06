@@ -1,0 +1,13 @@
+name: forward_auth
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: oathkeeper-operator
+    url: https://www.github.com/canonical/oathkeeper-operator
+
+requirers:
+  - name: traefik-k8s-operator
+    url: https://www.github.com/canonical/traefik-k8s-operator

@@ -1,0 +1,15 @@
+name: login_ui_endpoints
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: identity-platform-login-ui-operator
+    url: https://github.com/canonical/identity-platform-login-ui-operator
+
+requirers:
+  - name: hydra-operator
+    url: https://github.com/canonical/hydra-operator
+  - name: kratos-operator
+    url: https://github.com/canonical/kratos-operator

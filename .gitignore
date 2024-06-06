@@ -8,3 +8,6 @@ dist/
 .idea/
 /facade-charm/mocks/provide/
 /facade-charm/mocks/require/
+
+venv
+*.charm

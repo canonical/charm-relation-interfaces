@@ -9,20 +9,7 @@ Examples:
     RequirerSchema:
         unit: <empty>
         app: {
-          "dns_domains": [
-            {
-              "uuid": "550e8400-e29b-41d4-a716-446655440000",
-              "domain": "cloud.canonical.com",
-              "username": "user1",
-              "password_id": "secret:123213123123123123123"
-            },
-            {
-              "uuid": "550e8400-e29b-41d4-a716-446655440001",
-              "domain": "staging.ubuntu.com",
-              "username": "user2",
-              "password_id": "secret:123213123123123123123"
-            }
-          ],
+          "service_account": "secret:123213123123123123123",
           "dns_entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
@@ -45,17 +32,6 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-          "dns_domains": [
-            {
-              "uuid": "550e8400-e29b-41d4-a716-446655440000",
-              "status": "invalid_credentials",
-              "description": "invalid_credentials"
-            },
-            {
-              "uuid": "550e8400-e29b-41d4-a716-446655440001",
-              "status": "approved"
-            }
-          ],
           "dns_entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
@@ -134,43 +110,15 @@ class DnsProviderData(BaseModel):
         default=None,
         name="Status description",
         description="Status description.",
-        examples=["incorrect username and password"]
+        examples=["incorrect credentials"]
     )
 
 
 class DNSRecordProvider(BaseModel):
     """List statuses for the DNS records informed by the requirer."""
-    dns_domains: List[DnsProviderData] = Field(
-        name="DNS domains",
-        description="List statuses for the domains requested by the requirer."
-    )
     dns_entries: List[DnsProviderData] = Field(
         name="DNS entries",
         description="List of statuses for the DNS records requested by the requirer."
-    )
-
-
-class RequirerDomains(BaseModel):
-    domain: str = Field(
-        min_length=1,
-        name="Domain",
-        description="Domain name for the provider to manage.",
-        examples=["cloud.canonical.com", "staging.ubuntu.com"]
-    )
-    username: str = Field(
-        name="Username",
-        description="Username for authentication.",
-        examples=["user1", "user2"],
-    )
-    password_id: str = Field(
-        name="Password",
-        description="Juju secret containing the user password.",
-        examples=["secret:123213123123123123123"],
-    )
-    uuid: UUID = Field(
-        name="UUID",
-        description="UUID for this domain.",
-        examples="550e8400-e29b-41d4-a716-446655440000"
     )
 
 
@@ -219,9 +167,10 @@ class RequirerEntries(BaseModel):
 
 class DNSRecordRequirer(BaseModel):
     """List of domains for the provider to manage."""
-    dns_domains: List[RequirerDomains] = Field(
-        name="DNS domains",
-        description="List of domains for the provider to manage."
+    service_account: str = Field(
+        name="Service account",
+        description="Service account for authentication.",
+        examples="secret:123213123123123123123"
     )
     dns_entries: List[RequirerEntries] = Field(
         name="DNS entries",

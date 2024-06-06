@@ -6,7 +6,7 @@
       "type": "object"
     }
   },
-  "description": "Requirer schema for Tracing.",
+  "description": "The schema for the requirer side of the sdcore-config interface.",
   "properties": {
     "unit": {
       "anyOf": [
@@ -29,23 +29,8 @@
         }
       ],
       "default": null
-    },
-    "receivers": {
-      "contentMediaType": "application/json",
-      "contentSchema": {
-        "items": {
-          "type": "string"
-        },
-        "type": "array"
-      },
-      "description": "List of protocols that the requirer wishes to use.",
-      "title": "Receivers",
-      "type": "string"
     }
   },
-  "required": [
-    "receivers"
-  ],
   "title": "RequirerSchema",
   "type": "object"
 }
