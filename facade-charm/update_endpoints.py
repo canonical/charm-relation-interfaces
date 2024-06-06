@@ -77,15 +77,15 @@ units_data:
     # baz: qux
 """
 
-CUSTOM_INTERFACES = ["tempo_cluster"]
+def _load_custom_interfaces():
+    return yaml.safe_load((FACADE_CHARM_ROOT / 'custom_interfaces.yaml').read_text())['interfaces']
 
 
 def main():
-    # TODO: allow adding custom interfaces on top of those scraped from CRI/interfaces
-    interfaces = [] + CUSTOM_INTERFACES
+    logger.info("loading custom interfaces...")
+    interfaces = _load_custom_interfaces()
 
-    logger.info("collecting interfaces...")
-
+    logger.info("collecting built-in interfaces...")
     for interface_path in INTERFACES_ROOT.glob("*"):
         interface = interface_path.name
 

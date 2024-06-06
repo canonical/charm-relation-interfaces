@@ -8,6 +8,7 @@ dist/
 .idea/
 /facade-charm/mocks/provide/
 /facade-charm/mocks/require/
+/facade-charm/charmcraft.yaml
 
 venv
 *.charm

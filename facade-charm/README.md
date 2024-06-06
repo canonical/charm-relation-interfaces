@@ -19,3 +19,8 @@ Usage:
 edit `provide-your-interface.yaml`
 
 `juju run facade update`
+
+# using custom interfaces
+
+Your interface isn't in charm-relation-interfaces (yet)? No problem.
+Add it to `custom_interfaces.yaml`, and it shall be picked up when you `tox -e pack`.
