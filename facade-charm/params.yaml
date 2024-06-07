@@ -1,3 +1,6 @@
-endpoint: "provide-tempo_cluster"
-app_data: '{"hello":"weii"}'
-unit_data: '{"hello":"weii"}'
+# endpoint name = ``["provide"|"require"]-[interface name]``
+endpoint: "provide-your_interface"
+# json-encoded app databag contents
+app_data: '{"hello":"world"}'
+# json-encoded unit databag contents
+unit_data: '{"hello":"world"}'
