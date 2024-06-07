@@ -108,7 +108,9 @@ class FacadeCharm(ops.CharmBase):
             pth = mocks_root / "provide" / (endpoint + ".yaml")
 
         if not pth.exists():
-            logger.error(f"mock not found for {endpoint} ({pth})")
+            logger.warning(f"mock not found for {endpoint} ({pth})")
+            pth.touch()
+            self._write_mock(endpoint, {}, {})
             return {}, {}
 
         yml = yaml.safe_load(pth.read_text())
@@ -127,8 +129,8 @@ class FacadeCharm(ops.CharmBase):
             pth = mocks_root / "provide" / (endpoint + ".yaml")
 
         if not pth.exists():
-            logger.error(f"mock not found for {endpoint}")
-            return {}, {}
+            logger.info(f"mock not found for {endpoint}")
+            pth.touch()
 
         yml = yaml.safe_load(pth.read_text())
 
@@ -149,8 +151,10 @@ class FacadeCharm(ops.CharmBase):
         logger.info(f"updating mock with {_app_data}, {_unit_data}")
         pth.write_text(
             yaml.safe_dump(
-                {"app_data": _app_data,
-                 "unit_data": _unit_data}
+                {
+                    "endpoint": endpoint,
+                    "app_data": _app_data,
+                    "unit_data": _unit_data}
             )
         )
 
@@ -164,6 +168,10 @@ class FacadeCharm(ops.CharmBase):
             app_data: Optional[Dict[str, str]] = None,
             unit_data: Optional[Dict[str, str]] = None,
             ):
+        """Target for jhack eval.
+
+        Writes app and unit databags for one or multiple relations.
+        """
         # keep mocks in sync
         self._write_mock(endpoint, app_data, unit_data)
 
