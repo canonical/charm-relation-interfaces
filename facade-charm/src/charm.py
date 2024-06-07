@@ -5,7 +5,7 @@ import json
 import logging
 from itertools import chain
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 import ops
 import yaml
@@ -75,7 +75,8 @@ class FacadeCharm(ops.CharmBase):
                 updated.append(relation.name)
         return updated
 
-    def _update_relation(self, relation: ops.Relation, clear=False, replace=False):
+    def _update_relation(self, relation: ops.Relation,
+                         clear=False, replace=False):
         changed = False
 
         app_databag = relation.data[self.app]
@@ -90,10 +91,10 @@ class FacadeCharm(ops.CharmBase):
 
         if not clear:
             app_data, unit_data = self._load_mock(relation.name)
-            if dict(app_databag) != app_data:
+            if app_data and dict(app_databag) != app_data:
                 app_databag.update(app_data)
                 changed = True
-            if dict(unit_databag) != unit_data:
+            if unit_data and dict(unit_databag) != unit_data:
                 unit_databag.update(unit_data)
                 changed = True
         return changed
@@ -116,8 +117,8 @@ class FacadeCharm(ops.CharmBase):
         return app_data, unit_data
 
     def _write_mock(self, endpoint: str,
-                    app_data: dict = None,
-                    unit_data: dict = None):
+                    app_data: Optional[dict] = None,
+                    unit_data: Optional[dict] = None):
         mocks_root = Path(__file__).parent.parent / 'mocks'
 
         if endpoint.startswith("provide"):
@@ -135,14 +136,16 @@ class FacadeCharm(ops.CharmBase):
             _app_data = {}
         else:
             _app_data = yml.get("app_data") or {}
+            if app_data:
+                _app_data.update(app_data)
 
         if unit_data == {}:
             _unit_data = {}
         else:
             _unit_data = yml.get("unit_data") or {}
+            if unit_data:
+                _unit_data.update(unit_data)
 
-        _app_data.update(app_data)
-        _unit_data.update(unit_data)
         logger.info(f"updating mock with {_app_data}, {_unit_data}")
         pth.write_text(
             yaml.safe_dump(
@@ -157,9 +160,9 @@ class FacadeCharm(ops.CharmBase):
     # target for jhack eval
     def set(self,
             endpoint: str,
-            relation_id: int = None,
-            app_data: Dict[str, str] = None,
-            unit_data: Dict[str, str] = None,
+            relation_id: Optional[int] = None,
+            app_data: Optional[Dict[str, str]] = None,
+            unit_data: Optional[Dict[str, str]] = None,
             ):
         # keep mocks in sync
         self._write_mock(endpoint, app_data, unit_data)
