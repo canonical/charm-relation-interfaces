@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Copyright 2024 pietro
 # See LICENSE file for licensing details.
-
+import json
 import logging
 from itertools import chain
 from pathlib import Path
@@ -30,6 +30,15 @@ class FacadeCharm(ops.CharmBase):
     def _on_update_action(self, e: ops.ActionEvent):
         updated = []
         if endpoint := e.params.get("endpoint"):
+            app_data = e.params.get("app_data", "")
+            unit_data = e.params.get("unit_data", "")
+            if app_data or unit_data:
+                self._write_mock(
+                    endpoint,
+                    json.loads(app_data),
+                    json.loads(unit_data)
+                )
+
             e.log(f"updating endpoint {endpoint}")
             if relations := self.model.relations[endpoint]:
                 updated = self._update(*relations)
@@ -98,13 +107,49 @@ class FacadeCharm(ops.CharmBase):
             pth = mocks_root / "provide" / (endpoint + ".yaml")
 
         if not pth.exists():
-            logger.error(f"mock not found for {endpoint}")
+            logger.error(f"mock not found for {endpoint} ({pth})")
             return {}, {}
 
         yml = yaml.safe_load(pth.read_text())
         app_data = yml.get("app_data", {})
         unit_data = yml.get("unit_data", {})
         return app_data, unit_data
+
+    def _write_mock(self, endpoint: str,
+                    app_data: dict = None,
+                    unit_data: dict = None):
+        mocks_root = Path(__file__).parent.parent / 'mocks'
+
+        if endpoint.startswith("provide"):
+            pth = mocks_root / "provide" / (endpoint + ".yaml")
+        else:
+            pth = mocks_root / "provide" / (endpoint + ".yaml")
+
+        if not pth.exists():
+            logger.error(f"mock not found for {endpoint}")
+            return {}, {}
+
+        yml = yaml.safe_load(pth.read_text())
+
+        if app_data == {}:
+            _app_data = {}
+        else:
+            _app_data = yml.get("app_data") or {}
+
+        if unit_data == {}:
+            _unit_data = {}
+        else:
+            _unit_data = yml.get("unit_data") or {}
+
+        _app_data.update(app_data)
+        _unit_data.update(unit_data)
+        logger.info(f"updating mock with {_app_data}, {_unit_data}")
+        pth.write_text(
+            yaml.safe_dump(
+                {"app_data": _app_data,
+                 "unit_data": _unit_data}
+            )
+        )
 
     def _on_collect_unit_status(self, e: ops.CollectStatusEvent):
         e.add_status(ActiveStatus("facade ready"))
@@ -115,7 +160,9 @@ class FacadeCharm(ops.CharmBase):
             relation_id: int = None,
             app_data: Dict[str, str] = None,
             unit_data: Dict[str, str] = None,
-        ):
+            ):
+        # keep mocks in sync
+        self._write_mock(endpoint, app_data, unit_data)
 
         rel = self.model.get_relation(endpoint, relation_id)
 
@@ -128,7 +175,6 @@ class FacadeCharm(ops.CharmBase):
             rel.data[self.unit].update(unit_data)
         elif unit_data is not None:  # user passed {}
             rel.data[self.unit].clear()
-
 
 
 if __name__ == "__main__":  # pragma: nocover

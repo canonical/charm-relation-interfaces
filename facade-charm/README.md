@@ -3,11 +3,22 @@
 Usage:
 `tox -e pack`
 `juju deploy facade`
-`juju relate facade:provide-your-interface <your charm>`
+`juju integrate facade:provide-your-interface <your charm>`
 
-## update databags from jhack eval
+## update databags with jhack eval
 
-`jhack eval facade/0 "self.set('provide-your-interface', app_data={'hello': 'world'}, unit_data={'lets foo': 'those bars')"`
+`jhack eval facade/0 "self.set('provide-your-interface', app_data={'hello': 'world'}, unit_data={'lets foo': 'those bars'})"`
+
+## update databags with actions
+
+```yaml
+# in params.yaml
+endpoint: provide-tempo_cluster
+app_data: '{"foo":"bar"}'
+unit_data: '{"foo":"baz"}'
+```
+
+`juju run facade/0 update --params params.yaml`
 
 ## update databags from mock files
 

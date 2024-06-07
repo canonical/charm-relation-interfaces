@@ -34,7 +34,26 @@ actions:
                 type: string
                 default: ""
                 description: name of the endpoint
-                
+            relation_id:
+                type: number
+                default: -1
+                description: |
+                    Relation ID. If not given, 
+                    all relations over this endpoint will be updated.
+            app_data:
+                type: string
+                default: ""
+                description: |
+                    Json-encoded application databag. 
+                    If ``{}``, the databag will be cleared.            
+            unit_data:
+                type: string
+                default: ""
+                description: |
+                    Json-encoded unit databag. 
+                    If ``{}``, the databag will be cleared.            
+            
+
     clear:
         description: clears all databags or the specified one
         params:
