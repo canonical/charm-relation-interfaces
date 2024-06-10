@@ -13,6 +13,11 @@
           "title": "Address",
           "type": "string"
         },
+        "key_name": {
+          "description": "The name of the key to use for autounseal.",
+          "title": "Key Name",
+          "type": "string"
+        },
         "credentials_secret_id": {
           "description": "The secret id of the Juju secret which stores the credentials for authenticating with the Vault server.",
           "title": "Credentials Secret Id",
@@ -26,6 +31,7 @@
       },
       "required": [
         "address",
+        "key_name",
         "credentials_secret_id",
         "ca_certificate"
       ],

@@ -10,6 +10,7 @@ This relation interface describes the expected behavior of a charm that integrat
 flowchart LR
   Provider --
     address
+    key_name
     credentials_secret_id
     ca_certificate
     --> Requirer
@@ -28,10 +29,11 @@ The Provider is expected to
 - create an encryption key for the requirer called `charm-autounseal/keys/${relation_id}` in the `charm-autounseal` backend
 - create a policy for the requirer that provides `update` capabilities on the encryption key
 - create an AppRole for this policy, and a secret for the AppRole, and store both the role ID and the secret ID in a Juju secret
-  - The secret should contain at least two values: `role-id`, and `secret-id`
+  - The secret should contain at least two key-value pairs: `role-id`, and `secret-id`
   - The AppRole should allow the creation of periodic tokens, so that Vault can indefinitely renew the token.
 - provide the following to the Requirer in the databag
   - the URL of the Vault (used in the Vault config for the `address` value)
+  - the key name of the transit key used for autounseal
   - the Juju secret ID which contains the Role ID and Secret ID of the AppRole
   - the CA certificate that the Requirer should use to validate its certificate.
 
@@ -43,7 +45,7 @@ The Requirer is expected to
 - create a new token
 - configure Vault using a `seal "transit"` stanza and in the Vault config
   - set the `address` to the address provided in the databag
-  - set the `key_name` to `charm-autounseal/keys/${relation_id}`
+  - set the `key_name` to the key name provided in the databag
   - set the `mount_path` to `charm-autounseal`
   - set the token to the one created from the AppRole credentials
   - store the CA certificate locally, and set the CA certificate path
@@ -58,6 +60,7 @@ The Requirer is expected to
 provider:
   app:
     address: https://10.152.183.217:8200
+    key_name: 2
     ca_certificate: |
       -----BEGIN CERTIFICATE-----
       MIIDTzCCAjegAwIBAgIUaM2XIUnDwnkcHJkeTF0aV91vMukwDQYJKoZIhvcNAQEL

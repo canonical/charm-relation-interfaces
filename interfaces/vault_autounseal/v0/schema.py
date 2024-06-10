@@ -13,6 +13,7 @@ class VaultAutounsealProviderSchema(BaseModel):
     """Provider side of the vault-autounseal relation interface."""
 
     address: str = Field(description="The address of the Vault server to connect to.")
+    key_name: str = Field(description="The name of the key to use for autounseal.")
     credentials_secret_id: str = Field(
         description=(
             "The secret id of the Juju secret which stores the credentials for authenticating with the Vault server."
