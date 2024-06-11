@@ -30,13 +30,14 @@ class FacadeCharm(ops.CharmBase):
     def _on_update_action(self, e: ops.ActionEvent):
         updated = []
         if endpoint := e.params.get("endpoint"):
-            app_data = e.params.get("app_data", "")
-            unit_data = e.params.get("unit_data", "")
+            app_data = json.loads(e.params.get("app_data") or "null")
+            unit_data = json.loads(e.params.get("unit_data") or "null")
             if app_data or unit_data:
+                e.log(f"updating mock data for {endpoint}")
                 self._write_mock(
                     endpoint,
-                    json.loads(app_data),
-                    json.loads(unit_data)
+                    app_data,
+                    unit_data
                 )
 
             e.log(f"updating endpoint {endpoint}")
@@ -109,11 +110,12 @@ class FacadeCharm(ops.CharmBase):
 
         if not pth.exists():
             logger.warning(f"mock not found for {endpoint} ({pth})")
+            pth.parent.mkdir(parents=True, exist_ok=True)
             pth.touch()
             self._write_mock(endpoint, {}, {})
             return {}, {}
 
-        yml = yaml.safe_load(pth.read_text())
+        yml = yaml.safe_load(pth.read_text()) or {}
         app_data = yml.get("app_data", {})
         unit_data = yml.get("unit_data", {})
         return app_data, unit_data
@@ -130,9 +132,10 @@ class FacadeCharm(ops.CharmBase):
 
         if not pth.exists():
             logger.info(f"mock not found for {endpoint}")
+            pth.parent.mkdir(parents=True, exist_ok=True)
             pth.touch()
 
-        yml = yaml.safe_load(pth.read_text())
+        yml = yaml.safe_load(pth.read_text()) or {}
 
         if app_data == {}:
             _app_data = {}
