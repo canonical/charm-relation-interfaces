@@ -106,7 +106,7 @@ class FacadeCharm(ops.CharmBase):
         if endpoint.startswith("provide"):
             pth = mocks_root / "provide" / (endpoint + ".yaml")
         else:
-            pth = mocks_root / "provide" / (endpoint + ".yaml")
+            pth = mocks_root / "require" / (endpoint + ".yaml")
 
         if not pth.exists():
             logger.warning(f"mock not found for {endpoint} ({pth})")
