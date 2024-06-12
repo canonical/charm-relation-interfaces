@@ -41,7 +41,7 @@ class FacadeCharm(ops.CharmBase):
                 )
 
             e.log(f"updating endpoint {endpoint}")
-            if relations := self.model.relations[endpoint]:
+            if relations := self.model.relations.get(endpoint):
                 updated = self._update(*relations)
             else:
                 e.log(f"no bindings on {endpoint}")
