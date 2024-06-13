@@ -47,7 +47,7 @@ class FacadeCharm(ops.CharmBase):
                 e.log(f"no bindings on {endpoint}")
 
         else:
-            e.log(f"updating all endpoints")
+            e.log("updating all endpoints")
             updated = self._update()
         e.set_results({"updated": updated})
 
@@ -60,7 +60,7 @@ class FacadeCharm(ops.CharmBase):
             else:
                 e.log(f"no bindings on {endpoint}")
         else:
-            e.log(f"clearing all endpoints")
+            e.log("clearing all endpoints")
             updated = self._update(clear=True)
         e.set_results({"cleared": updated})
 

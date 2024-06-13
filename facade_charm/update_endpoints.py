@@ -120,9 +120,11 @@ def main():
         logger.info(f"loading from {CH_INTERFACES_PATH}...")
         interfaces.extend(yaml.safe_load(CH_INTERFACES_PATH.read_text())['interfaces'])
 
-    # deduplicate and sort
-    _underscore = lambda x: x.replace("-", "_")
-    _dunderscore = lambda x: x.replace("-", "__")
+    def _underscore(s: str):
+        return s.replace("-", "_")
+
+    def _dunderscore(s: str):
+        return s.replace("-", "__")
 
     deduped = set()
     for intf in interfaces:
