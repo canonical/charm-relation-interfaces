@@ -1,0 +1,11 @@
+
+# databag template for dns_record provider:
+# this data will be put in the application/unit databag of any relation bound on provide-dns_record
+
+# must be str:str
+app_data: 
+    # foo: bar
+    
+# must be str:str
+units_data:
+    # baz: qux
