@@ -1,5 +1,0 @@
-# endpoint name = ``["provide"|"require"]-[interface name]``
-endpoint: "provide-s3"
-# json-encoded app databag contents
-app_data: '{"access-key": "key","bucket": "tempo","endpoint": "http://1.2.3.4:9000","secret-key": "soverysecret"}'
-# json-encoded unit databag contents
