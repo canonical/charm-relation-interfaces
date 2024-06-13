@@ -12,6 +12,7 @@ FACADE_CHARM_ROOT = Path(__file__).parent
 MOCKS_ROOT = FACADE_CHARM_ROOT / "mocks"
 CRI_ROOT = FACADE_CHARM_ROOT.parent
 INTERFACES_ROOT = CRI_ROOT / 'interfaces'
+CH_INTERFACES_PATH = FACADE_CHARM_ROOT / 'charmhub_interfaces.yaml'
 
 CHARMCRAFT_YAML_TEMPLATE = """name: facade
 type: charm
@@ -96,7 +97,7 @@ units_data:
     # baz: qux
 """
 
-def _load_custom_interfaces():
+def _load_custom_interfaces() -> list:
     return yaml.safe_load((FACADE_CHARM_ROOT / 'custom_interfaces.yaml').read_text())['interfaces']
 
 
@@ -113,6 +114,14 @@ def main():
             continue
 
         interfaces.append(interface)
+
+    # add interfaces from charmhub if file is found
+    if CH_INTERFACES_PATH.exists():
+        logger.info(f"loading from {CH_INTERFACES_PATH}...")
+        interfaces.extend(yaml.safe_load(CH_INTERFACES_PATH.read_text())['interfaces'])
+
+    # deduplicate and sort
+    interfaces = sorted(set(interfaces))
 
     endpoints = {
         "provides": {f"provide-{intf}": {"interface": intf} for intf in interfaces},
