@@ -96,6 +96,8 @@ units_data:
     # baz: qux
 """
 
+reserved_interfaces = {"juju-info"}
+
 
 def _load_custom_interfaces() -> list:
     return yaml.safe_load((FACADE_CHARM_ROOT / 'custom_interfaces.yaml').read_text())['interfaces']
@@ -132,14 +134,15 @@ def main():
             # of will replace - with _ on event register, so we replace - with __
             # instead to avoid endpoint name conflicts at runtime,
             logger.warning(
-                f"{intf} conflicts with {_underscore(intf)}: "
-                f"endpoint will be named {_dunderscore(intf)} instead"
+                f"{intf!r} conflicts with {_underscore(intf)!r}: "
+                f"endpoint will be named {_dunderscore(intf)!r} instead"
             )
             deduped.add(_dunderscore(intf))
         else:
             deduped.add(intf)
 
-    sorted_interfaces = sorted(deduped)
+    # remove reserved interfaces, and sort them all
+    sorted_interfaces = sorted(deduped.difference(reserved_interfaces))
 
     endpoints = {
         "provides": {f"provide-{intf}": {"interface": intf} for intf in sorted_interfaces},

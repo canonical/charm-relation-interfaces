@@ -1,14 +1,14 @@
 """Scrape charmhub to grab all interfaces for all registered charms.
 """
-
+import asyncio
 import json
 import logging
 from pathlib import Path
 
+import aiohttp
 import requests
 import tenacity
 import yaml
-from tenacity import stop_after_delay
 
 logger = logging.getLogger("update-endpoints")
 
@@ -22,35 +22,38 @@ def _get_all_registered_charms():
     return resp.json()['packages']
 
 
-@tenacity.retry(stop=stop_after_delay(4))
-def _get_integrations(charm: str) -> dict:
-    resp = requests.get(f"https://charmhub.io/{charm}/integrations.json", timeout=2)
-    return resp.json()['grouped_relations']
+@tenacity.retry(stop=tenacity.stop_after_attempt(10), wait=tenacity.wait_fixed(1))
+async def get_endpoints(charm_name, session: aiohttp.ClientSession):
+    url = f"https://charmhub.io/{charm_name}/integrations.json"
+    async with session.get(url=url, timeout=4) as response:
+        raw = await response.read()
+        return json.loads(raw)['grouped_relations']
 
 
-def _gather_interfaces(charms):
+async def get_all_integrations(charms_pkg_info):
+    async with aiohttp.ClientSession() as session:
+        ret = await asyncio.gather(*(get_endpoints(charm['name'], session) for charm in charms_pkg_info))
+    return ret
+
+
+def _gather_interfaces(charms_pkg_info):
+    logger.info(f"gathering interfaces from {len(charms_pkg_info)} charms...")
+    all_integrations = asyncio.run(get_all_integrations(charms_pkg_info))
+
     interfaces = set()
-    max_n = len(charms)
-    for i, charm in enumerate(charms):
-        charm_name = charm['name']
-        print(f'({i}/{max_n}) processing {charm_name}...', end="")
-        try:
-            integrations = _get_integrations(charm_name)
-        except json.JSONDecodeError:
-            print(" [FAILED]")
-            continue
-
-        print(" [OK]")
+    # discard any failed ones
+    for integrations in filter(None, all_integrations):
         provides = integrations.get('provides', [])
         requires = integrations.get('requires', [])
         interfaces.update(endpoint['interface'] for endpoint in provides + requires)
 
+    logger.info(f"gathered {len(interfaces)} interfaces")
     return interfaces
 
 
 def main():
-    charms = _get_all_registered_charms()
-    interfaces = _gather_interfaces(charms)
+    charms_pkg_info = _get_all_registered_charms()
+    interfaces = _gather_interfaces(charms_pkg_info)
     CH_INTERFACES_PATH.write_text(yaml.safe_dump({"interfaces": list(interfaces)}))
 
 
