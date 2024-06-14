@@ -96,7 +96,10 @@ units_data:
     # baz: qux
 """
 
-reserved_interfaces = {"juju-info"}
+reserved_interfaces = {
+    "juju-info",
+    "juju-dashboard"
+}
 
 
 def _load_custom_interfaces() -> list:
