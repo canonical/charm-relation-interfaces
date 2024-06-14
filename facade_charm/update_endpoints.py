@@ -130,7 +130,7 @@ def main():
 
     deduped = set()
     for intf in interfaces:
-        if '-' in intf and _underscore(intf) in deduped:
+        if '-' in intf and _underscore(intf) in interfaces:
             # of will replace - with _ on event register, so we replace - with __
             # instead to avoid endpoint name conflicts at runtime,
             logger.warning(
