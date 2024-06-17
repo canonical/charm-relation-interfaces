@@ -297,23 +297,22 @@ def pprint_interface_test_results(test_results: dict):
 
 
 if __name__ == "__main__":
-    # import argparse
-    #
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument(
-    #     "--include",
-    #     default="*",
-    #     help="Glob to filter what interfaces to include in the test matrix.",
-    # )
-    # parser.add_argument(
-    #     "--keep-cache",
-    #     default=False,
-    #     help="Keep the charm cache intact before running the tests. "
-    #          "This will save some time when running the tests again "
-    #          "(assuming the charms haven't changed).",
-    # )
-    # args = parser.parse_args()
+    import argparse
 
-    # result = run_interface_tests(Path("."), args.include, args.keep_cache)
-    result = run_interface_tests(Path("."), "tracing", False)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--include",
+        default="*",
+        help="Glob to filter what interfaces to include in the test matrix.",
+    )
+    parser.add_argument(
+        "--keep-cache",
+        default=False,
+        help="Keep the charm cache intact before running the tests. "
+        "This will save some time when running the tests again "
+        "(assuming the charms haven't changed).",
+    )
+    args = parser.parse_args()
+
+    result = run_interface_tests(Path("."), args.include, args.keep_cache)
     pprint_interface_test_results(result)
