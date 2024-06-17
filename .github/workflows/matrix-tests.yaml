@@ -1,6 +1,9 @@
 name: Matrix tests for interfaces
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
 
 jobs:
   main:
@@ -19,4 +22,3 @@ jobs:
         run: pip install tox
       - name: Run tests
         run: tox -e run-interface-test-matrix
-
