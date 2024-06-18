@@ -43,4 +43,5 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for auth_proxy."""
+
     app: AuthProxyRequirer
