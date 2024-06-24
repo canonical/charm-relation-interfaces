@@ -6,9 +6,9 @@ dist/
 .ruff_cache
 .pytest_cache
 .idea/
-/facade-charm/mocks/provide/
-/facade-charm/mocks/require/
-/facade-charm/charmcraft.yaml
+/facade_charm/mocks/provide/
+/facade_charm/mocks/require/
+/facade_charm/charmcraft.yaml
 
 venv
 *.charm
