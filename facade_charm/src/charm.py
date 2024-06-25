@@ -12,6 +12,7 @@ import yaml
 from ops import ActiveStatus
 
 logger = logging.getLogger(__name__)
+MOCKS_ROOT = Path(__file__).parent.parent / 'mocks'
 
 
 class FacadeCharm(ops.CharmBase):
@@ -79,7 +80,6 @@ class FacadeCharm(ops.CharmBase):
     def _update_relation(self, relation: ops.Relation,
                          clear=False, replace=False):
         changed = False
-
         app_databag = relation.data[self.app]
         unit_databag = relation.data[self.unit]
         if replace or clear:
@@ -100,21 +100,22 @@ class FacadeCharm(ops.CharmBase):
                 changed = True
         return changed
 
-    def _load_mock(self, endpoint: str):
-        mocks_root = Path(__file__).parent.parent / 'mocks'
-
+    def _get_mock_file(self, endpoint: str):
         if endpoint.startswith("provide"):
-            pth = mocks_root / "provide" / (endpoint + ".yaml")
+            pth = MOCKS_ROOT / "provide" / (endpoint + ".yaml")
         else:
-            pth = mocks_root / "require" / (endpoint + ".yaml")
+            pth = MOCKS_ROOT / "require" / (endpoint + ".yaml")
 
         if not pth.exists():
-            logger.warning(f"mock not found for {endpoint} ({pth})")
+            logger.info(f"mock not found for {endpoint} ({pth}): creating file...")
             pth.parent.mkdir(parents=True, exist_ok=True)
             pth.touch()
             self._write_mock(endpoint, {}, {})
-            return {}, {}
 
+        return pth
+
+    def _load_mock(self, endpoint: str):
+        pth = self._get_mock_file(endpoint)
         yml = yaml.safe_load(pth.read_text()) or {}
         app_data = yml.get("app_data", {})
         unit_data = yml.get("unit_data", {})
@@ -123,18 +124,7 @@ class FacadeCharm(ops.CharmBase):
     def _write_mock(self, endpoint: str,
                     app_data: Optional[dict] = None,
                     unit_data: Optional[dict] = None):
-        mocks_root = Path(__file__).parent.parent / 'mocks'
-
-        if endpoint.startswith("provide"):
-            pth = mocks_root / "provide" / (endpoint + ".yaml")
-        else:
-            pth = mocks_root / "provide" / (endpoint + ".yaml")
-
-        if not pth.exists():
-            logger.info(f"mock not found for {endpoint}")
-            pth.parent.mkdir(parents=True, exist_ok=True)
-            pth.touch()
-
+        pth = self._get_mock_file(endpoint)
         yml = yaml.safe_load(pth.read_text()) or {}
 
         if app_data == {}:
