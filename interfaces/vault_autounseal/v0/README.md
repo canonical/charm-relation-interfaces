@@ -2,7 +2,7 @@
 
 ## Usage
 
-This relation interface describes the expected behavior of a charm that integrates with the Vault Transit backend to autounseal a vault over the `vault-autounseal` relation.
+This relation interface describes the expected behavior of a charm that integrates with the Vault Transit backend to auto-unseal a vault over the `vault-autounseal` relation.
 
 ## Data Flow
 
@@ -10,6 +10,7 @@ This relation interface describes the expected behavior of a charm that integrat
 flowchart LR
   Provider --
     address
+    mount_path
     key_name
     credentials_secret_id
     ca_certificate
@@ -19,13 +20,13 @@ flowchart LR
 
 ## Behavior
 
-Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface. Specifically, the Provider has some operations to perform, and data to provide to the Requirer. The Requirer on the other hand, must configure Vault to autounseal based on the data provided by the Provider.
+Both the Requirer and the Provider need to adhere to criteria to be considered compatible with the interface. Specifically, the Provider has some operations to perform, and data to provide to the Requirer. The Requirer on the other hand, must configure Vault to auto-unseal based on the data provided by the Provider.
 
 ### Provider
 
 The Provider is expected to
 
-- create a `transit` backend with the path `charm-autounseal` if it does not already exist
+- create a `transit` backend to use for auto-unseal if one does not already exist
 - create an encryption key for the requirer called `charm-autounseal/keys/${relation_id}` in the `charm-autounseal` backend
 - create a policy for the requirer that provides `update` capabilities on the encryption key
 - create an AppRole for this policy, and a secret for the AppRole, and store both the role ID and the secret ID in a Juju secret
@@ -33,7 +34,8 @@ The Provider is expected to
   - The AppRole should allow the creation of periodic tokens, so that Vault can indefinitely renew the token.
 - provide the following to the Requirer in the databag
   - the URL of the Vault (used in the Vault config for the `address` value)
-  - the key name of the transit key used for autounseal
+  - the mount path of the transit backend that will be used for auto-unseal
+  - the key name of the transit key used for auto-unseal
   - the Juju secret ID which contains the Role ID and Secret ID of the AppRole
   - the CA certificate that the Requirer should use to validate its certificate.
 
@@ -41,12 +43,12 @@ The Provider is expected to
 
 The Requirer is expected to
 
-- retrieve the Role ID and Secret ID from the Juju secret that was identified by the Requirer
-- create a new token
+- retrieve the AppRole credentials (Role ID and Secret ID) from the Juju secret that was identified by the Provider
+- create a new token from the AppRole credentials
 - configure Vault using a `seal "transit"` stanza and in the Vault config
   - set the `address` to the address provided in the databag
+  - set the `mount_path` to the mount path provided in the databag
   - set the `key_name` to the key name provided in the databag
-  - set the `mount_path` to `charm-autounseal`
   - set the token to the one created from the AppRole credentials
   - store the CA certificate locally, and set the CA certificate path
 
@@ -60,6 +62,7 @@ The Requirer is expected to
 provider:
   app:
     address: https://10.152.183.217:8200
+    mount_path: charm-autounseal
     key_name: 2
     ca_certificate: |
       -----BEGIN CERTIFICATE-----
@@ -87,8 +90,6 @@ provider:
 
 ## Limitations
 
-In this iteration, many data points (mount path, key name) are implied, and not configurable. This is likely to change in future versions.
+The interface only supports using the `transit` backend for auto-unseal. Other auto-unseal methods exist, but are not considered in this iteration, as they require external collaborators which fall outside of the charm ecosystem, and require the enterprise version of Vault.
 
-The interface only supports using the `transit` backend for autounseal. Other autounseal methods exist, but are not considered in this iteration, as they require external collaborators which fall outside of the charm ecosystem.
-
-Additionally, this version of the interface focuses purely on using the transit backend for autounseal, although there are other legitimate uses of using the transit backend. There may be an argument for a more general-purpose `vault-transit` integration in the future.
+Additionally, this version of the interface focuses purely on using the transit backend for auto-unseal, although there are other legitimate uses of using the transit backend. There may be a need for a more general-purpose `vault-transit` integration in the future.

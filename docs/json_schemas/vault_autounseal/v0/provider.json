@@ -13,6 +13,11 @@
           "title": "Address",
           "type": "string"
         },
+        "mount_path": {
+          "description": "The path to the transit engine mount point where the autounseal keys are stored.",
+          "title": "Mount Path",
+          "type": "string"
+        },
         "key_name": {
           "description": "The name of the key to use for autounseal.",
           "title": "Key Name",
@@ -31,6 +36,7 @@
       },
       "required": [
         "address",
+        "mount_path",
         "key_name",
         "credentials_secret_id",
         "ca_certificate"
