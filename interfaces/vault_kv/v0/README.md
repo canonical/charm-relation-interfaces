@@ -8,7 +8,7 @@ Some charms require a secure key value store. This relation interface describes 
 
 ```mermaid
 flowchart TD
-    Requirer -- mount_suffix, nonce, egress_subnet --> Provider
+    Requirer -- mount_suffix, nonce, egress_subnet, [wrap_ttl] --> Provider
     Provider -- vault_url, ca_certificate, mount, credentials --> Requirer
 ```
 
@@ -24,7 +24,7 @@ Provider expectations
 - Is expected to provide a ca certificate used to validate the vault server's certificate.
 - Is expected to provide a key value mount, the mount name shall respect the following pattern: `charm-<requirer app>-<requirer provided suffix>`
 - Is expected to create an approle restricted to the requiring unit's egress subnet.
-- Is expected to create a Juju secret containing a role-id and role-secret-id for each unit.
+- Is expected to create a Juju secret containing a role-id and role-secret-id for each unit. If `wrap_ttl` is requested by the Requirer, the Provider is expected to return a response-wrapping token instead of the `role-secret-id`. The response-wrapping token must contain the response of the POST `/auth/approle/role/:role_name/secret-id` API call. More information about wrapping tokens can be found in Vault [docs](https://developer.hashicorp.com/vault/docs/concepts/response-wrapping).
 - Is expected to provide the Juju secret ID in the relation data, identified by the unit's nonce.
 - Is expected to have out of date credentials when requirer unit's identity change, for some unspecified amount of time
   until new credentials have been generated. For example, during an upgrade-charm event.
@@ -37,6 +37,7 @@ Requirer expectations
 - Is expected to provide an egress subnet for each unit requiring access to the vault key value store.
   The unit's egress_subnet shall be used to restrict access to the secret backend.
 - Is expected to provide a nonce, i.e. a string uniquely identifying the unit.
+- Is expected to optionally provide a `wrap_ttl` to request the `role-secret-id` being returned as a response-wrapping token with desired TTL.
 
 ## Relation Data
 
