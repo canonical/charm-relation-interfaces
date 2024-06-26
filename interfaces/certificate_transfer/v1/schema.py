@@ -38,14 +38,14 @@ class Certificate(BaseModel):
 
 class CertificateTransferProviderAppData(BaseModel):
     certificates: List[Certificate]= Field(
-        description="The list of certificates that "
+        description="The list of certificates that will be transferred to a requirer"
     )
 
 class ProviderSchema(DataBagSchema):
-    """Provider schema for fiveg_n2."""
+    """Provider schema for certificate_transfer."""
     unit: CertificateTransferProviderAppData
 
 
 class RequirerSchema(DataBagSchema):
-    """Requirer schema for fiveg_n2."""
+    """Requirer schema for certificate_transfer."""
 
