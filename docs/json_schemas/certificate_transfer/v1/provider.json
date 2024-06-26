@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "Certificate": {
+      "properties": {
+        "certificate": {
+          "description": "The certificate that was signed for a given CSR",
+          "title": "Certificate",
+          "type": "string"
+        },
+        "ca": {
+          "description": "The certificate of the issuer that signed the given CSR",
+          "title": "Ca",
+          "type": "string"
+        },
+        "chain": {
+          "description": "The chain of certificates that originates from the CSR's certificate to the Root CA certificate",
+          "title": "Chain",
+          "type": "string"
+        }
+      },
+      "required": [
+        "certificate",
+        "ca",
+        "chain"
+      ],
+      "title": "Certificate",
+      "type": "object"
+    },
+    "CertificateTransferProviderAppData": {
+      "properties": {
+        "certificates": {
+          "description": "The list of certificates that ",
+          "items": {
+            "$ref": "#/$defs/Certificate"
+          },
+          "title": "Certificates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "certificates"
+      ],
+      "title": "CertificateTransferProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for fiveg_n2.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/CertificateTransferProviderAppData"
+    },
+    "app": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "unit"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
