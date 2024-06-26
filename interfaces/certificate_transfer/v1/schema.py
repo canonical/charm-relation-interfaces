@@ -6,14 +6,8 @@ Examples:
     ProviderSchema:
         unit: {
             "certificates": [
-                {
-                    "certificate": "-----BEGIN CERTIFICATE----- ..."
-                    "ca": "-----BEGIN CERTIFICATE----- ..."
-                    "chain": [
-                        "-----BEGIN CERTIFICATE----- ...",
-                        "-----BEGIN CERTIFICATE----- ..."
-                    ]
-                },
+                "-----BEGIN CERTIFICATE----- ...",
+                "-----BEGIN CERTIFICATE----- ..."
             ]
         }
         app: <empty>
@@ -25,19 +19,8 @@ from pydantic import BaseModel, Field
 from typing import List
 from interface_tester.schema_base import DataBagSchema
 
-class Certificate(BaseModel):
-    certificate: str = Field(
-        description="The certificate that was signed for a given CSR"
-    )
-    ca: str = Field(
-        description="The certificate of the issuer that signed the given CSR"
-    )
-    chain: str = Field(
-        description="The chain of certificates that originates from the CSR's certificate to the Root CA certificate"
-    )
-
 class CertificateTransferProviderAppData(BaseModel):
-    certificates: List[Certificate]= Field(
+    certificates: List[str]= Field(
         description="The list of certificates that will be transferred to a requirer"
     )
 
