@@ -34,7 +34,7 @@
     "CertificateTransferProviderAppData": {
       "properties": {
         "certificates": {
-          "description": "The list of certificates that ",
+          "description": "The list of certificates that will be transferred to a requirer",
           "items": {
             "$ref": "#/$defs/Certificate"
           },
@@ -49,7 +49,7 @@
       "type": "object"
     }
   },
-  "description": "Provider schema for fiveg_n2.",
+  "description": "Provider schema for certificate_transfer.",
   "properties": {
     "unit": {
       "$ref": "#/$defs/CertificateTransferProviderAppData"

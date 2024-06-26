@@ -6,7 +6,7 @@
       "type": "object"
     }
   },
-  "description": "Requirer schema for fiveg_n2.",
+  "description": "Requirer schema for certificate_transfer.",
   "properties": {
     "unit": {
       "anyOf": [
