@@ -8,12 +8,13 @@
     "CertificateTransferProviderAppData": {
       "properties": {
         "certificates": {
-          "description": "The list of certificates that will be transferred to a requirer",
+          "description": "The set of certificates that will be transferred to a requirer",
           "items": {
             "type": "string"
           },
           "title": "Certificates",
-          "type": "array"
+          "type": "array",
+          "uniqueItems": true
         }
       },
       "required": [
