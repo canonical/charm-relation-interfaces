@@ -150,6 +150,7 @@
               "type": "null"
             }
           ],
+          "default": null,
           "description": "Path for metrics scraping.",
           "title": "Metrics Path"
         },
@@ -163,7 +164,6 @@
         }
       },
       "required": [
-        "metrics_path",
         "static_configs"
       ],
       "title": "ScrapeJobModel",
