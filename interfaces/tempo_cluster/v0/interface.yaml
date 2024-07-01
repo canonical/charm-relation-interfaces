@@ -1,0 +1,12 @@
+name: tempo_cluster
+internal: true
+version: 0
+status: beta
+
+providers:
+  - name: tempo-coordinator-k8s
+    url: https://github.com/canonical/tempo-coordinator-k8s-operator
+
+requirers:
+  - name: tempo-worker-k8s
+    url: https://github.com/canonical/tempo-worker-k8s-operator
