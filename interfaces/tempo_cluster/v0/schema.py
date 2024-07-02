@@ -10,12 +10,6 @@ from typing import Optional, Dict, Any, Literal
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
 
-ReceiverProtocol = Literal[
-    "zipkin",
-    "otlp_grpc",
-    "otlp_http",
-]
-
 
 class TempoClusterProviderAppData(BaseModel):
     """TempoClusterProviderAppData."""
@@ -34,9 +28,13 @@ class TempoClusterProviderAppData(BaseModel):
         default=None,
         description="Private key used by the coordinator, for tls encryption."
     )
-    tempo_receiver: Optional[Dict[ReceiverProtocol, str]] = Field(
+    tempo_receiver: Optional[Dict[str, str]] = Field(
         default=None,
         description="Tempo receiver protocols to which the worker node can push any traces it generates."
+                    "It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`."
+                    "The actual protocol names depend on what the Tempo version that the "
+                    "applications are operating currently support. See the `tracing` interface "
+                    "specification for more information on this."
     )
 
 
