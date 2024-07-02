@@ -23,7 +23,7 @@ This is what is expected of the providers and the requirers of this interface:
 ### Provider
 The provider is expected to...
 - update the gossip rings in all configurations with the addresses of all worker units that are joining the cluster (regardless of their role).
-- share the exact same configuration to all nodes, regardless of the role they declare, via application databg.
+- share the exact same configuration to all nodes, regardless of the role they declare, via application databag.
 
 ### Requirer
 The requirer application is expected to...
@@ -43,7 +43,7 @@ Provide a yaml/json example of a valid databag state (for the whole relation).
 provider:
   app: 
     config: 
-      # <a very large chunk of yaml>
+      # <a very large chunk of yaml, conforming to Tempo configuration specification: https://grafana.com/docs/tempo/latest/configuration/#configure-tempo>
   unit: {}
   
 requirer:

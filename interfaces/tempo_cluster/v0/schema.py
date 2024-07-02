@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Optional, Dict, Any, Literal
 
 from interface_tester.schema_base import DataBagSchema
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 ReceiverProtocol = Literal[
     "zipkin",
@@ -16,14 +16,28 @@ ReceiverProtocol = Literal[
     "otlp_http",
 ]
 
+
 class TempoClusterProviderAppData(BaseModel):
     """TempoClusterProviderAppData."""
-    tempo_config: Dict[str, Any]
-    loki_endpoints: Optional[Dict[str, str]] = None
-    ca_cert: Optional[str] = None
-    server_cert: Optional[str] = None
-    privkey_secret_id: Optional[str] = None
-    tempo_receiver: Optional[Dict[ReceiverProtocol, str]] = None
+    tempo_config: str = Field(
+        description="The tempo configuration that the requirer should run with."
+                    "Yaml-encoded. Conform the schema that the workload version supports; "
+                    "for example see: "
+                    "https://grafana.com/docs/tempo/latest/configuration/#configure-tempo."
+    )
+    loki_endpoints: Optional[Dict[str, str]] = Field(
+        default=None,
+        description="List of loki-push-api endpoints to which the worker node can push any logs it generates.")
+    ca_cert: Optional[str] = Field(default=None, description="CA certificate for tls encryption.")
+    server_cert: Optional[str] = Field(default=None, description="Server certificate for tls encryption.")
+    privkey_secret_id: Optional[str] = Field(
+        default=None,
+        description="Private key used by the coordinator, for tls encryption."
+    )
+    tempo_receiver: Optional[Dict[ReceiverProtocol, str]] = Field(
+        default=None,
+        description="Tempo receiver protocols to which the worker node can push any traces it generates."
+    )
 
 
 class JujuTopology(BaseModel):
