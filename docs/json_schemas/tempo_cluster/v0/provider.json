@@ -1,0 +1,117 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "TempoClusterProviderAppData": {
+      "description": "TempoClusterProviderAppData.",
+      "properties": {
+        "tempo_config": {
+          "description": "The tempo configuration that the requirer should run with.Yaml-encoded. Conform the schema that the workload version supports; for example see: https://grafana.com/docs/tempo/latest/configuration/#configure-tempo.",
+          "title": "Tempo Config",
+          "type": "string"
+        },
+        "loki_endpoints": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of loki-push-api endpoints to which the worker node can push any logs it generates.",
+          "title": "Loki Endpoints"
+        },
+        "ca_cert": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "CA certificate for tls encryption.",
+          "title": "Ca Cert"
+        },
+        "server_cert": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Server certificate for tls encryption.",
+          "title": "Server Cert"
+        },
+        "privkey_secret_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Private key used by the coordinator, for tls encryption.",
+          "title": "Privkey Secret Id"
+        },
+        "tempo_receiver": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tempo receiver protocols to which the worker node can push any traces it generates.",
+          "title": "Tempo Receiver"
+        }
+      },
+      "required": [
+        "tempo_config"
+      ],
+      "title": "TempoClusterProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/TempoClusterProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
