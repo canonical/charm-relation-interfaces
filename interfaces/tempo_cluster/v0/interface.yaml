@@ -1,7 +1,7 @@
 name: tempo_cluster
 internal: true
 version: 0
-status: beta
+status: draft
 
 providers:
   - name: tempo-coordinator-k8s
