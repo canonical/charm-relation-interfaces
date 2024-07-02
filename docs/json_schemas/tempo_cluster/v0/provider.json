@@ -81,7 +81,7 @@
             }
           ],
           "default": null,
-          "description": "Tempo receiver protocols to which the worker node can push any traces it generates.",
+          "description": "Tempo receiver protocols to which the worker node can push any traces it generates.It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`.The actual protocol names depend on what the Tempo version that the applications are operating currently support. See the `tracing` interface specification for more information on this.",
           "title": "Tempo Receiver"
         }
       },
