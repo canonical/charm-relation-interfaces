@@ -15,8 +15,8 @@ class TempoClusterProviderAppData(BaseModel):
     """TempoClusterProviderAppData."""
     tempo_config: str = Field(
         description="The tempo configuration that the requirer should run with."
-                    "Yaml-encoded. Conform the schema that the workload version supports; "
-                    "for example see: "
+                    "Yaml-encoded. Must conform to the schema that the presently deployed "
+                    "workload version supports; for example see: "
                     "https://grafana.com/docs/tempo/latest/configuration/#configure-tempo."
     )
     loki_endpoints: Optional[Dict[str, str]] = Field(
