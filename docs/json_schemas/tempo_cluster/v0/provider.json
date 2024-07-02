@@ -9,7 +9,7 @@
       "description": "TempoClusterProviderAppData.",
       "properties": {
         "tempo_config": {
-          "description": "The tempo configuration that the requirer should run with.Yaml-encoded. Conform the schema that the workload version supports; for example see: https://grafana.com/docs/tempo/latest/configuration/#configure-tempo.",
+          "description": "The tempo configuration that the requirer should run with.Yaml-encoded. Must conform to the schema that the presently deployed workload version supports; for example see: https://grafana.com/docs/tempo/latest/configuration/#configure-tempo.",
           "title": "Tempo Config",
           "type": "string"
         },
