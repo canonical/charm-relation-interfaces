@@ -53,6 +53,16 @@
                 "unit-1:port,unit-2:port"
             ]
         },
+        "uris": {
+            "$id": "#/properties/uris",
+            "title": "URIs",
+            "description": "A connection string in URI format used to connect to the database",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "postgresql://user:pass@host-1:port,host-2:port/mydb"
+            ]
+        },
         "read-only-endpoints": {
             "$id": "#/properties/read-only-endpoints",
             "title": "Read-Only Database Endpoints",
