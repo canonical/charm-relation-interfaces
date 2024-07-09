@@ -27,9 +27,6 @@
   "description": "Provider schema for certificate_transfer.",
   "properties": {
     "unit": {
-      "$ref": "#/$defs/CertificateTransferProviderAppData"
-    },
-    "app": {
       "anyOf": [
         {
           "$ref": "#/$defs/BaseModel"
@@ -39,10 +36,13 @@
         }
       ],
       "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/CertificateTransferProviderAppData"
     }
   },
   "required": [
-    "unit"
+    "app"
   ],
   "title": "ProviderSchema",
   "type": "object"
