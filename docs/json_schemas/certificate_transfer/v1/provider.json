@@ -1,0 +1,49 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "CertificateTransferProviderAppData": {
+      "properties": {
+        "certificates": {
+          "description": "The set of certificates that will be transferred to a requirer",
+          "items": {
+            "type": "string"
+          },
+          "title": "Certificates",
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "certificates"
+      ],
+      "title": "CertificateTransferProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for certificate_transfer.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/CertificateTransferProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
