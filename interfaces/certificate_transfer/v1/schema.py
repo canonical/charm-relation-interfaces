@@ -4,13 +4,13 @@ It exposes two interface_tester.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 Examples:
     ProviderSchema:
-        unit: {
+        unit: <empty>
+        app: {
             "certificates": [
                 "-----BEGIN CERTIFICATE----- ...",
                 "-----BEGIN CERTIFICATE----- ..."
             ]
         }
-        app: <empty>
     RequirerSchema:
         unit: <empty>
         app:  <empty>
