@@ -58,7 +58,9 @@ class RequirerUnitDataModel(BaseModel):
     )
 
 class RequirerApplicationDataModel(BaseModel):
-    pass
+    certificate_signing_requests: Json[List[CertificateRequest]] = Field(
+        description="List of Certificate Signing Requests."
+    )
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for TLS Certificates."""
