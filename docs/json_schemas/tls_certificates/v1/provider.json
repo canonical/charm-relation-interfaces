@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "Certificate": {
+      "properties": {
+        "ca": {
+          "description": "PEM encoded CA certificate.",
+          "title": "Ca",
+          "type": "string"
+        },
+        "chain": {
+          "description": "PEM encoded certificate chain.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Chain",
+          "type": "array"
+        },
+        "certificate_signing_request": {
+          "description": "PEM encoded certificate signing request.",
+          "title": "Certificate Signing Request",
+          "type": "string"
+        },
+        "certificate": {
+          "description": "PEM encoded certificate.",
+          "title": "Certificate",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ca",
+        "chain",
+        "certificate_signing_request",
+        "certificate"
+      ],
+      "title": "Certificate",
+      "type": "object"
+    },
+    "ProviderApplicationDataModel": {
+      "properties": {
+        "certificates": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "$ref": "#/$defs/Certificate"
+            },
+            "type": "array"
+          },
+          "description": "List of TLS Certificates.",
+          "title": "Certificates",
+          "type": "string"
+        }
+      },
+      "required": [
+        "certificates"
+      ],
+      "title": "ProviderApplicationDataModel",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for TLS Certificates.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ProviderApplicationDataModel"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
