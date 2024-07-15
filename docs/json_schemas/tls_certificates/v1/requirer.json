@@ -1,36 +1,45 @@
 {
   "$defs": {
-    "CertificateRequest": {
+    "CertificateSigningRequest": {
+      "description": "Certificate signing request model.",
       "properties": {
         "certificate_signing_request": {
-          "description": "PEM encoded certificate signing request.",
+          "description": "Certificate signing request.",
           "title": "Certificate Signing Request",
           "type": "string"
         },
         "ca": {
-          "description": "Whether the certificate is a CA certificate.",
-          "title": "Ca",
-          "type": "boolean"
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Whether the certificate is a CA.",
+          "title": "Ca"
         }
       },
       "required": [
         "certificate_signing_request",
         "ca"
       ],
-      "title": "CertificateRequest",
+      "title": "CertificateSigningRequest",
       "type": "object"
     },
-    "RequirerApplicationDataModel": {
+    "RequirerData": {
+      "description": "Requirer data model.\n\nThe same model is used for the unit and application data.",
       "properties": {
         "certificate_signing_requests": {
           "contentMediaType": "application/json",
           "contentSchema": {
             "items": {
-              "$ref": "#/$defs/CertificateRequest"
+              "$ref": "#/$defs/CertificateSigningRequest"
             },
             "type": "array"
           },
-          "description": "List of Certificate Signing Requests.",
+          "description": "List of certificate signing requests.",
           "title": "Certificate Signing Requests",
           "type": "string"
         }
@@ -38,38 +47,17 @@
       "required": [
         "certificate_signing_requests"
       ],
-      "title": "RequirerApplicationDataModel",
-      "type": "object"
-    },
-    "RequirerUnitDataModel": {
-      "properties": {
-        "certificate_signing_requests": {
-          "contentMediaType": "application/json",
-          "contentSchema": {
-            "items": {
-              "$ref": "#/$defs/CertificateRequest"
-            },
-            "type": "array"
-          },
-          "description": "List of Certificate Signing Requests.",
-          "title": "Certificate Signing Requests",
-          "type": "string"
-        }
-      },
-      "required": [
-        "certificate_signing_requests"
-      ],
-      "title": "RequirerUnitDataModel",
+      "title": "RequirerData",
       "type": "object"
     }
   },
   "description": "Requirer schema for TLS Certificates.",
   "properties": {
     "unit": {
-      "$ref": "#/$defs/RequirerUnitDataModel"
+      "$ref": "#/$defs/RequirerData"
     },
     "app": {
-      "$ref": "#/$defs/RequirerApplicationDataModel"
+      "$ref": "#/$defs/RequirerData"
     }
   },
   "required": [

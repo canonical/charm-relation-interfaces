@@ -6,41 +6,76 @@
       "type": "object"
     },
     "Certificate": {
+      "description": "Certificate model.",
       "properties": {
         "ca": {
-          "description": "PEM encoded CA certificate.",
+          "description": "Whether the certificate is a CA.",
           "title": "Ca",
           "type": "string"
         },
-        "chain": {
-          "description": "PEM encoded certificate chain.",
-          "items": {
-            "type": "string"
-          },
-          "title": "Chain",
-          "type": "array"
-        },
         "certificate_signing_request": {
-          "description": "PEM encoded certificate signing request.",
+          "description": "Certificate signing request.",
           "title": "Certificate Signing Request",
           "type": "string"
         },
         "certificate": {
-          "description": "PEM encoded certificate.",
+          "description": "Certificate.",
           "title": "Certificate",
           "type": "string"
+        },
+        "chain": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of certificates in the chain.",
+          "title": "Chain"
+        },
+        "recommended_expiry_notification_time": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Recommended expiry notification time in seconds.",
+          "title": "Recommended Expiry Notification Time"
+        },
+        "revoked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Whether the certificate is revoked.",
+          "title": "Revoked"
         }
       },
       "required": [
         "ca",
-        "chain",
         "certificate_signing_request",
-        "certificate"
+        "certificate",
+        "chain",
+        "recommended_expiry_notification_time",
+        "revoked"
       ],
       "title": "Certificate",
       "type": "object"
     },
-    "ProviderApplicationDataModel": {
+    "ProviderApplicationData": {
+      "description": "Provider application data model.",
       "properties": {
         "certificates": {
           "contentMediaType": "application/json",
@@ -50,7 +85,7 @@
             },
             "type": "array"
           },
-          "description": "List of TLS Certificates.",
+          "description": "List of certificates.",
           "title": "Certificates",
           "type": "string"
         }
@@ -58,7 +93,7 @@
       "required": [
         "certificates"
       ],
-      "title": "ProviderApplicationDataModel",
+      "title": "ProviderApplicationData",
       "type": "object"
     }
   },
@@ -76,7 +111,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/ProviderApplicationDataModel"
+      "$ref": "#/$defs/ProviderApplicationData"
     }
   },
   "required": [

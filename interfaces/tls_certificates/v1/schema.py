@@ -33,43 +33,69 @@ Examples:
         app:  <empty>    
 """
 
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel, Field, Json
 from interface_tester.schema_base import DataBagSchema
 
-class Certificate(BaseModel):    
-    ca: str = Field(description="PEM encoded CA certificate.")
-    chain: List[str] = Field(description="PEM encoded certificate chain.")
-    certificate_signing_request: str = Field(description="PEM encoded certificate signing request.")
-    certificate: str = Field(description="PEM encoded certificate.")
 
-class CertificateRequest(BaseModel):
-    certificate_signing_request: str = Field(description="PEM encoded certificate signing request.")
-    ca: bool = Field(description="Whether the certificate is a CA certificate.")
+class Certificate(BaseModel):
+    """Certificate model."""
+    ca: str = Field(
+        description="Whether the certificate is a CA."
+    )
+    certificate_signing_request: str = Field(
+        description="Certificate signing request."
+    )
+    certificate: str = Field(
+        description="Certificate."
+    )
+    chain: Optional[List[str]] = Field(
+        description="List of certificates in the chain."
+    )
+    recommended_expiry_notification_time: Optional[int] = Field(
+        description="Recommended expiry notification time in seconds."
+    )
+    revoked: Optional[bool] = Field(
+        description="Whether the certificate is revoked."
+    )
 
-class ProviderApplicationDataModel(BaseModel):
+
+class CertificateSigningRequest(BaseModel):
+    """Certificate signing request model."""
+    certificate_signing_request: str = Field(
+        description="Certificate signing request."
+    )
+    ca: Optional[bool] = Field(
+        description="Whether the certificate is a CA."
+    )
+
+
+class ProviderApplicationData(BaseModel):
+    """Provider application data model."""
     certificates: Json[List[Certificate]] = Field(
-        description="List of TLS Certificates."
+        description="List of certificates."
     )
 
-class RequirerUnitDataModel(BaseModel):
-    certificate_signing_requests: Json[List[CertificateRequest]] = Field(
-        description="List of Certificate Signing Requests."
+
+class RequirerData(BaseModel):
+    """Requirer data model.
+
+    The same model is used for the unit and application data.
+    """
+
+    certificate_signing_requests: Json[List[CertificateSigningRequest]] = Field(
+        description="List of certificate signing requests."
     )
 
-class RequirerApplicationDataModel(BaseModel):
-    certificate_signing_requests: Json[List[CertificateRequest]] = Field(
-        description="List of Certificate Signing Requests."
-    )
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for TLS Certificates."""
 
-    app: ProviderApplicationDataModel
+    app: ProviderApplicationData
 
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for TLS Certificates."""
 
-    unit: RequirerUnitDataModel
-    app: RequirerApplicationDataModel
+    app: RequirerData
+    unit: RequirerData
