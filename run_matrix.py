@@ -215,7 +215,9 @@ def _test_charm(
     """Run interface tests for a charm."""
     logging.info(f"Running tests for charm: {charm_config.name}")
     try:
-        charm_path, test_path = _prepare_repo(charm_config, interface, version, repo, branch)
+        charm_path, test_path = _prepare_repo(
+            charm_config, interface, version, repo, branch
+        )
     except SetupError:
         logging.warning(
             f"test setup failed for {charm_config.name} {interface} {role}",
@@ -314,7 +316,9 @@ def run_interface_tests(
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
-        results_per_version = _test_interface_version(version_to_roles, interface, repo, branch)
+        results_per_version = _test_interface_version(
+            version_to_roles, interface, repo, branch
+        )
         test_results[interface] = results_per_version
 
         # running in github actions with owner set on the test
@@ -322,7 +326,9 @@ def run_interface_tests(
             for version, tests_per_role in version_to_roles.items():
                 owner = tests_per_role.get("owner")
                 if owner and test_failed(results_per_version[version]):
-                    create_issue(interface, version, results_per_version[version], owner)
+                    create_issue(
+                        interface, version, results_per_version[version], owner
+                    )
 
     if not collected:
         logging.warning("No tests collected.")
@@ -341,8 +347,7 @@ def test_failed(version_result):
 def create_issue(interface, version, result_per_version, owner):
     github_token = os.getenv("GITHUB_TOKEN")
     g = Github(github_token)
-    # repo = g.get_repo("canonical/charm-relation-interfaces")
-    repo = g.get_repo("IronCore864/charm-relation-interfaces")
+    repo = g.get_repo("canonical/charm-relation-interfaces")
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
@@ -431,5 +436,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    result = run_interface_tests(Path("."), args.repo, args.branch, args.include, args.keep_cache)
+    result = run_interface_tests(
+        Path("."), args.repo, args.branch, args.include, args.keep_cache
+    )
     pprint_interface_test_results(result)
