@@ -13,7 +13,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Dict, Iterable, Literal, Tuple
 
 from github import Github
-
 from interface_tester.collector import collect_tests
 
 if TYPE_CHECKING:
