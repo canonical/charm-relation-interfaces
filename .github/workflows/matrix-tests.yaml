@@ -23,5 +23,4 @@ jobs:
       - name: Run tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_RUN_ID: ${GITHUB_RUN_ID}
         run: tox -e run-interface-test-matrix
