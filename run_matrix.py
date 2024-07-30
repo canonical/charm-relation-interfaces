@@ -318,10 +318,9 @@ def run_interface_tests(
         test_results[interface] = results_per_version
 
         # running in github actions with owner set on the test
-        print("GitHub Actions ENV: ", os.getenv("GITHUB_ACTIONS"))
         if os.getenv("GITHUB_ACTIONS"):
             for version, tests_per_role in version_to_roles.items():
-                check_test_result(results_per_version[version])
+                print("Test RES: ", check_test_result(results_per_version[version]))
                 owner = tests_per_role.get("owner")
                 if owner and check_test_result(results_per_version[version]) == "FAILED":
                     create_issue(interface, version, results_per_version[version], owner)
