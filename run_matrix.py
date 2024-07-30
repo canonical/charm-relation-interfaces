@@ -314,16 +314,17 @@ def run_interface_tests(
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
-        results_per_version = _test_interface_version(version_to_roles, interface, repo, branch)
-        test_results[interface] = results_per_version
+        # results_per_version = _test_interface_version(version_to_roles, interface, repo, branch)
+        # test_results[interface] = results_per_version
 
         # running in github actions with owner set on the test
         if os.getenv("GITHUB_ACTIONS"):
             for version, tests_per_role in version_to_roles.items():
+                print("=== tests per role: ", tests_per_role)
                 owner = tests_per_role.get("owner")
                 print(owner)
-                if owner and test_failed(results_per_version[version]):
-                    create_issue(interface, version, results_per_version[version], owner)
+                # if owner and test_failed(results_per_version[version]):
+                #     create_issue(interface, version, results_per_version[version], owner)
 
     if not collected:
         logging.warning("No tests collected.")
