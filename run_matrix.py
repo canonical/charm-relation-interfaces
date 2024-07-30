@@ -347,17 +347,12 @@ def create_issue(interface, version, result_per_version, owner):
     github_token = os.getenv("GITHUB_TOKEN")
     g = Github(github_token)
     # repo = g.get_repo("canonical/charm-relation-interfaces")
-    repo = g.get_repo("IronCore864/charm-relation-interfaces")
+    repo = g.get_repo("IronCoreWorks/issue-test")
 
     workflow_url = ""
-    github_server_url = os.getenv("GITHUB_SERVER_URL")
-    github_repository = os.getenv("GITHUB_REPOSITORY")
     github_run_id = os.getenv("GITHUB_RUN_ID")
-
-    if github_server_url and github_repository and github_run_id:
-        workflow_url = (
-            f"{github_server_url}/{github_repository}/actions/runs/{github_run_id}"
-        )
+    if github_run_id:
+        workflow_url = f"https://github.com/IronCore864/charm-relation-interfaces/actions/runs/{github_run_id}"
 
     result = flatten_test_result(result_per_version)
     title = f"Interface test for {interface} {version} failed."
