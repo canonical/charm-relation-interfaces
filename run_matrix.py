@@ -12,6 +12,7 @@ from collections import namedtuple
 from pathlib import Path
 from typing import TYPE_CHECKING, Dict, Iterable, Literal, Tuple
 
+from github import Github
 from interface_tester.collector import collect_tests
 
 if TYPE_CHECKING:
@@ -77,6 +78,8 @@ def _prepare_repo(
     charm_config: "_CharmTestConfig",
     interface: str,
     version: int,
+    repo: str,
+    branch: str,
     root: Path = Path("/tmp/charm-relation-interfaces-tests/"),
 ) -> Tuple[Path, Path]:
     """Clone the charm repository and create the venv if it hasn't been done already."""
@@ -94,7 +97,7 @@ def _prepare_repo(
         # that the charm needs no patching at all to work with scenario
         raise SetupError(f"fixture missing for charm {charm_config.name}")
     test_path = _generate_test(
-        interface, fixture_spec.path.parent, fixture_spec.id, version
+        interface, fixture_spec.path.parent, fixture_spec.id, version, repo, branch
     )
     return charm_path, test_path
 
@@ -112,18 +115,29 @@ def test_{interface}_interface({fixture_id}: InterfaceTester):
     {fixture_id}.configure(
         interface_name="{interface}",
         interface_version={version},
+        repo="{repo}",
+        branch="{branch}",
     )
     {fixture_id}.run()
 """
 
 
 def _generate_test(
-    interface: str, test_path: Path, fixture_id: str, version: int
+    interface: str,
+    test_path: Path,
+    fixture_id: str,
+    version: int,
+    repo: str,
+    branch: str,
 ) -> Path:
     """Generate a pytest file for a given charm and interface."""
     logging.info(f"Generating test file for {interface} at {test_path}")
     test_content = _TEST_CONTENT.format(
-        interface=interface, fixture_id=fixture_id, version=version
+        interface=interface,
+        fixture_id=fixture_id,
+        version=version,
+        repo=repo,
+        branch=branch,
     )
     test_filename = f"interface_test_{interface}.py"
     with open(test_path / test_filename, "w") as file:
@@ -191,12 +205,19 @@ def _run_test_with_pytest(root: Path, test_path: Path):
 
 
 def _test_charm(
-    charm_config: "_CharmTestConfig", interface: str, version: int, role: str
+    charm_config: "_CharmTestConfig",
+    interface: str,
+    version: int,
+    role: str,
+    repo: str,
+    branch: str,
 ) -> bool:
     """Run interface tests for a charm."""
     logging.info(f"Running tests for charm: {charm_config.name}")
     try:
-        charm_path, test_path = _prepare_repo(charm_config, interface, version)
+        charm_path, test_path = _prepare_repo(
+            charm_config, interface, version, repo, branch
+        )
     except SetupError:
         logging.warning(
             f"test setup failed for {charm_config.name} {interface} {role}",
@@ -216,20 +237,29 @@ def _test_charm(
 
 
 def _test_charms(
-    charm_configs: Iterable["_CharmTestConfig"], interface: str, version: int, role: str
+    charm_configs: Iterable["_CharmTestConfig"],
+    interface: str,
+    version: int,
+    role: str,
+    repo: str,
+    branch: str,
 ) -> "_ResultsPerCharm":
     """Test all charms against this interface and role."""
     logging.info(f"Running tests for {interface}")
     out = {}
     for charm_config in charm_configs:
-        success = _test_charm(charm_config, interface, version, role)
+        success = _test_charm(charm_config, interface, version, role, repo, branch)
         out[charm_config.name] = success
         logging.info(f"Result: {'PASSED' if success else 'FAILED'}")
     return out
 
 
 def _test_roles(
-    tests_per_role: Dict["_Role", "_RoleTestSpec"], interface: str, version: int
+    tests_per_role: Dict["_Role", "_RoleTestSpec"],
+    interface: str,
+    version: int,
+    repo: str,
+    branch: str,
 ) -> "_ResultsPerRole":
     """Run the tests for each role of this interface."""
     results_per_role: _ResultsPerRole = {}
@@ -251,29 +281,34 @@ def _test_roles(
                 f"{[charm.name for charm in charm_configs]}..."
             )
             results_per_role[role] = _test_charms(
-                charm_configs, interface, version, role
+                charm_configs, interface, version, role, repo, branch
             )
     return results_per_role
 
 
-def _test_interface_version(tests_per_version, interface: str) -> "_ResultsPerVersion":
+def _test_interface_version(
+    tests_per_version, interface: str, repo: str, branch: str
+) -> "_ResultsPerVersion":
     """Run the tests for each version of this interface."""
     logging.info(f"Running tests for interface: {interface}")
     results_per_version: _ResultsPerVersion = {}
-
     for version, tests_per_role in tests_per_version.items():
         logging.info(f"Running tests for version: {version}")
 
         version_int = int(version[1:])
         results_per_version[version] = _test_roles(
-            tests_per_role, interface, version_int
+            tests_per_role, interface, version_int, repo, branch
         )
 
     return results_per_version
 
 
 def run_interface_tests(
-    path: Path, include: str = "*", keep_cache: bool = False
+    path: Path,
+    repo: str,
+    branch: str,
+    include: str = "*",
+    keep_cache: bool = False,
 ) -> "_ResultsPerInterface":
     """Run the tests for the specified interfaces, defaulting to all."""
     if not keep_cache:
@@ -281,13 +316,94 @@ def run_interface_tests(
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
-        results_per_version = _test_interface_version(version_to_roles, interface)
+        results_per_version = _test_interface_version(
+            version_to_roles, interface, repo, branch
+        )
         test_results[interface] = results_per_version
+
+        # running in github actions with owner set on the test
+        # if os.getenv("GITHUB_ACTIONS"):
+        for version, tests_per_role in version_to_roles.items():
+            owner = tests_per_role.get("owner")
+            check_test_result(results_per_version[version])
+            if owner and check_test_result(results_per_version[version]) == "FAILED":
+                create_issue(interface, version, results_per_version[version], owner)
 
     if not collected:
         logging.warning("No tests collected.")
 
     return test_results
+
+
+def check_test_result(version_result):
+    for _, test_result in version_result.items():
+        if False in test_result.values():
+            return "FAILED"
+
+    return "SUCCEEDED"
+
+
+def create_issue(interface, version, result_per_version, owner):
+    github_token = os.getenv("GITHUB_TOKEN")
+    g = Github(github_token)
+    # repo = g.get_repo("canonical/charm-relation-interfaces")
+    repo = g.get_repo("IronCore864/charm-relation-interfaces")
+
+    workflow_url = ""
+    github_server_url = os.getenv("GITHUB_SERVER_URL")
+    github_repository = os.getenv("GITHUB_REPOSITORY")
+    github_run_id = os.getenv("GITHUB_RUN_ID")
+
+    if github_server_url and github_repository and github_run_id:
+        workflow_url = (
+            f"{github_server_url}/{github_repository}/actions/runs/{github_run_id}"
+        )
+
+    result = flatten_test_result(result_per_version)
+    title = f"Interface test for {interface} {version} failed."
+    body = f"""\
+Tests for interface {interface} {version} failed.
+
+{result}
+
+See the workflow {workflow_url} for more detail.
+"""
+
+    issue = None
+    for i in repo.get_issues(state="open"):
+        if f"{interface} {version}" in i.title:
+            issue = i
+            break
+
+    if not issue:
+        issue = repo.create_issue(title=title, body=body)
+    else:
+        issue.create_comment(body)
+
+    if owner:
+        issue.edit(assignee=owner)
+
+
+def flatten_test_result(version_result):
+    result = ""
+
+    provider_res = ""
+    for charm, res in version_result.get("provider").items():
+        if res is False:
+            provider_res += f"- {charm}: {res}\n"
+
+    if provider_res:
+        result = "## Provider\n\n" + provider_res
+
+    requirer_res = ""
+    for charm, res in version_result.get("requirer").items():
+        if res is False:
+            requirer_res += f"- {charm}: {res}\n"
+
+    if requirer_res:
+        result += "## Requirer\n\n" + requirer_res
+
+    return result
 
 
 def pprint_interface_test_results(test_results: dict):
@@ -297,23 +413,34 @@ def pprint_interface_test_results(test_results: dict):
 
 
 if __name__ == "__main__":
-    # import argparse
-    #
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument(
-    #     "--include",
-    #     default="*",
-    #     help="Glob to filter what interfaces to include in the test matrix.",
-    # )
-    # parser.add_argument(
-    #     "--keep-cache",
-    #     default=False,
-    #     help="Keep the charm cache intact before running the tests. "
-    #          "This will save some time when running the tests again "
-    #          "(assuming the charms haven't changed).",
-    # )
-    # args = parser.parse_args()
+    import argparse
 
-    # result = run_interface_tests(Path("."), args.include, args.keep_cache)
-    result = run_interface_tests(Path("."), "tracing", False)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--include",
+        default="*",
+        help="Glob to filter what interfaces to include in the test matrix.",
+    )
+    parser.add_argument(
+        "--keep-cache",
+        default=False,
+        help="Keep the charm cache intact before running the tests. "
+        "This will save some time when running the tests again "
+        "(assuming the charms haven't changed).",
+    )
+    parser.add_argument(
+        "--repo",
+        default="https://github.com/canonical/charm-relation-interfaces",
+        help="The repository where to find the tests, defaults to https://github.com/canonical/charm-relation-interfaces.",
+    )
+    parser.add_argument(
+        "--branch",
+        default="main",
+        help="The branch of the repo where to find the tests, defaults to main.",
+    )
+    args = parser.parse_args()
+
+    result = run_interface_tests(
+        Path("."), args.repo, args.branch, args.include, args.keep_cache
+    )
     pprint_interface_test_results(result)
