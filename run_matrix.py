@@ -372,6 +372,7 @@ See the workflow {workflow_url} for more detail.
 
     if not issue:
         issue = repo.create_issue(title=title, body=body)
+        print(f"GitHub issue created: {issue.html_url}")
     else:
         issue.create_comment(body)
 
