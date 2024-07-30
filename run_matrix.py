@@ -12,6 +12,8 @@ from collections import namedtuple
 from pathlib import Path
 from typing import TYPE_CHECKING, Dict, Iterable, Literal, Tuple
 
+from github import Github
+
 from interface_tester.collector import collect_tests
 
 if TYPE_CHECKING:
@@ -214,9 +216,7 @@ def _test_charm(
     """Run interface tests for a charm."""
     logging.info(f"Running tests for charm: {charm_config.name}")
     try:
-        charm_path, test_path = _prepare_repo(
-            charm_config, interface, version, repo, branch
-        )
+        charm_path, test_path = _prepare_repo(charm_config, interface, version, repo, branch)
     except SetupError:
         logging.warning(
             f"test setup failed for {charm_config.name} {interface} {role}",
@@ -291,7 +291,6 @@ def _test_interface_version(
     """Run the tests for each version of this interface."""
     logging.info(f"Running tests for interface: {interface}")
     results_per_version: _ResultsPerVersion = {}
-
     for version, tests_per_role in tests_per_version.items():
         logging.info(f"Running tests for version: {version}")
 
@@ -316,15 +315,90 @@ def run_interface_tests(
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
-        results_per_version = _test_interface_version(
-            version_to_roles, interface, repo, branch
-        )
+        results_per_version = _test_interface_version(version_to_roles, interface, repo, branch)
         test_results[interface] = results_per_version
+
+        # running in github actions with owner set on the test
+        # if os.getenv("GITHUB_ACTIONS"):
+        for version, tests_per_role in version_to_roles.items():
+            owner = tests_per_role.get("owner")
+            check_test_result(results_per_version[version])
+            if owner and check_test_result(results_per_version[version]) == "FAILED":
+                create_issue(interface, version, results_per_version[version], owner)
 
     if not collected:
         logging.warning("No tests collected.")
 
     return test_results
+
+
+def check_test_result(version_result):
+    for _, test_result in version_result.items():
+        if False in test_result.values():
+            return "FAILED"
+
+    return "SUCCEEDED"
+
+
+def create_issue(interface, version, result_per_version, owner):
+    github_token = os.getenv("GITHUB_TOKEN")
+    g = Github(github_token)
+    # repo = g.get_repo("canonical/charm-relation-interfaces")
+    repo = g.get_repo("IronCore864/charm-relation-interfaces")
+
+    workflow_url = ""
+    github_server_url = os.getenv("GITHUB_SERVER_URL")
+    github_repository = os.getenv("GITHUB_REPOSITORY")
+    github_run_id = os.getenv("GITHUB_RUN_ID")
+
+    if github_server_url and github_repository and github_run_id:
+        workflow_url = f"{github_server_url}/{github_repository}/actions/runs/{github_run_id}"
+
+    result = flatten_test_result(result_per_version)
+    title = f"Interface test for {interface} {version} failed."
+    body = f"""\
+Tests for interface {interface} {version} failed.
+
+{result}
+
+See the workflow {workflow_url} for more detail.
+"""
+
+    issue = None
+    for i in repo.get_issues(state="open"):
+        if f"{interface} {version}" in i.title:
+            issue = i
+            break
+
+    if not issue:
+        issue = repo.create_issue(title=title, body=body)
+    else:
+        issue.create_comment(body)
+
+    if owner:
+        issue.edit(assignee=owner)
+
+
+def flatten_test_result(version_result):
+    result = ""
+
+    provider_res = ""
+    for charm, res in version_result.get("provider").items():
+        if res is False:
+            provider_res += f"- {charm}: {res}\n"
+
+    if provider_res:
+        result = "## Provider\n\n" + provider_res
+
+    requirer_res = ""
+    for charm, res in version_result.get("requirer").items():
+        if res is False:
+            requirer_res += f"- {charm}: {res}\n"
+
+    if requirer_res:
+        result += "## Requirer\n\n" + requirer_res
+
+    return result
 
 
 def pprint_interface_test_results(test_results: dict):
@@ -361,7 +435,5 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    result = run_interface_tests(
-        Path("."), args.repo, args.branch, args.include, args.keep_cache
-    )
+    result = run_interface_tests(Path("."), args.repo, args.branch, args.include, args.keep_cache)
     pprint_interface_test_results(result)
