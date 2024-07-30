@@ -337,7 +337,7 @@ def check_test_result(version_result):
     print(version_result)
     print("==========test result===========")
     for _, test_result in version_result.items():
-        if False in test_result.values():
+        if any(i in test_result.values() for i in ("false", False)):
             return "FAILED"
 
     return "SUCCEEDED"
