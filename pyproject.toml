@@ -23,7 +23,7 @@ keywords = ["juju", "relation interfaces"]
 
 dependencies = [
     "pydantic>2",
-    "pytest-interface-tester>=1.0.2",
+    "pytest-interface-tester@git+https://github.com/ironCore864/pytest-interface-tester#egg=add-owner",
     "PyGithub>=2.3.0"
 ]
 
