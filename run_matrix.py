@@ -320,9 +320,9 @@ def run_interface_tests(
         # running in github actions with owner set on the test
         if os.getenv("GITHUB_ACTIONS"):
             for version, tests_per_role in version_to_roles.items():
-                print("Test RES: ", check_test_result(results_per_version[version]))
                 owner = tests_per_role.get("owner")
-                if owner and check_test_result(results_per_version[version]) == "FAILED":
+                print(owner)
+                if owner and test_failed(results_per_version[version]):
                     create_issue(interface, version, results_per_version[version], owner)
 
     if not collected:
@@ -331,15 +331,12 @@ def run_interface_tests(
     return test_results
 
 
-def check_test_result(version_result):
-    print("==========test result===========")
-    print(version_result)
-    print("==========test result===========")
+def test_failed(version_result):
     for _, test_result in version_result.items():
         if any(i in test_result.values() for i in ("false", False)):
-            return "FAILED"
+            return True
 
-    return "SUCCEEDED"
+    return False
 
 
 def create_issue(interface, version, result_per_version, owner):
@@ -348,10 +345,14 @@ def create_issue(interface, version, result_per_version, owner):
     # repo = g.get_repo("canonical/charm-relation-interfaces")
     repo = g.get_repo("IronCoreWorks/issue-test")
 
+    print(f"got repo {repo.url}")
+
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
         workflow_url = f"https://github.com/IronCore864/charm-relation-interfaces/actions/runs/{github_run_id}"
+
+    print(f"got workflow {workflow_url}")
 
     result = flatten_test_result(result_per_version)
     title = f"Interface test for {interface} {version} failed."
