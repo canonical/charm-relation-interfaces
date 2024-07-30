@@ -216,7 +216,9 @@ def _test_charm(
     """Run interface tests for a charm."""
     logging.info(f"Running tests for charm: {charm_config.name}")
     try:
-        charm_path, test_path = _prepare_repo(charm_config, interface, version, repo, branch)
+        charm_path, test_path = _prepare_repo(
+            charm_config, interface, version, repo, branch
+        )
     except SetupError:
         logging.warning(
             f"test setup failed for {charm_config.name} {interface} {role}",
@@ -315,7 +317,9 @@ def run_interface_tests(
     test_results = {}
     collected = collect_tests(path=path, include=include)
     for interface, version_to_roles in collected.items():
-        results_per_version = _test_interface_version(version_to_roles, interface, repo, branch)
+        results_per_version = _test_interface_version(
+            version_to_roles, interface, repo, branch
+        )
         test_results[interface] = results_per_version
 
         # running in github actions with owner set on the test
@@ -352,7 +356,9 @@ def create_issue(interface, version, result_per_version, owner):
     github_run_id = os.getenv("GITHUB_RUN_ID")
 
     if github_server_url and github_repository and github_run_id:
-        workflow_url = f"{github_server_url}/{github_repository}/actions/runs/{github_run_id}"
+        workflow_url = (
+            f"{github_server_url}/{github_repository}/actions/runs/{github_run_id}"
+        )
 
     result = flatten_test_result(result_per_version)
     title = f"Interface test for {interface} {version} failed."
@@ -435,5 +441,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    result = run_interface_tests(Path("."), args.repo, args.branch, args.include, args.keep_cache)
+    result = run_interface_tests(
+        Path("."), args.repo, args.branch, args.include, args.keep_cache
+    )
     pprint_interface_test_results(result)
