@@ -342,7 +342,7 @@ def create_issue(interface, version, result_per_version, owner):
     github_token = os.getenv("GITHUB_TOKEN")
     g = Github(github_token)
     # repo = g.get_repo("canonical/charm-relation-interfaces")
-    repo = g.get_repo("IronCoreWorks/issue-test")
+    repo = g.get_repo("IronCore864/charm-relation-interfaces")
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
