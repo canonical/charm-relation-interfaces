@@ -6,7 +6,7 @@
       "type": "object"
     }
   },
-  "description": "The schema for the requirer side of the sdcore-config interface.",
+  "description": "The schema for the requirer side of the sdcore_config interface.",
   "properties": {
     "unit": {
       "anyOf": [
