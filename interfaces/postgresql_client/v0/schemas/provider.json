@@ -82,6 +82,26 @@
             "examples": [
                 "8.0.27-18"
             ]
+        },
+        "subordinated": {
+            "$id": "#/properties/subordinated",
+            "title": "Subordinated",
+            "description": "Indicates that the provider should check the unit state when scaling up",
+            "type": "string",
+            "default": "true",
+            "examples": [
+                "true"
+            ]
+        },
+        "state": {
+            "$id": "#/properties/state",
+            "title": "State",
+            "description": "Unit level data to indicate that a subordinate unit is ready to serve",
+            "type": "string",
+            "default": "ready",
+            "examples": [
+                "ready"
+            ]
         }
     },
     "examples": [{
