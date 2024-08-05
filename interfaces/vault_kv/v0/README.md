@@ -36,7 +36,7 @@ Requirer expectations
 - Is expected to provide a mount suffix.
 - Is expected to provide the egress subnets for each unit requiring access to the vault key value store.
   The unit's egress_subnet shall be used to restrict access to the secret backend.
-  egress_subnet should contain all of the desired addresses in a string separated by commas.
+  The egress_subnet field should contain a string of all desired addresses separated by commas, using CIDR notation.
 - Is expected to provide a nonce, i.e. a string uniquely identifying the unit.
 - Is expected to optionally provide a `wrap_ttl` to request the `role-secret-id` being returned as a response-wrapping token with desired TTL.
 
