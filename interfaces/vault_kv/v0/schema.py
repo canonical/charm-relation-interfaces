@@ -5,7 +5,7 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from typing import Mapping
+from typing import Mapping, Optional
 
 from pydantic import BaseModel, Field, Json
 
@@ -27,6 +27,8 @@ class VaultKvProviderSchema(BaseModel):
         description=(
             "Mapping of unit name and credentials for that unit."
             " Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'."
+            " In case of wrap_ttl being requested, 'role-secret-id' will be empty and"
+            " 'wrapping-token' will contain the role-secret-id as a response-wrapping token."
         )
     )
 
@@ -34,6 +36,15 @@ class VaultKvProviderSchema(BaseModel):
 class AppVaultKvRequirerSchema(BaseModel):
     mount_suffix: str = Field(
         description="Suffix to append to the mount name to get the KV mount."
+    )
+    wrap_ttl: Optional[int] = Field(
+        default=None,
+        title="Wrap TTL",
+        description=(
+            "Whether to request approle secret_id as a response-wrapping token with a certain TTL."
+            " If not set, no wrapping will be made to secret_id. Otherwise, wrap_ttl specifies"
+            " the duration of seconds before the expiration of the response-wrapping token."
+        )
     )
 
 
