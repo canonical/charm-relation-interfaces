@@ -83,7 +83,7 @@ requirer:
     mount_suffix: secrets
   unit:
     barbican-0:
-      egress_subnet: "10.1.166.206/32, 10.1.1.0/32"
+      egress_subnet: "10.1.166.206/32,10.1.1.0/32"
       nonce: 3081279da89c48a32923473c2c587019
     barbican-1:
       egress_subnet: "10.1.166.230/32"
