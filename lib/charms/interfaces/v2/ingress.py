@@ -321,7 +321,7 @@ class DataValidationError(IngressError):
 
 
 class _IngressPerAppBase(Object):
-    """Base class for IngressPerUnit interface classes."""
+    """Base class for IngressPerApp interface classes."""
 
     def __init__(self, charm: CharmBase, relation_name: str = DEFAULT_RELATION_NAME):
         super().__init__(charm, relation_name)

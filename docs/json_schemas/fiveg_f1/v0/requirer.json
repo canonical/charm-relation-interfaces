@@ -5,25 +5,25 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "SdcoreConfigProviderAppData": {
+    "FivegF1RequirerAppData": {
       "properties": {
-        "webui_url": {
-          "description": "GRPC address of the Webui including Webui hostname and a fixed GRPC port.",
+        "f1_port": {
+          "description": "Number of the port used for F1 traffic",
           "examples": [
-            "sdcore-webui-k8s:9876"
+            2153
           ],
-          "title": "Webui Url",
-          "type": "string"
+          "title": "F1 Port",
+          "type": "integer"
         }
       },
       "required": [
-        "webui_url"
+        "f1_port"
       ],
-      "title": "SdcoreConfigProviderAppData",
+      "title": "FivegF1RequirerAppData",
       "type": "object"
     }
   },
-  "description": "The schema for the provider side of the sdcore_config interface.",
+  "description": "Requirer schema for fiveg_f1.",
   "properties": {
     "unit": {
       "anyOf": [
@@ -37,12 +37,12 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/SdcoreConfigProviderAppData"
+      "$ref": "#/$defs/FivegF1RequirerAppData"
     }
   },
   "required": [
     "app"
   ],
-  "title": "ProviderSchema",
+  "title": "RequirerSchema",
   "type": "object"
 }

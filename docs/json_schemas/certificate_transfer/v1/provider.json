@@ -5,25 +5,26 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "SdcoreConfigProviderAppData": {
+    "CertificateTransferProviderAppData": {
       "properties": {
-        "webui_url": {
-          "description": "GRPC address of the Webui including Webui hostname and a fixed GRPC port.",
-          "examples": [
-            "sdcore-webui-k8s:9876"
-          ],
-          "title": "Webui Url",
-          "type": "string"
+        "certificates": {
+          "description": "The set of certificates that will be transferred to a requirer",
+          "items": {
+            "type": "string"
+          },
+          "title": "Certificates",
+          "type": "array",
+          "uniqueItems": true
         }
       },
       "required": [
-        "webui_url"
+        "certificates"
       ],
-      "title": "SdcoreConfigProviderAppData",
+      "title": "CertificateTransferProviderAppData",
       "type": "object"
     }
   },
-  "description": "The schema for the provider side of the sdcore_config interface.",
+  "description": "Provider schema for certificate_transfer.",
   "properties": {
     "unit": {
       "anyOf": [
@@ -37,7 +38,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/SdcoreConfigProviderAppData"
+      "$ref": "#/$defs/CertificateTransferProviderAppData"
     }
   },
   "required": [

@@ -30,7 +30,7 @@
             },
             "type": "object"
           },
-          "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'.",
+          "description": "Mapping of unit name and credentials for that unit. Credentials are a juju secret containing a 'role-id' and a 'role-secret-id'. In case of wrap_ttl being requested, 'role-secret-id' will be empty and 'wrapping-token' will contain the role-secret-id as a response-wrapping token.",
           "title": "Credentials",
           "type": "string"
         }
