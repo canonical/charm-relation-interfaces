@@ -349,11 +349,11 @@ def create_issue(
 ):
     github_token = os.getenv("GITHUB_TOKEN")
     g = Github(github_token)
-    repo = g.get_repo("IronCore864/charm-relation-interfaces")
+    repo = g.get_repo("canonical/charm-relation-interfaces")
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
-        workflow_url = f"https://github.com/IronCore864/charm-relation-interfaces/actions/runs/{github_run_id}"
+        workflow_url = f"https://github.com/canonical/charm-relation-interfaces/actions/runs/{github_run_id}"
     result = flatten_test_result(result_per_role)
     title = f"Interface test for {interface} {version} failed."
     body = f"""\
