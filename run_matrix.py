@@ -336,7 +336,7 @@ def run_interface_tests(
     return test_results
 
 
-def test_failed(role_result: _ResultsPerRole):
+def test_failed(role_result: "_ResultsPerRole"):
     for _, charm_result in role_result.items():
         if False in charm_result.values():
             return True
@@ -345,7 +345,7 @@ def test_failed(role_result: _ResultsPerRole):
 
 
 def create_issue(
-    interface: str, version: str, result_per_role: _ResultsPerRole, owners: List[str]
+    interface: str, version: str, result_per_role: "_ResultsPerRole", owners: List[str]
 ):
     github_token = os.getenv("GITHUB_TOKEN")
     g = Github(github_token)
@@ -382,7 +382,7 @@ See the workflow {workflow_url} for more detail.
         print(f"GitHub issue assigned to {owners}")
 
 
-def flatten_test_result(version_result: _ResultsPerRole):
+def flatten_test_result(version_result: "_ResultsPerRole"):
     result = ""
 
     provider_res = ""
