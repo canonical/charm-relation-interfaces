@@ -321,7 +321,7 @@ def run_interface_tests(
         )
         test_results[interface] = results_per_version
 
-        # running in github actions with owners set on the test
+        # Running in GitHub actions with owners set on the test.
         if os.getenv("GITHUB_ACTIONS"):
             for version, tests_per_role in version_to_roles.items():
                 owners = tests_per_role.get("owners")
@@ -337,7 +337,7 @@ def run_interface_tests(
 
 
 def test_failed(role_result: "_ResultsPerRole"):
-    for _, charm_result in role_result.items():
+    for charm_result in role_result.values():
         if False in charm_result.values():
             return True
 
@@ -347,9 +347,8 @@ def test_failed(role_result: "_ResultsPerRole"):
 def create_issue(
     interface: str, version: str, result_per_role: "_ResultsPerRole", owners: List[str]
 ):
-    github_token = os.getenv("GITHUB_TOKEN")
-    g = Github(github_token)
-    repo = g.get_repo("canonical/charm-relation-interfaces")
+    gh = Github(os.getenv("GITHUB_TOKEN"))
+    repo = gh.get_repo("canonical/charm-relation-interfaces")
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
@@ -365,17 +364,17 @@ See the workflow {workflow_url} for more detail.
 """
 
     issue = None
-    for i in repo.get_issues(state="open"):
-        if f"{interface} {version}" in i.title:
-            issue = i
+    for existing_issue in repo.get_issues(state="open"):
+        if f"{interface} {version}" in existing_issue.title:
+            issue = existing_issue
             break
 
-    if not issue:
-        issue = repo.create_issue(title=title, body=body)
-        print(f"GitHub issue created: {issue.html_url}")
-    else:
+    if issue:
         issue.create_comment(body)
         print(f"GitHub issue updated: {issue.html_url}")
+    else:
+        issue = repo.create_issue(title=title, body=body)
+        print(f"GitHub issue created: {issue.html_url}")
 
     if owners:
         issue.edit(assignees=owners)
@@ -385,18 +384,20 @@ See the workflow {workflow_url} for more detail.
 def flatten_test_result(version_result: "_ResultsPerRole"):
     result = ""
 
-    provider_res = ""
-    for charm, res in version_result.get("provider").items():
-        if res is False:
-            provider_res += f"- {charm}: {res}\n"
+    provider_res = "\n".join(
+        f"- {charm}: {res}"
+        for charm, res in version_result.get("provider").items()
+        if res is False
+    )
 
     if provider_res:
         result = "## Provider\n\n" + provider_res
 
-    requirer_res = ""
-    for charm, res in version_result.get("requirer").items():
-        if res is False:
-            requirer_res += f"- {charm}: {res}\n"
+    requirer_res = "\n".join(
+        f"- {charm}: {res}"
+        for charm, res in version_result.get("requirer").items()
+        if res is False
+    )
 
     if requirer_res:
         result += "## Requirer\n\n" + requirer_res
