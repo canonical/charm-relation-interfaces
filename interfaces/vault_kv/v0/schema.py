@@ -49,7 +49,7 @@ class AppVaultKvRequirerSchema(BaseModel):
 
 
 class UnitVaultKvRequirerSchema(BaseModel):
-    egress_subnet: str = Field(description="Egress subnet to use, in CIDR notation.")
+    egress_subnet: str = Field(description="A string of egress subnets separated by commas, in CIDR notation.")
     nonce: str = Field(
         description=(
             "Uniquely identifying value for this unit."
