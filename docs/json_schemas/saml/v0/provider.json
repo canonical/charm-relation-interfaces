@@ -8,14 +8,21 @@
     "SamlProviderData": {
       "properties": {
         "metadata_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "description": "URL to the IdP's metadata.",
           "examples": [
             "https://login.ubuntu.com/saml/metadata"
           ],
-          "format": "uri",
-          "minLength": 1,
-          "title": "Metadata URL",
-          "type": "string"
+          "title": "Metadata URL"
         },
         "entity_id": {
           "description": "Identifier of the IdP entity.",
