@@ -1,0 +1,226 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "SamlProviderData": {
+      "properties": {
+        "metadata": {
+          "description": "IdP's metadata.",
+          "examples": [
+            "<md:EntityDescriptor xmlns:md=\"urn:oasis:names:tc:SAML:2.0:metadata\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" entityID=\"https://login.ubuntu.com\">\n            <md:IDPSSODescriptor protocolSupportEnumeration=\"urn:oasis:names:tc:SAML:2.0:protocol\">\n            <md:KeyDescriptor use=\"signing\">\n                <ds:KeyInfo xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n                    <ds:X509Data>\n                        <ds:X509Certificate>MIICjzCCAfigAwIBAgIJALNN/vxaR1hyMA0GCSqGSIb3DQEBBQUAMDoxCzAJBgNVBAYTAkdCMRMwEQYDVQQIEwpTb21lLVN0YXRlMRYwFAYDVQQKEw1DYW5vbmljYWwgTHRkMB4XDTEyMDgxMDEyNDE0OFoXDTEzMDgxMDEyNDE0OFowOjELMAkGA1UEBhMCR0IxEzARBgNVBAgTClNvbWUtU3RhdGUxFjAUBgNVBAoTDUNhbm9uaWNhbCBMdGQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMM4pmIxkv419q8zj5EojK57y6plU/+k3apX6w1PgAYeI0zhNuud/tiqKVQEDyZ6W7HNeGtWSh5rewy8c07BShcHG5Y8ibzBdIibGs5k6gvtmsRiXDE/F39+RrPSW18beHhEuoVJM9RANp3MYMOK11SiClSiGo+NfBKFuoqNX3UjAgMBAAGjgZwwgZkwHQYDVR0OBBYEFH/no88pbywRnW6Fz+B4lQ04w/86MGoGA1UdIwRjMGGAFH/no88pbywRnW6Fz+B4lQ04w/86oT6kPDA6MQswCQYDVQQGEwJHQjETMBEGA1UECBMKU29tZS1TdGF0ZTEWMBQGA1UEChMNQ2Fub25pY2FsIEx0ZIIJALNN/vxaR1hyMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEArTGbZ1rg++aBxnNuJ7eho62JKKtRW5O+kMBvBLWi7fKck5uXDE6d7Jv6hUy/gwUZV7r5kuPwRlw3Pu6AX4R60UsQuVG1/VVVI7nu32iCkXx5Vzq446IkVRdk/QOda1dRyq0oaifUUhJfwVFSsm95ENDFdGqD0raj7g77ajcBMf8=</ds:X509Certificate>\n                    </ds:X509Data>\n                </ds:KeyInfo>\n            </md:KeyDescriptor>\n            <md:KeyDescriptor use=\"encryption\">\n                <ds:KeyInfo xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n                    <ds:X509Data>\n                        <ds:X509Certificate>MIICjzCCAfigAwIBAgIJALNN/vxaR1hyMA0GCSqGSIb3DQEBBQUAMDoxCzAJBgNVBAYTAkdCMRMwEQYDVQQIEwpTb21lLVN0YXRlMRYwFAYDVQQKEw1DYW5vbmljYWwgTHRkMB4XDTEyMDgxMDEyNDE0OFoXDTEzMDgxMDEyNDE0OFowOjELMAkGA1UEBhMCR0IxEzARBgNVBAgTClNvbWUtU3RhdGUxFjAUBgNVBAoTDUNhbm9uaWNhbCBMdGQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMM4pmIxkv419q8zj5EojK57y6plU/+k3apX6w1PgAYeI0zhNuud/tiqKVQEDyZ6W7HNeGtWSh5rewy8c07BShcHG5Y8ibzBdIibGs5k6gvtmsRiXDE/F39+RrPSW18beHhEuoVJM9RANp3MYMOK11SiClSiGo+NfBKFuoqNX3UjAgMBAAGjgZwwgZkwHQYDVR0OBBYEFH/no88pbywRnW6Fz+B4lQ04w/86MGoGA1UdIwRjMGGAFH/no88pbywRnW6Fz+B4lQ04w/86oT6kPDA6MQswCQYDVQQGEwJHQjETMBEGA1UECBMKU29tZS1TdGF0ZTEWMBQGA1UEChMNQ2Fub25pY2FsIEx0ZIIJALNN/vxaR1hyMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEArTGbZ1rg++aBxnNuJ7eho62JKKtRW5O+kMBvBLWi7fKck5uXDE6d7Jv6hUy/gwUZV7r5kuPwRlw3Pu6AX4R60UsQuVG1/VVVI7nu32iCkXx5Vzq446IkVRdk/QOda1dRyq0oaifUUhJfwVFSsm95ENDFdGqD0raj7g77ajcBMf8=</ds:X509Certificate>\n                    </ds:X509Data>\n                </ds:KeyInfo>\n            </md:KeyDescriptor>\n            <md:SingleLogoutService Binding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect\" Location=\"https://login.ubuntu.com/+logout\"/>\n            <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:email</md:NameIDFormat>\n            <md:SingleSignOnService Binding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect\" Location=\"https://login.ubuntu.com/saml/\"/>\n            </md:IDPSSODescriptor>\n        </md:EntityDescriptor>"
+          ],
+          "title": "Metadata",
+          "type": "string"
+        },
+        "metadata_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "URL to the IdP's metadata.",
+          "examples": [
+            "https://login.ubuntu.com/saml/metadata"
+          ],
+          "title": "Metadata URL"
+        },
+        "entity_id": {
+          "description": "Identifier of the IdP entity.",
+          "examples": [
+            "https://login.ubuntu.com"
+          ],
+          "format": "uri",
+          "minLength": 1,
+          "title": "Entity ID",
+          "type": "string"
+        },
+        "single_sign_on_service_redirect_url": {
+          "description": "URL target of the IdP where the Authentication REDIRECT Request Message will be sent.",
+          "examples": [
+            "https://login.ubuntu.com/saml/"
+          ],
+          "format": "uri",
+          "minLength": 1,
+          "title": "SSO REDIRECT URL",
+          "type": "string"
+        },
+        "single_sign_on_service_redirect_binding": {
+          "description": "SAML protocol binding to be used when returning the REDIRECT <Response> message.",
+          "examples": [
+            "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+          ],
+          "title": "SSO REDIRECT binding",
+          "type": "string"
+        },
+        "single_sign_on_service_post_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "URL target of the IdP where the Authentication POST Request Message will be sent.",
+          "examples": [
+            "https://login.ubuntu.com/saml/"
+          ],
+          "title": "SSO POST response URL"
+        },
+        "single_sign_on_service_post_binding": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "SAML protocol binding to be used when returning the POST <Response> message.",
+          "examples": [
+            "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Post"
+          ],
+          "title": "SSO POST binding"
+        },
+        "single_logout_service_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "URL Location where the <LogoutRequest> from the IdP will be sent (IdP-initiated logout).",
+          "examples": [
+            "https://example.com/logout"
+          ],
+          "title": "SP Logout URL"
+        },
+        "single_logout_service_redirect_response_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "URL Location where the REDIRECT <LogoutResponse> from the IdP will sent (SP-initiated logout, reply): only specify if different from url parameter.",
+          "examples": [
+            "https://example.com/logout"
+          ],
+          "title": "SSO logout REDIRECT response URL"
+        },
+        "single_logout_service_redirect_binding": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "SAML protocol binding to be used when returning the REDIRECT <Response> message.",
+          "examples": [
+            "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+          ],
+          "title": "SSO logout REDIRECT binding"
+        },
+        "single_logout_service_post_response_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "URL Location where the POST <LogoutResponse> from the IdP will sent (SP-initiated logout, reply): only specify if different from url parameter.",
+          "examples": [
+            "https://example.com/logout"
+          ],
+          "title": "SSO logout POST response URL"
+        },
+        "single_logout_service_post_binding": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "SAML protocol binding to be used when returning the POST <Response> message.",
+          "examples": [
+            "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Post"
+          ],
+          "title": "SSO logout POST binding"
+        },
+        "x509certs": {
+          "description": "Comma separated list of public X.509 certificates of the IdP.",
+          "examples": [
+            "-----BEGIN CERTIFICATE-----\n            MIIC6DCCAdCgAwIBAgIUW42TU9LSjEZLMCclWrvSwAsgRtcwDQYJKoZIhvcNAQEL\n            BQAwIDELMAkGA1UEBhMCVVMxETAPBgNVBAMMCHdoYXRldmVyMB4XDTIzMDMyNDE4\n            NDMxOVoXDTI0MDMyMzE4NDMxOVowPDELMAkGA1UEAwwCb2sxLTArBgNVBC0MJGUw\n            NjVmMWI3LTE2OWEtNDE5YS1iNmQyLTc3OWJkOGM4NzIwNjCCASIwDQYJKoZIhvcN\n            AQEBBQADggEPADCCAQoCggEBAK42ixoklDH5K5i1NxXo/AFACDa956pE5RA57wlC\n            BfgUYaIDRmv7TUVJh6zoMZSD6wjSZl3QgP7UTTZeHbvs3QE9HUwEkH1Lo3a8vD3z\n            eqsE2vSnOkpWWnPbfxiQyrTm77/LAWBt7lRLRLdfL6WcucD3wsGqm58sWXM3HG0f\n            SN7PHCZUFqU6MpkHw8DiKmht5hBgWG+Vq3Zw8MNaqpwb/NgST3yYdcZwb58G2FTS\n            ZvDSdUfRmD/mY7TpciYV8EFylXNNFkth8oGNLunR9adgZ+9IunfRKj1a7S5GSwXU\n            AZDaojw+8k5i3ikztsWH11wAVCiLj/3euIqq95z8xGycnKcCAwEAATANBgkqhkiG\n            9w0BAQsFAAOCAQEAWMvcaozgBrZ/MAxzTJmp5gZyLxmMNV6iT9dcqbwzDtDtBvA/\n            46ux6ytAQ+A7Bd3AubvozwCr1Id6g66ae0blWYRRZmF8fDdX/SBjIUkv7u9A3NVQ\n            XN9gsEvK9pdpfN4ZiflfGSLdhM1STHycLmhG6H5s7HklbukMRhQi+ejbSzm/wiw1\n            ipcxuKhSUIVNkTLusN5b+HE2gwF1fn0K0z5jWABy08huLgbaEKXJEx5/FKLZGJga\n            fpIzAdf25kMTu3gggseaAmzyX3AtT1i8A8nqYfe8fnnVMkvud89kq5jErv/hlMC9\n            49g5yWQR2jilYYM3j9BHDuB+Rs+YS5BCep1JnQ==\n            -----END CERTIFICATE-----"
+          ],
+          "title": "Public IdP certificates",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metadata",
+        "metadata_url",
+        "entity_id",
+        "single_sign_on_service_redirect_url",
+        "single_sign_on_service_redirect_binding",
+        "single_sign_on_service_post_url",
+        "single_sign_on_service_post_binding",
+        "single_logout_service_url",
+        "single_logout_service_redirect_response_url",
+        "single_logout_service_redirect_binding",
+        "single_logout_service_post_response_url",
+        "single_logout_service_post_binding",
+        "x509certs"
+      ],
+      "title": "SamlProviderData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for SAML.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/SamlProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
