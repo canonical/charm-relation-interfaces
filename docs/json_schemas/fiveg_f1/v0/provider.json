@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "FivegF1ProviderAppData": {
+      "properties": {
+        "f1_ip_address": {
+          "description": "IPv4 address of the network interface used for F1 traffic",
+          "examples": [
+            "192.168.70.132"
+          ],
+          "format": "ipvanyaddress",
+          "title": "F1 Ip Address",
+          "type": "string"
+        },
+        "f1_port": {
+          "description": "Number of the port used for F1 traffic",
+          "examples": [
+            2153
+          ],
+          "title": "F1 Port",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "f1_ip_address",
+        "f1_port"
+      ],
+      "title": "FivegF1ProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for fiveg_f1.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/FivegF1ProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
