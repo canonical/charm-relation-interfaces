@@ -43,7 +43,7 @@ from typing import Optional
 
 
 class SamlProviderData(BaseModel):
-    metadata_url: AnyHttpUrl = Field(
+    metadata_url: Optional[AnyHttpUrl] = Field(
         description="URL to the IdP's metadata.",
         title="Metadata URL",
         examples=["https://login.ubuntu.com/saml/metadata"],
