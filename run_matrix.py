@@ -364,7 +364,8 @@ See the workflow {workflow_url} for more detail.
 """
 
     issue = None
-    for existing_issue in repo.get_issues(state="open"):
+    labels = ["Type: Interface Testing"]
+    for existing_issue in repo.get_issues(state="open", labels=labels):
         if f"{interface} {version}" in existing_issue.title:
             issue = existing_issue
             break
@@ -372,13 +373,14 @@ See the workflow {workflow_url} for more detail.
     if issue:
         issue.create_comment(body)
         print(f"GitHub issue updated: {issue.html_url}")
+        if owners:
+            issue.edit(assignees=owners)
+            print(f"GitHub issue assigned to {owners}")
     else:
-        issue = repo.create_issue(title=title, body=body)
+        issue = repo.create_issue(
+            title=title, body=body, assignees=owners, labels=labels
+        )
         print(f"GitHub issue created: {issue.html_url}")
-
-    if owners:
-        issue.edit(assignees=owners)
-        print(f"GitHub issue assigned to {owners}")
 
 
 def flatten_test_result(version_result: "_ResultsPerRole"):
