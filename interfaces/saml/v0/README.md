@@ -24,7 +24,7 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 
 ### Provider
 
-- Is expected to provide the metadata_url in the relation databag.
+- Might provide the metadata_url in the relation databag.
 - Is expected to provide the entity_id in the relation databag.
 - Is expected to provide the single_sign_on_service_redirect_url in the relation databag.
 - Is expected to provide the single_sign_on_service_redirect_binding in the relation databag.
