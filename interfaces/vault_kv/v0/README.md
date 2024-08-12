@@ -34,8 +34,9 @@ Provider expectations
 Requirer expectations
 
 - Is expected to provide a mount suffix.
-- Is expected to provide an egress subnet for each unit requiring access to the vault key value store.
+- Is expected to provide the egress subnets for each unit requiring access to the vault key value store.
   The unit's egress_subnet shall be used to restrict access to the secret backend.
+  The egress_subnet field should contain a string of all desired addresses separated by commas, using CIDR notation.
 - Is expected to provide a nonce, i.e. a string uniquely identifying the unit.
 - Is expected to optionally provide a `wrap_ttl` to request the `role-secret-id` being returned as a response-wrapping token with desired TTL.
 
@@ -82,9 +83,9 @@ requirer:
     mount_suffix: secrets
   unit:
     barbican-0:
-      egress_subnet: 10.1.166.206/32
+      egress_subnet: "10.1.166.206/32,10.1.1.0/32"
       nonce: 3081279da89c48a32923473c2c587019
     barbican-1:
-      egress_subnet: 10.1.166.230/32
+      egress_subnet: "10.1.166.230/32"
       nonce: b49e6098f245344f1035c3aa0e0c9181
 ```
