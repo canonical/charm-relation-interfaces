@@ -321,13 +321,13 @@ def run_interface_tests(
         )
         test_results[interface] = results_per_version
 
-        # Running in GitHub actions with owners set on the test.
+        # Running in GitHub actions with the maintainer set on the test.
         if os.getenv("GITHUB_ACTIONS"):
             for version, tests_per_role in version_to_roles.items():
-                owners = tests_per_role.get("owners")
-                if owners and test_failed(results_per_version[version]):
+                maintainer = tests_per_role.get("maintainer")
+                if maintainer and test_failed(results_per_version[version]):
                     create_issue(
-                        interface, version, results_per_version[version], owners
+                        interface, version, results_per_version[version], maintainer
                     )
 
     if not collected:
@@ -344,8 +344,16 @@ def test_failed(role_result: "_ResultsPerRole"):
     return False
 
 
+def get_team_members_from_team_slug(slug: str) -> List[str]:
+    gh = Github(os.getenv("GITHUB_TOKEN"))
+    team = gh.get_organization("canonical").get_team_by_slug(slug)
+    if not team:
+        return []
+    return [m.login for m in team.get_members() if not m.login.endswith("-bot")]
+
+
 def create_issue(
-    interface: str, version: str, result_per_role: "_ResultsPerRole", owners: List[str]
+    interface: str, version: str, result_per_role: "_ResultsPerRole", maintainer: str
 ):
     gh = Github(os.getenv("GITHUB_TOKEN"))
     repo = gh.get_repo("canonical/charm-relation-interfaces")
@@ -370,15 +378,17 @@ See the workflow {workflow_url} for more detail.
             issue = existing_issue
             break
 
+    team_members = get_team_members_from_team_slug(maintainer)
+
     if issue:
         issue.create_comment(body)
         print(f"GitHub issue updated: {issue.html_url}")
-        if owners:
-            issue.edit(assignees=owners)
-            print(f"GitHub issue assigned to {owners}")
+        if team_members:
+            issue.edit(assignees=team_members)
+            print(f"GitHub issue assigned to {team_members}")
     else:
         issue = repo.create_issue(
-            title=title, body=body, assignees=owners, labels=labels
+            title=title, body=body, assignees=team_members, labels=labels
         )
         print(f"GitHub issue created: {issue.html_url}")
 

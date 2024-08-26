@@ -11,7 +11,7 @@ packages = [ 'interfaces']
 [project]
 name = "charm-relation-interfaces"
 
-version = "0.1"
+version = "0.1.1"
 authors = [
     { name = "Pietro Pasotti", email = "pietro.pasotti@canonical.com" },
     { name = "Simon Aronsson", email = "simon.aronsson@canonical.com" },
@@ -23,7 +23,7 @@ keywords = ["juju", "relation interfaces"]
 
 dependencies = [
     "pydantic>2",
-    "pytest-interface-tester>=3.1.0",
+    "pytest-interface-tester>=3.1.2",
     "PyGithub>=2.3.0"
 ]
 
@@ -41,7 +41,7 @@ unit_tests = [
     "ops>=2.9",
     "PyYAML>=6.0",
     "pytest>=7.3.1",
-    "ops-scenario>=5",
+    "ops-scenario>=7.0.5",
 ]
 
 json_schemas = [
@@ -51,9 +51,9 @@ json_schemas = [
 interface_tests = [
     "PyYAML>=6.0",
     "pytest>=7.3.1",
-    "ops-scenario>=5",
+    "ops-scenario>=7.0.5",
     "requests==2.28.1",
-    "virtualenv==20.21.0"
+    "virtualenv==20.25.1"
 ]
 
 [project.urls]
