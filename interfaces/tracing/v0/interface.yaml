@@ -8,3 +8,16 @@ providers:
     url: https://github.com/canonical/tempo-k8s-operator
 
 requirers: []
+
+owners:
+  - mmkay
+  - Abuelodelanada
+  - simskij
+  - dstathis
+  - PietroPasotti
+  - michaeldmitry
+  - lucabello
+  - ca-scribner
+  - IbraAoad
+  - sed-i
+  - MichaelThamm

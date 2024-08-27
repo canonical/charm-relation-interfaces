@@ -21,3 +21,10 @@ requirers:
     url: https://www.github.com/openstack/charm-glance
   - name: charm-ceph-dashboard
     url: https://www.github.com/openstack/charm-ceph-dashboard
+
+owners:
+  - DanielArndt
+  - kayra1
+  - ghislainbourgeois
+  - gruyaume
+  - saltiyazan

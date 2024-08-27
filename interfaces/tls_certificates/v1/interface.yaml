@@ -4,3 +4,10 @@ status: published
 
 providers: []
 requirers: []
+
+owners:
+  - DanielArndt
+  - kayra1
+  - ghislainbourgeois
+  - gruyaume
+  - saltiyazan

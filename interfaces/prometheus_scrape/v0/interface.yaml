@@ -24,3 +24,16 @@ requirers:
     url: https://www.github.com/canonical/prometheus-k8s-operator
   - name: grafana-agent-k8s
     url: https://www.github.com/canonical/grafana-agent-k8s-operator
+
+owners:
+  - mmkay
+  - Abuelodelanada
+  - simskij
+  - dstathis
+  - PietroPasotti
+  - michaeldmitry
+  - lucabello
+  - ca-scribner
+  - IbraAoad
+  - sed-i
+  - MichaelThamm
