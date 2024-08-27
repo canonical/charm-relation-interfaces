@@ -2,7 +2,7 @@ name: sdcore_config
 internal: true
 
 version: 0
-status: draft
+status: published
 
 providers:
   - name: sdcore-nms-k8s
