@@ -27,7 +27,7 @@ def test_data_on_created():
                     interface='tracing',
                     remote_app_name='remote',
                     remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
+                        "receivers": json.dumps(["otlp_grpc"])
                     }
                 )
             ]
@@ -46,7 +46,7 @@ def test_data_on_joined():
                     interface='tracing',
                     remote_app_name='remote',
                     remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
+                        "receivers": json.dumps(["otlp_grpc"])
                     }
                 )
             ]
@@ -65,7 +65,7 @@ def test_data_on_changed():
                     interface='tracing',
                     remote_app_name='remote',
                     remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
+                        "receivers": json.dumps(["otlp_grpc"])
                     }
                 )
             ]

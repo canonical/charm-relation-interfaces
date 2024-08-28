@@ -5,30 +5,36 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 from enum import Enum
-from typing import Optional, Dict, Any, Literal
+from typing import Optional, Dict, Any, Literal, MutableMapping, List
+
+import json
 
 from interface_tester.schema_base import DataBagSchema
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, Json
 
 
 class TempoClusterProviderAppData(BaseModel):
     """TempoClusterProviderAppData."""
-    tempo_config: str = Field(
+    worker_config: Json[str] = Field(
         description="The tempo configuration that the requirer should run with."
                     "Yaml-encoded. Must conform to the schema that the presently deployed "
                     "workload version supports; for example see: "
                     "https://grafana.com/docs/tempo/latest/configuration/#configure-tempo."
     )
-    loki_endpoints: Optional[Dict[str, str]] = Field(
+    loki_endpoints: Optional[Json[Dict[str, str]]] = Field(
         default=None,
         description="List of loki-push-api endpoints to which the worker node can push any logs it generates.")
-    ca_cert: Optional[str] = Field(default=None, description="CA certificate for tls encryption.")
-    server_cert: Optional[str] = Field(default=None, description="Server certificate for tls encryption.")
-    privkey_secret_id: Optional[str] = Field(
+    ca_cert: Optional[Json[str]] = Field(default=None, description="CA certificate for tls encryption.")
+    server_cert: Optional[Json[str]] = Field(default=None, description="Server certificate for tls encryption.")
+    privkey_secret_id: Optional[Json[str]] = Field(
         default=None,
         description="Private key used by the coordinator, for tls encryption."
     )
-    tempo_receiver: Optional[Dict[str, str]] = Field(
+    remote_write_endpoints: Optional[Json[List[Dict[str, str]]]] = Field(
+        default=None,
+        description="Endpoints to which the workload (and the worker charm) can push metrics to."
+    )
+    tempo_receiver: Optional[Json[Dict[str, str]]] = Field(
         default=None,
         description="Tempo receiver protocols to which the worker node can push any traces it generates."
                     "It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`."
@@ -38,20 +44,18 @@ class TempoClusterProviderAppData(BaseModel):
     )
 
 
-class JujuTopology(BaseModel):
+class _Topology(BaseModel):
     """JujuTopology as defined by cos-lib."""
-    model: str
-    model_uuid: str
     application: str
-    charm_name: str
-    unit: str
+    charm_name: Optional[str]
+    unit: Optional[str]
 
 
 class TempoClusterRequirerUnitData(BaseModel):
     """TempoClusterRequirerUnitData."""
 
-    juju_topology: JujuTopology
-    address: str
+    juju_topology: Json[_Topology]
+    address: Json[str]
 
 
 class TempoRole(str, Enum):
@@ -76,7 +80,7 @@ class TempoRole(str, Enum):
 class TempoClusterRequirerAppData(BaseModel):
     """TempoClusterRequirerAppData."""
 
-    role: TempoRole
+    role: Json[TempoRole]
 
 
 class ProviderSchema(DataBagSchema):
