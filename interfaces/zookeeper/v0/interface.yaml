@@ -1,3 +1,7 @@
+name: zookeeper
+version: 0
+status: draft
+
 providers:
   # - name: zookeeper
   #   url: https://github.com/canonical/zookeeper-operator
