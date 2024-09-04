@@ -1,3 +1,4 @@
 interfaces:
   - your-interface-here
   - tempo_cluster
+  - logging
