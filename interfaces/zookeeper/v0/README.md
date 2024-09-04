@@ -27,6 +27,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
 - Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
+- If the Requirer both requested the `tls-ca` and provided `secret-mtls`, the Provider should use enable mTLS.
 
 ### Requirer
 
@@ -37,6 +38,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 - Is expected to allow multiple different Juju applications to access the same zNode.
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the zNode received.
 - Can optionally provide the `extra-user-roles` field specifying a ACL string for the client application.
+- Can optionally provide the mTLS Juju Secret Uri through the `secret-mtls` field of the databag
 
 ## Relation Data
 

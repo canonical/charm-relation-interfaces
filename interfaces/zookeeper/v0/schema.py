@@ -76,7 +76,7 @@ class ZookeeperRequirerAppData(BaseModel):
         alias="extra-user-roles",
         description="ACL string representation for the parent chroot",
         examples=["cdrwa"],
-        title="User roles"
+        title="User roles",
     )
 
     requested_secrets: list[str] = Field(
@@ -84,6 +84,13 @@ class ZookeeperRequirerAppData(BaseModel):
         description="Any provider field which should be transfered as Juju Secret",
         examples=[["username", "password", "tls-ca", "uris"]],
         title="Requested secrets",
+    )
+
+    secret_mtls: str | None = Field(
+        alias="secret-mtls",
+        description="The name of the mTLS secret to use. Leaving this empty will configure the provider to not use mTLS.",
+        examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"],
+        title="mTLS Secret Name"
     )
 
 
