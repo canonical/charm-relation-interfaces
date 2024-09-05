@@ -5,11 +5,10 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from typing import Annotated
+from typing import Annotated, TypeAlias
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import (
-    AfterValidator,
     BaseModel,
     Field,
     IPvAnyAddress,
@@ -28,14 +27,10 @@ class Endpoint(BaseModel):
         super().__init__(ip=ip, port=port)
 
 
-def parse_endpoints(value: str):
-    [Endpoint(val) for val in value.split(",")]
+Endpoints: TypeAlias = str
 
 
-Endpoints = Annotated[str, AfterValidator(parse_endpoints)]
-
-
-class ZookeeperProviderAppData(BaseModel):
+class ZooKeeperProviderAppData(BaseModel):
     database: str = Field(
         description="The parent chroot zNode granted to the requirer",
         examples=["/myappB"],
@@ -64,7 +59,7 @@ class ZookeeperProviderAppData(BaseModel):
     )
 
 
-class ZookeeperRequirerAppData(BaseModel):
+class ZooKeeperRequirerAppData(BaseModel):
     database: str = Field(
         description="The parent chroot zNode requested by the requirer",
         examples=["/myappA"],
@@ -90,17 +85,17 @@ class ZookeeperRequirerAppData(BaseModel):
         alias="secret-mtls",
         description="The name of the mTLS secret to use. Leaving this empty will configure the provider to not use mTLS.",
         examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"],
-        title="mTLS Secret Name"
+        title="mTLS Secret Name",
     )
 
 
 class ProviderSchema(DataBagSchema):
     """The schema for the provider side of this interface."""
 
-    app: ZookeeperProviderAppData
+    app: ZooKeeperProviderAppData
 
 
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of this interface."""
 
-    app: ZookeeperRequirerAppData
+    app: ZooKeeperRequirerAppData

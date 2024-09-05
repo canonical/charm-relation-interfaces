@@ -5,7 +5,7 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "ZookeeperRequirerAppData": {
+    "ZooKeeperRequirerAppData": {
       "properties": {
         "database": {
           "description": "The parent chroot zNode requested by the requirer",
@@ -68,7 +68,7 @@
         "requested-secrets",
         "secret-mtls"
       ],
-      "title": "ZookeeperRequirerAppData",
+      "title": "ZooKeeperRequirerAppData",
       "type": "object"
     }
   },
@@ -86,7 +86,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/ZookeeperRequirerAppData"
+      "$ref": "#/$defs/ZooKeeperRequirerAppData"
     }
   },
   "required": [
