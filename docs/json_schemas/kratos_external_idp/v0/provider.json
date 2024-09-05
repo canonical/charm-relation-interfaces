@@ -16,11 +16,7 @@
           "type": "string"
         },
         "secret_backend": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/SecretBackend"
-            }
-          ],
+          "$ref": "#/$defs/SecretBackend",
           "default": "relation"
         },
         "provider": {

@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "Certificate": {
+      "description": "Certificate model.",
+      "properties": {
+        "ca": {
+          "description": "The signing certificate authority.",
+          "title": "Ca",
+          "type": "string"
+        },
+        "certificate_signing_request": {
+          "description": "Certificate signing request.",
+          "title": "Certificate Signing Request",
+          "type": "string"
+        },
+        "certificate": {
+          "description": "Certificate.",
+          "title": "Certificate",
+          "type": "string"
+        },
+        "chain": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "List of certificates in the chain.",
+          "title": "Chain"
+        },
+        "recommended_expiry_notification_time": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Recommended expiry notification time in seconds.",
+          "title": "Recommended Expiry Notification Time"
+        },
+        "revoked": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Whether the certificate is revoked.",
+          "title": "Revoked"
+        }
+      },
+      "required": [
+        "ca",
+        "certificate_signing_request",
+        "certificate",
+        "chain",
+        "recommended_expiry_notification_time",
+        "revoked"
+      ],
+      "title": "Certificate",
+      "type": "object"
+    },
+    "ProviderApplicationData": {
+      "description": "Provider application data model.",
+      "properties": {
+        "certificates": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "$ref": "#/$defs/Certificate"
+            },
+            "type": "array"
+          },
+          "description": "List of certificates.",
+          "title": "Certificates",
+          "type": "string"
+        }
+      },
+      "required": [
+        "certificates"
+      ],
+      "title": "ProviderApplicationData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for TLS Certificates.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ProviderApplicationData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

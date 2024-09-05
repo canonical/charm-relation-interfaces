@@ -90,6 +90,12 @@ class TracingProviderData(BaseModel):
     )
 
 
+class TracingRequirerData(BaseModel):
+    receivers: Json[List[str]] = Field(
+        ..., description="List of protocols that the requirer wishes to use."
+    )
+
+
 class ProviderSchema(DataBagSchema):
     """Provider schema for Tracing."""
 
@@ -99,6 +105,4 @@ class ProviderSchema(DataBagSchema):
 class RequirerSchema(DataBagSchema):
     """Requirer schema for Tracing."""
 
-    receivers: Json[List[str]] = Field(
-        ..., description="List of protocols that the requirer wishes to use."
-    )
+    app: TracingRequirerData
