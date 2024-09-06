@@ -3,14 +3,15 @@ version: 0
 status: draft
 
 providers:
-  # - name: zookeeper
-  #   url: https://github.com/canonical/zookeeper-operator
+  - name: zookeeper
+    url: https://github.com/canonical/zookeeper-operator
   - name: zookeeper-k8s
     url: https://github.com/canonical/zookeeper-k8s-operator
-    branch: feat/interface-tester
 
-requirers: []
-  # - name: kafka
-  #   url: https://github.com/canonical/kafka-operator
-  # - name: kafka-k8s
-  #   url: https://github.com/canonical/kafka-k8s-operator
+requirers:
+  - name: kafka
+    url: https://github.com/canonical/kafka-operator
+  - name: kafka-k8s
+    url: https://github.com/canonical/kafka-k8s-operator
+  - name: kyuubi-k8s-operator
+    url: https://github.com/canonical/kyuubi-k8s-operator
