@@ -45,7 +45,7 @@ class ZooKeeperProviderAppData(BaseModel):
 
     secret_user: str = Field(
         alias="secret-user",
-        description="",
+        description="The credentials to connect to ZooKeeper. The secret contains [user,password,uris].",
         examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"],
         title="Credentials Secret Name",
     )
@@ -53,7 +53,7 @@ class ZooKeeperProviderAppData(BaseModel):
     secret_tls: str | None = Field(
         None,
         alias="secret-tls",
-        description="The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled.",
+        description="The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled. The secret contains [tls].",
         examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"],
         title="TLS Secret Name",
     )

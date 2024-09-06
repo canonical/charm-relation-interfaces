@@ -24,7 +24,7 @@
           "type": "string"
         },
         "secret-user": {
-          "description": "",
+          "description": "The credentials to connect to ZooKeeper. The secret contains [user,password,uris].",
           "examples": [
             "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"
           ],
@@ -41,7 +41,7 @@
             }
           ],
           "default": null,
-          "description": "The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled.",
+          "description": "The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled. The secret contains [tls].",
           "examples": [
             "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
           ],
