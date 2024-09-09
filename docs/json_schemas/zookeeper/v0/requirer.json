@@ -46,27 +46,11 @@
           },
           "title": "Requested secrets",
           "type": "array"
-        },
-        "secret-mtls": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The name of the mTLS secret to use. Leaving this empty will configure the provider to not use mTLS.",
-          "examples": [
-            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
-          ],
-          "title": "mTLS Secret Name"
         }
       },
       "required": [
         "database",
-        "requested-secrets",
-        "secret-mtls"
+        "requested-secrets"
       ],
       "title": "ZooKeeperRequirerAppData",
       "type": "object"
