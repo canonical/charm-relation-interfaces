@@ -1,0 +1,48 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "FivegRFSIMProviderAppData": {
+      "properties": {
+        "rfsim_address": {
+          "description": "RF simulator service address of DU including DU pod ip and port",
+          "examples": [
+            "192.168.70.130:4043"
+          ],
+          "title": "Rfsim Address",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rfsim_address"
+      ],
+      "title": "FivegRFSIMProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for the fiveg_rfsim interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/FivegRFSIMProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
