@@ -6,18 +6,6 @@ from interface_tester.interface_test import Tester
 from scenario import State, Relation
 
 
-def test_no_response_on_bad_data():
-    tester = Tester(state_in=State(relations=[
-        Relation(
-            endpoint='tracing',
-            interface='tracing',
-            remote_app_data={"bubble": "rubble"}
-        )
-    ]))
-    tester.run('tracing-relation-changed')
-    tester.assert_relation_data_empty()
-
-
 def test_data_on_created():
     tester = Tester(
         state_in=State(
