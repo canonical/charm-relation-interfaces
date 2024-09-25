@@ -9,23 +9,24 @@ Find some relevant documentation at:
 Copy this test to `test_provider.py` and fill in the blanks however appropriate for your interfaces
 
 ```python
-from scenario import Relation, State
 from interface_tester import Tester
+import scenario
+import scenario.context
 
 def test_data_published_on_changed_remote_valid():
     # GIVEN a relation over <interface> containing all the right data 
     #  in the right format for the <requirer side>:
-    relation = Relation(
+    relation = scenario.Relation(
         endpoint='ingress',
         interface='ingress', remote_app_name='remote',
         remote_app_data={'foo': '"bar"', 'baz': '42', 'qux': '"www.lol.com:4242"', },
         remote_units_data={0: {'fizz': 'buzz', }})
     t = Tester(
-        State(relations=[relation])
+        scenario.State(relations=[relation])
     )
     
     # WHEN the <provider side> receives a <endpoint-changed-event> event:
-    t.run(relation.changed_event)
+    t.run(scenario.context.CharmEvents.relation_changed(relation))
     
     # THEN the <provider side> also publishes valid data to its side of the relation 
     #  (if applicable)

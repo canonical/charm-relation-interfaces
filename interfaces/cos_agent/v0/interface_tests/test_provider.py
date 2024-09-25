@@ -3,8 +3,7 @@
 
 import json
 from interface_tester import Tester
-from scenario import State, Relation
-
+import scenario.context
 
 def test_no_data_on_created():
     t = Tester()
@@ -84,11 +83,11 @@ valid_unit_data = {
 valid_unit_data["config"] = json.dumps(valid_unit_data["config"])
 
 def test_on_changed_with_existing_valid_data():
-    relation = Relation(
+    relation = scenario.Relation(
         endpoint="cos-agent",
         interface="cos-agent",
         local_unit_data=valid_unit_data,
     )
-    t = Tester(State(relations=[relation]))
-    state_out = t.run(relation.changed_event)
+    t = Tester(scenario.State(relations=[relation]))
+    state_out = t.run(scenario.context.CharmEvents.relation_changed(relation))
     t.assert_schema_valid()

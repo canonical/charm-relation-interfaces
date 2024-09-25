@@ -3,7 +3,8 @@
 
 import json
 from interface_tester import Tester
-from scenario import Relation, State
+import scenario
+import scenario.context
 
 
 def test_no_data_on_created():
@@ -73,12 +74,12 @@ valid_app_data["scrape_jobs"] = json.dumps(valid_app_data["scrape_jobs"])
 valid_app_data["alert_rules"] = json.dumps(valid_app_data["alert_rules"])
 
 def test_on_changed_with_existing_valid_data():
-    relation = Relation(
+    relation = scenario.Relation(
         endpoint="prometheus_scrape",
         interface="prometheus_scrape",
         local_app_data=valid_app_data,
         local_unit_data=valid_unit_data,
     )
-    t = Tester(State(relations=[relation]))
-    state_out = t.run(relation.changed_event)
+    t = Tester(scenario.State(relations=[relation]))
+    state_out = t.run(scenario.context.CharmEvents.relation_changed(relation))
     t.assert_schema_valid()
