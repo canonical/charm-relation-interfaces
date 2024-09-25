@@ -11,7 +11,6 @@ Copy this test to `test_provider.py` and fill in the blanks however appropriate 
 ```python
 from interface_tester import Tester
 import scenario
-import scenario.context
 
 def test_data_published_on_changed_remote_valid():
     # GIVEN a relation over <interface> containing all the right data 

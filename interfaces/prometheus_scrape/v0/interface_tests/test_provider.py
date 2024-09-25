@@ -2,9 +2,9 @@
 # See LICENSE file for licensing details.
 
 import json
-from interface_tester import Tester
+
 import scenario
-import scenario.context
+from interface_tester import Tester
 
 
 def test_no_data_on_created():
@@ -67,11 +67,12 @@ valid_app_data = {
 valid_unit_data = {
     "prometheus_scrape_unit_address": "example-app-0.example-model-endpoints.default.svc.cluster.local",
     "prometheus_scrape_unit_name": "example-app/0",
-    "prometheus_scrape_unit_path": '',
+    "prometheus_scrape_unit_path": "",
 }
 valid_app_data["scrape_metadata"] = json.dumps(valid_app_data["scrape_metadata"])
 valid_app_data["scrape_jobs"] = json.dumps(valid_app_data["scrape_jobs"])
 valid_app_data["alert_rules"] = json.dumps(valid_app_data["alert_rules"])
+
 
 def test_on_changed_with_existing_valid_data():
     relation = scenario.Relation(

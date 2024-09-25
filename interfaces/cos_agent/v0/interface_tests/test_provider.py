@@ -2,8 +2,10 @@
 # See LICENSE file for licensing details.
 
 import json
+
+import scenario
 from interface_tester import Tester
-import scenario.context
+
 
 def test_no_data_on_created():
     t = Tester()
@@ -16,10 +18,12 @@ def test_no_data_on_joined():
     state_out = t.run("cos-agent-relation-joined")
     t.assert_schema_valid()
 
+
 def test_no_data_on_changed():
     t = Tester()
     state_out = t.run("cos-agent-relation-changed")
     t.assert_schema_valid()
+
 
 valid_unit_data = {
     "config": {
@@ -81,6 +85,7 @@ valid_unit_data = {
 }
 
 valid_unit_data["config"] = json.dumps(valid_unit_data["config"])
+
 
 def test_on_changed_with_existing_valid_data():
     relation = scenario.Relation(
