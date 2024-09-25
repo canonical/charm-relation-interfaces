@@ -5,12 +5,10 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 from enum import Enum
-from typing import Optional, Dict, Any, Literal, MutableMapping, List
-
-import json
+from typing import Optional, Dict, List
 
 from interface_tester.schema_base import DataBagSchema
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, Json
+from pydantic import BaseModel, Field, Json
 
 
 class TempoClusterProviderAppData(BaseModel):
