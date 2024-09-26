@@ -101,11 +101,7 @@
           "type": "integer"
         },
         "record_class": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/RecordClass"
-            }
-          ],
+          "$ref": "#/$defs/RecordClass",
           "default": null,
           "description": "The DNS record class.",
           "examples": [
@@ -114,11 +110,7 @@
           "name": "Record class"
         },
         "record_type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/RecordType"
-            }
-          ],
+          "$ref": "#/$defs/RecordType",
           "default": null,
           "description": "The DNS record type.",
           "examples": [

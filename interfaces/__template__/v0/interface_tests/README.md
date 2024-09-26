@@ -10,6 +10,7 @@ Copy this test to `test_provider.py` and fill in the blanks however appropriate 
 
 ```python
 from scenario import Relation, State
+from scenario.context import CharmEvents
 from interface_tester import Tester
 
 def test_data_published_on_changed_remote_valid():
@@ -25,7 +26,7 @@ def test_data_published_on_changed_remote_valid():
     )
     
     # WHEN the <provider side> receives a <endpoint-changed-event> event:
-    t.run(relation.changed_event)
+    t.run(CharmEvents.relation_changed(relation))
     
     # THEN the <provider side> also publishes valid data to its side of the relation 
     #  (if applicable)
