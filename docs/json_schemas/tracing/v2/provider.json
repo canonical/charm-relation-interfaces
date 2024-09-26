@@ -20,11 +20,7 @@
           "type": "string"
         },
         "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TransportProtocolType"
-            }
-          ],
+          "$ref": "#/$defs/TransportProtocolType",
           "description": "The transport protocol used by this receiver.",
           "examples": [
             "http",
@@ -43,11 +39,7 @@
       "description": "Specification of an active receiver.",
       "properties": {
         "protocol": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/ProtocolType"
-            }
-          ],
+          "$ref": "#/$defs/ProtocolType",
           "description": "Receiver protocol name and type."
         },
         "url": {
