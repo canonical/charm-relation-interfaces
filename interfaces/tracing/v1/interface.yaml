@@ -1,11 +1,9 @@
 name: tracing
 
 version: 1
-status: published
+status: retired
 
-providers:
-  - name: tempo-k8s
-    url: https://github.com/canonical/tempo-k8s-operator
+providers: []
 
 requirers: []
 
