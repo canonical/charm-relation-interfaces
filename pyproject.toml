@@ -11,7 +11,7 @@ packages = [ 'interfaces']
 [project]
 name = "charm-relation-interfaces"
 
-version = "0.1"
+version = "0.1.1"
 authors = [
     { name = "Pietro Pasotti", email = "pietro.pasotti@canonical.com" },
     { name = "Simon Aronsson", email = "simon.aronsson@canonical.com" },
