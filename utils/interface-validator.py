@@ -8,7 +8,7 @@ import re
 
 from enum import Enum
 from typing import List, Optional
-from pydantic import AnyHttpUrl, BaseModel, Field, ValidationError, ConfigDict
+from pydantic import AnyHttpUrl, BaseModel, ValidationError, ConfigDict
 
 class text:
    BOLD = '\033[1m'

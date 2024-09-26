@@ -3,6 +3,7 @@
 
 from interface_tester import Tester
 from scenario import State, Relation
+from scenario.context import CharmEvents
 
 
 def test_no_data_on_created():
@@ -45,7 +46,7 @@ def test_data_published_on_changed_remote_valid():
         relations=[relation]
     )
     )
-    state_out = t.run(relation.changed_event)
+    state_out = t.run(CharmEvents.relation_changed(relation))
     t.assert_schema_valid()
 
 
@@ -59,7 +60,7 @@ def test_data_published_on_changed_remote_invalid_json():
               relations=[ingress]
               )
     )
-    state_out = t.run(ingress.changed_event)
+    state_out = t.run(CharmEvents.relation_changed(ingress))
     t.assert_relation_data_empty()
 
 
@@ -73,6 +74,6 @@ def test_data_published_on_changed_remote_invalid():
               relations=[ingress]
               )
     )
-    state_out = t.run(ingress.changed_event)
+    state_out = t.run(CharmEvents.relation_changed(ingress))
     t.assert_relation_data_empty()
 
