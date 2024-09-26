@@ -4,6 +4,27 @@
       "properties": {},
       "title": "BaseModel",
       "type": "object"
+    },
+    "TracingRequirerData": {
+      "properties": {
+        "receivers": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "description": "List of protocols that the requirer wishes to use.",
+          "title": "Receivers",
+          "type": "string"
+        }
+      },
+      "required": [
+        "receivers"
+      ],
+      "title": "TracingRequirerData",
+      "type": "object"
     }
   },
   "description": "Requirer schema for Tracing.",
@@ -20,31 +41,11 @@
       "default": null
     },
     "app": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/BaseModel"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null
-    },
-    "receivers": {
-      "contentMediaType": "application/json",
-      "contentSchema": {
-        "items": {
-          "type": "string"
-        },
-        "type": "array"
-      },
-      "description": "List of protocols that the requirer wishes to use.",
-      "title": "Receivers",
-      "type": "string"
+      "$ref": "#/$defs/TracingRequirerData"
     }
   },
   "required": [
-    "receivers"
+    "app"
   ],
   "title": "RequirerSchema",
   "type": "object"
