@@ -4,7 +4,7 @@
 
 Within 5G RAN (Radio Access Network) architecture, the OAI DU charm can be started to act as both the DU and the RU through its RF simulator functionality. 
 
-The OAI UE charm requires RF simulator address in order to connect. Hence, the provider of this interface would be an OAI DU charm and the requirer of this interface would be the OAI UE charm.
+The OAI UE charm requires RF simulator address in order to connect. Hence, the provider of this interface would be a OAI DU charm and the requirer of this interface would be the OAI UE charm.
 
 This relation interface describes the expected behavior of charms claiming to be able to provide or consume information on connectivity over the fiveg_rfsim interface.
 
@@ -38,7 +38,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ```yaml
 provider:
   app: {
-    "rfsim_address": "192.168.70.130:4043",
+    "rfsim_address": "192.168.70.130",
   }
   unit: {}
 requirer:

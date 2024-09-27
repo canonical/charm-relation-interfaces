@@ -6,7 +6,7 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-            "rfsim_address": "192.168.70.130:4043",
+            "rfsim_address": "192.168.70.130",
         }
     RequirerSchema:
         unit: <empty>
@@ -20,10 +20,9 @@ from interface_tester.schema_base import DataBagSchema
 
 class FivegRFSIMProviderAppData(BaseModel):
     rfsim_address: str = Field(
-        description="RF simulator service address of DU including DU pod ip and port",
-        examples=["192.168.70.130:4043"]
+        description="RF simulator service address which is equal to DU pod ip",
+        examples=["192.168.70.130"]
     )
-
 
 class ProviderSchema(DataBagSchema):
     """Provider schema for the fiveg_rfsim interface."""
