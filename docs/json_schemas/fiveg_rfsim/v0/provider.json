@@ -8,7 +8,7 @@
     "FivegRFSIMProviderAppData": {
       "properties": {
         "rfsim_address": {
-          "description": "RF simulator service address which is equal to DU pod ip",
+          "description": "RF simulator service ip",
           "examples": [
             "192.168.70.130"
           ],

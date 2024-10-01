@@ -23,7 +23,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide the DU's `rfsim` service address including pod ip and service port.
+- Is expected to provide the DU's `rfsim` service ip.
 
 ### Requirer
 

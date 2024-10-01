@@ -20,7 +20,7 @@ from interface_tester.schema_base import DataBagSchema
 
 class FivegRFSIMProviderAppData(BaseModel):
     rfsim_address: str = Field(
-        description="RF simulator service address which is equal to DU pod ip",
+        description="RF simulator service ip",
         examples=["192.168.70.130"]
     )
 
