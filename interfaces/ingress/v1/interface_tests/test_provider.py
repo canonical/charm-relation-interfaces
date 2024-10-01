@@ -4,6 +4,7 @@ import yaml
 
 from interface_tester import Tester
 from scenario import State, Relation
+from scenario.context import CharmEvents
 
 
 def test_no_data_on_created():
@@ -43,7 +44,7 @@ def test_data_published_on_changed_remote_valid():
         remote_app_data={'host': '"0.0.0.42"', 'model': '"bar"', 'name': '"remote/0"', 'port': '42'}
     )
     t = Tester(State(leader=True, relations=[ingress]))
-    state_out = t.run(ingress.changed_event)
+    state_out = t.run(CharmEvents.relation_changed(ingress))
     t.assert_schema_valid()
 
 

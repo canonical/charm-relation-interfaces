@@ -4,6 +4,7 @@
 import json
 from interface_tester import Tester
 from scenario import State, Relation
+from scenario.context import CharmEvents
 
 
 def test_no_data_on_created():
@@ -90,5 +91,5 @@ def test_on_changed_with_existing_valid_data():
         local_unit_data=valid_unit_data,
     )
     t = Tester(State(relations=[relation]))
-    state_out = t.run(relation.changed_event)
+    state_out = t.run(CharmEvents.relation_changed(relation))
     t.assert_schema_valid()
