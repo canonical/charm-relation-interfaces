@@ -4,8 +4,6 @@ version: 2
 status: published
 
 providers:
-  - name: tempo-k8s
-    url: https://github.com/canonical/tempo-k8s-operator
   - name: tempo-coordinator-k8s
     url: https://github.com/canonical/tempo-coordinator-k8s-operator
     test_setup:
