@@ -13,3 +13,6 @@ providers:
 requirers:
   - name: tempo-worker-k8s
     url: https://github.com/canonical/tempo-worker-k8s-operator
+
+maintainer: observability
+

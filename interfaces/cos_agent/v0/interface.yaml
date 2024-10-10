@@ -13,3 +13,5 @@ providers:
 requirers:
   - name: grafana-agent
     url: https://github.com/canonical/grafana-agent-operator
+
+maintainer: observability
