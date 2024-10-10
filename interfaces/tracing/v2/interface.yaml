@@ -15,3 +15,5 @@ providers:
 #    url: https://github.com/canonical/grafana-agent-k8s-operator
 
 requirers: []
+
+maintainer: observability
