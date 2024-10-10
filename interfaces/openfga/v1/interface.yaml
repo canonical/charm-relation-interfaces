@@ -4,3 +4,5 @@ status: published
 
 providers: []
 requirers: []
+
+maintainer: identity
