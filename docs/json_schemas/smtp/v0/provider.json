@@ -84,11 +84,7 @@
           "title": "Password ID"
         },
         "auth_type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/AuthType"
-            }
-          ],
+          "$ref": "#/$defs/AuthType",
           "description": "The type used to authenticate with the SMTP relay.",
           "examples": [
             "none"
@@ -96,11 +92,7 @@
           "title": "Auth type"
         },
         "transport_security": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/TransportSecurity"
-            }
-          ],
+          "$ref": "#/$defs/TransportSecurity",
           "description": "The security protocol to use for the SMTP relay.",
           "examples": [
             "none"

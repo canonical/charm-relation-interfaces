@@ -1,44 +1,15 @@
 {
   "$defs": {
-    "JujuTopology": {
-      "description": "JujuTopology as defined by cos-lib.",
-      "properties": {
-        "model": {
-          "title": "Model",
-          "type": "string"
-        },
-        "model_uuid": {
-          "title": "Model Uuid",
-          "type": "string"
-        },
-        "application": {
-          "title": "Application",
-          "type": "string"
-        },
-        "charm_name": {
-          "title": "Charm Name",
-          "type": "string"
-        },
-        "unit": {
-          "title": "Unit",
-          "type": "string"
-        }
-      },
-      "required": [
-        "model",
-        "model_uuid",
-        "application",
-        "charm_name",
-        "unit"
-      ],
-      "title": "JujuTopology",
-      "type": "object"
-    },
     "TempoClusterRequirerAppData": {
       "description": "TempoClusterRequirerAppData.",
       "properties": {
         "role": {
-          "$ref": "#/$defs/TempoRole"
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/TempoRole"
+          },
+          "title": "Role",
+          "type": "string"
         }
       },
       "required": [
@@ -51,9 +22,18 @@
       "description": "TempoClusterRequirerUnitData.",
       "properties": {
         "juju_topology": {
-          "$ref": "#/$defs/JujuTopology"
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/_Topology"
+          },
+          "title": "Juju Topology",
+          "type": "string"
         },
         "address": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "type": "string"
+          },
           "title": "Address",
           "type": "string"
         }
@@ -78,6 +58,44 @@
       ],
       "title": "TempoRole",
       "type": "string"
+    },
+    "_Topology": {
+      "description": "JujuTopology as defined by cos-lib.",
+      "properties": {
+        "application": {
+          "title": "Application",
+          "type": "string"
+        },
+        "charm_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Charm Name"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "application",
+        "charm_name",
+        "unit"
+      ],
+      "title": "_Topology",
+      "type": "object"
     }
   },
   "description": "The schema for the requirer side of this interface.",

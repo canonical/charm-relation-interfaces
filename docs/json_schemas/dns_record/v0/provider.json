@@ -35,11 +35,7 @@
           "type": "string"
         },
         "status": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Status"
-            }
-          ],
+          "$ref": "#/$defs/Status",
           "description": "Status for the domain request.",
           "examples": [
             "approved",

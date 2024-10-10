@@ -29,6 +29,7 @@ compatible with the interface.
 - Is expected to generate (or use an existing) private-key
 - Is expected to provide a list of CSR's for which it requires certificates
 - Is expected to specify whether the certificate request is for a Certificate Authority (CA) or not
+- Is expected to use the appropriate databag depending on whether the Certificate is meant to be used by the unit or by the application.
 - Is expected to stop using a certificate when revoked by the Provider
 
 ### Provider
@@ -41,8 +42,6 @@ compatible with the interface.
 ## Relation Data
 
 ### Requirer
-
-[\[JSON Schema\]](./schemas/requirer.json)
 
 The requirer specifies a set of certificate signing requests (CSR's).
 
@@ -65,8 +64,6 @@ The requirer specifies a set of certificate signing requests (CSR's).
 ```
 
 ### Provider
-
-[\[JSON Schema\]](./schemas/provider.json)
 
 The provider replies with a certificate, a CA Certificate and a CA chain for each of the
 Certificate Signing Requests requested by the requirer.
