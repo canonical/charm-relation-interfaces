@@ -5,9 +5,4 @@ status: draft
 providers: []
 requirers: []
 
-owners:
-  - DanielArndt
-  - kayra1
-  - ghislainbourgeois
-  - gruyaume
-  - saltiyazan
+maintainer: tls

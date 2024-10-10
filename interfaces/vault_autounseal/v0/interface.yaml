@@ -12,9 +12,4 @@ requirers:
   - name: vault-k8s
     url: https://github.com/canonical/vault-k8s-operator
 
-owners:
-  - DanielArndt
-  - kayra1
-  - ghislainbourgeois
-  - gruyaume
-  - saltiyazan
+maintainer: tls

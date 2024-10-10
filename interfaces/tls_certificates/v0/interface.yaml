@@ -22,9 +22,4 @@ requirers:
   - name: charm-ceph-dashboard
     url: https://www.github.com/openstack/charm-ceph-dashboard
 
-owners:
-  - DanielArndt
-  - kayra1
-  - ghislainbourgeois
-  - gruyaume
-  - saltiyazan
+maintainer: tls

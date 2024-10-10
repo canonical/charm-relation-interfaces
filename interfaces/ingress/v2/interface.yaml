@@ -8,15 +8,4 @@ providers:
 
 requirers: []
 
-owners:
-  - mmkay
-  - Abuelodelanada
-  - simskij
-  - dstathis
-  - PietroPasotti
-  - michaeldmitry
-  - lucabello
-  - ca-scribner
-  - IbraAoad
-  - sed-i
-  - MichaelThamm
+maintainer: observability

@@ -12,15 +12,4 @@ requirers:
   - name: mimir-worker
     url: https://github.com/canonical/mimir-worker-k8s-operator
 
-owners:
-  - mmkay
-  - Abuelodelanada
-  - simskij
-  - dstathis
-  - PietroPasotti
-  - michaeldmitry
-  - lucabello
-  - ca-scribner
-  - IbraAoad
-  - sed-i
-  - MichaelThamm
+maintainer: observability

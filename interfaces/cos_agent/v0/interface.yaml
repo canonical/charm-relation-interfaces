@@ -14,15 +14,4 @@ requirers:
   - name: grafana-agent
     url: https://github.com/canonical/grafana-agent-operator
 
-owners:
-  - mmkay
-  - Abuelodelanada
-  - simskij
-  - dstathis
-  - PietroPasotti
-  - michaeldmitry
-  - lucabello
-  - ca-scribner
-  - IbraAoad
-  - sed-i
-  - MichaelThamm
+maintainer: observability
