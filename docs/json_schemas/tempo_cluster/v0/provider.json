@@ -8,18 +8,26 @@
     "TempoClusterProviderAppData": {
       "description": "TempoClusterProviderAppData.",
       "properties": {
-        "tempo_config": {
+        "worker_config": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "type": "string"
+          },
           "description": "The tempo configuration that the requirer should run with.Yaml-encoded. Must conform to the schema that the presently deployed workload version supports; for example see: https://grafana.com/docs/tempo/latest/configuration/#configure-tempo.",
-          "title": "Tempo Config",
+          "title": "Worker Config",
           "type": "string"
         },
         "loki_endpoints": {
           "anyOf": [
             {
-              "additionalProperties": {
-                "type": "string"
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
               },
-              "type": "object"
+              "type": "string"
             },
             {
               "type": "null"
@@ -32,6 +40,10 @@
         "ca_cert": {
           "anyOf": [
             {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
               "type": "string"
             },
             {
@@ -45,6 +57,10 @@
         "server_cert": {
           "anyOf": [
             {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
               "type": "string"
             },
             {
@@ -58,6 +74,10 @@
         "privkey_secret_id": {
           "anyOf": [
             {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
               "type": "string"
             },
             {
@@ -68,13 +88,40 @@
           "description": "Private key used by the coordinator, for tls encryption.",
           "title": "Privkey Secret Id"
         },
+        "remote_write_endpoints": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "items": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the workload (and the worker charm) can push metrics to.",
+          "title": "Remote Write Endpoints"
+        },
         "tempo_receiver": {
           "anyOf": [
             {
-              "additionalProperties": {
-                "type": "string"
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
               },
-              "type": "object"
+              "type": "string"
             },
             {
               "type": "null"
@@ -86,7 +133,7 @@
         }
       },
       "required": [
-        "tempo_config"
+        "worker_config"
       ],
       "title": "TempoClusterProviderAppData",
       "type": "object"

@@ -8,7 +8,7 @@ import re
 
 from enum import Enum
 from typing import List, Optional
-from pydantic import AnyHttpUrl, BaseModel, Field, ValidationError, ConfigDict
+from pydantic import AnyHttpUrl, BaseModel, ValidationError, ConfigDict
 
 class text:
    BOLD = '\033[1m'
@@ -44,7 +44,7 @@ class InterfaceModel(BaseModel):
     status: StatusEnum
     requirers: List[CharmEntry]
     providers: List[CharmEntry]
-    owners: Optional[List[str]] = []
+    maintainer: Optional[str] = ""
 
 class MatchError(Exception):
     """Error raised when the location of an interface.yaml spec file is inconsistent with its contents."""

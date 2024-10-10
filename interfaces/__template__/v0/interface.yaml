@@ -31,3 +31,6 @@ providers:
 # `requirers` list charms that implement the requiring side of the interface.
 # this follows the same structure as `providers`. 
 requirers: []
+
+# `maintainer` is the ID of a GitHub Team. This field is used to assign issues upon failed interface tests to team members.
+maintainer: ""
