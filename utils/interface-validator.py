@@ -44,7 +44,7 @@ class InterfaceModel(BaseModel):
     status: StatusEnum
     requirers: List[CharmEntry]
     providers: List[CharmEntry]
-    owners: Optional[List[str]] = []
+    maintainer: Optional[str] = ""
 
 class MatchError(Exception):
     """Error raised when the location of an interface.yaml spec file is inconsistent with its contents."""
