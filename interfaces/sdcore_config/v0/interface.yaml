@@ -26,3 +26,4 @@ requirers:
   - name: sdcore-udr-k8s
     url: https://github.com/canonical/sdcore-udr-k8s-operator
 
+maintainer: telco

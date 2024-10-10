@@ -10,3 +10,5 @@ providers:
 requirers:
   - name: oai-ran-du-k8s
     url: https://github.com/canonical/oai-ran-du-k8s
+
+maintainer: telco
