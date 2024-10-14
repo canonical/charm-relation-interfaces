@@ -6,3 +6,5 @@ providers:
   - name: glauth-k8s
     url: https://github.com/canonical/glauth-k8s-operator
 requirers: []
+
+maintainer: identity

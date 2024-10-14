@@ -9,3 +9,5 @@ providers:
     url: https://www.github.com/canonical/kafka-k8s-operator
 
 requirers: []
+
+maintainer: data-platform-bigdata

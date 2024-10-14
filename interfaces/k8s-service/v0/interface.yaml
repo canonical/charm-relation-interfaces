@@ -25,3 +25,5 @@ requirers:
     url: https://github.com/canonical/kfp-operators
   - name: kubeflow-dashboard
     url: https://github.com/canonical/kubeflow-dashboard-operator
+
+maintainer: kubeflow

@@ -7,3 +7,5 @@ providers:
     url: https://www.github.com/canonical/opensearch-operator
 
 requirers: []
+
+maintainer: data-platform-nosql
