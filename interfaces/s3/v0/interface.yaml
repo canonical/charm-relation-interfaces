@@ -19,3 +19,5 @@ requirers:
     url: https://www.github.com/canonical/mongodb-operator
   - name: mongodb-k8s-operator
     url: https://www.github.com/canonical/mongodb-k8s-operator
+
+maintainer: data-platform
