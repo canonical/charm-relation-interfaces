@@ -35,6 +35,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to provide the `uris` field with the connection string, in libpq's URI format, which can be used for direct connection to the db.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
+- Is expected to provide the `tls` field flag, indicating wether the provider has TLS enabled or not.
 - Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
 - Is expected to share the TLS Juju Secret URI through the `secret-tls` field of the databag.
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.

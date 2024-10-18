@@ -102,6 +102,27 @@
             "examples": [
                 "ready"
             ]
+        },
+        "tls": {
+            "$id": "#/properties/tls",
+            "title": "TLS",
+            "description": "Flag that indicates wether TLS is being used by the PostgreSQL charm or not",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "True",
+                "False"
+            ]
+        },
+        "tls-ca": {
+            "$id": "#/properties/tls-ca",
+            "title": "TLS CA",
+            "description": "The TLS CA chain of certificates, if TLS is set",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "-----BEGIN CERTIFICATE-----\nabcdexample\n-----END CERTIFICATE-----"
+            ]
         }
     },
     "examples": [{
