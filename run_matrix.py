@@ -357,7 +357,7 @@ def create_issue(
 ):
     gh = Github(os.getenv("GITHUB_TOKEN"))
     repo = gh.get_repo("canonical/charm-relation-interfaces")
-    issue_assignee = "IronCore864"
+    issue_assignees = ["IronCore864", "tonyandrewmeyer"]
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
@@ -389,7 +389,7 @@ See the workflow {workflow_url} for more detail.
         print(f"GitHub issue updated: {issue.html_url}")
     else:
         issue = repo.create_issue(
-            title=title, body=body, assignee=issue_assignee, labels=labels
+            title=title, body=body, assignees=issue_assignees, labels=labels
         )
         print(f"GitHub issue created: {issue.html_url}")
 
