@@ -378,8 +378,9 @@ See the workflow {workflow_url} for more detail.
             issue = existing_issue
             break
 
-    team_members = get_team_members_from_team_slug(maintainer)
-
+    # Issues in public repositories can have up to 10 people assigned.
+    # https://github.com/canonical/charm-relation-interfaces/actions/runs/11318866281
+    team_members = get_team_members_from_team_slug(maintainer)[:10]
     if issue:
         issue.create_comment(body)
         print(f"GitHub issue updated: {issue.html_url}")
