@@ -22,5 +22,5 @@ jobs:
         run: pip install tox
       - name: Run tests
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
         run: tox -e run-interface-test-matrix
