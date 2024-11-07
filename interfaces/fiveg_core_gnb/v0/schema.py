@@ -25,7 +25,7 @@ from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
 
 
-class FivegGnbIdentityProviderAppData(BaseModel):
+class FivegCoreGnbProviderAppData(BaseModel):
     mcc: str = Field(
         description="Mobile Country Code",
         examples=["001"],
@@ -58,7 +58,7 @@ class FivegGnbIdentityProviderAppData(BaseModel):
     )
 
 
-class FivegGnbIdentityRequirerAppData(BaseModel):
+class FivegCoreGnbRequirerAppData(BaseModel):
     cu_id: str = Field(
         description="Unique identifier of the CU/gnB.",
         examples=["gnb001"]
@@ -67,9 +67,9 @@ class FivegGnbIdentityRequirerAppData(BaseModel):
 
 class ProviderSchema(DataBagSchema):
     """The schema for the provider side of the fiveg_core_gnb interface."""
-    app: FivegGnbIdentityProviderAppData
+    app: FivegCoreGnbProviderAppData
 
 
 class RequirerSchema(DataBagSchema):
     """The schema for the requirer side of the fiveg_core_gnb interface."""
-    app: FivegGnbIdentityRequirerAppData
+    app: FivegCoreGnbRequirerAppData

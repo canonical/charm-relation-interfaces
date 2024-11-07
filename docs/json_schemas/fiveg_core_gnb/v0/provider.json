@@ -5,7 +5,7 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "FivegGnbIdentityProviderAppData": {
+    "FivegCoreGnbProviderAppData": {
       "properties": {
         "mcc": {
           "description": "Mobile Country Code",
@@ -65,7 +65,7 @@
         "sst",
         "sd"
       ],
-      "title": "FivegGnbIdentityProviderAppData",
+      "title": "FivegCoreGnbProviderAppData",
       "type": "object"
     }
   },
@@ -83,7 +83,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/FivegGnbIdentityProviderAppData"
+      "$ref": "#/$defs/FivegCoreGnbProviderAppData"
     }
   },
   "required": [

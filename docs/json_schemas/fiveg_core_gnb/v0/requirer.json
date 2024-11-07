@@ -5,7 +5,7 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "FivegGnbIdentityRequirerAppData": {
+    "FivegCoreGnbRequirerAppData": {
       "properties": {
         "cu_id": {
           "description": "Unique identifier of the CU/gnB.",
@@ -19,7 +19,7 @@
       "required": [
         "cu_id"
       ],
-      "title": "FivegGnbIdentityRequirerAppData",
+      "title": "FivegCoreGnbRequirerAppData",
       "type": "object"
     }
   },
@@ -37,7 +37,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/FivegGnbIdentityRequirerAppData"
+      "$ref": "#/$defs/FivegCoreGnbRequirerAppData"
     }
   },
   "required": [
