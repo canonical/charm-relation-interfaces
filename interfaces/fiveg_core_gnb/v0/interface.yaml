@@ -1,0 +1,12 @@
+name: fiveg_core_gnb
+internal: true
+
+version: 0
+status: draft
+
+providers:
+  - name: sdcore-nms-k8s-operator
+    url: https://github.com/canonical/sdcore-nms-k8s-operator
+requirers: []
+
+maintainer: telco

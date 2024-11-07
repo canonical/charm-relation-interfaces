@@ -1,0 +1,94 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "FivegGnbIdentityProviderAppData": {
+      "properties": {
+        "mcc": {
+          "description": "Mobile Country Code",
+          "examples": [
+            "001"
+          ],
+          "maxLength": 3,
+          "minLength": 3,
+          "title": "Mcc",
+          "type": "string"
+        },
+        "mnc": {
+          "description": "Mobile Network Code",
+          "examples": [
+            "01"
+          ],
+          "maxLength": 3,
+          "minLength": 2,
+          "title": "Mnc",
+          "type": "string"
+        },
+        "tac": {
+          "description": "Tracking Area Code",
+          "examples": [
+            1
+          ],
+          "maximum": 16777215,
+          "minimum": 1,
+          "title": "Tac",
+          "type": "integer"
+        },
+        "sst": {
+          "description": "Slice Service Type",
+          "examples": [
+            1
+          ],
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Sst",
+          "type": "integer"
+        },
+        "sd": {
+          "description": "Slice Differentiator",
+          "examples": [
+            1
+          ],
+          "maximum": 16777215,
+          "minimum": 1,
+          "title": "Sd",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "mcc",
+        "mnc",
+        "tac",
+        "sst",
+        "sd"
+      ],
+      "title": "FivegGnbIdentityProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of the fiveg_core_gnb interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/FivegGnbIdentityProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
