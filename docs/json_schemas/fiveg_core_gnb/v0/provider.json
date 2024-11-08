@@ -7,26 +7,6 @@
     },
     "FivegCoreGnbProviderAppData": {
       "properties": {
-        "mcc": {
-          "description": "Mobile Country Code",
-          "examples": [
-            "001"
-          ],
-          "maxLength": 3,
-          "minLength": 3,
-          "title": "Mcc",
-          "type": "string"
-        },
-        "mnc": {
-          "description": "Mobile Network Code",
-          "examples": [
-            "01"
-          ],
-          "maxLength": 3,
-          "minLength": 2,
-          "title": "Mnc",
-          "type": "string"
-        },
         "tac": {
           "description": "Tracking Area Code",
           "examples": [
@@ -37,33 +17,17 @@
           "title": "Tac",
           "type": "integer"
         },
-        "sst": {
-          "description": "Slice Service Type",
-          "examples": [
-            1
-          ],
-          "maximum": 4,
-          "minimum": 1,
-          "title": "Sst",
-          "type": "integer"
-        },
-        "sd": {
-          "description": "Slice Differentiator",
-          "examples": [
-            1
-          ],
-          "maximum": 16777215,
-          "minimum": 1,
-          "title": "Sd",
-          "type": "integer"
+        "plmns": {
+          "items": {
+            "type": "object"
+          },
+          "title": "Plmns",
+          "type": "array"
         }
       },
       "required": [
-        "mcc",
-        "mnc",
         "tac",
-        "sst",
-        "sd"
+        "plmns"
       ],
       "title": "FivegCoreGnbProviderAppData",
       "type": "object"
