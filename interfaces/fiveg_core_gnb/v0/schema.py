@@ -27,6 +27,7 @@ Examples:
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
+from typing import List
 
 
 class FivegCoreGnbProviderAppData(BaseModel):
@@ -36,7 +37,7 @@ class FivegCoreGnbProviderAppData(BaseModel):
         ge=1,
         le=16777215,
     )
-    plmns: list[dict]
+    plmns: List[dict]
 
 
 class FivegCoreGnbRequirerAppData(BaseModel):
