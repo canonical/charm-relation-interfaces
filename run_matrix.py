@@ -311,6 +311,7 @@ def run_interface_tests(
     keep_cache: bool = False,
 ) -> "_ResultsPerInterface":
     """Run the tests for the specified interfaces, defaulting to all."""
+    failed = False
     if not keep_cache:
         _clean()
     test_results = {}
@@ -326,6 +327,7 @@ def run_interface_tests(
             for version, tests_per_role in version_to_roles.items():
                 maintainer = tests_per_role.get("maintainer")
                 if maintainer and test_failed(results_per_version[version]):
+                    failed = True
                     create_issue(
                         interface, version, results_per_version[version], maintainer
                     )
@@ -333,7 +335,7 @@ def run_interface_tests(
     if not collected:
         logging.warning("No tests collected.")
 
-    return test_results
+    return test_results, failed
 
 
 def test_failed(role_result: "_ResultsPerRole"):
@@ -357,18 +359,24 @@ def create_issue(
 ):
     gh = Github(os.getenv("GITHUB_TOKEN"))
     repo = gh.get_repo("canonical/charm-relation-interfaces")
+    issue_assignees = ["IronCore864", "tonyandrewmeyer"]
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
         workflow_url = f"https://github.com/canonical/charm-relation-interfaces/actions/runs/{github_run_id}"
     result = flatten_test_result(result_per_role)
     title = f"Interface test for {interface} {version} failed."
+    mention_team_members = ", ".join(
+        ["@" + member for member in get_team_members_from_team_slug(maintainer)]
+    )
     body = f"""\
 Tests for interface {interface} {version} failed.
 
 {result}
 
 See the workflow {workflow_url} for more detail.
+
+{mention_team_members}
 """
 
     issue = None
@@ -378,17 +386,12 @@ See the workflow {workflow_url} for more detail.
             issue = existing_issue
             break
 
-    team_members = get_team_members_from_team_slug(maintainer)
-
     if issue:
         issue.create_comment(body)
         print(f"GitHub issue updated: {issue.html_url}")
-        if team_members:
-            issue.edit(assignees=team_members)
-            print(f"GitHub issue assigned to {team_members}")
     else:
         issue = repo.create_issue(
-            title=title, body=body, assignees=team_members, labels=labels
+            title=title, body=body, assignees=issue_assignees, labels=labels
         )
         print(f"GitHub issue created: {issue.html_url}")
 
@@ -451,7 +454,8 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    result = run_interface_tests(
+    result, failed = run_interface_tests(
         Path("."), args.repo, args.branch, args.include, args.keep_cache
     )
     pprint_interface_test_results(result)
+    exit(1) if failed else exit(0)
