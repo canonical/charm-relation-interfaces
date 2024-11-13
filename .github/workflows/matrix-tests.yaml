@@ -18,11 +18,11 @@ jobs:
       - name: Set matrix values
         id: set-matrix
         run: |
-          interfaces=[$(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '"%f",')]
+          interfaces=$(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '%f\n' | jq --raw-input . | jq -c --slurp .)
           echo "matrix_values=${interfaces}" >> $GITHUB_OUTPUT
 
   main:
-    name: Run the interface tests on all registered charms
+    name: ${{ matrix.interface }}
     needs: set-matrix
     runs-on: ubuntu-latest
     strategy:
