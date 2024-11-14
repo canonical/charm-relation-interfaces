@@ -311,6 +311,7 @@ def run_interface_tests(
     keep_cache: bool = False,
 ) -> "_ResultsPerInterface":
     """Run the tests for the specified interfaces, defaulting to all."""
+    failed = False
     if not keep_cache:
         _clean()
     test_results = {}
@@ -326,6 +327,7 @@ def run_interface_tests(
             for version, tests_per_role in version_to_roles.items():
                 maintainer = tests_per_role.get("maintainer")
                 if maintainer and test_failed(results_per_version[version]):
+                    failed = True
                     create_issue(
                         interface, version, results_per_version[version], maintainer
                     )
@@ -333,7 +335,7 @@ def run_interface_tests(
     if not collected:
         logging.warning("No tests collected.")
 
-    return test_results
+    return test_results, failed
 
 
 def test_failed(role_result: "_ResultsPerRole"):
@@ -452,7 +454,8 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    result = run_interface_tests(
+    result, failed = run_interface_tests(
         Path("."), args.repo, args.branch, args.include, args.keep_cache
     )
     pprint_interface_test_results(result)
+    exit(1) if failed else exit(0)
