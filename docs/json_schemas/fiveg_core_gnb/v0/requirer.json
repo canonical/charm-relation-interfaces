@@ -7,17 +7,17 @@
     },
     "FivegCoreGnbRequirerAppData": {
       "properties": {
-        "cu_id": {
+        "cu_name": {
           "description": "Unique identifier of the CU/gnB.",
           "examples": [
             "gnb001"
           ],
-          "title": "Cu Id",
+          "title": "Cu Name",
           "type": "string"
         }
       },
       "required": [
-        "cu_id"
+        "cu_name"
       ],
       "title": "FivegCoreGnbRequirerAppData",
       "type": "object"

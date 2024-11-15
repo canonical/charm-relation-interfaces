@@ -13,7 +13,7 @@ In a typical 5G network, the provider of this interface would be a CU or a gNode
 ```mermaid
 flowchart TD
     Provider -- MCC, MNC, TAC, SST, SD --> Requirer
-    Required -- CU/gNodeB Identifier --> Provider
+    Requirer -- CU/gNodeB Identifier --> Provider
 ```
 
 As with all Juju relations, the `fiveg_core_gnb` interface consists of two parties: a Provider and a Requirer.
@@ -25,9 +25,12 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ### Provider
 
 - Is expected to provide the following data:
+  - TAC (Tracking Area Code)
+  - List of PLMNs
+
+The list of PLMNs should include the following data:
   - MCC (Mobile Country Code)
   - MNC (Mobile Network Code)
-  - TAC (Tracking Area Code)
   - SST (Slice Service Type)
   - SD (Slice Differentiator)
     
@@ -45,16 +48,20 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ```yaml
 provider:
   app: {
-    "mcc": "001",
-    "mnc": "01",
     "tac": 1,
-    "sst": 1,
-    "sd": 1
+    "plmns": [
+      {
+        "mcc": "001",
+        "mnc": "01",
+        "sst": 1,
+        "sd": 1,
+      }
+    ],
   }
   unit: {}
 requirer:
   app: {
-    "cu_id": "gnb001"
+    "cu_name": "gnb001"
   }
   unit: {}
 ```
