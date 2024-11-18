@@ -106,7 +106,7 @@
         "tls": {
             "$id": "#/properties/tls",
             "title": "TLS",
-            "description": "Flag that indicates wether TLS is being used by the PostgreSQL charm or not",
+            "description": "Flag that indicates whether TLS is being used by the PostgreSQL charm or not",
             "type": "string",
             "default": "",
             "examples": [
