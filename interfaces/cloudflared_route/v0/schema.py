@@ -13,6 +13,8 @@ Examples:
         }
 """
 
+import typing
+
 from pydantic import IPvAnyAddress, BaseModel
 from interface_tester.schema_base import DataBagSchema
 
@@ -20,7 +22,7 @@ from interface_tester.schema_base import DataBagSchema
 class CloudflaredRouteProvider(BaseModel):
     """List statuses for the DNS records informed by the requirer."""
     tunnel_token_secret_id: str
-    nameserver: IPvAnyAddress | None = None
+    nameserver: typing.Optional[IPvAnyAddress] = None
 
 
 class ProviderSchema(DataBagSchema):
