@@ -1,0 +1,10 @@
+name: cloudflared_route
+internal: false
+
+version: 0
+status: draft
+
+providers: []
+requirers: []
+
+maintainer: is-charms
