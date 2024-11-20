@@ -1,0 +1,81 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ZooKeeperRequirerAppData": {
+      "properties": {
+        "database": {
+          "description": "The parent chroot zNode requested by the requirer",
+          "examples": [
+            "/myappA"
+          ],
+          "title": "zNode",
+          "type": "string"
+        },
+        "extra-user-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ACL string representation for the parent chroot",
+          "examples": [
+            "cdrwa"
+          ],
+          "title": "User roles"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transfered as Juju Secret",
+          "examples": [
+            [
+              "username",
+              "password",
+              "tls-ca",
+              "uris"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "database",
+        "requested-secrets"
+      ],
+      "title": "ZooKeeperRequirerAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ZooKeeperRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
