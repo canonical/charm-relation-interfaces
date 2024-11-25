@@ -39,4 +39,7 @@ jobs:
       - name: Run tests
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
-        run: tox -e run-interface-test-matrix -- --include ${{ matrix.interface }}
+        run: |
+          pwd
+          ls
+          tox -e run-interface-test-matrix -- --include ${{ matrix.interface }}
