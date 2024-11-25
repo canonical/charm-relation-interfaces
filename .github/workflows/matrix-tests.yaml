@@ -31,7 +31,7 @@ jobs:
         interface: ${{ fromJSON(needs.set-matrix.outputs.matrix_values) }}
     steps:
       - name: Set up python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Install dependencies
