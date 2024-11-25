@@ -30,6 +30,10 @@ jobs:
       matrix:
         interface: ${{ fromJSON(needs.set-matrix.outputs.matrix_values) }}
     steps:
+      - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 1
       - name: Set up python
         uses: actions/setup-python@v5
         with:
