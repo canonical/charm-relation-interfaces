@@ -26,6 +26,7 @@ jobs:
     needs: set-matrix
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         interface: ${{ fromJSON(needs.set-matrix.outputs.matrix_values) }}
     steps:
