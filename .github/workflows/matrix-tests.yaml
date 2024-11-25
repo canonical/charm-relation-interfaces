@@ -40,10 +40,6 @@ jobs:
           python-version: 3.8
       - name: Install dependencies
         run: pip install tox
-      - name: PWD
-        run: pwd
-      - name: LS
-        run: ls
       - name: Run tests
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
