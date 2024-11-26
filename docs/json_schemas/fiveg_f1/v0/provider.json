@@ -23,13 +23,96 @@
           ],
           "title": "F1 Port",
           "type": "integer"
+        },
+        "tac": {
+          "description": "Tracking Area Code",
+          "examples": [
+            1
+          ],
+          "maximum": 16777215,
+          "minimum": 1,
+          "title": "Tac",
+          "type": "integer"
+        },
+        "plmns": {
+          "items": {
+            "$ref": "#/$defs/PLMNConfig"
+          },
+          "title": "Plmns",
+          "type": "array"
         }
       },
       "required": [
         "f1_ip_address",
-        "f1_port"
+        "f1_port",
+        "tac",
+        "plmns"
       ],
       "title": "FivegF1ProviderAppData",
+      "type": "object"
+    },
+    "PLMNConfig": {
+      "properties": {
+        "mcc": {
+          "description": "Mobile Country Code",
+          "examples": [
+            "001",
+            "208",
+            "302"
+          ],
+          "pattern": "[0-9][0-9][0-9]",
+          "title": "Mcc",
+          "type": "string"
+        },
+        "mnc": {
+          "description": "Mobile Network Code",
+          "examples": [
+            "01",
+            "001",
+            "999"
+          ],
+          "pattern": "[0-9][0-9][0-9]?",
+          "title": "Mnc",
+          "type": "string"
+        },
+        "sst": {
+          "description": "Slice/Service Type",
+          "examples": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "maximum": 255,
+          "minimum": 0,
+          "title": "Sst",
+          "type": "integer"
+        },
+        "sd": {
+          "anyOf": [
+            {
+              "maximum": 16777215,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Slice Differentiator",
+          "examples": [
+            1
+          ],
+          "title": "Sd"
+        }
+      },
+      "required": [
+        "mcc",
+        "mnc",
+        "sst"
+      ],
+      "title": "PLMNConfig",
       "type": "object"
     }
   },

@@ -10,7 +10,7 @@ This relation interface describes the expected behavior of any charm claiming to
 
 ```mermaid
 flowchart TD
-    Provider -- ip_address, port --> Requirer
+    Provider -- ip_address, port, tac, plmns --> Requirer
     Requirer -- port --> Provider
 ```
 
@@ -22,12 +22,21 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide the IP address and port of the CU's F1 interface.
+- Is expected to provide the following data:
+  - IP address of the CU
+  - Port of the CU
+  - List of PLMNs
+
+The list of PLMNs should include the following data:
+  - MCC (Mobile Country Code)
+  - MNC (Mobile Network Code)
+  - SST (Slice Service Type)
+  - SD (Slice Differentiator)
 
 ### Requirer
 
 - Is expected to use the IP address and the port passed by the provider to establish communication over the F1 interface.
-- Is expected to provider the number of the port which will handle communication over the F1 interface.
+- Is expected to provide the number of the port which will handle communication over the F1 interface.
 
 ## Relation Data
 
@@ -39,7 +48,16 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 provider:
   app: {
     "f1_ip_address": "192.168.70.132",
-    "f1_port": 2153
+    "f1_port": 2153,
+    "tac": 1,
+    "plmns": [
+      {
+        "mcc": "001",
+        "mnc": "01",
+        "sst": 1,
+        "sd": 1,
+      }
+    ],
   }
   unit: {}
 requirer:
