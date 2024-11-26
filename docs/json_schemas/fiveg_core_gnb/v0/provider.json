@@ -70,21 +70,28 @@
           "type": "integer"
         },
         "sd": {
+          "anyOf": [
+            {
+              "maximum": 16777215,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
           "description": "Slice Differentiator",
           "examples": [
             1
           ],
-          "maximum": 16777215,
-          "minimum": 0,
-          "title": "Sd",
-          "type": "integer"
+          "title": "Sd"
         }
       },
       "required": [
         "mcc",
         "mnc",
-        "sst",
-        "sd"
+        "sst"
       ],
       "title": "PLMNConfig",
       "type": "object"

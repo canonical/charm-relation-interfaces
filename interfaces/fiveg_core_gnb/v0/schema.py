@@ -28,7 +28,7 @@ Examples:
 from dataclasses import dataclass
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -51,8 +51,9 @@ class PLMNConfig:
         ge=0,
         le=255,
     )
-    sd: int = Field(
+    sd: Optional[int] = Field(
         description="Slice Differentiator",
+        default=None,
         examples=[1],
         ge=0,
         le=16777215,
