@@ -33,6 +33,7 @@
       "type": "object"
     },
     "RecordClass": {
+      "const": "IN",
       "description": "Represent the DNS record classes.",
       "enum": [
         "IN"
