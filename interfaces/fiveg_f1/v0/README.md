@@ -23,8 +23,9 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 ### Provider
 
 - Is expected to provide the following data:
-  - IP address of the CU
-  - Port of the CU
+  - IP address of the network interface used for F1 traffic
+  - Number of the port used for F1 traffic
+  - TAC (Tracking Area Code)
   - List of PLMNs
 
 The list of PLMNs should include the following data:
