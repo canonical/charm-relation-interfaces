@@ -4,7 +4,7 @@
 
 Within 5G RAN (Radio Access Network) architecture, the OAI DU charm can be started to act as both the DU and the RU through its RF simulator functionality. 
 
-The OAI UE charm requires RF simulator address and the network information in order to connect. Hence, the provider of this interface would be a OAI DU charm and the requirer of this interface would be the OAI UE charm.
+The OAI UE charm requires RF simulator address and the network information(SST, SD) in order to connect. Hence, the provider of this interface would be a OAI DU charm and the requirer of this interface would be the OAI UE charm.
 
 This relation interface describes the expected behavior of charms claiming to be able to provide or consume information on connectivity over the fiveg_rfsim interface.
 
@@ -23,11 +23,15 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide the DU's `rfsim` service ip.
+Is expected to provide following information:
+
+- The DU's `rfsim` service ip
+- Network Slice/Service Type (SST)
+- Slice Differentiator (SD)
 
 ### Requirer
 
-- Is expected to use the `rfsim` service address passed by the provider.
+- Is expected to use the `rfsim` service address and the network information(SST, SD) passed by the provider.
 
 ## Relation Data
 
