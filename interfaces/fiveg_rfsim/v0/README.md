@@ -12,7 +12,7 @@ This relation interface describes the expected behavior of charms claiming to be
 
 ```mermaid
 flowchart TD
-    Provider -- RFSIM address, SST, SD --> Requirer
+    Provider -- rfsim_address, sst, sd --> Requirer
 ```
 
 As with all Juju relations, the `fiveg_rfsim` interface consists of two parties: a Provider and a Requirer.
