@@ -28,7 +28,7 @@ Examples:
 from pydantic import BaseModel, IPvAnyAddress, Field
 from dataclasses import dataclass
 from interface_tester.schema_base import DataBagSchema
-from typing import List, Optional
+from typing import List, Optional, conlist
 
 @dataclass
 class PLMNConfig:
@@ -73,7 +73,7 @@ class FivegF1ProviderAppData(BaseModel):
         ge=1,
         le=16777215,
     )
-    plmns: List[PLMNConfig]
+    plmns: conlist(PLMNConfig, min_length=1)
 
 
 class FivegF1RequirerAppData(BaseModel):
