@@ -40,7 +40,7 @@ provider:
   app: {
     "rfsim_address": "192.168.70.130",
     "sst": 1,
-    "sd", 1,
+     "sd": 1,
   }
   unit: {}
 requirer:
