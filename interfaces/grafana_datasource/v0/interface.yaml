@@ -1,0 +1,23 @@
+name: grafana_datasource
+
+internal: true
+
+version: 0
+
+status: live
+
+providers:
+  - name: tempo-coordinator-k8s
+    url: https://github.com/canonical/tempo-coordinator-k8s-operator
+  - name: loki-coordinator-k8s
+    url: https://github.com/canonical/loki-coordinator-k8s-operator
+  - name: mimir-coordinator-k8s
+    url: https://github.com/canonical/mimir-coordinator-k8s-operator
+  - name: prometheus-k8s
+    url: https://github.com/canonical/prometheus-k8s-operator
+
+requirers:
+  - name: grafana-k8s
+    url: https://github.com/canonical/grafana-k8s-operator
+
+maintainer: observability
