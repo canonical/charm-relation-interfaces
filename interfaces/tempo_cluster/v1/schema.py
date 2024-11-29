@@ -67,14 +67,13 @@ class TempoRole(str, Enum):
      config:
       -> https://grafana.com/docs/tempo/latest/configuration/#server
     """
-    all = "all"  # default, meta-role. gets remapped to scalable-single-binary by the worker.
-
-    querier = "querier"
-    query_frontend = "query-frontend"
-    ingester = "ingester"
-    distributor = "distributor"
-    compactor = "compactor"
-    metrics_generator = "metrics-generator"
+    ALL = "all"  # default, meta-role. gets remapped to scalable-single-binary by the worker.
+    QUERIER = "querier"
+    QUERY_FRONTEND = "query-frontend"
+    INGESTER = "ingester"
+    DISTRIBUTOR = "distributor"
+    COMPACTOR = "compactor"
+    METRICS_GENERATOR = "metrics-generator"
 
 
 class TempoClusterRequirerAppData(BaseModel):
