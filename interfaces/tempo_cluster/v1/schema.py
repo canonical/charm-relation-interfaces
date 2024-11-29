@@ -26,7 +26,7 @@ class TempoClusterProviderAppData(BaseModel):
     server_cert: Optional[Json[str]] = Field(default=None, description="Server certificate for tls encryption.")
     privkey_secret_id: Optional[Json[str]] = Field(
         default=None,
-        description="Private key used by the coordinator, for tls encryption."
+        description="ID of a Juju secret that holds the private key used by the coordinator for TLS encryption."
     )
     remote_write_endpoints: Optional[Json[List[Dict[str, str]]]] = Field(
         default=None,

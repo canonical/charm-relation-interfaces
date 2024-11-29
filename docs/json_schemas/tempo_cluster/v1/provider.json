@@ -85,7 +85,7 @@
             }
           ],
           "default": null,
-          "description": "Private key used by the coordinator, for tls encryption.",
+          "description": "ID of a Juju secret that holds the private key used by the coordinator for TLS encryption.",
           "title": "Privkey Secret Id"
         },
         "remote_write_endpoints": {

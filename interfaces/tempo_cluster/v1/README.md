@@ -18,8 +18,6 @@ flowchart TD
 
 ## Behavior
 
-This is what is expected of the providers and the requirers of this interface:
-
 ### Provider
 The provider is expected to...
 - update the gossip rings in all configurations with the addresses of all worker units that are joining the cluster (regardless of their role).
@@ -33,12 +31,9 @@ Each requirer unit is expected to...
 
 ## Relation Data
 
-Describe the contents of the databags, and provide schemas for them.
-
 [\[Pydantic Schema\]](./schema.py)
 
 #### Example
-Provide a yaml/json example of a valid databag state (for the whole relation).
 ```yaml
 provider:
   app: 
