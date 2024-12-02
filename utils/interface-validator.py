@@ -68,7 +68,7 @@ class Validator:
         if model.name != result.group(1):
             raise MatchError(f"name '{model.name}' does not match folder structure '{result.group(1)}'")
         if model.version != int(result.group(2)):
-            raise MatchError("version ({result.group(2)}) does not match folder structure")
+            raise MatchError(f"version ({result.group(2)}) does not match folder structure")
 
     """Runs the validation against all interface definitions."""
     def run(self):

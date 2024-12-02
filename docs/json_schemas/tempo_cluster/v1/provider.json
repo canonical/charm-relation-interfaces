@@ -1,0 +1,184 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "TempoClusterProviderAppData": {
+      "description": "TempoClusterProviderAppData.",
+      "properties": {
+        "worker_config": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "type": "string"
+          },
+          "description": "The tempo configuration that the requirer should run with.Yaml-encoded. Must conform to the schema that the presently deployed workload version supports; for example see: https://grafana.com/docs/tempo/latest/configuration/#configure-tempo.",
+          "title": "Worker Config",
+          "type": "string"
+        },
+        "loki_endpoints": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of loki-push-api endpoints to which the worker node can push any logs it generates.",
+          "title": "Loki Endpoints"
+        },
+        "ca_cert": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "CA certificate for tls encryption.",
+          "title": "Ca Cert"
+        },
+        "server_cert": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Server certificate for tls encryption.",
+          "title": "Server Cert"
+        },
+        "privkey_secret_id": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ID of a Juju secret that holds the private key used by the coordinator for TLS encryption.",
+          "title": "Privkey Secret Id"
+        },
+        "remote_write_endpoints": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "items": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the workload (and the worker charm) can push metrics to.",
+          "title": "Remote Write Endpoints"
+        },
+        "charm_tracing_receivers": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the worker node can push its charm traces to.It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`.",
+          "title": "Charm Tracing Receivers"
+        },
+        "workload_tracing_receivers": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the worker node can push its workload traces to.It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`.",
+          "title": "Workload Tracing Receivers"
+        }
+      },
+      "required": [
+        "worker_config"
+      ],
+      "title": "TempoClusterProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/TempoClusterProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

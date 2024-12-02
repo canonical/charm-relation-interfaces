@@ -14,10 +14,42 @@
           ],
           "title": "Rfsim Address",
           "type": "string"
+        },
+        "sst": {
+          "description": "Slice/Service Type",
+          "examples": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "maximum": 255,
+          "minimum": 0,
+          "title": "Sst",
+          "type": "integer"
+        },
+        "sd": {
+          "anyOf": [
+            {
+              "maximum": 16777215,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Slice Differentiator",
+          "examples": [
+            1
+          ],
+          "title": "Sd"
         }
       },
       "required": [
-        "rfsim_address"
+        "rfsim_address",
+        "sst"
       ],
       "title": "FivegRFSIMProviderAppData",
       "type": "object"
