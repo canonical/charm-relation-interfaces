@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import Json, BaseModel, Field
@@ -13,9 +13,9 @@ class GrafanaSourceData(BaseModel):
                              examples=['tempo', 'loki', 'prometheus'])
     type: str = Field(description="Type of the datasource.",
                       examples=['tempo', 'loki', 'prometheus'])
-    extra_fields: Json[Any] = Field(
+    extra_fields: Optional[Json[Any]] = Field(
         description="Any datasource-type-specific additional configuration.")
-    secure_extra_fields: Json[Any] = Field(
+    secure_extra_fields: Optional[Json[Any]] = Field(
         description="Any secure datasource-type-specific additional configuration.")
 
 
