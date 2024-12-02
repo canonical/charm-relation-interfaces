@@ -43,4 +43,4 @@ class GrafanaSourceRequirerAppData(BaseModel):
 
 class RequirerSchema(DataBagSchema):
     """The schema for the provider side of this interface."""
-    app: GrafanaSourceProviderAppData
+    app: GrafanaSourceRequirerAppData
