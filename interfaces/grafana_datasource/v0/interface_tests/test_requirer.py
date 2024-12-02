@@ -1,4 +1,3 @@
-# TODO: add here interface tests for the requirer side
 from interface_tester import Tester
 from scenario import State, Relation
 import json

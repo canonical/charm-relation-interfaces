@@ -9,15 +9,18 @@ status: live
 providers:
   - name: tempo-coordinator-k8s
     url: https://github.com/canonical/tempo-coordinator-k8s-operator
-  - name: loki-coordinator-k8s
-    url: https://github.com/canonical/loki-coordinator-k8s-operator
-  - name: mimir-coordinator-k8s
-    url: https://github.com/canonical/mimir-coordinator-k8s-operator
-  - name: prometheus-k8s
-    url: https://github.com/canonical/prometheus-k8s-operator
+    branch: grafana_datasource_interface_tests
+    test_setup:
+      location: tests/interface/conftest.py
+      identifier: grafana_datasource_tester
 
 requirers:
   - name: grafana-k8s
     url: https://github.com/canonical/grafana-k8s-operator
+    branch: datasource_interface_tests
+    test_setup:
+      location: tests/interface/conftest.py
+      identifier: grafana_source_tester
+
 
 maintainer: observability
