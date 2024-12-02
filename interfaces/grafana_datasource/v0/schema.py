@@ -1,9 +1,8 @@
 from typing import Dict, Any
 
-from interface_tester.schema_base import DataBagSchema
 from pydantic import Json, BaseModel, Field
 
-from lib.charms.interfaces.v2.ingress import DatabagModel
+from interface_tester.schema_base import DataBagSchema
 
 
 class GrafanaSourceData(BaseModel):
@@ -21,12 +20,12 @@ class GrafanaSourceData(BaseModel):
         description="Any secure datasource-type-specific additional configuration.")
 
 
-class GrafanaSourceRequirerAppData(DatabagModel):
+class GrafanaSourceRequirerAppData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     grafana_source_data: Json[GrafanaSourceData]
 
 
-class GrafanaSourceRequirerUnitData(DatabagModel):
+class GrafanaSourceRequirerUnitData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     grafana_source_host: Json[GrafanaSourceData]
 
@@ -37,7 +36,7 @@ class RequirerSchema(DataBagSchema):
     unit: GrafanaSourceRequirerUnitData
 
 
-class GrafanaSourceProviderAppData(DatabagModel):
+class GrafanaSourceProviderAppData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     datasource_uids: Json[Dict[str, str]]
 
