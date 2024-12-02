@@ -20,27 +20,27 @@ class GrafanaSourceData(BaseModel):
         description="Any secure datasource-type-specific additional configuration.")
 
 
-class GrafanaSourceRequirerAppData(BaseModel):
+class GrafanaSourceProviderAppData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     grafana_source_data: Json[GrafanaSourceData]
 
 
-class GrafanaSourceRequirerUnitData(BaseModel):
+class GrafanaSourceProviderUnitData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     grafana_source_host: Json[GrafanaSourceData]
 
 
-class RequirerSchema(DataBagSchema):
+class ProviderSchema(DataBagSchema):
     """The schemas for the requirer side of this interface."""
-    app: GrafanaSourceRequirerAppData
-    unit: GrafanaSourceRequirerUnitData
+    app: GrafanaSourceProviderAppData
+    unit: GrafanaSourceProviderUnitData
 
 
-class GrafanaSourceProviderAppData(BaseModel):
+class GrafanaSourceRequirerAppData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     datasource_uids: Json[Dict[str, str]]
 
 
-class ProviderSchema(DataBagSchema):
+class RequirerSchema(DataBagSchema):
     """The schema for the provider side of this interface."""
     app: GrafanaSourceProviderAppData
