@@ -33,7 +33,7 @@ class CharmEntry(BaseModel):
 
     name: str
     url: AnyHttpUrl
-    branch: Optional[str]
+    branch: Optional[str] = None
     test_setup: Optional[TestSetup] = None
 
 class InterfaceModel(BaseModel):
