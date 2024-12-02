@@ -5,25 +5,8 @@
       "title": "BaseModel",
       "type": "object"
     },
-    "FivegF1ProviderAppData": {
+    "FivegCoreGnbProviderAppData": {
       "properties": {
-        "f1_ip_address": {
-          "description": "IPv4 address of the network interface used for F1 traffic",
-          "examples": [
-            "192.168.70.132"
-          ],
-          "format": "ipvanyaddress",
-          "title": "F1 Ip Address",
-          "type": "string"
-        },
-        "f1_port": {
-          "description": "Number of the port used for F1 traffic",
-          "examples": [
-            2153
-          ],
-          "title": "F1 Port",
-          "type": "integer"
-        },
         "tac": {
           "description": "Tracking Area Code",
           "examples": [
@@ -43,12 +26,10 @@
         }
       },
       "required": [
-        "f1_ip_address",
-        "f1_port",
         "tac",
         "plmns"
       ],
-      "title": "FivegF1ProviderAppData",
+      "title": "FivegCoreGnbProviderAppData",
       "type": "object"
     },
     "PLMNConfig": {
@@ -60,7 +41,7 @@
             "208",
             "302"
           ],
-          "pattern": "^[0-9][0-9][0-9]$",
+          "pattern": "[0-9][0-9][0-9]",
           "title": "Mcc",
           "type": "string"
         },
@@ -71,7 +52,7 @@
             "001",
             "999"
           ],
-          "pattern": "^[0-9][0-9][0-9]?$",
+          "pattern": "[0-9][0-9][0-9]?",
           "title": "Mnc",
           "type": "string"
         },
@@ -116,7 +97,7 @@
       "type": "object"
     }
   },
-  "description": "Provider schema for fiveg_f1.",
+  "description": "The schema for the provider side of the fiveg_core_gnb interface.",
   "properties": {
     "unit": {
       "anyOf": [
@@ -130,7 +111,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/FivegF1ProviderAppData"
+      "$ref": "#/$defs/FivegCoreGnbProviderAppData"
     }
   },
   "required": [

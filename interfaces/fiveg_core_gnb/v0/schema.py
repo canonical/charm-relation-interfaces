@@ -1,13 +1,13 @@
-"""This file defines the schemas for the provider and requirer sides of the `fiveg_f1` interface.
-It exposes two interface_tester.schema_base.DataBagSchema subclasses called:
+"""This file defines the schemas for the provider and requirer sides of the `fiveg_core_gnb` relation interface.
+
+It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - ProviderSchema
 - RequirerSchema
+
 Examples:
     ProviderSchema:
         unit: <empty>
         app: {
-            "f1_ip_address": "192.168.70.132",
-            "f1_port": 2153,
             "tac": 1,
             "plmns": [
                 {
@@ -20,15 +20,16 @@ Examples:
         }
     RequirerSchema:
         unit: <empty>
-        app:  {
-            "f1_port": 2153
+        app: {
+            "cu_name": "gnb001",
         }
 """
 
-from pydantic import BaseModel, IPvAnyAddress, Field
 from dataclasses import dataclass
 from interface_tester.schema_base import DataBagSchema
-from typing import List, Optional, conlist
+from pydantic import BaseModel, Field
+from typing import List, Optional
+
 
 @dataclass
 class PLMNConfig:
@@ -37,12 +38,12 @@ class PLMNConfig:
     mcc: str = Field(
         description="Mobile Country Code",
         examples=["001", "208", "302"],
-        pattern=r"^[0-9][0-9][0-9]$",
+        pattern=r"[0-9][0-9][0-9]",
     )
     mnc: str = Field(
         description="Mobile Network Code",
         examples=["01", "001", "999"],
-        pattern=r"^[0-9][0-9][0-9]?$",
+        pattern=r"[0-9][0-9][0-9]?",
     )
     sst: int = Field(
         description="Slice/Service Type",
@@ -58,36 +59,29 @@ class PLMNConfig:
         le=16777215,
     )
 
-class FivegF1ProviderAppData(BaseModel):
-    f1_ip_address: IPvAnyAddress = Field(
-        description="IPv4 address of the network interface used for F1 traffic",
-        examples=["192.168.70.132"]
-    )
-    f1_port: int = Field(
-        description="Number of the port used for F1 traffic",
-        examples=[2153]
-    )
+
+class FivegCoreGnbProviderAppData(BaseModel):
     tac: int = Field(
         description="Tracking Area Code",
         examples=[1],
         ge=1,
         le=16777215,
     )
-    plmns: conlist(PLMNConfig, min_length=1)
+    plmns: List[PLMNConfig]
 
 
-class FivegF1RequirerAppData(BaseModel):
-    f1_port: int = Field(
-        description="Number of the port used for F1 traffic",
-        examples=[2153]
+class FivegCoreGnbRequirerAppData(BaseModel):
+    cu_name: str = Field(
+        description="Unique identifier of the CU/gnB.",
+        examples=["gnb001"]
     )
 
 
 class ProviderSchema(DataBagSchema):
-    """Provider schema for fiveg_f1."""
-    app: FivegF1ProviderAppData
+    """The schema for the provider side of the fiveg_core_gnb interface."""
+    app: FivegCoreGnbProviderAppData
 
 
 class RequirerSchema(DataBagSchema):
-    """Requirer schema for fiveg_f1."""
-    app: FivegF1RequirerAppData
+    """The schema for the requirer side of the fiveg_core_gnb interface."""
+    app: FivegCoreGnbRequirerAppData
