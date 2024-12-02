@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "TempoClusterRequirerAppData": {
+      "description": "TempoClusterRequirerAppData.",
+      "properties": {
+        "role": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/TempoRole"
+          },
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role"
+      ],
+      "title": "TempoClusterRequirerAppData",
+      "type": "object"
+    },
+    "TempoClusterRequirerUnitData": {
+      "description": "TempoClusterRequirerUnitData.",
+      "properties": {
+        "juju_topology": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/_Topology"
+          },
+          "title": "Juju Topology",
+          "type": "string"
+        },
+        "address": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "type": "string"
+          },
+          "title": "Address",
+          "type": "string"
+        }
+      },
+      "required": [
+        "juju_topology",
+        "address"
+      ],
+      "title": "TempoClusterRequirerUnitData",
+      "type": "object"
+    },
+    "TempoRole": {
+      "description": "Tempo component role names.\n\nReferences:\n arch:\n  -> https://grafana.com/docs/tempo/latest/operations/architecture/\n config:\n  -> https://grafana.com/docs/tempo/latest/configuration/#server",
+      "enum": [
+        "all",
+        "querier",
+        "query-frontend",
+        "ingester",
+        "distributor",
+        "compactor",
+        "metrics-generator"
+      ],
+      "title": "TempoRole",
+      "type": "string"
+    },
+    "_Topology": {
+      "description": "JujuTopology as defined by cos-lib.",
+      "properties": {
+        "application": {
+          "title": "Application",
+          "type": "string"
+        },
+        "charm_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Charm Name"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "application",
+        "charm_name",
+        "unit"
+      ],
+      "title": "_Topology",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/TempoClusterRequirerUnitData"
+    },
+    "app": {
+      "$ref": "#/$defs/TempoClusterRequirerAppData"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
