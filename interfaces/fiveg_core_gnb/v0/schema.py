@@ -21,7 +21,7 @@ Examples:
     RequirerSchema:
         unit: <empty>
         app: {
-            "cu-name": "gnb001",
+            "gnb-name": "gnb001",
         }
 """
 
@@ -71,8 +71,8 @@ class FivegCoreGnbProviderAppData(BaseModel):
 
 
 class FivegCoreGnbRequirerAppData(BaseModel):
-    cu_name: str = Field(
-        alias="cu-name",
+    gnb_name: str = Field(
+        alias="gnb-name",
         description="Unique identifier of the CU/gnB.",
         examples=["gnb001"]
     )
