@@ -1,8 +1,7 @@
 from typing import Dict, Any
 
-from pydantic import Json, BaseModel, Field
-
 from interface_tester.schema_base import DataBagSchema
+from pydantic import Json, BaseModel, Field
 
 
 class GrafanaSourceData(BaseModel):
@@ -27,7 +26,10 @@ class GrafanaSourceProviderAppData(BaseModel):
 
 class GrafanaSourceProviderUnitData(BaseModel):
     """Application databag model for the requirer side of this interface."""
-    grafana_source_host: Json[GrafanaSourceData]
+    grafana_source_host: str = Field(
+        description="Hostname of a source server.",
+        examples=['localhost:80']
+    )
 
 
 class ProviderSchema(DataBagSchema):
