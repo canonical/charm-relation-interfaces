@@ -48,7 +48,9 @@ def test_nothing_happens_on_invalid_remote_data():
 
 def test_datasource_uid_shared_if_remote_data_valid():
     # GIVEN the remote side has shared a valid datasource endpoint
-    relation_in = Relation(endpoint='grafana-source', interface='grafana_datasource', remote_app_name='foo',
+    relation_in = Relation(endpoint='grafana-source',
+                           interface='grafana_datasource',
+                           remote_app_name='foo',
                         remote_app_data={"grafana_source_data": json.dumps(
                             {"model": "somemodel", "model_uuid": "0000-0000-0000-0042", "application": "myapp",
                              "type": "prometheus", })},
@@ -73,7 +75,7 @@ def test_datasource_uid_shared_if_remote_data_valid():
     ds_uids = json.loads(rel_out.local_app_data['datasource_uids'])
 
     # each requirer unit has received a datasource uid
-    assert ds_uids['myapp/0']
-    assert ds_uids['myapp/42']
+    assert ds_uids['foo/0']
+    assert ds_uids['foo/42']
 
 
