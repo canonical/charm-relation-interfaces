@@ -69,7 +69,7 @@ def test_datasource_uid_shared_if_remote_data_valid():
     tester.assert_schema_valid()
 
     # AND THEN the requirer has shared a datasource UID
-    rel_out = [r for r in state_out.relations if r.relation_id == relation_in.relation_id][0]
+    rel_out = [r for r in state_out.relations if r.id == relation_in.id][0]
     ds_uids = json.loads(rel_out.local_app_data['datasource_uids'])
 
     # each requirer unit has received a datasource uid
