@@ -28,7 +28,7 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 
 - Is expected to expose a server implementing [the grafana source HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/data_source/). In other words, it's expected to expose one or more valid grafana datasources.
 - Is expected to register each datasource endpoint (one per unit) with a central grafana application and obtain a Datasource UID for each one of them. 
-- Is expected to share via application data, as a json payload, the following information:
+- Is expected to share via application data, as a json-encoded array (sorted by UID), the following information:
   - for each datasource (which technically will likely mean, for each unit of the application):
     - the datasource UID
     - the datasource type
@@ -76,3 +76,4 @@ application_data: {
 
 - Since this interface is symmetrical, each application will likely have to implement both a requirer and a provider endpoint for it, to avoid having strange constraints on the integration topology.
 - The data that is being exchanged comes in part from the application themselves (the datasource type), but in part from another integration (Grafana assigns the UIDs and communicates them back via the `grafana_datasource` interface). Since we cannot assume which integration is created first and what the event sequence will look like, this interface cannot commit to a specific event by which the data should be written. Instead, the only guarantee an implementer should give, is that _eventually_ the data will be provided.
+- The 'sorting by UID' feature is required to prevent the databag hash to keep flapping and trigger endless cascades of relation-changed events.
