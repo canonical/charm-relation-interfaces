@@ -1,0 +1,26 @@
+name: grafana_datasource_exchange
+
+internal: true
+
+version: 0
+
+status: draft
+
+providers:
+  - name: tempo-coordinator-k8s
+    url: https://github.com/canonical/tempo-coordinator-k8s-operator
+    branch: grafana-datasource-exchange
+    test_setup:
+      location: tests/interface/conftest.py
+      identifier: grafana_datasource_exchange_tester
+
+requirers:
+  - name: grafana-k8s
+    url: https://github.com/canonical/tempo-coordinator-k8s-operator
+    branch: grafana-datasource-exchange
+    test_setup:
+      location: tests/interface/conftest.py
+      identifier: grafana_datasource_exchange_tester
+
+
+maintainer: observability
