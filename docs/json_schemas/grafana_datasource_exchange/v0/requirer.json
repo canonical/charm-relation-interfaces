@@ -1,0 +1,77 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "GrafanaDatasource": {
+      "properties": {
+        "type": {
+          "description": "Type of the datasource.",
+          "examples": [
+            "tempo",
+            "loki",
+            "prometheus"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "uid": {
+          "description": "Grafana datasource UID, as assigned by Grafana.",
+          "title": "Uid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "uid"
+      ],
+      "title": "GrafanaDatasource",
+      "type": "object"
+    },
+    "GrafanaSourceAppData": {
+      "description": "Application databag model for the requirer side of this interface.",
+      "properties": {
+        "datasources": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "$ref": "#/$defs/GrafanaDatasource"
+            },
+            "type": "array"
+          },
+          "title": "Datasources",
+          "type": "string"
+        }
+      },
+      "required": [
+        "datasources"
+      ],
+      "title": "GrafanaSourceAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schemas for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/GrafanaSourceAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
