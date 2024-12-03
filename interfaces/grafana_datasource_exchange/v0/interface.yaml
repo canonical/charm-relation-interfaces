@@ -9,7 +9,7 @@ status: draft
 providers:
   - name: tempo-coordinator-k8s
     url: https://github.com/canonical/tempo-coordinator-k8s-operator
-    branch: grafana-datasource-exchange
+    branch: grafana_datasource_exchange
     test_setup:
       location: tests/interface/conftest.py
       identifier: grafana_datasource_exchange_tester
@@ -17,7 +17,7 @@ providers:
 requirers:
   - name: grafana-k8s
     url: https://github.com/canonical/tempo-coordinator-k8s-operator
-    branch: grafana-datasource-exchange
+    branch: grafana_datasource_exchange
     test_setup:
       location: tests/interface/conftest.py
       identifier: grafana_datasource_exchange_tester
