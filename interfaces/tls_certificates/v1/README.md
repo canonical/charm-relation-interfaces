@@ -2,13 +2,15 @@
 
 ## Usage
 
-This relation interface describes the expected behavior of any charm claiming to be able to provide 
+This relation interface describes the expected behavior of any charm claiming to be able to provide
 or consume TLS certificates.
+
+A recommended approach is to use the [tls_certificates_interface library V4](https://github.com/canonical/tls-certificates-interface/blob/main/lib/charms/tls_certificates_interface/v4/tls_certificates.py).
 
 ## Direction
 
-As all Juju relations, the `tls-certificates` interface consists of a provider and a requirer. 
-One of these, in this case the `provider`, will be expected to create TLS certificates where the 
+As with all Juju relations, the `tls-certificates` interface consists of a provider and a requirer.
+One of these, in this case the `provider`, will be expected to create TLS certificates where the
 `requirer` will be able to consume and use them for TLS communications.
 
 ```mermaid
@@ -19,7 +21,7 @@ flowchart
 
 ## Behavior
 
-Both the requirer and the provider need to adhere to a certain set of criteria to be considered 
+Both the requirer and the provider need to adhere to a certain set of criteria to be considered
 compatible with the interface.
 
 ### Requirer
@@ -63,7 +65,7 @@ The requirer specifies a set of certificate signing requests (CSR's).
 
 ### Provider
 
-The provider replies with a certificate, a CA Certificate and a CA chain for each of the 
+The provider replies with a certificate, a CA Certificate and a CA chain for each of the
 Certificate Signing Requests requested by the requirer.
 
 #### Example
