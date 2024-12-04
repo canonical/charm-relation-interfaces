@@ -10,3 +10,5 @@ providers:
 requirers:
   - name: oai-ran-ue-k8s
     url: https://github.com/canonical/oai-ran-ue-k8s-operator
+
+maintainer: telco

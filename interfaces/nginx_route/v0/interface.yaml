@@ -7,3 +7,5 @@ providers:
     url: https://github.com/canonical/nginx-ingress-integrator-operator
 
 requirers: []
+
+maintainer: is-charms

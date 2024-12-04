@@ -11,3 +11,5 @@ providers:
 requirers:
   - name: kratos
     url: https://www.github.com/canonical/kratos-operator
+
+maintainer: identity

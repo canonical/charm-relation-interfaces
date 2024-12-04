@@ -10,3 +10,5 @@ requirers:
     url: https://github.com/canonical/prometheus-k8s-operator
   - name: loki-k8s
     url: https://github.com/canonical/loki-k8s-operator
+
+maintainer: observability

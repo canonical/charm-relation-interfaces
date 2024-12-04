@@ -9,3 +9,5 @@ providers:
 requirers:
   - name: nfs-client-operator
     url: https://github.com/canonical/nfs-client-operator
+
+maintainer: hpc-team

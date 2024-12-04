@@ -6,3 +6,5 @@ status: retired
 providers: []
 
 requirers: []
+
+maintainer: observability

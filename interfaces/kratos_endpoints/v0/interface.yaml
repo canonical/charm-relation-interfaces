@@ -13,3 +13,5 @@ requirers:
     url: https://github.com/canonical/identity-platform-login-ui-operator
   - name: oathkeeper-operator
     url: https://github.com/canonical/oathkeeper-operator
+
+maintainer: identity

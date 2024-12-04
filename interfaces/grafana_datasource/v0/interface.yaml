@@ -1,0 +1,24 @@
+name: grafana_datasource
+
+internal: true
+
+version: 0
+
+status: published
+
+providers:
+  - name: tempo-coordinator-k8s
+    url: https://github.com/canonical/tempo-coordinator-k8s-operator
+    test_setup:
+      location: tests/interface/conftest.py
+      identifier: grafana_datasource_tester
+
+requirers:
+  - name: grafana-k8s
+    url: https://github.com/canonical/grafana-k8s-operator
+    test_setup:
+      location: tests/interface/conftest.py
+      identifier: grafana_source_tester
+
+
+maintainer: observability

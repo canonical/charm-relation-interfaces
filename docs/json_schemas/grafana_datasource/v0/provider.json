@@ -1,0 +1,133 @@
+{
+  "$defs": {
+    "GrafanaSourceData": {
+      "properties": {
+        "model": {
+          "description": "Name of the Juju model where the source is deployed.",
+          "examples": [
+            "cos"
+          ],
+          "title": "Model",
+          "type": "string"
+        },
+        "model_uuid": {
+          "description": "UUID of the Juju model where the source is deployed.",
+          "examples": [
+            "0000-0000-0000-0000"
+          ],
+          "title": "Model Uuid",
+          "type": "string"
+        },
+        "application": {
+          "description": "Name of the Juju model where the source is deployed.",
+          "examples": [
+            "tempo",
+            "loki",
+            "prometheus"
+          ],
+          "title": "Application",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type of the datasource.",
+          "examples": [
+            "tempo",
+            "loki",
+            "prometheus"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "extra_fields": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {},
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Any datasource-type-specific additional configuration.",
+          "title": "Extra Fields"
+        },
+        "secure_extra_fields": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {},
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Any secure datasource-type-specific additional configuration.",
+          "title": "Secure Extra Fields"
+        }
+      },
+      "required": [
+        "model",
+        "model_uuid",
+        "application",
+        "type",
+        "extra_fields",
+        "secure_extra_fields"
+      ],
+      "title": "GrafanaSourceData",
+      "type": "object"
+    },
+    "GrafanaSourceProviderAppData": {
+      "description": "Application databag model for the requirer side of this interface.",
+      "properties": {
+        "grafana_source_data": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/GrafanaSourceData"
+          },
+          "title": "Grafana Source Data",
+          "type": "string"
+        }
+      },
+      "required": [
+        "grafana_source_data"
+      ],
+      "title": "GrafanaSourceProviderAppData",
+      "type": "object"
+    },
+    "GrafanaSourceProviderUnitData": {
+      "description": "Application databag model for the requirer side of this interface.",
+      "properties": {
+        "grafana_source_host": {
+          "description": "Hostname of a source server.",
+          "examples": [
+            "localhost:80"
+          ],
+          "title": "Grafana Source Host",
+          "type": "string"
+        }
+      },
+      "required": [
+        "grafana_source_host"
+      ],
+      "title": "GrafanaSourceProviderUnitData",
+      "type": "object"
+    }
+  },
+  "description": "The schemas for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/GrafanaSourceProviderUnitData"
+    },
+    "app": {
+      "$ref": "#/$defs/GrafanaSourceProviderAppData"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

@@ -311,6 +311,7 @@ def run_interface_tests(
     keep_cache: bool = False,
 ) -> "_ResultsPerInterface":
     """Run the tests for the specified interfaces, defaulting to all."""
+    failed = False
     if not keep_cache:
         _clean()
     test_results = {}
@@ -321,19 +322,20 @@ def run_interface_tests(
         )
         test_results[interface] = results_per_version
 
-        # Running in GitHub actions with owners set on the test.
+        # Running in GitHub actions with the maintainer set on the test.
         if os.getenv("GITHUB_ACTIONS"):
             for version, tests_per_role in version_to_roles.items():
-                owners = tests_per_role.get("owners")
-                if owners and test_failed(results_per_version[version]):
+                maintainer = tests_per_role.get("maintainer")
+                if maintainer and test_failed(results_per_version[version]):
+                    failed = True
                     create_issue(
-                        interface, version, results_per_version[version], owners
+                        interface, version, results_per_version[version], maintainer
                     )
 
     if not collected:
         logging.warning("No tests collected.")
 
-    return test_results
+    return test_results, failed
 
 
 def test_failed(role_result: "_ResultsPerRole"):
@@ -344,23 +346,37 @@ def test_failed(role_result: "_ResultsPerRole"):
     return False
 
 
+def get_team_members_from_team_slug(slug: str) -> List[str]:
+    gh = Github(os.getenv("GITHUB_TOKEN"))
+    team = gh.get_organization("canonical").get_team_by_slug(slug)
+    if not team:
+        return []
+    return [m.login for m in team.get_members() if not m.login.endswith("-bot")]
+
+
 def create_issue(
-    interface: str, version: str, result_per_role: "_ResultsPerRole", owners: List[str]
+    interface: str, version: str, result_per_role: "_ResultsPerRole", maintainer: str
 ):
     gh = Github(os.getenv("GITHUB_TOKEN"))
     repo = gh.get_repo("canonical/charm-relation-interfaces")
+    issue_assignees = ["IronCore864", "tonyandrewmeyer"]
     workflow_url = ""
     github_run_id = os.getenv("GITHUB_RUN_ID")
     if github_run_id:
         workflow_url = f"https://github.com/canonical/charm-relation-interfaces/actions/runs/{github_run_id}"
     result = flatten_test_result(result_per_role)
     title = f"Interface test for {interface} {version} failed."
+    mention_team_members = ", ".join(
+        ["@" + member for member in get_team_members_from_team_slug(maintainer)]
+    )
     body = f"""\
 Tests for interface {interface} {version} failed.
 
 {result}
 
 See the workflow {workflow_url} for more detail.
+
+{mention_team_members}
 """
 
     issue = None
@@ -373,12 +389,9 @@ See the workflow {workflow_url} for more detail.
     if issue:
         issue.create_comment(body)
         print(f"GitHub issue updated: {issue.html_url}")
-        if owners:
-            issue.edit(assignees=owners)
-            print(f"GitHub issue assigned to {owners}")
     else:
         issue = repo.create_issue(
-            title=title, body=body, assignees=owners, labels=labels
+            title=title, body=body, assignees=issue_assignees, labels=labels
         )
         print(f"GitHub issue created: {issue.html_url}")
 
@@ -441,7 +454,8 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    result = run_interface_tests(
+    result, failed = run_interface_tests(
         Path("."), args.repo, args.branch, args.include, args.keep_cache
     )
     pprint_interface_test_results(result)
+    exit(1) if failed else exit(0)

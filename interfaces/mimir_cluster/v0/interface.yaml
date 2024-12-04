@@ -11,3 +11,5 @@ providers:
 requirers:
   - name: mimir-worker
     url: https://github.com/canonical/mimir-worker-k8s-operator
+
+maintainer: observability
