@@ -21,7 +21,7 @@ Examples:
     RequirerSchema:
         unit: <empty>
         app: {
-            "cu_name": "gnb001",
+            "gnb-name": "gnb001",
         }
 """
 
@@ -38,12 +38,12 @@ class PLMNConfig:
     mcc: str = Field(
         description="Mobile Country Code",
         examples=["001", "208", "302"],
-        pattern=r"[0-9][0-9][0-9]",
+        pattern=r"^[0-9][0-9][0-9]$",
     )
     mnc: str = Field(
         description="Mobile Network Code",
         examples=["01", "001", "999"],
-        pattern=r"[0-9][0-9][0-9]?",
+        pattern=r"^[0-9][0-9][0-9]?$",
     )
     sst: int = Field(
         description="Slice/Service Type",
@@ -71,7 +71,8 @@ class FivegCoreGnbProviderAppData(BaseModel):
 
 
 class FivegCoreGnbRequirerAppData(BaseModel):
-    cu_name: str = Field(
+    gnb_name: str = Field(
+        alias="gnb-name",
         description="Unique identifier of the CU/gnB.",
         examples=["gnb001"]
     )
