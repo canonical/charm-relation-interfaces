@@ -9,7 +9,7 @@ A recommended approach is to use the [tls_certificates_interface library V4](htt
 
 ## Direction
 
-As all Juju relations, the `tls-certificates` interface consists of a provider and a requirer.
+As with all Juju relations, the `tls-certificates` interface consists of a provider and a requirer.
 One of these, in this case the `provider`, will be expected to create TLS certificates where the
 `requirer` will be able to consume and use them for TLS communications.
 
