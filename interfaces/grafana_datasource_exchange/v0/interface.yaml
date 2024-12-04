@@ -15,7 +15,7 @@ providers:
       identifier: grafana_datasource_exchange_tester
 
 requirers:
-  - name: grafana-k8s
+  - name: tempo-coordinator-k8s
     url: https://github.com/canonical/tempo-coordinator-k8s-operator
     branch: grafana_datasource_exchange
     test_setup:
