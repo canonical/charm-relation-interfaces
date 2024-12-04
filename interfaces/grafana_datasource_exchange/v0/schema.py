@@ -5,8 +5,9 @@ from pydantic import Json, BaseModel, Field
 
 
 class GrafanaDatasource(BaseModel):
-    type: str = Field(description="Type of the datasource.",
-                      examples=['tempo', 'loki', 'prometheus'])
+    type: str = Field(description="Type of the datasource, typically one of "
+                                  "https://grafana.com/docs/grafana/latest/datasources/#built-in-core-data-sources.",
+                      examples=["tempo", "loki", "prometheus", "elasticsearch"])
     uid: str = Field(description="Grafana datasource UID, as assigned by Grafana.")
 
 

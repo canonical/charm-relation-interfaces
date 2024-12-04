@@ -30,8 +30,8 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 - Is expected to register each datasource endpoint (one per unit) with a central grafana application and obtain a Datasource UID for each one of them. 
 - Is expected to share via application data, as a json-encoded array (sorted by UID), the following information:
   - for each datasource (which technically will likely mean, for each unit of the application):
-    - the datasource UID
-    - the datasource type
+    - the datasource UID: an arbitrary string, that is expected to be unique for the grafana instance
+    - the datasource type: a grafana datasource type name (typically will be [one of the built-in ones](https://grafana.com/docs/grafana/latest/datasources/#built-in-core-data-sources))
     
 To avoid complexity, we stipulate that the data will be provided in bulk: only 'fully specified' datasources will be shared, i.e. this is not a valid databag state:
 
