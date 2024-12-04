@@ -8,13 +8,6 @@
     "DNSRecordRequirer": {
       "description": "List of domains for the provider to manage.",
       "properties": {
-        "service_account": {
-          "description": "Service account for authentication.",
-          "examples": "secret:123213123123123123123",
-          "name": "Service account",
-          "title": "Service Account",
-          "type": "string"
-        },
         "dns_entries": {
           "description": "List of DNS records for the provider to manage.",
           "items": {
@@ -26,7 +19,6 @@
         }
       },
       "required": [
-        "service_account",
         "dns_entries"
       ],
       "title": "DNSRecordRequirer",
