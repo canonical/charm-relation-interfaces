@@ -76,5 +76,3 @@ def test_datasource_uid_shared_if_remote_data_valid():
     # each requirer unit has received a datasource uid
     assert ds_uids['foo/0']
     assert ds_uids['foo/42']
-
-

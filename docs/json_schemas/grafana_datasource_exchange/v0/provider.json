@@ -22,11 +22,17 @@
           "description": "Grafana datasource UID, as assigned by Grafana.",
           "title": "Uid",
           "type": "string"
+        },
+        "grafana_uid": {
+          "description": "Grafana UID.",
+          "title": "Grafana Uid",
+          "type": "string"
         }
       },
       "required": [
         "type",
-        "uid"
+        "uid",
+        "grafana_uid"
       ],
       "title": "GrafanaDatasource",
       "type": "object"

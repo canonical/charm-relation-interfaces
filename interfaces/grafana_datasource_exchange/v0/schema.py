@@ -9,6 +9,7 @@ class GrafanaDatasource(BaseModel):
                                   "https://grafana.com/docs/grafana/latest/datasources/#built-in-core-data-sources.",
                       examples=["tempo", "loki", "prometheus", "elasticsearch"])
     uid: str = Field(description="Grafana datasource UID, as assigned by Grafana.")
+    grafana_uid: str = Field(description="Grafana UID.")
 
 
 class GrafanaSourceAppData(BaseModel):

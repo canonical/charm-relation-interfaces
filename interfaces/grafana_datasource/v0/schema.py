@@ -41,6 +41,10 @@ class ProviderSchema(DataBagSchema):
 class GrafanaSourceRequirerAppData(BaseModel):
     """Application databag model for the requirer side of this interface."""
     datasource_uids: Json[Dict[str, str]]
+    grafana_uid: str = Field(
+        description="UID of the requirer application.",
+        examples=['foo-0000-0000-0000-0000-grafana-1']
+    )
 
 
 class RequirerSchema(DataBagSchema):
