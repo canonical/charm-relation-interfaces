@@ -10,12 +10,14 @@ In most cases, this will be accomplished using the [grafana_source library](http
 The `grafana_datasource` interface implements a provider/requirer pattern.
 The provider is a charm that implements a grafana datasource-compatible endpoint, and the requirer is a charm that is able to use such an endpoint to query the data.
 
-The requirer is furthermore expected to share back to the provider a unique identifier assigned to the source. This can be used by the provider to share with other charms for data correlation and cross-referencing purposes.
+The requirer is furthermore expected to share back to the provider:
+- a unique identifier assigned to the source. This can be used by the provider to share with other charms for data correlation and cross-referencing purposes.
+- a unique identifier for the grafana application itself.
 
 ```mermaid
 flowchart TD
     Provider -- DatasourceEndpoint --> Requirer
-    Requirer -- DatasourceUID --> Provider
+    Requirer -- [DatasourceUID,GrafanaUID] --> Provider
 ```
 
 ## Behavior
@@ -30,6 +32,7 @@ The requirer and the provider need to adhere to a certain set of criteria to be 
 ### Requirer
 
 - Is expected to share back via application data a mapping from provider unit names to unique datasource IDs. 
+- Is expected to share back via application data a unique ID for the grafana application.
 
 ## Relation Data
 
@@ -73,10 +76,12 @@ application_data: {
 
 The provider is expected to share back a unique identifier for each unit of the requirer, as a mapping.
 This will be encoded as a json dict and nested under the `datasource_uids` field in the application databag.
+Also, is expected to share back a unique ID for the grafana application.
 
 #### Example
 ```yaml
 application-data: {
+ grafana_uid: 0000-0000-0000-0000,
  datasource_uids: {
   "tempo/0": 0000-0000-0000-0001, 
   "tempo/1": 0000-0000-0000-0002,
