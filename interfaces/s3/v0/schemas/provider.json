@@ -98,6 +98,19 @@
                 ]
             ]
         },
+        "service-account": {
+            "title": "Service account",
+            "description": "The service account file content, in base64",
+            "type": "string",
+            "items": {
+                "type": "string"
+            },
+            "examples": [
+                [
+                    "base64-encoded-ca-chain=="
+                ]
+            ]
+        },
         "s3-api-version": {
             "title": "S3 API signature",
             "description": "S3 protocol specific API signature.",
