@@ -1,5 +1,3 @@
-import json
-
 from interface_tester import Tester
 from scenario import State, Relation
 
