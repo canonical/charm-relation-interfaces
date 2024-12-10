@@ -61,7 +61,7 @@ provider:
   unit: {}
 requirer:
   app: {
-    "cu_name": "gnb001"
+    "gnb-name": "gnb001"
   }
   unit: {}
 ```
