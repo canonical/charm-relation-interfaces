@@ -39,7 +39,7 @@
           "description": "Status for the domain request.",
           "examples": [
             "approved",
-            "invalid_credentials"
+            "permission_denied"
           ],
           "name": "Status"
         },
@@ -65,7 +65,6 @@
       "description": "Represent the status values.",
       "enum": [
         "approved",
-        "invalid_credentials",
         "permission_denied",
         "conflict",
         "invalid_data",
