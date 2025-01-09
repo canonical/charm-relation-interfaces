@@ -1,0 +1,61 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "GrafanaSourceRequirerAppData": {
+      "description": "Application databag model for the requirer side of this interface.",
+      "properties": {
+        "datasource_uids": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "title": "Datasource Uids",
+          "type": "string"
+        },
+        "grafana_uid": {
+          "description": "UID of the requirer application.",
+          "examples": [
+            "foo-0000-0000-0000-0000-grafana-1"
+          ],
+          "title": "Grafana Uid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "datasource_uids",
+        "grafana_uid"
+      ],
+      "title": "GrafanaSourceRequirerAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/GrafanaSourceRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

@@ -5,6 +5,19 @@ import json
 from interface_tester.interface_test import Tester
 from scenario import State, Relation
 
+_VALID_REQUIRER_APP_DATA = {"receivers": json.dumps(
+    [
+        {
+            "protocol": {
+                "name": "otlp_grpc",
+                "type": "grpc"
+            },
+            "url": "http://192.0.2.0/24"
+        }
+    ]
+)
+}
+
 
 def test_data_on_created():
     tester = Tester(
@@ -14,9 +27,7 @@ def test_data_on_created():
                     endpoint='tracing',
                     interface='tracing',
                     remote_app_name='remote',
-                    remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc"])
-                    }
+                    remote_app_data=_VALID_REQUIRER_APP_DATA
                 )
             ]
         )
@@ -33,10 +44,7 @@ def test_data_on_joined():
                     endpoint='tracing',
                     interface='tracing',
                     remote_app_name='remote',
-                    remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc"])
-                    }
-                )
+                    remote_app_data=_VALID_REQUIRER_APP_DATA                )
             ]
         )
     )
@@ -52,10 +60,7 @@ def test_data_on_changed():
                     endpoint='tracing',
                     interface='tracing',
                     remote_app_name='remote',
-                    remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc"])
-                    }
-                )
+                    remote_app_data=_VALID_REQUIRER_APP_DATA                )
             ]
         )
     )

@@ -1,0 +1,84 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "GrafanaDatasource": {
+      "properties": {
+        "type": {
+          "description": "Type of the datasource, typically one of https://grafana.com/docs/grafana/latest/datasources/#built-in-core-data-sources.",
+          "examples": [
+            "tempo",
+            "loki",
+            "prometheus",
+            "elasticsearch"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "uid": {
+          "description": "Grafana datasource UID, as assigned by Grafana.",
+          "title": "Uid",
+          "type": "string"
+        },
+        "grafana_uid": {
+          "description": "Grafana UID.",
+          "title": "Grafana Uid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "uid",
+        "grafana_uid"
+      ],
+      "title": "GrafanaDatasource",
+      "type": "object"
+    },
+    "GrafanaSourceAppData": {
+      "description": "Application databag model for the requirer side of this interface.",
+      "properties": {
+        "datasources": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "items": {
+              "$ref": "#/$defs/GrafanaDatasource"
+            },
+            "type": "array"
+          },
+          "title": "Datasources",
+          "type": "string"
+        }
+      },
+      "required": [
+        "datasources"
+      ],
+      "title": "GrafanaSourceAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schemas for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/GrafanaSourceAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
