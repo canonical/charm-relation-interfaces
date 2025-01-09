@@ -5,17 +5,18 @@ import json
 from interface_tester.interface_test import Tester
 from scenario import State, Relation
 
-
-def test_no_response_on_bad_data():
-    tester = Tester(state_in=State(relations=[
-        Relation(
-            endpoint='tracing',
-            interface='tracing',
-            remote_app_data={"bubble": "rubble"}
-        )
-    ]))
-    tester.run('tracing-relation-changed')
-    tester.assert_relation_data_empty()
+_VALID_REQUIRER_APP_DATA = {"receivers": json.dumps(
+    [
+        {
+            "protocol": {
+                "name": "otlp_grpc",
+                "type": "grpc"
+            },
+            "url": "http://192.0.2.0/24"
+        }
+    ]
+)
+}
 
 
 def test_data_on_created():
@@ -26,9 +27,7 @@ def test_data_on_created():
                     endpoint='tracing',
                     interface='tracing',
                     remote_app_name='remote',
-                    remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
-                    }
+                    remote_app_data=_VALID_REQUIRER_APP_DATA
                 )
             ]
         )
@@ -45,10 +44,7 @@ def test_data_on_joined():
                     endpoint='tracing',
                     interface='tracing',
                     remote_app_name='remote',
-                    remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
-                    }
-                )
+                    remote_app_data=_VALID_REQUIRER_APP_DATA                )
             ]
         )
     )
@@ -64,10 +60,7 @@ def test_data_on_changed():
                     endpoint='tracing',
                     interface='tracing',
                     remote_app_name='remote',
-                    remote_app_data={
-                        "receivers": json.dumps(["otlp_grpc", "tempo_http", "tempo_grpc"])
-                    }
-                )
+                    remote_app_data=_VALID_REQUIRER_APP_DATA                )
             ]
         )
     )

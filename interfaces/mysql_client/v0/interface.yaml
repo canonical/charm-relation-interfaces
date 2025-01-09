@@ -8,3 +8,5 @@ providers:
   - name: mysql-k8s-operator
     url: https://www.github.com/canonical/mysql-k8s-operator
 requirers: []
+
+maintainer: data-platform-mysql

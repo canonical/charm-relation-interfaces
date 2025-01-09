@@ -8,3 +8,5 @@ providers:
 
 requirers:
   []
+
+maintainer: identity

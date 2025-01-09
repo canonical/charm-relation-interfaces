@@ -8,3 +8,5 @@ providers:
   - name: kubeflow-dashboard
     url: https://github.com/canonical/kubeflow-dashboard-operator
 requirers: []
+
+maintainer: kubeflow

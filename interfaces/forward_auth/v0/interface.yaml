@@ -11,3 +11,5 @@ providers:
 requirers:
   - name: traefik-k8s-operator
     url: https://www.github.com/canonical/traefik-k8s-operator
+
+maintainer: identity

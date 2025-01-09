@@ -1,0 +1,14 @@
+name: fiveg_rfsim
+internal: true
+version: 0
+status: draft
+
+providers:
+  - name: oai-ran-du-k8s
+    url: https://github.com/canonical/oai-ran-du-k8s-operator
+
+requirers:
+  - name: oai-ran-ue-k8s
+    url: https://github.com/canonical/oai-ran-ue-k8s-operator
+
+maintainer: telco

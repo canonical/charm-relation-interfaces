@@ -1,0 +1,48 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "FivegCoreGnbRequirerAppData": {
+      "properties": {
+        "gnb-name": {
+          "description": "Unique identifier of the CU/gnB.",
+          "examples": [
+            "gnb001"
+          ],
+          "title": "Gnb-Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gnb-name"
+      ],
+      "title": "FivegCoreGnbRequirerAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of the fiveg_core_gnb interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/FivegCoreGnbRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

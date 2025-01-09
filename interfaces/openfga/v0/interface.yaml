@@ -4,3 +4,5 @@ status: retired
 
 providers: []
 requirers: []
+
+maintainer: identity

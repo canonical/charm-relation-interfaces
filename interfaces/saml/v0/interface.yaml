@@ -9,3 +9,5 @@ providers:
 
 requirers:
   []
+
+maintainer: is-charms

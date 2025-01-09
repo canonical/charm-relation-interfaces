@@ -301,7 +301,7 @@ providers:
   - name: traefik-k8s
     url: https://github.com/canonical/traefik-k8s-operator
     test_setup: 
-      - location: foo/bar/baz.py  # location of the identifier
+        location: foo/bar/baz.py  # location of the identifier
         identifier: qux  # name of a pytest fixture yielding a configured InterfaceTester
 
 requirers: []

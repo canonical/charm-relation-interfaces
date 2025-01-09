@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "FivegRFSIMProviderAppData": {
+      "properties": {
+        "rfsim_address": {
+          "description": "RF simulator service ip",
+          "examples": [
+            "192.168.70.130"
+          ],
+          "title": "Rfsim Address",
+          "type": "string"
+        },
+        "sst": {
+          "description": "Slice/Service Type",
+          "examples": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "maximum": 255,
+          "minimum": 0,
+          "title": "Sst",
+          "type": "integer"
+        },
+        "sd": {
+          "anyOf": [
+            {
+              "maximum": 16777215,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Slice Differentiator",
+          "examples": [
+            1
+          ],
+          "title": "Sd"
+        }
+      },
+      "required": [
+        "rfsim_address",
+        "sst"
+      ],
+      "title": "FivegRFSIMProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for the fiveg_rfsim interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/FivegRFSIMProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
