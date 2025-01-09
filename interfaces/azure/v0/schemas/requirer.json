@@ -1,0 +1,26 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/azure/schemas/requirer.json",
+    "title": "`azure` requirer schema",
+    "description": "The `azure` root schema comprises the entire requirer databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "container"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "container": {
+            "title": "Container Name",
+            "description": "The name of the container requested by the requirer",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "test-container"
+            ]
+        }
+    },
+    "examples": [{
+        "container": "myapp"
+    }]
+}

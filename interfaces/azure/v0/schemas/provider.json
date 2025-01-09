@@ -1,0 +1,92 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/azure/schemas/provider.json",
+    "title": "`azure` provider schema",
+    "description": "The `azure` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "container",
+        "connection-protocol",
+        "storage-account",
+        "secret-key"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "container": {
+            "title": "Container name",
+            "description": "The name of the Azure Storage container delivered by the provider.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "test-container"
+            ]
+        },
+        "storage-account": {
+            "title": "Storage account name",
+            "description": "The name of the storage account in Azure Cloud.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "test-storage-account"
+            ]
+        },
+        "connection-protocol": {
+            "title": "Connection protocol",
+            "description": "The connection protocol to use to connect to Azure Storage.",
+            "type": "string",
+            "default": "abfss",
+            "examples": [
+                "wasb",
+                "wasbs",
+                "abfs",
+                "abfss"
+            ]
+        },
+        "secret-key": {
+            "title": "Secret Key",
+            "description": "Secret ID (password) corresponding to the storage account for connecting to the object storage.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "random-secret-key"
+            ]
+        },
+        "path": {
+            "title": "Path",
+            "description": "The path inside the container to store objects.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "foo/bar"
+            ]
+        },
+        "endpoint": {
+            "title": "Endpoint URL",
+            "description": "The endpoint corresponding to the specific container and storage account.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "abfss://test-container@test-account.dfs.core.windows.net/"
+            ]
+        }
+    },
+    "examples": [
+        {
+            "container": "test-container",
+            "storage-account": "test-storage-account",
+            "path": "spark-events/",
+            "connection-protocol": "abfss",
+            "secret-key": "DUMMY+ACCESS+KEY+FOR+EXAMPLE+1234567890abcdefghijklmnopqrstuvwxyz==",
+            "endpoint": "abfss://test-container@test-storage-account.dfs.core.windows.net/"
+        },
+        {
+            "container": "my-container",
+            "storage-account": "my-storageacc",
+            "path": "foo/bar/",
+            "connection-protocol": "wasb",
+            "secret-key": "EXAMPLE-KEY+1234567890abcdefghijklmnopqrstuvwxyz==",
+            "endpoint": "wasb://my-container@my-storageacc.blob.core.windows.net/"
+        }
+    ]
+}
