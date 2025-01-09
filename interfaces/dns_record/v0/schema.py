@@ -9,7 +9,6 @@ Examples:
     RequirerSchema:
         unit: <empty>
         app: {
-          "service_account": "secret:123213123123123123123",
           "dns_entries": [
             {
               "uuid": "550e8400-e29b-41d4-a716-446655440002",
@@ -59,7 +58,6 @@ class Status(str, Enum):
     """Represent the status values."""
 
     APPROVED = "approved"
-    INVALID_CREDENTIALS = "invalid_credentials"
     PERMISSION_DENIED = "permission_denied"
     CONFLICT = "conflict"
     INVALID_DATA = "invalid_data"
@@ -104,7 +102,7 @@ class DnsProviderData(BaseModel):
     status: Status = Field(
         name="Status",
         description="Status for the domain request.",
-        examples=[Status.APPROVED, Status.INVALID_CREDENTIALS]
+        examples=[Status.APPROVED, Status.PERMISSION_DENIED]
     )
     description: str = Field(
         default=None,
@@ -167,11 +165,6 @@ class RequirerEntries(BaseModel):
 
 class DNSRecordRequirer(BaseModel):
     """List of domains for the provider to manage."""
-    service_account: str = Field(
-        name="Service account",
-        description="Service account for authentication.",
-        examples="secret:123213123123123123123"
-    )
     dns_entries: List[RequirerEntries] = Field(
         name="DNS entries",
         description="List of DNS records for the provider to manage."
