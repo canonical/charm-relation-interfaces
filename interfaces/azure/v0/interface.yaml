@@ -1,0 +1,13 @@
+name: azure
+version: 0
+status: draft
+
+providers:
+  - name: azure-storage-integrator
+    url: https://github.com/canonical/object-storage-integrators
+
+requirers:
+  - name: spark-integration-hub-k8s
+    url: https://github.com/canonical/spark-integration-hub-k8s-operator
+
+maintainer: data-platform
