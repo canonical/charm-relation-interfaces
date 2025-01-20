@@ -1,4 +1,4 @@
-# `azure`
+# `azure_storage`
 
 ## Usage
 
@@ -33,11 +33,11 @@ Both the Requirer and the Provider must adhere to criteria to be compatible with
 
 ## Relation Data
 
+[\[Pydantic Schema\]](./schema.py)
 ### Provider
 
-[\[JSON Schema\]](./schemas/provider.json)
 
-The Provider provides credentials, endpoints, TLS info and database-specific fields. It should be placed in the **application** databag.
+The Provider provides credentials, endpoints, and other parameters necessary to connect to Azure Storage. It should be placed in the **application** databag.
 
 
 #### Example
