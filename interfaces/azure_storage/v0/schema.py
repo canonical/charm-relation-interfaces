@@ -5,6 +5,7 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 """
 from enum import Enum
 from pathlib import Path
+from typing import List
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import (
@@ -67,7 +68,7 @@ class AzureStorageRequirerAppData(BaseModel):
         title="container",
     )
 
-    requested_secrets: list[str] = Field(
+    requested_secrets: List[str] = Field(
         alias="requested-secrets",
         description="Any provider field which should be transfered as Juju Secret",
         examples=[["username", "password", "tls-ca", "uris"]],
