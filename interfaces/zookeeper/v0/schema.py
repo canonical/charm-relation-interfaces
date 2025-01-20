@@ -11,20 +11,7 @@ from interface_tester.schema_base import DataBagSchema
 from pydantic import (
     BaseModel,
     Field,
-    IPvAnyAddress,
-    conint,
 )
-
-
-class Endpoint(BaseModel):
-    ip: IPvAnyAddress
-    port: conint(ge=0, le=65535) | None
-
-    def __init__(self, value: str) -> None:
-        ip, _, port = value.partition(":")
-        if not port:
-            port = None
-        super().__init__(ip=ip, port=port)
 
 
 Endpoints: TypeAlias = str
