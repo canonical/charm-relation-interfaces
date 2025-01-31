@@ -171,20 +171,11 @@ def _setup_venv(charm_path: Path) -> None:
         logging.info(f"Installing dependencies in venv for {charm_path}")
 
         subprocess.check_call(
-            ".interface-venv/bin/python -m pip install setuptools pytest poetry poetry-plugin-export pytest-interface-tester",
+            ".interface-venv/bin/python -m pip install setuptools pytest pytest-interface-tester",
             shell=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
-        if not os.path.exists(
-            os.path.join(charm_path, "requirements.txt")
-        ) and os.path.exists(os.path.join(charm_path, "poetry.lock")):
-            subprocess.check_call(
-                ".interface-venv/bin/python -m poetry export -o requirements.txt",
-                shell=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
         subprocess.check_call(
             ".interface-venv/bin/python -m pip install -r requirements.txt",
             shell=True,
