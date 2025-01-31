@@ -5,7 +5,6 @@ status: draft
 providers:
   - name: azure-storage-integrator
     url: https://github.com/canonical/object-storage-integrators
-    branch: rename-azure-interface
 
 requirers:
   - name: spark-integration-hub-k8s
