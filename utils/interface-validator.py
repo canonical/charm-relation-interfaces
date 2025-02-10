@@ -27,6 +27,8 @@ class TestSetup(BaseModel):
 
     location: Optional[str] = None
     identifier: Optional[str] = None
+    charm_root: Optional[str] = None
+    pre_run: Optional[str] = None
 
 class CharmEntry(BaseModel):
     model_config = ConfigDict(extra='forbid')
