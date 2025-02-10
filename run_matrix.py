@@ -87,6 +87,7 @@ def _prepare_repo(
     charm_path = root / Path(charm_config.name)
     if not charm_path.exists():
         _clone_charm_repo(charm_config, charm_path)
+        _pre_run(charm_config, charm_path)
         _setup_venv(charm_path)
     try:
         fixture_spec = _get_fixture(charm_config, charm_path)
