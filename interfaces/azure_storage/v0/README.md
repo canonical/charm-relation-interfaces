@@ -12,7 +12,7 @@ flowchart TD
     Provider -- container, storage-account, secret-key, connection-protocol, endpoint, path --> Requirer
 ```
 
-As with all Juju relations, the `azure` interface consists of two parties: a Provider (object storage charm) and a Requirer (application charm). The Provider will be expected to provide new unique credentials (along with `storage-account`, `container`, `connection-protocol` and other fields), which can be used to access the actual object storage.
+As with all Juju relations, the `azure` interface consists of two parties: a Provider (object storage charm) and a Requirer (application charm). The Provider is expected to generate and share unique credentials (along with `storage-account`, `container`, `connection-protocol` and other fields), which can be used to access the actual object storage.
 
 ## Behaviour
 
