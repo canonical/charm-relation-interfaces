@@ -10,6 +10,7 @@ import shutil
 import subprocess
 from collections import namedtuple
 from pathlib import Path
+from subprocess import Popen, check_call
 from typing import TYPE_CHECKING, Dict, Iterable, List, Literal, Tuple
 
 from github import Github
@@ -84,15 +85,28 @@ def _prepare_repo(
 ) -> Tuple[Path, Path]:
     """Clone the charm repository and create the venv if it hasn't been done already."""
     logging.info(f"Preparing testing environment for: {charm_config.name}")
-    charm_path = root / Path(charm_config.name)
-    if not charm_path.exists():
-        _clone_charm_repo(charm_config, charm_path)
-        _pre_run(charm_config, charm_path)
-        _setup_venv(charm_path)
+
+    # path at which we'll clone the charm repo
+    repo_root_path = root / charm_config.name
+
+    # multi-charm repos might have multiple charms in a single repo.
+    if charm_root_cfg := charm_config.test_setup.get("charm_root"):
+        charm_root_path = repo_root_path.joinpath(*charm_root_cfg.split("/"))
+        logging.info(
+            f"charm root configured: preparing to set up charm at {charm_root_path}"
+        )
+    else:
+        # usually, the charm is at the root of the repo.
+        charm_root_path = repo_root_path
+
+    if not repo_root_path.exists():
+        _clone_charm_repo(charm_config, repo_root_path)
+        _pre_run(charm_config, charm_root_path)
+        _setup_venv(charm_root_path)
     try:
-        fixture_spec = _get_fixture(charm_config, charm_path)
+        fixture_spec = _get_fixture(charm_config, charm_root_path)
     except FileNotFoundError as e:
-        raise SetupError(f"unable to get fixture spec from {charm_path}") from e
+        raise SetupError(f"unable to get fixture spec from {charm_root_path}") from e
     if not fixture_spec.path.is_file():
         # NOTE: In the future we could probably run the tests without a fixture, assuming
         # that the charm needs no patching at all to work with scenario
@@ -100,7 +114,7 @@ def _prepare_repo(
     test_path = _generate_test(
         interface, fixture_spec.path.parent, fixture_spec.id, version, repo, branch
     )
-    return charm_path, test_path
+    return charm_root_path, test_path
 
 
 def _clean(root: Path = Path("/tmp/charm-relation-interfaces-tests/")):
@@ -156,6 +170,34 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
         if charm_config.test_setup["identifier"]:
             fixture_id = charm_config.test_setup["identifier"]
     return FixtureSpec(fixture_path, fixture_id)
+
+
+def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
+    """Run whatever setup commands were configured in the custom test config."""
+    if charm_config.test_setup:
+        error = None
+        if pre_run_cfg := charm_config.test_setup.get("pre_run"):
+            logging.info("Running custom pre_run script...")
+            try:
+                proc = Popen(
+                    pre_run_cfg,
+                    cwd=charm_path,
+                    shell=True,
+                    text=True,
+                    stderr=subprocess.PIPE,
+                )
+                proc.wait(timeout=60)  # wait for up to 60 seconds
+
+                if proc.returncode != 0:
+                    error = proc.stderr.read()
+            except Exception:
+                error = str(f"uncaught exception raised by subprocess: {error}")
+
+        if error:
+            logging.error(
+                f"failed to run pre_run script from {charm_path}: {error}. The script was:\n\t{pre_run_cfg!r}"
+            )
+            raise SetupError(f"pre_run script failed with {error}")
 
 
 def _setup_venv(charm_path: Path) -> None:
