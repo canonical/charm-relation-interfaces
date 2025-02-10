@@ -16,7 +16,7 @@ As with all Juju relations, the `azure` interface consists of two parties: a Pro
 
 ## Behaviour
 
-Both the Requirer and the Provider must adhere to criteria to be compatible with this interface.
+Requirer and Provider must adhere to the following criteria to be considered compatible with this interface.
 
 ### Provider
 - It is expected to provide `storage-account`, `container` and `secret-key` fields corresponding to a storage account, container and the secret key corresponding to an Azure Storage account when a relation joins. As of now, the container is not automatically created when the relation is joined.
