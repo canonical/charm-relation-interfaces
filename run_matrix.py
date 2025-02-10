@@ -10,7 +10,7 @@ import shutil
 import subprocess
 from collections import namedtuple
 from pathlib import Path
-from subprocess import Popen, check_call
+from subprocess import Popen
 from typing import TYPE_CHECKING, Dict, Iterable, List, Literal, Tuple
 
 from github import Github
