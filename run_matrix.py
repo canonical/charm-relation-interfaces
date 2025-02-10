@@ -69,7 +69,7 @@ def _clone_charm_repo(charm_config: "_CharmTestConfig", charm_path: Path):
     )
     if retcode > 0:
         raise SetupError(
-            f"Failed to clone repo {charm_config.url} for {charm_config.name}; "
+            f"Failed to clone repo {charm_config.url}@{charm_config.branch or 'main'} for {charm_config.name}; "
             "check the charms.yaml config.\n"
             f"\t command: {cmd!r}"
         )

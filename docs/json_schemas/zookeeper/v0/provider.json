@@ -1,0 +1,82 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ZooKeeperProviderAppData": {
+      "properties": {
+        "database": {
+          "description": "The parent chroot zNode granted to the requirer",
+          "examples": [
+            "/myappB"
+          ],
+          "title": "zNode",
+          "type": "string"
+        },
+        "endpoints": {
+          "description": "A comma-seperated list of ZooKeeper server and ports",
+          "examples": [
+            "10.141.78.133:2181,10.141.78.50:2181,10.141.78.45:2181"
+          ],
+          "title": "ZooKeeper endpoints",
+          "type": "string"
+        },
+        "secret-user": {
+          "description": "The credentials to connect to ZooKeeper. The secret contains [user,password,uris].",
+          "examples": [
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"
+          ],
+          "title": "Credentials Secret Name",
+          "type": "string"
+        },
+        "secret-tls": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled. The secret contains [tls].",
+          "examples": [
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
+          ],
+          "title": "TLS Secret Name"
+        }
+      },
+      "required": [
+        "database",
+        "endpoints",
+        "secret-user"
+      ],
+      "title": "ZooKeeperProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ZooKeeperProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

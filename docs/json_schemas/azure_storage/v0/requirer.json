@@ -1,0 +1,65 @@
+{
+  "$defs": {
+    "AzureStorageRequirerAppData": {
+      "properties": {
+        "container": {
+          "description": "The name of the container that's requested by the requirer.",
+          "examples": [
+            "mycontainer"
+          ],
+          "title": "container",
+          "type": "string"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transfered as Juju Secret",
+          "examples": [
+            [
+              "username",
+              "password",
+              "tls-ca",
+              "uris"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "container",
+        "requested-secrets"
+      ],
+      "title": "AzureStorageRequirerAppData",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/AzureStorageRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
