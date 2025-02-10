@@ -7,13 +7,19 @@
     },
     "LdapProviderData": {
       "properties": {
-        "url": {
-          "description": "The LDAP URL",
-          "example": "ldap://ldap.canonical.com:3893",
-          "format": "uri",
-          "minLength": 1,
-          "title": "LDAP URL",
-          "type": "string"
+        "urls": {
+          "description": "List of LDAP URLs",
+          "example": [
+            "ldap://ldap.canonical.com:3893",
+            "ldap://ldap.ubuntu.com:3893"
+          ],
+          "items": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "LDAP URLs",
+          "type": "array"
         },
         "base_dn": {
           "description": "The base entry as the starting point for LDAP search operation",
@@ -47,7 +53,7 @@
         }
       },
       "required": [
-        "url",
+        "urls",
         "base_dn",
         "bind_dn",
         "bind_password_secret",

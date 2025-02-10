@@ -1,0 +1,51 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ProviderAppData": {
+      "description": "App databag model for the `filesystem_info` interface.",
+      "properties": {
+        "endpoint": {
+          "description": "Endpoint information to mount the exported filesystem.",
+          "examples": [
+            "nfs://(192.168.1.1:65535)/export",
+            "lustre://(192.168.227.11%40tcp1,192.168.227.12%40tcp1)/export",
+            "cephfs://fsuser@(192.168.1.1,192.168.1.2,192.168.1.3)/export?fsid=asdf1234&auth=secret%3AYXNkZnF3ZXJhc2RmcXdlcmFzZGZxd2Vy&filesystem=scratch"
+          ],
+          "title": "Endpoint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoint"
+      ],
+      "title": "ProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for filesystem_info.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

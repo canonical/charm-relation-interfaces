@@ -1,0 +1,17 @@
+name: filesystem_info
+version: 0
+status: draft
+
+# TODO: the charms live in a monorepo which needs additional setup steps to be able to run tests.
+
+providers:
+  - name: nfs-server-proxy
+    url: https://github.com/charmed-hpc/filesystem-charms
+  - name: cephfs-server-proxy
+    url: https://github.com/charmed-hpc/filesystem-charms
+
+requirers:
+  - name: filesystem-client
+    url: https://github.com/charmed-hpc/filesystem-charms
+
+maintainer: hpc-team
