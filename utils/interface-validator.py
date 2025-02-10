@@ -93,6 +93,8 @@ class Validator:
         
         if errors:
             exit("\nValidation completed with errors:\n\n" + '\n---\n'.join(errors) + "\n")
+        else:
+            print("Validation completed!")
 
 if __name__ == "__main__":
     Validator().run()
