@@ -15,13 +15,19 @@ def test_data_on_created():
                     endpoint="tempo_cluster",
                     interface="tempo_cluster",
                     remote_app_name="coordinator",
-                    remote_app_data={"worker_config": json.dumps("foo: bar")},
-                    charm_tracing_receivers={
-                        "otlp_http": "http://192.0.2.1:4318",
-                    },
-                    workload_tracing_receivers={
-                        "otlp_http": "http://192.0.2.2:4318",
-                        "otlp_grpc": "192.0.2.2:4317",
+                    remote_app_data={
+                        "worker_config": json.dumps("foo: bar"),
+                        "charm_tracing_receivers": json.dumps(
+                            {
+                                "otlp_http": "http://192.0.2.1:4318",
+                            }
+                        ),
+                        "workload_tracing_receivers": json.dumps(
+                            {
+                                "otlp_http": "http://192.0.2.2:4318",
+                                "otlp_grpc": "192.0.2.2:4317",
+                            }
+                        ),
                     },
                 )
             ]

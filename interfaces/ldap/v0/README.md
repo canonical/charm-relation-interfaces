@@ -17,7 +17,7 @@ be able to provide or consume the LDAP authentication configuration data.
 ```mermaid
 flowchart TD
     Requirer -- user, \ngroup --> Provider
-    Provider -- url, \nbase_dn, \nbind_dn, \nbind_password_secret, \nauth_method, \nstarttls --> Requirer
+    Provider -- urls, \nbase_dn, \nbind_dn, \nbind_password_secret, \nauth_method, \nstarttls --> Requirer
 ```
 
 ## Behavior
@@ -66,7 +66,7 @@ It should be placed in the **application** databag.
     - endpoint: ldap
       related-endpoint: ldap
       application-data:
-        url: ldap://ldap.canonical.com:3893
+        urls: [ldap://ldap.canonical.com:3893, ldap://ldap.ubuntu.com:3893]
         base_dn: dc=canonical,dc=com
         bind_dn: cn=app,ou=model,dc=canonical,dc=com
         bind_password_secret: secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0
