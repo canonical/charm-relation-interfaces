@@ -16,7 +16,7 @@ As with all Juju relations, the `azure_storage` interface consists of two partie
 
 ## Behaviour
 
-Both the Requirer and the Provider must adhere to criteria to be compatible with this interface.
+Requirer and Provider must adhere to the following criteria to be considered compatible with this interface.
 
 ### Provider
 The provider is expected to share with requirers all the credentials and configurations as per the schema for a requirer to be able to connect to an Azure Storage container. As of now, the container **may not** be automatically created when the relation is joined.

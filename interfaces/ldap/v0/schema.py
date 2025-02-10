@@ -6,17 +6,17 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from typing import Optional
+from typing import List, Optional
 
 from interface_tester.schema_base import DataBagSchema
 from pydantic import AnyUrl, BaseModel, Field
 
 
 class LdapProviderData(BaseModel):
-    url: AnyUrl = Field(
-        description="The LDAP URL",
-        title="LDAP URL",
-        example="ldap://ldap.canonical.com:3893",
+    urls: List[AnyUrl] = Field(
+        description="List of LDAP URLs",
+        title="LDAP URLs",
+        example=["ldap://ldap.canonical.com:3893", "ldap://ldap.ubuntu.com:3893"],
     )
     base_dn: str = Field(
         description="The base entry as the starting point for LDAP search "
