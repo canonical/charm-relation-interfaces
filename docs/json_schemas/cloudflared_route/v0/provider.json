@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "CloudflaredRouteProvider": {
+      "description": "Provider application databag schema for cloudflared_route integration.",
+      "properties": {
+        "tunnel_token_secret_id": {
+          "title": "Tunnel Token Secret Id",
+          "type": "string"
+        },
+        "nameserver": {
+          "anyOf": [
+            {
+              "format": "ipvanyaddress",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nameserver"
+        }
+      },
+      "required": [
+        "tunnel_token_secret_id"
+      ],
+      "title": "CloudflaredRouteProvider",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for cloudflared_route integration.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/CloudflaredRouteProvider"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
