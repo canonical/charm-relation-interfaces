@@ -27,6 +27,8 @@ class TestSetup(BaseModel):
 
     location: Optional[str] = None
     identifier: Optional[str] = None
+    charm_root: Optional[str] = None
+    pre_run: Optional[str] = None
 
 class CharmEntry(BaseModel):
     model_config = ConfigDict(extra='forbid')
@@ -91,6 +93,8 @@ class Validator:
         
         if errors:
             exit("\nValidation completed with errors:\n\n" + '\n---\n'.join(errors) + "\n")
+        else:
+            print("Validation completed!")
 
 if __name__ == "__main__":
     Validator().run()

@@ -27,6 +27,14 @@ status: draft
 providers:
   - name: charm-using-the-provider-side
     url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone for the tests; required
+    test_setup: # optional
+      charm_root: relative/path  # if the charm isn't at the root of the repo
+      identifier: tracing_tester  # custom identifier for the InterfaceTester-yielding fixture...
+      location: tests/interface/conftest.py  # ...and where to find it
+      pre_run: |
+        echo "bash script that does whatever is necessary to obtain a requirements.txt file in this specific repo:"
+        # for example:
+        # tox -e generate-requirements-file
 
 # `requirers` list charms that implement the requiring side of the interface.
 # this follows the same structure as `providers`. 
