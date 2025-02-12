@@ -91,7 +91,11 @@ def _prepare_repo(
 
     # multi-charm repos might have multiple charms in a single repo.
     if charm_root_cfg := charm_config.test_setup.get("charm_root"):
-        charm_root_path = repo_root_path.joinpath(*charm_root_cfg.split(os.path.sep))
+        charm_root_path = repo_root_path / charm_root_cfg
+        if not charm_root_path.resolve().is_relative_to(repo_root_path):
+            raise SetupError(
+                f"charm_root must be a relative path, not {charm_root_cfg!r}"
+            )
         logging.info(
             f"charm root configured: preparing to set up charm at {charm_root_path}"
         )
@@ -176,15 +180,15 @@ def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
     """Run whatever setup commands were configured in the custom test config."""
     if not charm_config.test_setup:
         return
+    timeout = 60  # seconds
     if pre_run_cfg := charm_config.test_setup.get("pre_run"):
         logging.info("Running custom pre_run script...")
         try:
-            proc = subprocess.run(
+            output = subprocess.check_output(
                 pre_run_cfg,
                 cwd=charm_path,
                 shell=True,
-                timeout=60,
-                capture_output=True,
+                timeout=timeout,
                 text=True,
                 check=True,
             )
@@ -195,7 +199,15 @@ def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
                 e.stderr,
                 pre_run_cfg
             )
-        logging.debug("Custom pre_run script output: %s", proc.stdout)
+        except subprocess.TimeoutExpired as e:
+            logging.error(
+                "pre_run script from %s timed out after %s. The script was:\n\t%r",
+                charm_path,
+                timeout,
+                pre_run_cfg
+            )
+        else:
+            logging.debug("Custom pre_run script output: %s", output)
 
 
 def _setup_venv(charm_path: Path) -> None:
