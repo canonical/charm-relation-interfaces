@@ -27,7 +27,7 @@ status: draft
 providers:
   - name: charm-using-the-provider-side
     url: https://github.com/foo/charm-using-the-provider-side-k8s-operator  # repo to clone for the tests; required
-    test_setup: # optional
+    test_setup:  # optional
       charm_root: relative/path  # if the charm isn't at the root of the repo
       identifier: tracing_tester  # custom identifier for the InterfaceTester-yielding fixture...
       location: tests/interface/conftest.py  # ...and where to find it

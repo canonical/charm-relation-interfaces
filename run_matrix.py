@@ -91,7 +91,7 @@ def _prepare_repo(
 
     # multi-charm repos might have multiple charms in a single repo.
     if charm_root_cfg := charm_config.test_setup.get("charm_root"):
-        charm_root_path = repo_root_path.joinpath(*charm_root_cfg.split("/"))
+        charm_root_path = repo_root_path.joinpath(*charm_root_cfg.split(os.path.sep))
         logging.info(
             f"charm root configured: preparing to set up charm at {charm_root_path}"
         )
@@ -174,30 +174,28 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
 
 def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
     """Run whatever setup commands were configured in the custom test config."""
-    if charm_config.test_setup:
-        error = None
-        if pre_run_cfg := charm_config.test_setup.get("pre_run"):
-            logging.info("Running custom pre_run script...")
-            try:
-                proc = Popen(
-                    pre_run_cfg,
-                    cwd=charm_path,
-                    shell=True,
-                    text=True,
-                    stderr=subprocess.PIPE,
-                )
-                proc.wait(timeout=60)  # wait for up to 60 seconds
-
-                if proc.returncode != 0:
-                    error = proc.stderr.read()
-            except Exception:
-                error = str(f"uncaught exception raised by subprocess: {error}")
-
-        if error:
-            logging.error(
-                f"failed to run pre_run script from {charm_path}: {error}. The script was:\n\t{pre_run_cfg!r}"
+    if not charm_config.test_setup:
+        return
+    if pre_run_cfg := charm_config.test_setup.get("pre_run"):
+        logging.info("Running custom pre_run script...")
+        try:
+            proc = subprocess.run(
+                pre_run_cfg,
+                cwd=charm_path,
+                shell=True,
+                timeout=60,
+                capture_output=True,
+                text=True,
+                check=True,
             )
-            raise SetupError(f"pre_run script failed with {error}")
+        except subprocess.CalledProcessError as e:
+            logging.error(
+                "failed to run pre_run script from %s: %s. The script was:\n\t%r",
+                charm_path,
+                e.stderr,
+                pre_run_cfg
+            )
+        logging.debug("Custom pre_run script output: %s", proc.stdout)
 
 
 def _setup_venv(charm_path: Path) -> None:
