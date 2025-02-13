@@ -10,7 +10,6 @@ import shutil
 import subprocess
 from collections import namedtuple
 from pathlib import Path
-from subprocess import Popen
 from typing import TYPE_CHECKING, Dict, Iterable, List, Literal, Tuple
 
 from github import Github
@@ -199,7 +198,7 @@ def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
                 e.stderr,
                 pre_run_cfg,
             )
-        except subprocess.TimeoutExpired as e:
+        except subprocess.TimeoutExpired:
             logging.error(
                 "pre_run script from %s timed out after %s. The script was:\n\t%r",
                 charm_path,
