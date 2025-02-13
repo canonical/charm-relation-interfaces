@@ -197,14 +197,14 @@ def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
                 "failed to run pre_run script from %s: %s. The script was:\n\t%r",
                 charm_path,
                 e.stderr,
-                pre_run_cfg
+                pre_run_cfg,
             )
         except subprocess.TimeoutExpired as e:
             logging.error(
                 "pre_run script from %s timed out after %s. The script was:\n\t%r",
                 charm_path,
                 timeout,
-                pre_run_cfg
+                pre_run_cfg,
             )
         else:
             logging.debug("Custom pre_run script output: %s", output)
