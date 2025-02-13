@@ -10,7 +10,6 @@ import shutil
 import subprocess
 from collections import namedtuple
 from pathlib import Path
-from subprocess import Popen
 from typing import TYPE_CHECKING, Dict, Iterable, List, Literal, Tuple
 
 from github import Github
@@ -91,7 +90,11 @@ def _prepare_repo(
 
     # multi-charm repos might have multiple charms in a single repo.
     if charm_root_cfg := charm_config.test_setup.get("charm_root"):
-        charm_root_path = repo_root_path.joinpath(*charm_root_cfg.split("/"))
+        charm_root_path = repo_root_path / charm_root_cfg
+        if not charm_root_path.resolve().is_relative_to(repo_root_path):
+            raise SetupError(
+                f"charm_root must be a relative path, not {charm_root_cfg!r}"
+            )
         logging.info(
             f"charm root configured: preparing to set up charm at {charm_root_path}"
         )
@@ -174,30 +177,36 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
 
 def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
     """Run whatever setup commands were configured in the custom test config."""
-    if charm_config.test_setup:
-        error = None
-        if pre_run_cfg := charm_config.test_setup.get("pre_run"):
-            logging.info("Running custom pre_run script...")
-            try:
-                proc = Popen(
-                    pre_run_cfg,
-                    cwd=charm_path,
-                    shell=True,
-                    text=True,
-                    stderr=subprocess.PIPE,
-                )
-                proc.wait(timeout=60)  # wait for up to 60 seconds
-
-                if proc.returncode != 0:
-                    error = proc.stderr.read()
-            except Exception:
-                error = str(f"uncaught exception raised by subprocess: {error}")
-
-        if error:
-            logging.error(
-                f"failed to run pre_run script from {charm_path}: {error}. The script was:\n\t{pre_run_cfg!r}"
+    if not charm_config.test_setup:
+        return
+    timeout = 60  # seconds
+    if pre_run_cfg := charm_config.test_setup.get("pre_run"):
+        logging.info("Running custom pre_run script...")
+        try:
+            output = subprocess.check_output(
+                pre_run_cfg,
+                cwd=charm_path,
+                shell=True,
+                timeout=timeout,
+                text=True,
+                check=True,
             )
-            raise SetupError(f"pre_run script failed with {error}")
+        except subprocess.CalledProcessError as e:
+            logging.error(
+                "failed to run pre_run script from %s: %s. The script was:\n\t%r",
+                charm_path,
+                e.stderr,
+                pre_run_cfg,
+            )
+        except subprocess.TimeoutExpired:
+            logging.error(
+                "pre_run script from %s timed out after %s. The script was:\n\t%r",
+                charm_path,
+                timeout,
+                pre_run_cfg,
+            )
+        else:
+            logging.debug("Custom pre_run script output: %s", output)
 
 
 def _setup_venv(charm_path: Path) -> None:
