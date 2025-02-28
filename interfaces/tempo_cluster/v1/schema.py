@@ -31,6 +31,9 @@ class TempoClusterProviderAppData(BaseModel):
     server_cert: Optional[Json[str]] = Field(
         default=None, description="Server certificate for tls encryption."
     )
+    s3_tls_ca_cert: Optional[Json[str]] = Field(
+        default=None, description="CA certificate for the s3 bucket API."
+    )
     privkey_secret_id: Optional[Json[str]] = Field(
         default=None,
         description="ID of a Juju secret that holds the private key used by the coordinator for TLS encryption.",
@@ -48,6 +51,10 @@ class TempoClusterProviderAppData(BaseModel):
         default=None,
         description="Endpoints to which the worker node can push its workload traces to."
         "It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`.",
+    )
+    worker_ports: Optional[Json[List[int]]] = Field(
+        default=None,
+        description="Ports that the worker should open on its pod.",
     )
 
 
