@@ -71,6 +71,23 @@
           "description": "Server certificate for tls encryption.",
           "title": "Server Cert"
         },
+        "s3_tls_ca_cert": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "CA certificate for the s3 bucket API.",
+          "title": "S3 Tls Ca Cert"
+        },
         "privkey_secret_id": {
           "anyOf": [
             {
@@ -150,6 +167,26 @@
           "default": null,
           "description": "Endpoints to which the worker node can push its workload traces to.It is a mapping from protocol names such as `zipkin`, `otlp_grpc`, `otlp_http`.",
           "title": "Workload Tracing Receivers"
+        },
+        "worker_ports": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Ports that the worker should open on its pod.",
+          "title": "Worker Ports"
         }
       },
       "required": [
