@@ -26,6 +26,12 @@ class ProviderSchema(DataBagSchema):
         title="TLS Secret URI",
         examples=["secret://12312323112313123213"],
     )
+    # The fields required to be a secret. Needs to contain "client-chain"
+    requested_secrets: str = Field(
+        description="The fields required to be a secret. Needs to contain 'client-chain'",
+        title="Requested Secrets",
+        examples='["client-chain"]',
+    )
 
 
 class RequirerSchema(DataBagSchema):
@@ -50,8 +56,8 @@ class RequirerSchema(DataBagSchema):
         examples=["secret://12312323112313123213"],
     )
     # The fields required to be a secret. Needs to contain "tls-ca"
-    requested_secrets: list[str] = Field(
+    requested_secrets: str = Field(
         description="The fields required to be a secret. Needs to contain 'tls-ca'",
         title="Requested Secrets",
-        examples=[["tls-ca"]],
+        examples='["tls-ca"]',
     )
