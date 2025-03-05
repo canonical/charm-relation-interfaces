@@ -53,12 +53,19 @@
       ],
       "title": "TLS Secret URI",
       "type": "string"
+    },
+    "requested_secrets": {
+      "description": "The fields required to be a secret. Needs to contain 'client-chain'",
+      "examples": "[\"client-chain\"]",
+      "title": "Requested Secrets",
+      "type": "string"
     }
   },
   "required": [
     "endpoints",
     "version",
-    "secret_tls"
+    "secret_tls",
+    "requested_secrets"
   ],
   "title": "ProviderSchema",
   "type": "object"

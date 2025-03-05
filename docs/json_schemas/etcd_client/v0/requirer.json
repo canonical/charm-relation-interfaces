@@ -56,16 +56,9 @@
     },
     "requested_secrets": {
       "description": "The fields required to be a secret. Needs to contain 'tls-ca'",
-      "examples": [
-        [
-          "tls-ca"
-        ]
-      ],
-      "items": {
-        "type": "string"
-      },
+      "examples": "[\"tls-ca\"]",
       "title": "Requested Secrets",
-      "type": "array"
+      "type": "string"
     }
   },
   "required": [
