@@ -1,0 +1,1 @@
+the contents of this directory may be overridden by the update_endpoints script. 
