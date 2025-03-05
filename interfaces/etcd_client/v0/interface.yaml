@@ -1,0 +1,11 @@
+name: etcd_client
+version: 0
+status: draft
+
+providers:
+  - name: charmed-etcd-operator
+    url: https://github.com/canonical/charmed-etcd-operator
+
+requirers: []
+
+maintainer: data-platform-nosql
