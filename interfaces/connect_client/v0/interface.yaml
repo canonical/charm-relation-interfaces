@@ -1,0 +1,18 @@
+name: connect_client
+
+version: 0
+
+status: draft
+
+providers:
+  - name: kafka-connect-operator
+    url: https://www.github.com/canonical/kafka-connect-operator
+  - name: kafka-connect-k8s-operator
+    url: https://www.github.com/canonical/kafka-connect-k8s-operator
+
+requirers:
+  - name: template-connect-integrator
+    url: https://www.github.com/canonical/template-connect-integrator
+
+
+maintainer: data-platform-bigdata

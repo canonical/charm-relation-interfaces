@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ConnectProviderData": {
+      "properties": {
+        "username": {
+          "description": "Username to be used on the Kafka Connect REST endpoint(s)",
+          "examples": [
+            "relation-7"
+          ],
+          "title": "Username",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password to be used on the Kafka Connect REST endpoint(s)",
+          "examples": [
+            "6Kt3niByjltswXvaO43N9P9vbyUvoBcS"
+          ],
+          "title": "Password",
+          "type": "string"
+        },
+        "endpoints": {
+          "description": "A comma-separated list of Kafka Connect REST endpoint(s), including the protocol (either `http` or `https`)",
+          "examples": [
+            "http://10.1.1.100:8083,http://10.1.1.101:8083,http://10.1.1.102:8083"
+          ],
+          "title": "Endpoints",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "endpoints"
+      ],
+      "title": "ConnectProviderData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of the `connect_client` interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ConnectProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
