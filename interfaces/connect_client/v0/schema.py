@@ -5,6 +5,8 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 from interface_tester.schema_base import DataBagSchema
@@ -27,7 +29,7 @@ class ConnectProviderData(BaseModel):
         examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"],
         title="Credentials Secret Name",
     )
-    secret_tls: str | None = Field(
+    secret_tls: Optional[str] = Field(
         None,
         alias="secret-tls",
         description="The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled. The secret contains [tls,tls-ca].",
