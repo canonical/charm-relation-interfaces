@@ -13,12 +13,28 @@
             "http://10.1.1.200:8080/route/to/plugins",
             "NOT-REQUIRED"
           ],
-          "title": "Plugin-Url",
+          "title": "Plugin URL",
           "type": "string"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transfered as Juju Secret",
+          "examples": [
+            [
+              "username",
+              "password",
+              "tls-ca"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
         }
       },
       "required": [
-        "plugin-url"
+        "plugin-url",
+        "requested-secrets"
       ],
       "title": "ConnectRequirerData",
       "type": "object"
