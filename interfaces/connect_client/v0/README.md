@@ -25,7 +25,7 @@ Both the Requirer and the Provider need to adhere to the following criteria, to 
 
 - The provider should download the connector plugins from the `plugin-url` path provided by the requirer and make it available across all Kafka Connect workers. In case it encounters the sentinel value `NOT-REQUIRED`, it should skip this step.
 - Is expected to create an application `username` and `password` inside the Kafka Connect cluster after making sure the connector plugins are available on all workers.
-- Is expected to put the credentials (`username` and `password`) , which could be used on the Kafka Connect REST interface by the requirer, in a Juju Secret and expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
+- Is expected to put the credentials (`username` and `password`) , which could be used on the Kafka Connect REST interface by the requirer, in a Juju Secret and expose the Juju Secrets URI through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field with a comma-seperated list of Kafka Connect REST endpoints. Each value in this list also includes the protocol which could be `http` or `https`.
 - If using HTTPS for REST endpoints, is expected to provide the CA chain in the `tls-ca` field of a Juju Secret and share the TLS Juju Secret URI through the `secret-tls` field of the databag.
 - Is expected to delete an application `username` and `password` from the Kafka Connect cluster when the relation is removed.
@@ -70,7 +70,6 @@ relation-info:
   - endpoint: connect_client
     related-endpoint: connect_client
     application-data:
-        plugin-url: http://10.1.1.200:8080/route/to/plugin
-        requested-secrets: ["username", "password", "tls-ca"]
+      plugin-url: http://10.1.1.200:8080/route/to/plugin
+      requested-secrets: ["username", "password", "tls-ca"]
 ```
-
