@@ -5,7 +5,7 @@ It exposes two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -46,7 +46,7 @@ class ConnectRequirerData(BaseModel):
         examples=["http://10.1.1.200:8080/route/to/plugins", PLUGIN_URL_NOT_REQUIRED],
         title="Plugin URL",
     )
-    requested_secrets: list[str] = Field(
+    requested_secrets: List[str] = Field(
         alias="requested-secrets",
         description="Any provider field which should be transfered as Juju Secret",
         examples=[["username", "password", "tls-ca"]],
