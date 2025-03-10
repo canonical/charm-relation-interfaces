@@ -4,7 +4,7 @@
 
 This relation interface describes the expected behavior of any charm claiming to be able to interface with a Kafka Connect cluster as a client/integrator or a provider. For the sake of this document,  `client`, `integrator` and `requirer` all refer to the same concept.
 
-A Kafka Connect integrator will either require a specific `connector` library (which is a bundle of JAR files adhering to Kafka Connect connector interface definit) or not:
+A Kafka Connect integrator will either require a specific `connector` library (which is a bundle of JAR files adhering to Kafka Connect connector interface definition) or not:
 
 - In case it requires a connector library, it should provide the URL of this resource via `plugin-url` parameter on the requirer side. All the required files should be packaged into a single Tarball and served at the provided endpoint. The only requirement here is that the `plugin-url` should be accessible by the Kafka Connect provider.
 - In case a connector library is not required (e.g. the case of MirrorMaker integrator), the requirer should fill the `plugin-url` with the sentinel value: `NOT-REQUIRED`.
