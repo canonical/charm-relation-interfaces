@@ -7,6 +7,18 @@
     },
     "FivegRFSIMProviderAppData": {
       "properties": {
+        "version": {
+          "description": "Interface version",
+          "examples": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "minimum": 0,
+          "title": "Version",
+          "type": "integer"
+        },
         "rfsim_address": {
           "description": "RF simulator service ip",
           "examples": [
@@ -45,9 +57,61 @@
             1
           ],
           "title": "Sd"
+        },
+        "band": {
+          "default": null,
+          "description": "Frequency band",
+          "examples": [
+            34,
+            77,
+            102
+          ],
+          "title": "Band",
+          "type": "integer"
+        },
+        "dl_freq": {
+          "default": null,
+          "description": "Downlink frequency in Hz",
+          "examples": [
+            4059090000
+          ],
+          "title": "Dl Freq",
+          "type": "integer"
+        },
+        "carrier_bandwidth": {
+          "default": null,
+          "description": "Carrier bandwidth (number of downlink PRBs)",
+          "examples": [
+            106
+          ],
+          "title": "Carrier Bandwidth",
+          "type": "integer"
+        },
+        "numerology": {
+          "default": null,
+          "description": "Numerology",
+          "examples": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "title": "Numerology",
+          "type": "integer"
+        },
+        "start_subcarrier": {
+          "default": null,
+          "description": "First usable subcarrier",
+          "examples": [
+            530,
+            541
+          ],
+          "title": "Start Subcarrier",
+          "type": "integer"
         }
       },
       "required": [
+        "version",
         "rfsim_address",
         "sst"
       ],

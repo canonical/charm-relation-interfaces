@@ -1,6 +1,6 @@
 name: fiveg_rfsim
 internal: true
-version: 0
+version: 1
 status: draft
 
 providers:

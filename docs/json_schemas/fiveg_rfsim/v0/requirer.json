@@ -4,6 +4,27 @@
       "properties": {},
       "title": "BaseModel",
       "type": "object"
+    },
+    "FivegRFSIMRequirerAppData": {
+      "properties": {
+        "version": {
+          "description": "Interface version",
+          "examples": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "minimum": 0,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "title": "FivegRFSIMRequirerAppData",
+      "type": "object"
     }
   },
   "description": "Requirer schema for the fiveg_rfsim interface.",
@@ -20,17 +41,12 @@
       "default": null
     },
     "app": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/BaseModel"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null
+      "$ref": "#/$defs/FivegRFSIMRequirerAppData"
     }
   },
+  "required": [
+    "app"
+  ],
   "title": "RequirerSchema",
   "type": "object"
 }
