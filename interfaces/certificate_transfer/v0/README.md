@@ -26,7 +26,7 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Requirer
 
-- Is expected to send its highest supported version number and use the provided certificate and/or CA certificate and/or chain to authenticate communications.
+- Is expected to send 0 as a version number and use the provided certificate and/or CA certificate and/or chain to authenticate communications.
 
 ## Relation Data
 
