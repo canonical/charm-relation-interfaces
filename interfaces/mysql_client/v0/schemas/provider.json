@@ -53,6 +53,16 @@
                 "unit-1:port,unit-2:port"
             ]
         },
+        "uris": {
+            "$id": "#/properties/uris",
+            "title": "URIs",
+            "description": "A connection string in URI format used to connect to the database",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "mysql://user:pass@host:port/mydb"
+            ]
+        },
         "read-only-endpoints": {
             "$id": "#/properties/read-only-endpoints",
             "title": "Read-Only Database Endpoints",
@@ -61,6 +71,16 @@
             "default": "",
             "examples": [
                 "unit-1:port,unit-2:port"
+            ]
+        },
+        "read-only-uris": {
+            "$id": "#/properties/read-only-uris",
+            "title": "Read only URIs",
+            "description": "A connection string in URI format used to connect to the read only endpoint of the database",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "mysql://user:pass@host:port/mydb"
             ]
         },
         "version": {
