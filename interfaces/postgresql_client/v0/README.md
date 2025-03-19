@@ -33,6 +33,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to provide the `endpoints` field with the address of Primary, which can be used for Read/Write queries.
 - Is expected to provide the `database` field with the database that was actually created.
 - Is expected to provide the `uris` field with the connection string, in libpq's URI format, which can be used for direct connection to the db.
+- Is expected to provide the `read-only-uris` field with the connection string when requested as a secret field, in libpq's URI format, which can be used for direct connection to a read only edpoint of a cluster.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 - Is expected to provide the `tls` field flag, indicating whether the provider has TLS enabled or not.
