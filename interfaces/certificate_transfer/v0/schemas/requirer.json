@@ -15,7 +15,7 @@
       "$id": "#/properties/version",
       "type": "integer",
       "title": "Interface version",
-      "description": "Highest supported version of the interface by this requirer"
+      "description": "Version number of the interface"
     }
   },
   "additionalProperties": true
