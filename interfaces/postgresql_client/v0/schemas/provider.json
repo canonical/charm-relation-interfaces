@@ -73,6 +73,16 @@
                 "unit-1:port,unit-2:port"
             ]
         },
+        "read-only-uris": {
+            "$id": "#/properties/read-only-uris",
+            "title": "Read only URIs",
+            "description": "A connection string in URI format used to connect to the read only endpoint of the database",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "postgresql://user:pass@host-1:port,host-2:port/mydb"
+            ]
+        },
         "version": {
             "$id": "#/properties/version",
             "title": "Version",
