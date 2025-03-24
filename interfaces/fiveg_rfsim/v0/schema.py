@@ -24,7 +24,7 @@ Examples:
 """
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, IPvAnyAddress
 
 from interface_tester.schema_base import DataBagSchema
 
