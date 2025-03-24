@@ -6,25 +6,38 @@ Examples:
     ProviderSchema:
         unit: <empty>
         app: {
+            "version": 0,
             "rfsim_address": "192.168.70.130",
             "sst": 1,
             "sd": 1,
+            "band": 77,
+            "dl_freq": 4059090000,
+            "carrier_bandwidth": 106,
+            "numerology": 1,
+            "start_subcarrier": 541,
         }
     RequirerSchema:
         unit: <empty>
-        app:  <empty>
+        app: {
+            "version": 0,
+        }
 """
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, IPvAnyAddress
 
 from interface_tester.schema_base import DataBagSchema
 
 
 class FivegRFSIMProviderAppData(BaseModel):
-    rfsim_address: str = Field(
-        description="RF simulator service ip",
-        examples=["192.168.70.130"]
+    version: int = Field(
+        description="Interface version",
+        examples=[0, 1, 2, 3],
+        ge=0,
+    )
+    rfsim_address: IPvAnyAddress = Field(
+        description="RF simulator service address which is equal to DU pod ip",
+        examples=["192.168.70.130"],
     )
     sst: int = Field(
         description="Slice/Service Type",
@@ -39,6 +52,46 @@ class FivegRFSIMProviderAppData(BaseModel):
         ge=0,
         le=16777215,
     )
+    band: int = Field(
+        description="Frequency band",
+        default=None,
+        examples=[34, 77, 102],
+        gt=0,
+    )
+    dl_freq: int = Field(
+        description="Downlink frequency in Hz",
+        default=None,
+        examples=[4059090000],
+        ge=410000000,
+    )
+    carrier_bandwidth: int = Field(
+        description="Carrier bandwidth (number of downlink PRBs)",
+        default=None,
+        examples=[106],
+        ge=11,
+        le=273,
+    )
+    numerology: int = Field(
+        description="Numerology",
+        default=None,
+        examples=[0, 1, 2, 3],
+        ge=0,
+        le=6,
+    )
+    start_subcarrier: int = Field(
+        description="First usable subcarrier",
+        default=None,
+        examples=[530, 541],
+        ge=0,
+    )
+
+
+class FivegRFSIMRequirerAppData(BaseModel):
+    version: int = Field(
+        description="Interface version",
+        examples=[0, 1, 2, 3],
+        ge=0,
+    )
 
 
 class ProviderSchema(DataBagSchema):
@@ -48,3 +101,4 @@ class ProviderSchema(DataBagSchema):
 
 class RequirerSchema(DataBagSchema):
     """Requirer schema for the fiveg_rfsim interface."""
+    app: FivegRFSIMRequirerAppData

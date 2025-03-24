@@ -12,7 +12,8 @@ This relation interface describes the expected behavior of charms claiming to be
 
 ```mermaid
 flowchart TD
-    Provider -- rfsim_address, sst, sd --> Requirer
+    Provider -- version, rfsim_address, sst, sd, band, dl_freq, carrier_bandwidth, numerology, start_subcarrier --> Requirer
+    Requirer -- version --> Provider
 ```
 
 As with all Juju relations, the `fiveg_rfsim` interface consists of two parties: a Provider and a Requirer.
@@ -25,29 +26,44 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 Is expected to provide following information:
 
+- Version of the interface
 - The DU's `rfsim` service ip
 - Network Slice/Service Type (SST)
 - Slice Differentiator (SD)
+- Frequency band
+- Downlink frequency (in Hz)
+- Carrier bandwidth (number of downlink PRBs)
+- Numerology
+- Start subcarrier
 
 ### Requirer
 
+- Version of the interface
 - Is expected to use the `rfsim` service address and the network information(SST, SD) passed by the provider.
 
 ## Relation Data
 
-[\[Pydantic Schema\]](./schema.py)
+[\[Pydantic Schema\]](schema.py)
 
 #### Example
 
 ```yaml
 provider:
   app: {
+    "version": 0,
     "rfsim_address": "192.168.70.130",
     "sst": 1,
-     "sd": 1,
+    "sd": 1,
+    "band": 77,
+    "dl_freq": 4059090000,
+    "carrier_bandwidth": 106,
+    "numerology": 1,
+    "start_subcarrier": 541,
   }
   unit: {}
 requirer:
-  app: {}
+  app: {
+    "version": 0,
+  }
   unit: {}
 ```
