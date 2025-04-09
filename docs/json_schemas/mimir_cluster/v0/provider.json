@@ -8,6 +8,7 @@
     "MimirClusterProviderAppData": {
       "properties": {
         "mimir_config": {
+          "additionalProperties": true,
           "title": "Mimir Config",
           "type": "object"
         }
