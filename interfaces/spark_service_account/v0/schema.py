@@ -5,6 +5,7 @@ It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - RequirerSchema
 """
 
+from typing import List
 from pydantic import BaseModel, Field
 from interface_tester.schema_base import DataBagSchema
 
@@ -33,7 +34,7 @@ class SparkServiceAccountRequirerAppData(BaseModel):
         title="Service Account",
     )
 
-    requested_secrets: list[str] = Field(
+    requested_secrets: List[str] = Field(
         alias="requested-secrets",
         description="Any provider field which should be transfered as Juju Secret. This field is auto-populated by the data-interfaces lib.",
         examples=[["spark-properties"]],
