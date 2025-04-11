@@ -8,11 +8,10 @@ from pydantic import Field
 class ProviderSchema(DataBagSchema):
     """The schema for the provider side of this interface."""
 
-    # comma separated list of etcd endpoints
     endpoints: str = Field(
         description="Comma separated list of etcd endpoints",
         title="etcd Endpoints",
-        examples=["http://etcd1:2379,http://etcd2:2379"],
+        examples=["etcd1:2379,etcd2:2379"],
     )
 
     version: str = Field(
@@ -50,9 +49,9 @@ class RequirerSchema(DataBagSchema):
     )
 
     requested_secrets: str = Field(
-        description="The fields required to be a secret. Needs to contain 'username' and 'tls-ca'",
+        description="The fields required to be a secret.",
         title="Requested Secrets",
-        examples='["username", "tls-ca"]',
+        examples='["username", "uris", "tls", "tls-ca"]',
     )
 
     provided_secrets: str = Field(
