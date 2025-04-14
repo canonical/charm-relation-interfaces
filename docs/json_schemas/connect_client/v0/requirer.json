@@ -1,0 +1,65 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ConnectRequirerData": {
+      "properties": {
+        "plugin-url": {
+          "description": "URL at which the plugins required by this client are served as a single Tarball. If not required, the requirer should place the sentinel value \"NOT-REQUIRED\"",
+          "examples": [
+            "http://10.1.1.200:8080/route/to/plugins",
+            "NOT-REQUIRED"
+          ],
+          "title": "Plugin URL",
+          "type": "string"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transfered as Juju Secret",
+          "examples": [
+            [
+              "username",
+              "password",
+              "tls-ca"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "plugin-url",
+        "requested-secrets"
+      ],
+      "title": "ConnectRequirerData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of the `connect_client` interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ConnectRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
