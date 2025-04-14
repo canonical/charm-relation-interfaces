@@ -74,7 +74,8 @@ class FivegCoreGnbRequirerAppData(BaseModel):
     gnb_name: str = Field(
         alias="gnb-name",
         description="Unique identifier of the CU/gnB.",
-        examples=["gnb001"]
+        examples=["gnb001"],
+        pattern="^[a-zA-Z][a-zA-Z0-9-_]{1,255}$",
     )
 
 
