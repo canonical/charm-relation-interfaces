@@ -1,0 +1,11 @@
+name: wazuh_api_client
+version: 0
+status: draft
+
+providers:
+  - name: wazuh-server-operator
+    url: https://www.github.com/canonical/wazuh-server-operator
+
+requirers: []
+
+maintainer: is-charms
