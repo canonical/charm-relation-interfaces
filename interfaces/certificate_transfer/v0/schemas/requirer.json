@@ -5,7 +5,18 @@
   "title": "`certificate_transfer` requirer schema",
   "description": "The `certificate_transfer` root schema comprises the entire requirer databag for this interface.",
   "default": {},
+  "examples": [
+    {
+      "version": 0
+    }
+  ],
   "properties": {
-    "additionalProperties": true
-  }
+    "version": {
+      "$id": "#/properties/version",
+      "type": "integer",
+      "title": "Interface version",
+      "description": "Version number of the interface"
+    }
+  },
+  "additionalProperties": true
 }
