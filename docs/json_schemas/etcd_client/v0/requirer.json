@@ -47,8 +47,8 @@
       "type": "string"
     },
     "requested_secrets": {
-      "description": "The fields required to be a secret. Needs to contain 'username' and 'tls-ca'",
-      "examples": "[\"username\", \"tls-ca\"]",
+      "description": "The fields required to be a secret.",
+      "examples": "[\"username\", \"uris\", \"tls\", \"tls-ca\"]",
       "title": "Requested Secrets",
       "type": "string"
     },

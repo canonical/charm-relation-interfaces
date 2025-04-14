@@ -37,7 +37,7 @@ def test_add_provider_content():
                     remote_app_data={
                         "prefix": "/my/keys",
                         "secret-mtls": secret.id,
-                        "requested-secrets": ["username", "tls-ca"],
+                        "requested-secrets": ["username", "uris", "tls", "tls-ca"],
                         "provided-secrets": ["mtls-cert"],
                     },
                 )
