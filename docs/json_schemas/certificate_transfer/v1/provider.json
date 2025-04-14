@@ -15,6 +15,12 @@
           "title": "Certificates",
           "type": "array",
           "uniqueItems": true
+        },
+        "version": {
+          "default": 1,
+          "description": "The version of the interface used in this databag",
+          "title": "Version",
+          "type": "integer"
         }
       },
       "required": [
