@@ -6,7 +6,7 @@
       "type": "object"
     }
   },
-  "description": "Requirer schema for kratos_endpoints.",
+  "description": "The schema for the requirer side of this interface.",
   "properties": {
     "unit": {
       "anyOf": [

@@ -1,8 +1,8 @@
-name: kratos_endpoints
+name: kratos_info
 internal: true
 
 version: 0
-status: draft
+status: published
 
 providers:
   - name: kratos-operator
@@ -13,5 +13,7 @@ requirers:
     url: https://github.com/canonical/identity-platform-login-ui-operator
   - name: oathkeeper-operator
     url: https://github.com/canonical/oathkeeper-operator
+  - name: identity-platform-admin-ui
+    url: https://github.com/canonical/identity-platform-admin-ui-operator
 
 maintainer: identity
