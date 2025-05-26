@@ -15,18 +15,18 @@
           "title": "Service Account",
           "type": "string"
         },
-        "secret-spark-properties": {
-          "description": "The name of the Spark Properties secret to use. The secret contains [spark-properties], which is the list of different Spark properties that are associated with this service account. ",
+        "secret-extra": {
+          "description": "The name of the Spark properties and K8s resource manifest secret to use. The secret contains 1. `spark-properties`, the list of different Spark properties that are associated with this service account and 2. `resource-manifest`, which contains the YAML dump of the K8s service account.",
           "examples": [
             "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
           ],
-          "title": "Spark Properties Secret Name",
+          "title": "Spark properties and K8s resource manifest secret",
           "type": "string"
         }
       },
       "required": [
         "service-account",
-        "secret-spark-properties"
+        "secret-extra"
       ],
       "title": "SparkServiceAccountProviderAppData",
       "type": "object"

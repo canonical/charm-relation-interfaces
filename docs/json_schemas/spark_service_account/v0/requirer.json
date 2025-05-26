@@ -19,7 +19,8 @@
           "description": "Any provider field which should be transfered as Juju Secret. This field is auto-populated by the data-interfaces lib.",
           "examples": [
             [
-              "spark-properties"
+              "spark-properties",
+              "resource-manifest"
             ]
           ],
           "items": {
@@ -27,11 +28,17 @@
           },
           "title": "Requested secrets",
           "type": "array"
+        },
+        "skip-creation": {
+          "description": "Define whether the providing charm should skip the creation of the service account requested.",
+          "title": "Skip creation",
+          "type": "boolean"
         }
       },
       "required": [
         "service-account",
-        "requested-secrets"
+        "requested-secrets",
+        "skip-creation"
       ],
       "title": "SparkServiceAccountRequirerAppData",
       "type": "object"

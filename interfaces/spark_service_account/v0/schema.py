@@ -13,32 +13,45 @@ from interface_tester.schema_base import DataBagSchema
 class SparkServiceAccountProviderAppData(BaseModel):
     service_account: str = Field(
         alias="service-account",
-        description="The name of the service account to be created and the namespace in which the service account is to be created.",
+        description="The name of the service account to be created and the namespace in"
+        " which the service account is to be created.",
         examples=["test_namespace:test_service_account"],
         title="Service Account",
     )
 
-    secret_spark_properties: str = Field(
-        alias="secret-spark-properties",
-        description="The name of the Spark Properties secret to use. The secret contains [spark-properties], which is the list of different Spark properties that are associated with this service account. ",
+    secret_extra: str = Field(
+        alias="secret-extra",
+        description="The name of the Spark properties and K8s resource manifest secret "
+        "to use. The secret contains 1. `spark-properties`, the list of different Spark"
+        " properties that are associated with this service account and 2. "
+        "`resource-manifest`, which contains the YAML dump of the K8s service account.",
         examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"],
-        title="Spark Properties Secret Name",
+        title="Spark properties and K8s resource manifest secret",
     )
 
 
 class SparkServiceAccountRequirerAppData(BaseModel):
     service_account: str = Field(
         alias="service-account",
-        description="The name of the service account to be created and the namespace in which the service account is to be created.",
+        description="The name of the service account to be created and the namespace in"
+        " which the service account is to be created.",
         examples=["test_namespace:test_service_account"],
         title="Service Account",
     )
 
     requested_secrets: List[str] = Field(
         alias="requested-secrets",
-        description="Any provider field which should be transfered as Juju Secret. This field is auto-populated by the data-interfaces lib.",
-        examples=[["spark-properties"]],
+        description="Any provider field which should be transfered as Juju Secret. This"
+        " field is auto-populated by the data-interfaces lib.",
+        examples=[["spark-properties", "resource-manifest"]],
         title="Requested secrets",
+    )
+
+    skip_creation: bool = Field(
+        alias="skip-creation",
+        description="Define whether the providing charm should skip the creation of the"
+        " service account requested.",
+        title="Skip creation",
     )
 
 
