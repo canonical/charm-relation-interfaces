@@ -21,14 +21,14 @@ Requirer and Provider must adhere to the following criteria to be considered com
 
 ### Provider
 
-- Is expected to create a Kubernetes service account (and a namespace, if needed) when the requirer provides the `service-account` field AND if `skip-creation` is explicitly passed as `false`
+- Is expected to create a Kubernetes service account (and a namespace, if needed) when the requirer provides the `service-account` field AND if `skip-creation` is explicitly passed as `false` during relation creation
 - Is expected to share the Secret URI containing both the Spark properties and the K8s resource manifest through the `secret-extra` field of the databag.
 
 ### Requirer
 
 - Is expected to provide `requested-secrets`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. It should be JSON parsable array of strings, and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `spark-properties` and `resource-manifest`.
-- Is expected to provide a namespace and a service account name, separated by a colon, in the `service-account` field.
-- Can opt out the service account creation by the provider side by passing a `true` bool value in the `skip-creation` field.
+- Is expected to provide a namespace and a service account name, separated by a colon, in the `service-account` field during relation creation.
+- Can opt out the service account creation by the provider side by passing a `true` bool value in the `skip-creation` field during relation creation.
 
 ## Relation data
 
