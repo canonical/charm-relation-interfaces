@@ -1,0 +1,11 @@
+name: spark_service_account
+version: 0
+status: draft
+
+providers:
+  - name: spark-integration-hub-k8s
+    url: https://github.com/canonical/spark-integration-hub-k8s-operator
+
+requirers:
+  - name: kyuubi-k8s
+    url: https://github.com/canonical/kyuubi-k8s-operator

@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "SparkServiceAccountProviderAppData": {
+      "properties": {
+        "service-account": {
+          "description": "The name of the service account to be created and the namespace in which the service account is to be created.",
+          "examples": [
+            "test_namespace:test_service_account"
+          ],
+          "title": "Service Account",
+          "type": "string"
+        },
+        "secret-extra": {
+          "description": "The name of the Spark properties and K8s resource manifest secret to use. The secret contains 1. `spark-properties`, the list of different Spark properties that are associated with this service account and 2. `resource-manifest`, which contains the YAML dump of the K8s service account.",
+          "examples": [
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
+          ],
+          "title": "Spark properties and K8s resource manifest secret",
+          "type": "string"
+        }
+      },
+      "required": [
+        "service-account",
+        "secret-extra"
+      ],
+      "title": "SparkServiceAccountProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/SparkServiceAccountProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
