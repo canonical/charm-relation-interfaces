@@ -45,7 +45,7 @@ class ProviderAppData(BaseModel):
 
 
 class ProviderSchema(DataBagSchema):
-    """Provider schema for opencti connector."""
+    """Provider schema for the opencti-connector interface."""
 
     app: ProviderAppData
 
@@ -59,11 +59,11 @@ class RequirerAppData(BaseModel):
     opencti_token: str = Field(
         description="Secret token for OpenCTI authentication.",
         title="OpenCTI Token",
-        examples=["secret:secret-id"],
+        examples=["secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"],
     )
 
 
 class RequirerSchema(DataBagSchema):
-    """Requirer schema for opencti connector."""
+    """Requirer schema for the opencti-connector interface."""
 
     app: RequirerAppData
