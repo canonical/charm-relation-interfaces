@@ -1,0 +1,20 @@
+name: opencti_connector
+version: 0
+status: published
+
+providers:
+  - name: abseipdb_ipblacklist
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/abuseipdb_ipblacklist
+  - name: alienvault
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/alienvault
+  - name: cisa_kev
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/cisa_kev
+  - name: crowdstrike
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/crowdstrike
+
+requirers:
+  - name: opencti
+    url: https://www.github.com/canonical/opencti-operator
+
+
+maintainer: identity
