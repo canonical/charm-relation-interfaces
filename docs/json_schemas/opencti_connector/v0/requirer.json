@@ -1,0 +1,59 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "RequirerAppData": {
+      "properties": {
+        "opencti_url": {
+          "description": "URL to the OpenCTI instance.",
+          "examples": [
+            "http://opencti-endpoints.stg-opencti.svc:8080"
+          ],
+          "format": "uri",
+          "minLength": 1,
+          "title": "OpenCTI URL",
+          "type": "string"
+        },
+        "opencti_token": {
+          "description": "Secret token for OpenCTI authentication.",
+          "examples": [
+            "secret:secret-id"
+          ],
+          "title": "OpenCTI Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "opencti_url",
+        "opencti_token"
+      ],
+      "title": "RequirerAppData",
+      "type": "object"
+    }
+  },
+  "description": "Requirer schema for opencti connector.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/RequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
