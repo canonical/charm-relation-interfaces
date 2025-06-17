@@ -20,7 +20,7 @@
         "opencti_token": {
           "description": "Secret token for OpenCTI authentication.",
           "examples": [
-            "secret:secret-id"
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"
           ],
           "title": "OpenCTI Token",
           "type": "string"
@@ -34,7 +34,7 @@
       "type": "object"
     }
   },
-  "description": "Requirer schema for opencti connector.",
+  "description": "Requirer schema for the opencti-connector interface.",
   "properties": {
     "unit": {
       "anyOf": [
