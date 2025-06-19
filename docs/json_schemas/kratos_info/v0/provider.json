@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "KratosInfoProvider": {
+      "properties": {
+        "admin_endpoint": {
+          "description": "Kratos admin URL.",
+          "format": "uri",
+          "minLength": 1,
+          "title": "Admin Endpoint",
+          "type": "string"
+        },
+        "public_endpoint": {
+          "description": "Kratos public URL.",
+          "format": "uri",
+          "minLength": 1,
+          "title": "Public Endpoint",
+          "type": "string"
+        },
+        "login_browser_endpoint": {
+          "description": "The Kratos endpoint that initializes a browser-based user login flow.",
+          "format": "uri",
+          "minLength": 1,
+          "title": "Login Browser Endpoint",
+          "type": "string"
+        },
+        "sessions_endpoint": {
+          "description": "The Kratos endpoint to check who the current session belongs to.",
+          "format": "uri",
+          "minLength": 1,
+          "title": "Sessions Endpoint",
+          "type": "string"
+        },
+        "providers_configmap_name": {
+          "description": "The name of the ConfigMap that contains the providers configuration.",
+          "title": "Providers Configmap Name",
+          "type": "string"
+        },
+        "schemas_configmap_name": {
+          "description": "The name of the ConfigMap that contains the identity schemas configuration.",
+          "title": "Schemas Configmap Name",
+          "type": "string"
+        },
+        "configmaps_namespace": {
+          "description": "The namespace where the ConfigMaps are located.",
+          "title": "Configmaps Namespace",
+          "type": "string"
+        },
+        "mfa_enabled": {
+          "description": "Whether MFA is enabled.",
+          "title": "Mfa Enabled",
+          "type": "boolean"
+        },
+        "oidc_webauthn_sequencing_enabled": {
+          "description": "Whether OIDC WebAuthn sequencing is enabled.",
+          "title": "Oidc Webauthn Sequencing Enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "admin_endpoint",
+        "public_endpoint",
+        "login_browser_endpoint",
+        "sessions_endpoint",
+        "providers_configmap_name",
+        "schemas_configmap_name",
+        "configmaps_namespace",
+        "mfa_enabled",
+        "oidc_webauthn_sequencing_enabled"
+      ],
+      "title": "KratosInfoProvider",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KratosInfoProvider"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
