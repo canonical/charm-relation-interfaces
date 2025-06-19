@@ -7,7 +7,7 @@ This relation interface describes the expected behavior of any charm claiming to
 In most cases, this will be accomplished using the [opencti-connector library](https://github.com/canonical/opencti-operator/blob/main/lib/charms/opencti/v0/opencti_connector.py), although charm developers are free to provide alternative libraries as long as they fulfill the behavioral and schematic requirements described in this document.
 
 ## Direction
-The `opencti-connector` interface does not implement a typical provider/requirer pattern. The library has an `OpenctiConnectorCharm` class which is inherited by connector charms that want to consume this library, such as the [crowdstrike connector charm](https://github.com/canonical/opencti-operator/tree/main/connectors/crowdstrike).
+The `opencti-connector` interface does not implement a typical provider/requirer pattern. The interface is designed specifically for OpenCTI connectors, with the assumption that there will always be a single OpenCTI provider. To streamline the development of 20+ nearly identical connectors, a shared `OpenctiConnectorCharm` base class was created to encapsulate common relation logic, reducing boilerplate and simplifying charm creation. The `OpenctiConnectorCharm` class is inherited by connector charms that want to consume this library, such as the [crowdstrike connector charm](https://github.com/canonical/opencti-operator/tree/main/connectors/crowdstrike).
 
 ```mermaid
 flowchart TD
