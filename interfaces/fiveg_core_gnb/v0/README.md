@@ -33,11 +33,23 @@ The list of PLMNs should include the following data:
   - MNC (Mobile Network Code)
   - SST (Slice Service Type)
   - SD (Slice Differentiator)
-    
+
+TAC shall adhere to the following rules:
+  - integer between 1 and 16777215
+
+The values of each PLMN shall adhere to the following rules:
+  - MCC must be a numeric string of length three
+  - MNC must be a numeric string of length two or three
+  - SST must be an integer between 0 and 255
+  - SD must be an integer between 0 and 16777215
 
 ### Requirer
 
 - Is expected to provide a unique identifier of the CU (or gNodeB).
+
+The unique identifier shall adhere to the following rules:
+  - only alphanumeric, underscores, dashes are allowed
+  - length must be between 2 and 256 characters, with the first one being alphabetic
 
 ## Relation Data
 
