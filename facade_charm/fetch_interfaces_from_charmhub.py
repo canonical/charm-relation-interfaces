@@ -17,8 +17,9 @@ CH_INTERFACES_PATH = FACADE_CHARM_ROOT / 'charmhub_interfaces.yaml'
 
 
 def _get_all_registered_charms():
-    print('fetching store...')
+    print('fetching store...', end="")
     resp = requests.get("https://charmhub.io/packages.json")
+    print('...done')
     return resp.json()['packages']
 
 
@@ -54,7 +55,8 @@ def _gather_interfaces(charms_pkg_info):
 def main():
     charms_pkg_info = _get_all_registered_charms()
     interfaces = _gather_interfaces(charms_pkg_info)
-    CH_INTERFACES_PATH.write_text(yaml.safe_dump({"interfaces": list(interfaces)}))
+    CH_INTERFACES_PATH.write_text(yaml.safe_dump({"interfaces": sorted(interfaces)}))
+    print(f"done --> {CH_INTERFACES_PATH}")
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@
 # See LICENSE file for licensing details.
 import json
 import logging
+import random
 from itertools import chain
 from pathlib import Path
 from typing import Dict, Optional
@@ -22,11 +23,16 @@ class FacadeCharm(ops.CharmBase):
         super().__init__(*args)
         self.framework.observe(self.on.collect_unit_status, self._on_collect_unit_status)
         self.framework.observe(self.on.update_action, self._on_update_action)
+        self.framework.observe(self.on.update_status, self._on_update_status)
 
         for relation in self.meta.relations:
             on_relation = self.on[relation]
             for evt in ['changed', 'created', 'joined']:
                 self.framework.observe(getattr(on_relation, "relation_" + evt), self._on_update_relation)
+
+    def _on_update_status(self, e: ops.UpdateStatusEvent):
+        if random.random()>.5:
+            return e.defer()
 
     def _on_update_action(self, e: ops.ActionEvent):
         updated = []
