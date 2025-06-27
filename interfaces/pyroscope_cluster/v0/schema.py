@@ -13,6 +13,7 @@ from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field, Json
 from typing_extensions import TypedDict
 
+
 class RemoteWriteEndpoint(TypedDict):
     """Type of the remote write endpoints to be passed to the worker through cluster relation data."""
     url: str
