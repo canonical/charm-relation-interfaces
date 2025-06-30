@@ -12,13 +12,13 @@ def test_data_on_created():
         state_in=State(
             relations=[
                 Relation(
-                    endpoint="tempo_cluster",
-                    interface="tempo_cluster",
+                    endpoint="pyroscope_cluster",
+                    interface="pyroscope_cluster",
                     remote_app_name="coordinator",
                     remote_app_data={"worker_config": json.dumps("foo: bar")},
                 )
             ]
         )
     )
-    tester.run("tempo-cluster-relation-created")
+    tester.run("pyroscope-cluster-relation-created")
     tester.assert_schema_valid()
