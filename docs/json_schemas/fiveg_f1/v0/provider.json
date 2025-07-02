@@ -38,6 +38,7 @@
           "items": {
             "$ref": "#/$defs/PLMNConfig"
           },
+          "minItems": 1,
           "title": "Plmns",
           "type": "array"
         }
