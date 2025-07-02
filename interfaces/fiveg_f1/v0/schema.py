@@ -25,10 +25,10 @@ Examples:
         }
 """
 
-from pydantic import BaseModel, IPvAnyAddress, Field
+from pydantic import BaseModel, IPvAnyAddress, Field, conlist
 from dataclasses import dataclass
 from interface_tester.schema_base import DataBagSchema
-from typing import List, Optional, conlist
+from typing import List, Optional
 
 @dataclass
 class PLMNConfig:
