@@ -1,0 +1,11 @@
+name:  velero-backup-config
+version: 0
+status: draft
+
+providers:
+  - name: velero-operator
+    url: https://www.github.com/canonical/velero-operator
+
+requirers: {}
+
+maintainer: data-platform
