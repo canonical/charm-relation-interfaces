@@ -1,0 +1,172 @@
+{
+  "$defs": {
+    "BackupSpec": {
+      "description": "Pydantic model for the backup specification details.",
+      "properties": {
+        "include-namespaces": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of namespaces to include in the backup (None means all namespaces).",
+          "examples": [
+            [
+              "kubeflow"
+            ]
+          ],
+          "title": "Included Namespaces"
+        },
+        "include-resources": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of resource kinds to include (None means all resource types).",
+          "examples": [
+            [
+              "profiles.kubeflow.org",
+              "Deployment"
+            ]
+          ],
+          "title": "Included Resources"
+        },
+        "exclude-namespaces": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of namespaces to exclude from the backup.",
+          "examples": [
+            [
+              "default"
+            ]
+          ],
+          "title": "Excluded Namespaces"
+        },
+        "exclude-resources": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of resource kinds to exclude from the backup.",
+          "examples": [
+            [
+              "Pods"
+            ]
+          ],
+          "title": "Excluded Resources"
+        },
+        "ttl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional TTL (time-to-live) for the backup (e.g. '72h' or '30d').",
+          "examples": [
+            "24h"
+          ],
+          "title": "Backup TTL"
+        }
+      },
+      "title": "BackupSpec",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "VeleroBackupSpec": {
+      "description": "Pydantic model for the requirer's application databag.",
+      "properties": {
+        "app": {
+          "description": "Name of the client application requesting backup.",
+          "examples": [
+            "kubeflow"
+          ],
+          "title": "Client Application Name",
+          "type": "string"
+        },
+        "endpoint": {
+          "description": "Name of the relation endpoint on the client providing this spec.",
+          "examples": [
+            "profiles-backup"
+          ],
+          "title": "Client Relation Endpoint",
+          "type": "string"
+        },
+        "spec": {
+          "$ref": "#/$defs/BackupSpec",
+          "description": "Backup specification details (namespaces, resources, etc.).",
+          "title": "Velero Backup Spec"
+        }
+      },
+      "required": [
+        "app",
+        "endpoint",
+        "spec"
+      ],
+      "title": "VeleroBackupSpec",
+      "type": "object"
+    }
+  },
+  "description": "Schema for the requirer (client) side of velero-backup-config.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/VeleroBackupSpec"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
