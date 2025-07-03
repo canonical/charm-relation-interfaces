@@ -6,6 +6,8 @@ providers:
   - name: velero-operator
     url: https://www.github.com/canonical/velero-operator
 
-requirers: {}
+requirers:
+  - name: velero-kubeflow-client
+    url: https://github.com/canonical/velero-kubeflow-client
 
 maintainer: data-platform
