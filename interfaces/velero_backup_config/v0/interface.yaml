@@ -1,4 +1,4 @@
-name:  velero-backup-config
+name: velero_backup_config
 version: 0
 status: draft
 
