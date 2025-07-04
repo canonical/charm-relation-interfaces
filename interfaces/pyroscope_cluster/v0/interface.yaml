@@ -6,7 +6,6 @@ status: draft
 providers:
   - name: pyroscope-coordinator-k8s
     url: https://github.com/canonical/pyroscope-k8s-operator
-    branch: feat/interface-tests
     test_setup:
       location: coordinator/tests/interface/conftest.py
       identifier: cluster_tester
@@ -14,7 +13,6 @@ providers:
 requirers:
   - name: pyroscope-worker-k8s
     url: https://github.com/canonical/pyroscope-k8s-operator
-    branch: feat/interface-tests
     test_setup:
       location: worker/tests/interface/conftest.py
       identifier: cluster_tester
