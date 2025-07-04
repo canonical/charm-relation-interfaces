@@ -88,6 +88,15 @@
           ],
           "title": "Excluded Resources"
         },
+        "include-cluster-resources": {
+          "default": false,
+          "description": "Whether to include cluster-scoped resources in the backup.",
+          "examples": [
+            true
+          ],
+          "title": "Include Cluster Resources",
+          "type": "boolean"
+        },
         "ttl": {
           "anyOf": [
             {

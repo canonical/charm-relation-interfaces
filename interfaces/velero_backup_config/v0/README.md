@@ -33,6 +33,7 @@ On the requirer side, the application data bag must contain structure with the f
   - `include-resources` (list of str, optional): Specific Kubernetes resource kinds to include in the backup. Typically high-level resources (Deployments, Services, custom resource kinds, etc.) that should be captured. If not specified, all resource types are included.
   - `exclude-namespaces` (list of str, optional): Namespaces to exclude from the backup. This can further narrow down the scope by omitting certain namespaces. If not set, no namespaces are excluded (unless implicitly excluded by Velero defaults).
   - `exclude-resources` (list of str, optional): Resource kinds to exclude from the backup. If not set, no resource types are explicitly excluded.
+  - `include-cluster-resources` (bool): Whether to include cluster-scoped resources (like Nodes, PersistentVolumes, etc.) in the backup. Defaults to `False`
   - `ttl` (string, optional): Time-to-live duration for the backup (how long the backup should be retained before garbage-collection). If not provided, Velero will use its default (e.g. 30 days). This should be a duration string recognized by Velero (for example, "72h" for 3 days, "30d" for 30 days, etc.).
 
 ### Requirer

@@ -32,6 +32,13 @@ class BackupSpec(BaseModel):
         title="Excluded Resources",
         examples=[["Pods"]]
     )
+    include_cluster_resources: bool = Field(
+        False,
+        alias="include-cluster-resources",
+        description="Whether to include cluster-scoped resources in the backup.",
+        title="Include Cluster Resources",
+        examples=[True]
+    )
     ttl: Optional[str] = Field(
         None,
         description="Optional TTL (time-to-live) for the backup (e.g. '72h' or '30d').",
