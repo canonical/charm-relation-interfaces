@@ -216,8 +216,10 @@ def _setup_venv(charm_path: Path) -> None:
     # Create the venv and install the requirements
     try:
         subprocess.check_call(
-            f"{MKVENV_CMD} ./.interface-venv", shell=True, stdout=subprocess.DEVNULL,
-            cwd=charm_path
+            f"{MKVENV_CMD} ./.interface-venv",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            cwd=charm_path,
         )
         logging.info(f"Installing dependencies in venv for {charm_path}")
 
