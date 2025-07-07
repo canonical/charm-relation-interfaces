@@ -154,12 +154,12 @@
           "title": "Client Application Name",
           "type": "string"
         },
-        "endpoint": {
-          "description": "Name of the relation endpoint on the client providing this spec.",
+        "relation_name": {
+          "description": "Name of the relation on the client providing this spec.",
           "examples": [
             "profiles-backup"
           ],
-          "title": "Client Relation Endpoint",
+          "title": "Client Relation Name",
           "type": "string"
         },
         "spec": {
@@ -170,7 +170,7 @@
       },
       "required": [
         "app",
-        "endpoint",
+        "relation_name",
         "spec"
       ],
       "title": "VeleroBackupSpec",

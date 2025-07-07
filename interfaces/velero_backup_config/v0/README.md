@@ -27,7 +27,7 @@ flowchart TD
 On the requirer side, the application data bag must contain structure with the following fields:
 
 - `app` (string, required): Name of the client application that requires backups (e.g., "kubeflow" or the name of the charm using this spec).
-- `endpoint` (string, required): Name of the relation endpoint on the client side through which this spec is sent (for example, "profiles-backup" or other backup scope name).
+- `relation_name` (string, required): Name of the relation on the client side through which this spec is sent (for example, "profiles-backup" or other backup scope name, from metadata.yaml).
 - `spec` (dict, required): A dictionary defining what to back up. This mirrors Velero’s Backup spec fields and includes the following keys:
   - `include_namespaces` (list of str, optional): Specific Kubernetes namespaces to include in the backup. If set, only these namespaces will be backed up; if not provided or set to null/None, all namespaces are included.
   - `include_resources` (list of str, optional): Specific Kubernetes resource kinds to include in the backup. Typically high-level resources (Deployments, Services, custom resource kinds, etc.) that should be captured. If not specified, all resource types are included.
@@ -44,7 +44,7 @@ On the requirer side, the application data bag must contain structure with the f
 ```yaml
   application-data:
     app: kubeflow
-    endpoint: profiles-backup
+    relation_name: profiles-backup
     spec:
         include_namespaces: ["kubeflow"]
         include_resources: ["profiles.kubeflow.org"]

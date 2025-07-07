@@ -61,10 +61,10 @@ class VeleroBackupSpec(BaseModel):
         title="Client Application Name",
         examples=["kubeflow"]
     )
-    endpoint: str = Field(
+    relation_name: str = Field(
         ...,
-        description="Name of the relation endpoint on the client providing this spec.",
-        title="Client Relation Endpoint",
+        description="Name of the relation on the client providing this spec.",
+        title="Client Relation Name",
         examples=["profiles-backup"]
     )
     spec: BackupSpec = Field(
