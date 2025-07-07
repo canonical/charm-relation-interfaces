@@ -1,6 +1,6 @@
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 class BackupSpec(BaseModel):
     """Pydantic model for the backup specification details."""
@@ -38,6 +38,13 @@ class BackupSpec(BaseModel):
         description="Whether to include cluster-scoped resources in the backup.",
         title="Include Cluster Resources",
         examples=[True]
+    )
+    label_selector: Optional[Dict[str, str]] = Field(
+        None,
+        alias="label-selector",
+        description="Label selector to filter resources for backup (e.g. {'app': 'kubeflow'}).",
+        title="Label Selector",
+        examples=[{"app": "kubeflow"}]
     )
     ttl: Optional[str] = Field(
         None,

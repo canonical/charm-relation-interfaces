@@ -97,6 +97,27 @@
           "title": "Include Cluster Resources",
           "type": "boolean"
         },
+        "label-selector": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Label selector to filter resources for backup (e.g. {'app': 'kubeflow'}).",
+          "examples": [
+            {
+              "app": "kubeflow"
+            }
+          ],
+          "title": "Label Selector"
+        },
         "ttl": {
           "anyOf": [
             {

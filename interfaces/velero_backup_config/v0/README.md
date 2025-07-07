@@ -29,11 +29,12 @@ On the requirer side, the application data bag must contain structure with the f
 - `app` (string, required): Name of the client application that requires backups (e.g., "kubeflow" or the name of the charm using this spec).
 - `endpoint` (string, required): Name of the relation endpoint on the client side through which this spec is sent (for example, "profiles-backup" or other backup scope name).
 - `spec` (dict, required): A dictionary defining what to back up. This mirrors Velero’s Backup spec fields and includes the following keys:
-  - `include-namespaces` (list of str, optional): Specific Kubernetes namespaces to include in the backup. If set, only these namespaces will be backed up; if not provided or set to null/None, all namespaces are included.
-  - `include-resources` (list of str, optional): Specific Kubernetes resource kinds to include in the backup. Typically high-level resources (Deployments, Services, custom resource kinds, etc.) that should be captured. If not specified, all resource types are included.
-  - `exclude-namespaces` (list of str, optional): Namespaces to exclude from the backup. This can further narrow down the scope by omitting certain namespaces. If not set, no namespaces are excluded (unless implicitly excluded by Velero defaults).
-  - `exclude-resources` (list of str, optional): Resource kinds to exclude from the backup. If not set, no resource types are explicitly excluded.
-  - `include-cluster-resources` (bool): Whether to include cluster-scoped resources (like Nodes, PersistentVolumes, etc.) in the backup. Defaults to `False`
+  - `include_namespaces` (list of str, optional): Specific Kubernetes namespaces to include in the backup. If set, only these namespaces will be backed up; if not provided or set to null/None, all namespaces are included.
+  - `include_resources` (list of str, optional): Specific Kubernetes resource kinds to include in the backup. Typically high-level resources (Deployments, Services, custom resource kinds, etc.) that should be captured. If not specified, all resource types are included.
+  - `exclude_namespaces` (list of str, optional): Namespaces to exclude from the backup. This can further narrow down the scope by omitting certain namespaces. If not set, no namespaces are excluded (unless implicitly excluded by Velero defaults).
+  - `exclude_resources` (list of str, optional): Resource kinds to exclude from the backup. If not set, no resource types are explicitly excluded.
+  - `include_cluster-resources` (bool): Whether to include cluster-scoped resources (like Nodes, PersistentVolumes, etc.) in the backup. Defaults to `False`
+  - `label_selector` (dict, optional): A label selector to filter resources for backup. This allows specifying a subset of resources based on labels (e.g., `{"app": "kubeflow"}`) to further refine what gets backed up.
   - `ttl` (string, optional): Time-to-live duration for the backup (how long the backup should be retained before garbage-collection). If not provided, Velero will use its default (e.g. 30 days). This should be a duration string recognized by Velero (for example, "72h" for 3 days, "30d" for 30 days, etc.).
 
 ### Requirer
@@ -45,11 +46,13 @@ On the requirer side, the application data bag must contain structure with the f
     app: kubeflow
     endpoint: profiles-backup
     spec:
-        include-namespaces: ["kubeflow"]
-        include-resources: ["profiles.kubeflow.org"]
-        exclude-namespaces: null        # no excluded namespaces
-        exclude-resources: null         # no excluded resource types
-        ttl: null                       # use Velero default retention
+        include_namespaces: ["kubeflow"]
+        include_resources: ["profiles.kubeflow.org"]
+        exclude_resources: null             # no excluded resource types
+        exclude_namespaces: null            # no excluded namespaces
+        label_selector: {"app": "kubeflow"}
+        include_cluster_resources: false    # do not include cluster-scoped resources
+        ttl: null                           # use Velero default retention
 ```
 
 ### Provider
