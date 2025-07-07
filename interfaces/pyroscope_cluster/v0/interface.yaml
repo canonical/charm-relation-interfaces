@@ -1,0 +1,25 @@
+name: pyroscope_cluster
+internal: true
+version: 0
+status: draft
+
+providers:
+  - name: pyroscope-coordinator-k8s
+    url: https://github.com/canonical/pyroscope-k8s-operator
+    test_setup:
+      charm_root: coordinator
+      location: tests/interface/conftest.py
+      identifier: cluster_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+requirers:
+  - name: pyroscope-worker-k8s
+    url: https://github.com/canonical/pyroscope-k8s-operator
+    test_setup:
+      charm_root: worker
+      location: tests/interface/conftest.py
+      identifier: cluster_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+maintainer: observability
+

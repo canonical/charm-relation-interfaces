@@ -1,0 +1,117 @@
+{
+  "$defs": {
+    "PyroscopeClusterRequirerAppData": {
+      "description": "PyroscopeClusterRequirerAppData.",
+      "properties": {
+        "role": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/PyroscopeRole"
+          },
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role"
+      ],
+      "title": "PyroscopeClusterRequirerAppData",
+      "type": "object"
+    },
+    "PyroscopeClusterRequirerUnitData": {
+      "description": "PyroscopeClusterRequirerUnitData.",
+      "properties": {
+        "juju_topology": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/_Topology"
+          },
+          "title": "Juju Topology",
+          "type": "string"
+        },
+        "address": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "type": "string"
+          },
+          "title": "Address",
+          "type": "string"
+        }
+      },
+      "required": [
+        "juju_topology",
+        "address"
+      ],
+      "title": "PyroscopeClusterRequirerUnitData",
+      "type": "object"
+    },
+    "PyroscopeRole": {
+      "description": "Pyroscope component role names.\n\nReferences:\n arch:\n  -> https://grafana.com/docs/pyroscope/latest/reference-pyroscope-architecture/\n config:\n  -> https://grafana.com/docs/pyroscope/latest/configure-server/",
+      "enum": [
+        "all",
+        "querier",
+        "query-frontend",
+        "query-scheduler",
+        "ingester",
+        "distributor",
+        "compactor",
+        "store-gateway"
+      ],
+      "title": "PyroscopeRole",
+      "type": "string"
+    },
+    "_Topology": {
+      "description": "JujuTopology as defined by cos-lib.",
+      "properties": {
+        "application": {
+          "title": "Application",
+          "type": "string"
+        },
+        "charm_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Charm Name"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "application",
+        "charm_name",
+        "unit"
+      ],
+      "title": "_Topology",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/PyroscopeClusterRequirerUnitData"
+    },
+    "app": {
+      "$ref": "#/$defs/PyroscopeClusterRequirerAppData"
+    }
+  },
+  "required": [
+    "unit",
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
