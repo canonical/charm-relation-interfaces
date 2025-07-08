@@ -41,7 +41,7 @@
           "examples": [
             [
               "profiles.kubeflow.org",
-              "Deployment"
+              "deployments"
             ]
           ],
           "title": "Included Resources"
@@ -83,7 +83,7 @@
           "description": "List of resource kinds to exclude from the backup.",
           "examples": [
             [
-              "Pods"
+              "pods"
             ]
           ],
           "title": "Excluded Resources"

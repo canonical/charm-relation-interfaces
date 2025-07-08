@@ -16,7 +16,7 @@ class BackupSpec(BaseModel):
         alias="include-resources",
         description="List of resource kinds to include (None means all resource types).",
         title="Included Resources",
-        examples=[["profiles.kubeflow.org", "Deployment"]]
+        examples=[["profiles.kubeflow.org", "deployments"]]
     )
     exclude_namespaces: Optional[List[str]] = Field(
         None,
@@ -30,7 +30,7 @@ class BackupSpec(BaseModel):
         alias="exclude-resources",
         description="List of resource kinds to exclude from the backup.",
         title="Excluded Resources",
-        examples=[["Pods"]]
+        examples=[["pods"]]
     )
     include_cluster_resources: bool = Field(
         False,
