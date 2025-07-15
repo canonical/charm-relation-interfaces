@@ -1,0 +1,228 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "PyroscopeClusterProviderAppData": {
+      "description": "PyroscopeClusterProviderAppData.",
+      "properties": {
+        "worker_config": {
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "type": "string"
+          },
+          "description": "The pyroscope configuration that the requirer should run with.Yaml-encoded. Must conform to the schema that the presently deployed workload version supports; for example see: https://grafana.com/docs/pyroscope/latest/configuration/#configure-pyroscope.",
+          "title": "Worker Config",
+          "type": "string"
+        },
+        "loki_endpoints": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of loki-push-api endpoints to which the worker node can push any logs it generates.",
+          "title": "Loki Endpoints"
+        },
+        "charm_tracing_receivers": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the the worker can push charm traces to.",
+          "title": "Charm Tracing Receivers"
+        },
+        "workload_tracing_receivers": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the the worker can push workload traces to.",
+          "title": "Workload Tracing Receivers"
+        },
+        "remote_write_endpoints": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "items": {
+                  "$ref": "#/$defs/RemoteWriteEndpoint"
+                },
+                "type": "array"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Endpoints to which the workload (and the worker charm) can push metrics to.",
+          "title": "Remote Write Endpoints"
+        },
+        "worker_ports": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Ports that the worker should open. If not provided, the worker will open all the legacy ones.",
+          "title": "Worker Ports"
+        },
+        "ca_cert": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "CA certificate for tls encryption.",
+          "title": "Ca Cert"
+        },
+        "server_cert": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Server certificate for tls encryption.",
+          "title": "Server Cert"
+        },
+        "privkey_secret_id": {
+          "anyOf": [
+            {
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "type": "string"
+              },
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Private key used by the coordinator, for tls encryption.",
+          "title": "Privkey Secret Id"
+        },
+        "s3_tls_ca_chain": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "CA chain to use to validate traffic with the s3 endpoint.",
+          "title": "S3 Tls Ca Chain"
+        }
+      },
+      "required": [
+        "worker_config"
+      ],
+      "title": "PyroscopeClusterProviderAppData",
+      "type": "object"
+    },
+    "RemoteWriteEndpoint": {
+      "description": "Type of the remote write endpoints to be passed to the worker through cluster relation data.",
+      "properties": {
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "title": "RemoteWriteEndpoint",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/PyroscopeClusterProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
