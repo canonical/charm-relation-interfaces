@@ -1,47 +1,64 @@
 {
-   "$schema":"https://json-schema.org/draft/2019-09/schema",
-   "$id":"https://canonical.github.io/charm-relation-interfaces/interfaces/kafka_client/schemas/requirer.json",
-   "title":"`kafka` requirer schema",
-   "description":"The `kafka_client` root schema comprises the entire requirer databag for this interface.",
-   "type":"object",
-   "default":{
-      
-   },
-   "required":[
+   "$schema": "https://json-schema.org/draft/2019-09/schema",
+   "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/kafka_client/schemas/requirer.json",
+   "title": "`kafka` requirer schema",
+   "description": "The `kafka_client` root schema comprises the entire requirer databag for this interface.",
+   "type": "object",
+   "default": {},
+   "required": [
       "extra-user-roles"
    ],
-   "if":{
-      "properties":{
-         "extra-user-roles":{
-            "pattern":"producer"
+   "if": {
+      "properties": {
+         "extra-user-roles": {
+            "pattern": "producer"
          }
       }
    },
-   "then":{
-      "required":[
+   "then": {
+      "required": [
          "topic"
       ]
    },
-   "if":{
-      "properties":{
-         "extra-user-roles":{
-            "pattern":"consumer"
+   "if": {
+      "properties": {
+         "extra-user-roles": {
+            "pattern": "consumer"
          }
       }
    },
-   "then":{
-      "required":[
+   "then": {
+      "required": [
          "topic"
       ]
    },
-   "additionalProperties":true,
-   "properties":{
+   "additionalProperties": true,
+   "properties": {
+      "topic": {
+         "title": "Kafka topic name",
+         "description": "The topic name access requested by the requirer",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "topic-1",
+            "appname-*"
+         ]
+      },
+      "consumer-group-prefix": {
+         "title": "Kafka consumer group prefix",
+         "description": "A prefix for wildcard consumer-group ids that have been granted permissions",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "relation-14-"
+         ]
+      },
       "extra-user-roles":{
-         "title":"Application client roles",
-         "description":"A comma-seperated list of application roles requested by the requirer",
-         "type":"string",
-         "default":"",
-         "enum":[
+         "title": "Application client roles",
+         "description": "A comma-seperated list of application roles requested by the requirer",
+         "type": "string",
+         "default": "",
+         "enum": [
             "consumer",
             "producer",
             "admin",
@@ -50,7 +67,7 @@
             "producer,admin",
             "consumer,producer,admin"
          ],
-         "examples":[
+         "examples": [
             "consumer",
             "producer",
             "admin",
@@ -60,31 +77,40 @@
             "consumer,producer,admin"
          ]
       },
-      "topic":{
-         "title":"Kafka topic name",
-         "description":"The topic name access requested by the requirer",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "topic-1",
-            "appname-*"
+      "extra-group-roles": {
+         "title": "Extra-group-roles",
+         "description": "Any extra group roles requested by the requirer",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "charmed_read,charmed_dml"
          ]
       },
-      "consumer-group-prefix":{
-         "title":"Kafka consumer group prefix",
-         "description":"A prefix for wildcard consumer-group ids that have been granted permissions",
-         "type":"string",
-         "default":"",
-         "examples":[
-            "relation-14-"
+      "entity-type": {
+         "title": "Entity-type",
+         "description": "Type of the requested entity (user / group)",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "USER",
+            "GROUP"
+         ]
+      },
+      "entity-permissions": {
+         "title": "Entity-permissions",
+         "description": "List of permissions to assigned to the custom entity, in JSON format",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "[{\"resource_name\": \"messages\", \"resource_type\": \"TOPIC\", \"privileges\": [\"READ\"]}]"
          ]
       }
    },
    "examples":[
       {
-         "extra-user-roles":"consumer",
          "topic":"special-topic",
-         "consumer-group-prefix": "my-consumer-group"
+         "consumer-group-prefix": "my-consumer-group",
+         "extra-user-roles":"consumer"
       }
    ]
 }

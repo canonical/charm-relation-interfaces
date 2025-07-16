@@ -27,6 +27,15 @@
                 "type": "string"
             }
         },
+        "external-node-connectivity": {
+            "title": "External node connectivity",
+            "description": "Provide external connectivity, if subordinate router",
+            "type": "string",
+            "default": "true",
+            "examples": [
+                "true"
+            ]
+        },
         "extra-user-roles": {
             "title": "Extra-user-roles",
             "description": "Any extra user roles requested by the requirer",
@@ -36,13 +45,32 @@
                 "default,admin"
             ]
         },
-        "external-node-connectivity": {
-            "title": "External node connectivity",
-            "description": "Provide external connectivity, if subordinate router",
+        "extra-group-roles": {
+            "title": "Extra-group-roles",
+            "description": "Any extra group roles requested by the requirer",
             "type": "string",
-            "default": "true",
+            "default": "",
             "examples": [
-                "true"
+                "charmed_read,charmed_dml"
+            ]
+        },
+        "entity-type": {
+            "title": "Entity-type",
+            "description": "Type of the requested entity (user / group)",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "USER",
+                "GROUP"
+            ]
+        },
+        "entity-permissions": {
+            "title": "Entity-permissions",
+            "description": "List of permissions to assigned to the custom entity, in JSON format",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "[{\"resource_name\": \"items\", \"resource_type\": \"TABLE\", \"privileges\": [\"SELECT\"]}]"
             ]
         }
     },

@@ -59,6 +59,26 @@
          "examples":[
             "10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
          ]
+      },
+      "entity-name": {
+         "$id": "#/properties/username",
+         "title": "Entity name",
+         "description": "Name for the requested custom entity.",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "custom-role"
+         ]
+      },
+      "entity-password": {
+         "$id": "#/properties/password",
+         "title": "Entity password",
+         "description": "Password for the requested custom entity.",
+         "type": "string",
+         "default": "",
+         "examples": [
+            "alphanum-32byte-random"
+         ]
       }
    },
    "examples":[
