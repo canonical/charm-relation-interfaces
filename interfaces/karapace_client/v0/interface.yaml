@@ -1,0 +1,13 @@
+name: karapace_client
+version: 0
+status: draft
+
+providers:
+  - name: karapace-operator
+    url: https://www.github.com/canonical/karapace-operator
+  - name: karapace-k8s-operator
+    url: https://www.github.com/canonical/karapace-k8s-operator
+
+requirers: []
+
+maintainer: data-platform-bigdata
