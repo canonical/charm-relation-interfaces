@@ -1,0 +1,60 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ProviderAppSchema": {
+      "description": "Application databag schema for the provider side of the profiling interface.",
+      "properties": {
+        "otlp_grpc_endpoint_url": {
+          "description": "Grpc ingestion endpoint for profiles using otlp_grpc.",
+          "examples": [
+            "some.hostname:1234",
+            "10.64.140.43:42424"
+          ],
+          "title": "Otlp Grpc Endpoint Url",
+          "type": "string"
+        },
+        "otlp_http_endpoint_url": {
+          "description": "Ingestion endpoint for profiles using any supported format such as pprof, folded, lines. Cfr. grafana.com/docs/pyroscope/latest/reference-server-api/ for the upstream docs.",
+          "examples": [
+            "http://10.64.140.43/foo-pyroscope/ingest",
+            "https://some.hostname/ingest"
+          ],
+          "title": "Otlp Http Endpoint Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "otlp_grpc_endpoint_url",
+        "otlp_http_endpoint_url"
+      ],
+      "title": "ProviderAppSchema",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ProviderAppSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
