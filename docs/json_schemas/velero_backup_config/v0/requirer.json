@@ -1,6 +1,44 @@
 {
   "$defs": {
-    "BackupSpec": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "RequirerAppData": {
+      "description": "Pydantic model for the requirer's application databag.",
+      "properties": {
+        "app": {
+          "description": "Name of the client application requesting backup.",
+          "examples": [
+            "kubeflow"
+          ],
+          "title": "Client Application Name",
+          "type": "string"
+        },
+        "relation_name": {
+          "description": "Name of the relation on the client providing this spec.",
+          "examples": [
+            "profiles-backup"
+          ],
+          "title": "Client Relation Name",
+          "type": "string"
+        },
+        "spec": {
+          "$ref": "#/$defs/VeleroBackupSpec",
+          "description": "Backup specification details (namespaces, resources, etc.).",
+          "title": "Velero Backup Spec"
+        }
+      },
+      "required": [
+        "app",
+        "relation_name",
+        "spec"
+      ],
+      "title": "RequirerAppData",
+      "type": "object"
+    },
+    "VeleroBackupSpec": {
       "description": "Pydantic model for the backup specification details.",
       "properties": {
         "include-namespaces": {
@@ -135,44 +173,6 @@
           "title": "Backup TTL"
         }
       },
-      "title": "BackupSpec",
-      "type": "object"
-    },
-    "BaseModel": {
-      "properties": {},
-      "title": "BaseModel",
-      "type": "object"
-    },
-    "VeleroBackupSpec": {
-      "description": "Pydantic model for the requirer's application databag.",
-      "properties": {
-        "app": {
-          "description": "Name of the client application requesting backup.",
-          "examples": [
-            "kubeflow"
-          ],
-          "title": "Client Application Name",
-          "type": "string"
-        },
-        "relation_name": {
-          "description": "Name of the relation on the client providing this spec.",
-          "examples": [
-            "profiles-backup"
-          ],
-          "title": "Client Relation Name",
-          "type": "string"
-        },
-        "spec": {
-          "$ref": "#/$defs/BackupSpec",
-          "description": "Backup specification details (namespaces, resources, etc.).",
-          "title": "Velero Backup Spec"
-        }
-      },
-      "required": [
-        "app",
-        "relation_name",
-        "spec"
-      ],
       "title": "VeleroBackupSpec",
       "type": "object"
     }
@@ -191,7 +191,7 @@
       "default": null
     },
     "app": {
-      "$ref": "#/$defs/VeleroBackupSpec"
+      "$ref": "#/$defs/RequirerAppData"
     }
   },
   "required": [

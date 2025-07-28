@@ -2,7 +2,7 @@ from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
 from typing import Dict, List, Optional
 
-class BackupSpec(BaseModel):
+class VeleroBackupSpec(BaseModel):
     """Pydantic model for the backup specification details."""
     include_namespaces: Optional[List[str]] = Field(
         None,
@@ -53,7 +53,7 @@ class BackupSpec(BaseModel):
         examples=["24h"]
     )
 
-class VeleroBackupSpec(BaseModel):
+class RequirerAppData(BaseModel):
     """Pydantic model for the requirer's application databag."""
     app: str = Field(
         ...,
@@ -67,7 +67,7 @@ class VeleroBackupSpec(BaseModel):
         title="Client Relation Name",
         examples=["profiles-backup"]
     )
-    spec: BackupSpec = Field(
+    spec: VeleroBackupSpec = Field(
         ...,
         description="Backup specification details (namespaces, resources, etc.).",
         title="Velero Backup Spec"
@@ -75,8 +75,8 @@ class VeleroBackupSpec(BaseModel):
 
 class RequirerSchema(DataBagSchema):
     """Schema for the requirer (client) side of velero-backup-config."""
-    app: VeleroBackupSpec  # application data uses the VeleroBackupSpec model
-    # no 'unit' field, as the requirer does not use unit-level data
+    
+    app: RequirerAppData
 
 class ProviderSchema(DataBagSchema):
     """Schema for the provider (Velero Operator) side of velero-backup-config."""
