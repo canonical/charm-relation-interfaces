@@ -1,0 +1,237 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "PostgreSQLProviderData": {
+      "description": "The databag for the provider side of this interface.",
+      "properties": {
+        "database": {
+          "description": "The database name delivered by the provider. Might not be the same as requested by the requirer",
+          "examples": [
+            "myapp"
+          ],
+          "title": "Database name",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username for connecting to the requested database",
+          "examples": [
+            "relation-14"
+          ],
+          "title": "Database user name",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password for connecting to the requested database",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Database user password",
+          "type": "string"
+        },
+        "endpoints": {
+          "description": "A list of database endpoints used to connect to the database",
+          "examples": [
+            "unit-1:port,unit-2:port"
+          ],
+          "title": "Database endpoints",
+          "type": "string"
+        },
+        "uris": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A list of connection strings in URI format used to connect to the database",
+          "examples": [
+            "postgresql://user:pass@host-1:port,host-2:port/mydb"
+          ],
+          "title": "Database URIs"
+        },
+        "read-only-endpoints": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A list of endpoints used to connect to the database in read-only mode",
+          "examples": [
+            "unit-1:port,unit-2:port"
+          ],
+          "title": "Database read-only endpoints"
+        },
+        "read-only-uris": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A list of connection strings in URI format used to connect to the read only endpoint of the database",
+          "examples": [
+            "postgresql://user:pass@host-1:port,host-2:port/mydb"
+          ],
+          "title": "Database read-only URIs"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The version of the database engine",
+          "examples": [
+            "16.8.1"
+          ],
+          "title": "Version"
+        },
+        "subordinated": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "true",
+          "description": "Indicates that the provider should check the unit state when scaling up",
+          "examples": [
+            "true"
+          ],
+          "title": "Subordinated"
+        },
+        "state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "ready",
+          "description": "Unit level data to indicate that a subordinate unit is ready to serve",
+          "examples": [
+            "ready"
+          ],
+          "title": "State"
+        },
+        "tls": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Flag that indicates whether TLS is being used by the PostgreSQL charm or not",
+          "examples": [
+            "true",
+            "false"
+          ],
+          "title": "TLS"
+        },
+        "tls-ca": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The TLS CA chain of certificates, if TLS is set",
+          "examples": [
+            "-----BEGIN CERTIFICATE-----\nexample\n-----END CERTIFICATE-----"
+          ],
+          "title": "TLS CA"
+        },
+        "entity-name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Name for the requested custom entity",
+          "examples": [
+            "custom-role"
+          ],
+          "title": "Entity name"
+        },
+        "entity-password": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Password for the requested custom entity",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Entity password"
+        }
+      },
+      "required": [
+        "database",
+        "username",
+        "password",
+        "endpoints"
+      ],
+      "title": "PostgreSQLProviderData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/PostgreSQLProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

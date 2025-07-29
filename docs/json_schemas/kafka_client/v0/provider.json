@@ -1,0 +1,125 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "KafkaProviderData": {
+      "description": "The databag for the provider side of this interface.",
+      "properties": {
+        "topic": {
+          "description": "The topic that has been made available to the relation user. Name defined in the Requirer's topic field",
+          "examples": [
+            "topic-1",
+            "appname-*"
+          ],
+          "title": "Topic name",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username for connecting to the Kafka cluster",
+          "examples": [
+            "relation-14"
+          ],
+          "title": "Kafka SASL/SCRAM username",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password for connecting to the Kafka cluster",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Kafka SASL/SCRAM password",
+          "type": "string"
+        },
+        "endpoints": {
+          "description": "A list of endpoints used to connect to the topic",
+          "examples": [
+            "10.141.78.155:9092,10.141.78.62:9092,10.141.78.186:9092"
+          ],
+          "title": "Kafka server endpoints",
+          "type": "string"
+        },
+        "consumer-group-prefix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A comma-seperated list of Zookeeper server URIs, and Kafka cluster zNode",
+          "examples": [
+            "10.141.78.155:2181,10.141.78.62:2181,10.141.78.186:2181/kafka"
+          ],
+          "title": "Zookeeper URIs"
+        },
+        "entity-name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Name for the requested custom entity",
+          "examples": [
+            "custom-role"
+          ],
+          "title": "Entity name"
+        },
+        "entity-password": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Password for the requested custom entity",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Entity password"
+        }
+      },
+      "required": [
+        "topic",
+        "username",
+        "password",
+        "endpoints"
+      ],
+      "title": "KafkaProviderData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KafkaProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
