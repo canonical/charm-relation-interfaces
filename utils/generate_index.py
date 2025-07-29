@@ -4,14 +4,14 @@ import json
 
 
 def get_interfaces(base_dir="interfaces"):
-    interfaces_table = []
-    for interface in os.listdir(base_dir):
+    interfaces = []
+    for interface in sorted(os.listdir(base_dir)):
         if interface.startswith("__"):
             continue
         interface_path = os.path.join(base_dir, interface)
         if not os.path.isdir(interface_path):
             continue
-        for version in os.listdir(interface_path):
+        for version in sorted(os.listdir(interface_path)):
             version_path = os.path.join(interface_path, version)
             if not os.path.isdir(version_path):
                 continue
@@ -29,8 +29,10 @@ def get_interfaces(base_dir="interfaces"):
                 elif status == "draft":
                     interface_details["status"] = "draft"
                 if interface_details.get("status") in ["live", "draft"]:
-                    interfaces_table.append(interface_details)
-    return interfaces_table
+                    interfaces.append(interface_details)
+
+    interfaces.sort(key=lambda x: (x["name"], x["version"]))
+    return interfaces
 
 
 if __name__ == "__main__":
