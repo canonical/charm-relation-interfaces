@@ -27,7 +27,7 @@
   {
     "name": "cos_agent",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "database_backup",
@@ -102,7 +102,7 @@
   {
     "name": "grafana_datasource",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "grafana_datasource_exchange",
@@ -117,12 +117,12 @@
   {
     "name": "ingress",
     "version": 2,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "ingress_per_unit",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "ip_router",
@@ -132,7 +132,7 @@
   {
     "name": "k8s-service",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "kafka_client",
@@ -147,7 +147,7 @@
   {
     "name": "kratos_info",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "kubeflow_dashboard_links",
@@ -177,7 +177,7 @@
   {
     "name": "mysql_client",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "nfs_share",
@@ -197,12 +197,12 @@
   {
     "name": "opencti_connector",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "openfga",
     "version": 1,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "opensearch_client",
@@ -217,12 +217,12 @@
   {
     "name": "prometheus_remote_write",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "prometheus_scrape",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "pyroscope_cluster",
@@ -237,7 +237,7 @@
   {
     "name": "saml",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "sdcore_config",
@@ -252,7 +252,7 @@
   {
     "name": "smtp",
     "version": 0,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "spark_service_account",
@@ -267,17 +267,17 @@
   {
     "name": "tempo_cluster",
     "version": 1,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "tls_certificates",
     "version": 1,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "tracing",
     "version": 2,
-    "status": "live"
+    "status": "published"
   },
   {
     "name": "vault_autounseal",

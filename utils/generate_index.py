@@ -24,11 +24,8 @@ def get_interfaces(base_dir="interfaces"):
                     "version": interface_yaml.get("version", version[1:]),
                 }
                 status = interface_yaml.get("status")
-                if status == "published":
-                    interface_details["status"] = "live"
-                elif status == "draft":
-                    interface_details["status"] = "draft"
-                if interface_details.get("status") in ["live", "draft"]:
+                interface_details["status"] = status
+                if interface_details.get("status") in ["published", "draft"]:
                     interfaces.append(interface_details)
 
     interfaces.sort(key=lambda x: (x["name"], x["version"]))
