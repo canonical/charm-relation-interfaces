@@ -67,6 +67,12 @@ class RequirerAppData(BaseModel):
         title="Client Relation Name",
         examples=["profiles-backup"]
     )
+    model : str = Field(
+        ...,
+        description="Model name of the client application.",
+        title="Client Model Name",
+        examples=["kubeflow-model"]
+    )
     spec: VeleroBackupSpec = Field(
         ...,
         description="Backup specification details (namespaces, resources, etc.).",

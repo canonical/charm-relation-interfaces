@@ -24,6 +24,14 @@
           "title": "Client Relation Name",
           "type": "string"
         },
+        "model": {
+          "description": "Model name of the client application.",
+          "examples": [
+            "kubeflow-model"
+          ],
+          "title": "Client Model Name",
+          "type": "string"
+        },
         "spec": {
           "$ref": "#/$defs/VeleroBackupSpec",
           "description": "Backup specification details (namespaces, resources, etc.).",
@@ -33,6 +41,7 @@
       "required": [
         "app",
         "relation_name",
+        "model",
         "spec"
       ],
       "title": "RequirerAppData",
