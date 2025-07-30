@@ -1,3 +1,6 @@
+# Copyright 2025 Canonical
+# See LICENSE file for licensing details.
+
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
 from typing import Dict, List, Optional
