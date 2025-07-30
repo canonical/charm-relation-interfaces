@@ -1,0 +1,156 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "MongoDBProviderData": {
+      "description": "The databag for the provider side of this interface.",
+      "properties": {
+        "database": {
+          "description": "The database name delivered by the provider. Might not be the same as requested by the requirer",
+          "examples": [
+            "myapp"
+          ],
+          "title": "Database name",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username for connecting to the requested database",
+          "examples": [
+            "relation-14"
+          ],
+          "title": "Database user name",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password for connecting to the requested database",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Database user password",
+          "type": "string"
+        },
+        "endpoints": {
+          "description": "A list of database endpoints used to connect to the database",
+          "examples": [
+            "unit-1:port,unit-2:port"
+          ],
+          "title": "Database endpoints",
+          "type": "string"
+        },
+        "uris": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A list of connection strings in URI format used to connect to the database",
+          "examples": [
+            "mongodb://user:pass@host1:port,host2:port/authDBname?replset=rs0"
+          ],
+          "title": "Database URIs"
+        },
+        "replset": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The name of the replication set",
+          "examples": [
+            "rs0"
+          ],
+          "title": "ReplSet"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The version of the database engine",
+          "examples": [
+            "8.0.27-18"
+          ],
+          "title": "Version"
+        },
+        "entity-name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Name for the requested custom entity",
+          "examples": [
+            "custom-role"
+          ],
+          "title": "Entity name"
+        },
+        "entity-password": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Password for the requested custom entity",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Entity password"
+        }
+      },
+      "required": [
+        "database",
+        "username",
+        "password",
+        "endpoints"
+      ],
+      "title": "MongoDBProviderData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/MongoDBProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
