@@ -290,6 +290,11 @@
     "status": "draft"
   },
   {
+    "name": "velero_backup_config",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "wazuh_api_client",
     "version": 0,
     "status": "draft"
