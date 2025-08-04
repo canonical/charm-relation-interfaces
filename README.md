@@ -26,6 +26,6 @@ For the time being, to see available interfaces, their statuses, and schemas, br
 
 # Relation interface testers
 
-In order to automatically validate whether a charm satisfies a given relation interface, the relation interface maintainer(s) need to write one or more **relation interface tests**. A relation interface test is a [scenario-based test case](https://github.com/canonical/ops-scenario) which checks that, given an initial context, when a relation event is triggered, the charm will do what the interface specifies. For example, most interface testers will check that, on relation changed, the charm will write a certain value into its (app/unit) databag and that that value matches a certain (Pydantic) schema.
+In order to automatically validate whether a charm satisfies a given relation interface, the relation interface maintainer(s) need to write one or more **relation interface tests**. A relation interface test is a [scenario-based test case](https://ops.readthedocs.io/en/latest/reference/ops-testing.html) which checks that, given an initial context, when a relation event is triggered, the charm will do what the interface specifies. For example, most interface testers will check that, on relation changed, the charm will write a certain value into its (app/unit) databag and that that value matches a certain (Pydantic) schema.
 
 See [the tester documentation](https://github.com/canonical/interface-tester-pytest) for more.
