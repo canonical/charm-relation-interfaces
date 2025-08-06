@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "PostgreSQLRequirerData": {
+      "description": "The databag for the requirer side of this interface.",
+      "properties": {
+        "database": {
+          "description": "The database name requested by the requirer",
+          "examples": [
+            "myapp"
+          ],
+          "title": "Database name",
+          "type": "string"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transferred as Juju Secret",
+          "examples": [
+            [
+              "username",
+              "password"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        },
+        "external-node-connectivity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "true",
+          "description": "Provide external connectivity, if subordinate router",
+          "examples": [
+            "true"
+          ],
+          "title": "External node connectivity"
+        },
+        "extra-user-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Any extra user roles requested by the requirer",
+          "examples": [
+            "default,admin"
+          ],
+          "title": "Extra user roles"
+        },
+        "extra-group-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Any extra group roles requested by the requirer",
+          "examples": [
+            "charmed_read"
+          ],
+          "title": "Extra group roles"
+        },
+        "entity-type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Type of the requested entity (user / group)",
+          "examples": [
+            "USER",
+            "GROUP"
+          ],
+          "title": "Entity type"
+        },
+        "entity-permissions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of permissions to assign to the custom entity, in JSON format",
+          "examples": [
+            "[{\"resource_name\": \"items\", \"resource_type\": \"TABLE\", \"privileges\": [\"SELECT\"]}]"
+          ],
+          "title": "Entity permissions"
+        }
+      },
+      "required": [
+        "database",
+        "requested-secrets"
+      ],
+      "title": "PostgreSQLRequirerData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/PostgreSQLRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

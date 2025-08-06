@@ -1,0 +1,69 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "SparkServiceAccountRequirerAppData": {
+      "properties": {
+        "service-account": {
+          "description": "The name of the service account to be created and the namespace in which the service account is to be created.",
+          "examples": [
+            "test_namespace:test_service_account"
+          ],
+          "title": "Service Account",
+          "type": "string"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transfered as Juju Secret. This field is auto-populated by the data-interfaces lib.",
+          "examples": [
+            [
+              "spark-properties",
+              "resource-manifest"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        },
+        "skip-creation": {
+          "description": "Define whether the providing charm should skip the creation of the service account requested.",
+          "title": "Skip creation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "service-account",
+        "requested-secrets",
+        "skip-creation"
+      ],
+      "title": "SparkServiceAccountRequirerAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/SparkServiceAccountRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
