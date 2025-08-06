@@ -1,0 +1,61 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ProviderAppData": {
+      "properties": {
+        "connector_charm_name": {
+          "description": "Name of the OpenCTI connector charm.",
+          "examples": [
+            "opencti-connector-charm"
+          ],
+          "title": "Connector Charm Name",
+          "type": "string"
+        },
+        "connector_type": {
+          "description": "Type of the OpenCTI connector.",
+          "examples": [
+            "EXTERNAL_IMPORT",
+            "INTERNAL_ENRICHMENT",
+            "INTERNAL_IMPORT_FILE",
+            "INTERNAL_EXPORT_FILE",
+            "STREAM"
+          ],
+          "title": "Connector Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "connector_charm_name",
+        "connector_type"
+      ],
+      "title": "ProviderAppData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for the opencti-connector interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

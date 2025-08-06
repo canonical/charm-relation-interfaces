@@ -1,0 +1,70 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "prefix": {
+      "description": "The prefix of the range of keys requested",
+      "examples": [
+        "/my/keys"
+      ],
+      "title": "Key Prefix",
+      "type": "string"
+    },
+    "secret_mtls": {
+      "description": "Secret URI containing the client certificate",
+      "examples": [
+        "secret://12312323112313123213"
+      ],
+      "title": "mTLS Secret URI",
+      "type": "string"
+    },
+    "requested_secrets": {
+      "description": "The fields required to be a secret.",
+      "examples": "[\"username\", \"uris\", \"tls\", \"tls-ca\"]",
+      "title": "Requested Secrets",
+      "type": "string"
+    },
+    "provided_secrets": {
+      "description": "The fields provided as secrets",
+      "examples": "[\"mtls-cert\"]",
+      "title": "Provided Secrets",
+      "type": "string"
+    }
+  },
+  "required": [
+    "prefix",
+    "secret_mtls",
+    "requested_secrets",
+    "provided_secrets"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

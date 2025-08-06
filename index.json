@@ -1,0 +1,302 @@
+[
+  {
+    "name": "auth_proxy",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "azure_storage",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "certificate_transfer",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "certificate_transfer",
+    "version": 1,
+    "status": "draft"
+  },
+  {
+    "name": "cloudflared_route",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "cos_agent",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "database_backup",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "dns_record",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "etcd_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "filesystem_info",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_core_gnb",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_f1",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_gnb_identity",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_n2",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_n3",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_n4",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_nrf",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "fiveg_rfsim",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "forward_auth",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "grafana_auth",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "grafana_datasource",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "grafana_datasource_exchange",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "hydra_endpoints",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "ingress",
+    "version": 2,
+    "status": "published"
+  },
+  {
+    "name": "ingress_per_unit",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "ip_router",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "k8s-service",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "kafka_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "kratos_external_idp",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "kratos_info",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "kubeflow_dashboard_links",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "ldap",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "login_ui_endpoints",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "mimir_cluster",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "mongodb_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "mysql_client",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "nfs_share",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "nginx_route",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "oauth",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "opencti_connector",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "openfga",
+    "version": 1,
+    "status": "published"
+  },
+  {
+    "name": "opensearch_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "postgresql_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "prometheus_remote_write",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "prometheus_scrape",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "pyroscope_cluster",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "s3",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "saml",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "sdcore_config",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "sdcore_management",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "smtp",
+    "version": 0,
+    "status": "published"
+  },
+  {
+    "name": "spark_service_account",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "tempo_cluster",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "tempo_cluster",
+    "version": 1,
+    "status": "published"
+  },
+  {
+    "name": "tls_certificates",
+    "version": 1,
+    "status": "published"
+  },
+  {
+    "name": "tracing",
+    "version": 2,
+    "status": "published"
+  },
+  {
+    "name": "vault_autounseal",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "vault_kv",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "wazuh_api_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "zookeeper",
+    "version": 0,
+    "status": "draft"
+  }
+]

@@ -1,0 +1,19 @@
+name: kratos_info
+internal: true
+
+version: 0
+status: published
+
+providers:
+  - name: kratos-operator
+    url: https://github.com/canonical/kratos-operator
+
+requirers:
+  - name: identity-platform-login-ui-operator
+    url: https://github.com/canonical/identity-platform-login-ui-operator
+  - name: oathkeeper-operator
+    url: https://github.com/canonical/oathkeeper-operator
+  - name: identity-platform-admin-ui
+    url: https://github.com/canonical/identity-platform-admin-ui-operator
+
+maintainer: identity

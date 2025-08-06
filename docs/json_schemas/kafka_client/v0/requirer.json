@@ -1,0 +1,137 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "KafkaRequirerData": {
+      "description": "The databag for the requirer side of this interface.",
+      "properties": {
+        "topic": {
+          "description": "The topic name access requested by the requirer",
+          "examples": [
+            "topic-1",
+            "appname-*"
+          ],
+          "title": "Topic name",
+          "type": "string"
+        },
+        "consumer-group-prefix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "A prefix for wildcard consumer-group IDs that have been granted permissions",
+          "examples": [
+            "relation-14-"
+          ],
+          "title": "Kafka consumer group prefix"
+        },
+        "extra-user-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Any extra user roles requested by the requirer",
+          "examples": [
+            "consumer",
+            "producer",
+            "admin",
+            "consumer,producer",
+            "consumer,admin",
+            "producer,admin",
+            "consumer,producer,admin"
+          ],
+          "title": "Extra user roles"
+        },
+        "extra-group-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Any extra group roles requested by the requirer",
+          "examples": [
+            "charmed_read"
+          ],
+          "title": "Extra group roles"
+        },
+        "entity-type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Type of the requested entity (user / group)",
+          "examples": [
+            "USER",
+            "GROUP"
+          ],
+          "title": "Entity type"
+        },
+        "entity-permissions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of permissions to assign to the custom entity, in JSON format",
+          "examples": [
+            "[{\"resource_name\": \"messages\", \"resource_type\": \"TOPIC\", \"privileges\": [\"READ\"]}]"
+          ],
+          "title": "Entity permissions"
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "title": "KafkaRequirerData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KafkaRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
