@@ -22,7 +22,8 @@ Both the Requirer and the Provider need to adhere to criteria to be considered c
 
 ### Provider
 
-- Is expected to provide a list of public certificates and/or CA certificates, with the version of interface.
+- Is expected to provide a list of public certificates and/or CA certificates
+- Is expected to provide the used version of the interface.
 
 ### Requirer
 
