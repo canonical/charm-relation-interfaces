@@ -1,0 +1,55 @@
+name: Matrix tests for a specific interface
+
+on:
+  workflow_dispatch:
+    inputs:
+      interface:
+        description: 'The interface to run tests for'
+        required: true
+        type: string
+      repo:
+        description: 'The repo to fetch the test and interfaces definitions from'
+        default: 'https://github.com/canonical/charm-relation-interfaces'
+        required: false
+        type: string
+      branch:
+        description: 'The branch of the repo to fetch the test and interface definitions from'
+        default: 'main'
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      interface:
+        description: 'The interface to run tests for'
+        required: true
+        type: string
+      repo:
+        description: 'The repo to fetch the test and interfaces definitions from'
+        default: 'https://github.com/canonical/charm-relation-interfaces'
+        required: false
+        type: string
+      branch:
+        description: 'The branch of the repo to fetch the test and interface definitions from'
+        default: 'main'
+        required: false
+        type: string
+
+jobs:
+  matrix-tests:
+    name: 'Matrix tests for ${{ inputs.interface }}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: pip install tox uv poetry
+      - name: Run tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
+        run: tox -e run-interface-test-matrix -- --include ${{ inputs.interface }} --repo ${{ inputs.repo }} --branch ${{ inputs.branch }}
