@@ -3,7 +3,7 @@
 ## Usage
 
 This interface can be used by an application able to ingest profiling data to expose the ingestion 
-endpoints to any application able to push into them.
+endpoint(s) to any application able to push into them.
 
 ## Direction
 
@@ -37,7 +37,6 @@ integration for the provider:
 provider:
   app: {
          otlp_grpc_endpoint_url: "my.fqdn.cluster.local:1234",
-         otlp_http_endpoint_url: "http://my.fqdn.cluster.local/foo/bar",
   }
   unit: {}
 requirer:
@@ -51,8 +50,6 @@ provider:
   app: {
          # `10.0.0.1` is the ingress hostname of the provider charm
          otlp_grpc_endpoint_url: "10.0.0.1:1234",
-         # may be `https` if tls is enabled
-         otlp_http_endpoint_url: "http://10.0.0.1/foo/bar",
   }
   unit: {}
 requirer:

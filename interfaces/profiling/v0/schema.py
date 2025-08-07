@@ -15,14 +15,6 @@ class ProviderAppSchema(BaseModel):
         description="Grpc ingestion endpoint for profiles using otlp_grpc.",
         examples=["some.hostname:1234", "10.64.140.43:42424"]
     )
-    otlp_http_endpoint_url:str = Field(
-        description="Ingestion endpoint for profiles using any supported format such as pprof, "
-                    "folded, lines. Cfr. grafana.com/docs/pyroscope/latest/reference-server-api/ "
-                    "for the upstream docs.",
-        examples=["http://10.64.140.43/foo-pyroscope/ingest",
-                  "https://some.hostname/ingest"]
-    )
-
 
 
 class ProviderSchema(DataBagSchema):
