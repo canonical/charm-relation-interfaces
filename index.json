@@ -215,6 +215,11 @@
     "status": "draft"
   },
   {
+    "name": "profiling",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "prometheus_remote_write",
     "version": 0,
     "status": "published"

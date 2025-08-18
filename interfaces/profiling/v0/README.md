@@ -25,6 +25,7 @@ flowchart TD
 - Must accept data on those endpoints
 - If ingress is available, the provider must advertise its ingressed hostname, 
   otherwise fall back to using its own cluster-internal fqdn.
+- Must pass `insecure=True` if the ingestion endpoints are running with insecure connection.
 
 ## Relation Data
 
@@ -37,6 +38,7 @@ integration for the provider:
 provider:
   app: {
          otlp_grpc_endpoint_url: "my.fqdn.cluster.local:1234",
+         insecure: False,
   }
   unit: {}
 requirer:
@@ -50,6 +52,7 @@ provider:
   app: {
          # `10.0.0.1` is the ingress hostname of the provider charm
          otlp_grpc_endpoint_url: "10.0.0.1:1234",
+         insecure: False,
   }
   unit: {}
 requirer:

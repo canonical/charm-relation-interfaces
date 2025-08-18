@@ -16,6 +16,12 @@
           ],
           "title": "Otlp Grpc Endpoint Url",
           "type": "string"
+        },
+        "insecure": {
+          "default": false,
+          "description": "Whether the ingestion endpoints should be accessed without TLS (insecure connection).",
+          "title": "Insecure",
+          "type": "boolean"
         }
       },
       "required": [
