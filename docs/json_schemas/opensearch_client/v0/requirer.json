@@ -1,0 +1,129 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "OpenSearchRequirerData": {
+      "description": "The databag for the requirer side of this interface.",
+      "properties": {
+        "index": {
+          "description": "The index name requested by the requirer",
+          "examples": [
+            "myindex"
+          ],
+          "title": "Index name",
+          "type": "string"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transferred as Juju Secret",
+          "examples": [
+            [
+              "username",
+              "password"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        },
+        "extra-user-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "default",
+          "description": "Any extra user roles requested by the requirer",
+          "examples": [
+            "default,admin"
+          ],
+          "title": "Extra user roles"
+        },
+        "extra-group-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Any extra group roles requested by the requirer",
+          "examples": [
+            "charmed_read"
+          ],
+          "title": "Extra group roles"
+        },
+        "entity-type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Type of the requested entity (user / group)",
+          "examples": [
+            "USER",
+            "GROUP"
+          ],
+          "title": "Entity type"
+        },
+        "entity-permissions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of permissions to assign to the custom entity, in JSON format",
+          "examples": [
+            "[{\"resource_name\": \"myindex\", \"resource_type\": \"INDEX\", \"privileges\": [\"WRITE\"]}]"
+          ],
+          "title": "Entity permissions"
+        }
+      },
+      "required": [
+        "index",
+        "requested-secrets"
+      ],
+      "title": "OpenSearchRequirerData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/OpenSearchRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
