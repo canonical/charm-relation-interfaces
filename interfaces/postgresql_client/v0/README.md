@@ -43,6 +43,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 - Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to be respected or not, in case the charm is capable of such.
 - May require delays (via `subordinated`) to provide service on Requirer scale up. If so, it is expected to set unit level `state` data when it is `ready` to serve.
+- Is expected to respect the `entity-name` and `password` set in `requested-entity-secret`.
 
 ### Requirer
 
@@ -58,6 +59,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the database name received.
 - Is expected to respect the `subordinated` flag when scaling up and start emitting events only once unit level `state` is `ready`.
 - May require external connectivity (via `external-node-connectivity`).
+- May require specific entity credentials inside a secret set as `requested-entity-secret` field. Expected values in the secret are `entity-name` and an optional `password`.
 
 ## Relation Data
 

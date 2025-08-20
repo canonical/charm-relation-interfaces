@@ -170,6 +170,14 @@ class PostgreSQLRequirerData(BaseModel):
         title="Entity permissions",
     )
 
+    requested_entity_secret: Optional[str] = Field(
+        None,
+        alias="requested-entity-secret",
+        description="URI of a secret containing a definition of the credentials to be created by the provider",
+        examples=["secret:d2fjn1fmp25004or68b0"],
+        title="Requested entiy secret",
+    )
+
 
 class ProviderSchema(DataBagSchema):
     """The schema for the provider side of this interface."""
