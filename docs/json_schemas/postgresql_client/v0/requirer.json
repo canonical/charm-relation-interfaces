@@ -121,11 +121,11 @@
             }
           ],
           "default": null,
-          "description": "URI of a secret containing a definition of the credentials to be created by the provider",
+          "description": "URI of a Juju secret containing a definition of the credentials to be created by the provider",
           "examples": [
             "secret:d2fjn1fmp25004or68b0"
           ],
-          "title": "Requested entiy secret"
+          "title": "Requested entity secret"
         }
       },
       "required": [
