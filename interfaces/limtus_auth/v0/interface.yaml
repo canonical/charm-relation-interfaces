@@ -9,9 +9,15 @@ status: draft
 providers:
   - name: litmus-auth-k8s
     url: https://github.com/canonical/litmus-operators
+    test_setup:
+      location: auth/tests/interface/conftest.py
+      identifier: cluster_tester
 
 requirers:
   - name: litmus-backend-k8s
     url: https://github.com/canonical/litmus-operators
+    test_setup:
+      location: backend/tests/interface/conftest.py
+      identifier: cluster_tester
 
 maintainer: "observability"
