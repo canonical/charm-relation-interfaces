@@ -160,6 +160,11 @@
     "status": "draft"
   },
   {
+    "name": "litmus_auth",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "login_ui_endpoints",
     "version": 0,
     "status": "draft"
