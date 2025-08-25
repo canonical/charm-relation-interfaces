@@ -10,14 +10,18 @@ providers:
   - name: litmus-auth-k8s
     url: https://github.com/canonical/litmus-operators
     test_setup:
-      location: auth/tests/interface/conftest.py
+      charm_root: auth
+      location: tests/interface/conftest.py
       identifier: cluster_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
 
 requirers:
   - name: litmus-backend-k8s
     url: https://github.com/canonical/litmus-operators
     test_setup:
-      location: backend/tests/interface/conftest.py
+      charm_root: backend
+      location: tests/interface/conftest.py
       identifier: cluster_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
 
 maintainer: "observability"
