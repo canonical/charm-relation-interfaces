@@ -12,7 +12,7 @@ providers:
     test_setup:
       charm_root: auth
       location: tests/interface/conftest.py
-      identifier: cluster_tester
+      identifier: litmus_auth_tester
       pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
 
 requirers:
@@ -21,7 +21,7 @@ requirers:
     test_setup:
       charm_root: backend
       location: tests/interface/conftest.py
-      identifier: cluster_tester
+      identifier: litmus_auth_tester
       pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
 
 maintainer: "observability"
