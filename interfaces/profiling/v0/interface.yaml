@@ -19,5 +19,7 @@ providers:
 requirers:
   - name: opentelemetry-collector-k8s
     url: https://github.com/canonical/opentelemetry-collector-k8s-operator
+    test_setup:
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
 
 maintainer: "observability"

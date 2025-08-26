@@ -89,7 +89,7 @@ def _prepare_repo(
     repo_root_path = root / charm_config.name
 
     # multi-charm repos might have multiple charms in a single repo.
-    if charm_root_cfg := (charm_config.test_setup['charm_root'] if charm_config.test_setup else None):
+    if charm_root_cfg := (charm_config.test_setup.get('charm_root') if charm_config.test_setup else None):
         charm_root_path = repo_root_path / charm_root_cfg
         if not charm_root_path.resolve().is_relative_to(repo_root_path):
             raise SetupError(
@@ -168,10 +168,9 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
     fixture_path = charm_path / FIXTURE_PATH
     fixture_id = FIXTURE_IDENTIFIER
     if charm_config.test_setup:
-        if charm_config.test_setup["location"]:
-            fixture_path = charm_path / Path(charm_config.test_setup["location"])
-        if charm_config.test_setup["identifier"]:
-            fixture_id = charm_config.test_setup["identifier"]
+        if location := charm_config.test_setup.get("location"):
+            fixture_path = charm_path / Path(location)
+        fixture_id = charm_config.test_setup.get("identifier", FIXTURE_IDENTIFIER)
     return FixtureSpec(fixture_path, fixture_id)
 
 
