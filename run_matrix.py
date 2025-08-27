@@ -170,7 +170,7 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
     if charm_config.test_setup:
         if location := charm_config.test_setup.get("location"):
             fixture_path = charm_path / Path(location)
-        fixture_id = charm_config.test_setup.get("identifier", FIXTURE_IDENTIFIER)
+        fixture_id = charm_config.test_setup.get("identifier", fixture_id)
     return FixtureSpec(fixture_path, fixture_id)
 
 
