@@ -9,8 +9,6 @@ status: draft
 providers:
   - name: litmus-auth-k8s
     url: https://github.com/canonical/litmus-operators
-    # FIXME: remove before merging
-    branch: TAP-711
     test_setup:
       charm_root: auth
       location: tests/interface/conftest.py
@@ -20,8 +18,6 @@ providers:
 requirers:
   - name: litmus-backend-k8s
     url: https://github.com/canonical/litmus-operators
-    # FIXME: remove before merging
-    branch: TAP-711
     test_setup:
       charm_root: backend
       location: tests/interface/conftest.py
