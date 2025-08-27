@@ -5,6 +5,8 @@
 This interface enables communication between the Litmus auth and backend
 charms by primarily sharing each service’s gRPC server endpoints.
 
+In most cases, this will be accomplished using the [litmus_auth library](https://github.com/canonical/litmus-operators/blob/main/libs/src/litmus_libs/interfaces/litmus_auth.py), although charm developers are free to provide alternative libraries as long as they fulfill the behavioral and schematic requirements described in this document.
+
 ## Direction
 
 This interface implements a provider/requirer pattern. The provider is the auth server and the requirer is the backend server.
