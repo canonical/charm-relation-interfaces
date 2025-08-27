@@ -89,9 +89,7 @@ def _prepare_repo(
     repo_root_path = root / charm_config.name
 
     # multi-charm repos might have multiple charms in a single repo.
-    if charm_root_cfg := (
-        charm_config.test_setup.get("charm_root") if charm_config.test_setup else None
-    ):
+    if charm_config.test_setup and (charm_root_cfg := charm_config.test_setup.get("charm_root")):
         charm_root_path = repo_root_path / charm_root_cfg
         if not charm_root_path.resolve().is_relative_to(repo_root_path):
             raise SetupError(
@@ -219,7 +217,7 @@ def _setup_venv(charm_path: Path) -> None:
         subprocess.check_call(
             f"{MKVENV_CMD} ./.interface-venv",
             shell=True,
-            # stdout=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
             cwd=charm_path,
         )
         logging.info(f"Installing dependencies in venv for {charm_path}")

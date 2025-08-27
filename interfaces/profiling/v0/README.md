@@ -5,6 +5,8 @@
 This interface can be used by an application able to ingest profiling data to expose the ingestion 
 endpoint(s) to any application able to push into them.
 
+The reference implementation of this interface (v0) can be found at [this address](https://github.com/canonical/pyroscope-k8s-operator/blob/main/coordinator/lib/charms/pyroscope_coordinator_k8s/v0/profiling.py).
+
 ## Direction
 
 This interface implements a provider/requirer pattern. As is customary, the provider is the server 
