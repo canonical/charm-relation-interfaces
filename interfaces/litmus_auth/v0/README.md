@@ -22,12 +22,12 @@ flowchart TD
 ### Provider
 
 - Must publish its gRPC server's hostname and port.
-- Must pass `insecure=True` if the gRPC server endpoint is running with insecure connection.
+- Must pass `insecure=True` if the gRPC server endpoint is incapable of accepting TLS connections.
 
 ### Requirer
 
 - Must publish its gRPC server's hostname and port.
-- Must pass `insecure=True` if the gRPC server endpoint is running with insecure connection.
+- Must pass `insecure=True` if the gRPC server endpoint is incapable of accepting TLS connections.
 
 ## Relation Data
 
