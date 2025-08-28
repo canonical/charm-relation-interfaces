@@ -29,17 +29,17 @@ on:
         type: string
 
 jobs:
-  matrix:
+  set-matrix:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.matrix.outputs.interfaces }}
+      matrix_values: ${{ steps.set-matrix.outputs.matrix_values }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Set matrix values
-        id: matrix
+        id: set-matrix
         run: |
           all_interfaces=($(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '%f\n' | sort))
           interfaces=()
@@ -52,16 +52,16 @@ jobs:
             done
           done
           js=$(jq '$ARGS.positional' --null-input --compact-output --args "${interfaces[@]}")
-          echo "interfaces=$js"
-          echo "interfaces=$js" >> "$GITHUB_OUTPUT"
+          echo "matrix_values=$js"
+          echo "matrix_values=$js" >> "$GITHUB_OUTPUT"
 
   main:
     name: ${{ matrix.interface }}
-    needs: matrix
+    needs: set-matrix
     strategy:
       fail-fast: false
       matrix:
-        interface: ${{ fromJSON(needs.matrix.outputs.interface) }}
+        interface: ${{ fromJSON(needs.set-matrix.outputs.matrix_values) }}
     uses: ./.github/workflows/dispatch-matrix-tests.yaml
     with:
       event: ${{ github.event_name }}
