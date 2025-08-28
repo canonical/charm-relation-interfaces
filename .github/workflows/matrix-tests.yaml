@@ -32,7 +32,7 @@ jobs:
   matrix:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
+      matrix: ${{ steps.matrix.outputs.interfaces }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,22 +41,19 @@ jobs:
       - name: Set matrix values
         id: matrix
         run: |
-          interfaces=($(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '%f\n' | sort))
-          matrix=()
-          for interface in "${interfaces[@]}"; do
-            tests=no-tests
+          all_interfaces=($(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '%f\n' | sort))
+          interfaces=()
+          for interface in "${all_interfaces[@]}"; do
             for v in interfaces/$interface/v[0-9]*; do
               if [ -d "$v/interface_tests" ]; then
-                tests=has-tests
+                interfaces+=("$interface")
                 break
               fi
             done
-            entry=$(jq --null-input --arg i "$interface" --arg t "$tests" '{interface: $i, tests: $t}')
-            matrix+=("$entry")
           done
-          js=$(printf '%s\n' "${matrix[@]}" | jq --slurp --compact-output '.')
-          echo "matrix=$js"
-          echo "matrix=$js" >> "$GITHUB_OUTPUT"
+          js=$(jq '$ARGS.positional' --null-input --compact-output --args "${interfaces[@]}")
+          echo "interfaces=$js"
+          echo "interfaces=$js" >> "$GITHUB_OUTPUT"
 
   main:
     name: ${{ matrix.interface }}
@@ -64,8 +61,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJSON(needs.matrix.outputs.matrix) }}
-    # if: ${{ matrix.tests != 'no-tests' }}  # doesn't work! matrix isn't available when job uses a reusable workflow
+        interface: ${{ fromJSON(needs.matrix.outputs.interface) }}
     uses: ./.github/workflows/dispatch-matrix-tests.yaml
     with:
       event: ${{ github.event_name }}
