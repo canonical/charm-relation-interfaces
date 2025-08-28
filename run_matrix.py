@@ -375,12 +375,15 @@ def run_interface_tests(
         )
         test_results[interface] = results_per_version
 
-        # Running in GitHub actions with the maintainer set on the test.
-        if os.getenv("GITHUB_ACTIONS") and os.environ["MATRIX_EVENT"] == "schedule":
-            for version, tests_per_role in version_to_roles.items():
-                maintainer = tests_per_role.get("maintainer")
-                if maintainer and test_failed(results_per_version[version]):
-                    failed = True
+        for version, tests_per_role in version_to_roles.items():
+            if test_failed(results_per_version[version]):
+                failed = True
+                # Running in GitHub actions with the maintainer set on the test.
+                if (
+                    os.getenv("GITHUB_ACTIONS")
+                    and os.environ["MATRIX_EVENT"] == "schedule"
+                    and (maintainer := tests_per_role.get("maintainer"))
+                ):
                     create_issue(
                         interface, version, results_per_version[version], maintainer
                     )
