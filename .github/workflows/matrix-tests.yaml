@@ -29,28 +29,43 @@ on:
         type: string
 
 jobs:
-  set-matrix:
+  matrix:
     runs-on: ubuntu-latest
     outputs:
-      matrix_values: ${{ steps.set-matrix.outputs.matrix_values }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Set matrix values
-        id: set-matrix
+        id: matrix
         run: |
-          interfaces=$(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '%f\n' | jq --raw-input . | jq -c --slurp .)
-          echo "matrix_values=${interfaces}" >> $GITHUB_OUTPUT
+          interfaces=($(find interfaces -mindepth 1 -maxdepth 1 -type d -not -name "__template__" -printf '%f\n' | sort))
+          matrix=()
+          for interface in "${interfaces[@]}"; do
+            tests=no-tests
+            for v in interfaces/$interface/v[0-9]*; do
+              if [ -d "$v/interface_tests" ]; then
+                tests=has-tests
+                break
+              fi
+            done
+            entry=$(jq --null-input --arg i "$interface" --arg t "$tests" '{interface: $i, tests: $t}')
+            matrix+=("$entry")
+          done
+          js=$(printf '%s\n' "${matrix[@]}" | jq --slurp --compact-output '.')
+          echo "matrix=$js"
+          echo "matrix=$js" >> "$GITHUB_OUTPUT"
 
   main:
     name: ${{ matrix.interface }}
-    needs: set-matrix
+    needs: matrix
     strategy:
       fail-fast: false
       matrix:
-        interface: ${{ fromJSON(needs.set-matrix.outputs.matrix_values) }}
+        include: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+    # if: ${{ matrix.tests != 'no-tests' }}  # doesn't work! matrix isn't available when job uses a reusable workflow
     uses: ./.github/workflows/dispatch-matrix-tests.yaml
     with:
       event: ${{ github.event_name }}
