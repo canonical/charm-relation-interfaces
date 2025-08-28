@@ -1,0 +1,24 @@
+name: litmus_auth_http_api
+
+internal: true
+version: 0
+
+status: draft
+
+providers:
+  - name: litmus-auth-k8s
+    url: https://github.com/canonical/litmus-operators
+    test_setup:
+      charm_root: auth
+      identifier: auth_http_api_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+requirers:
+  - name: litmus-chaoscenter-k8s
+    url: https://github.com/canonical/litmus-operators
+    test_setup:
+      charm_root: chaoscenter
+      identifier: auth_http_api_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+maintainer: observability
