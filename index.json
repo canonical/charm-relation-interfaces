@@ -160,6 +160,16 @@
     "status": "draft"
   },
   {
+    "name": "litmus_auth_http_api",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "litmus_backend_http_api",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "login_ui_endpoints",
     "version": 0,
     "status": "draft"
