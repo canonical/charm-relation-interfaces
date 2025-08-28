@@ -9,28 +9,32 @@ on:
         type: string
       repo:
         description: 'The repo to fetch the test and interfaces definitions from'
-        default: 'https://github.com/canonical/charm-relation-interfaces'
+        default: ''
         required: false
         type: string
       branch:
         description: 'The branch of the repo to fetch the test and interface definitions from'
-        default: 'main'
+        default: ''
         required: false
         type: string
   workflow_call:
     inputs:
+      event:
+        description: 'The triggering event of this workflow call'
+        required: true
+        type: string
       interface:
         description: 'The interface to run tests for'
         required: true
         type: string
       repo:
         description: 'The repo to fetch the test and interfaces definitions from'
-        default: 'https://github.com/canonical/charm-relation-interfaces'
+        default: ''
         required: false
         type: string
       branch:
         description: 'The branch of the repo to fetch the test and interface definitions from'
-        default: 'main'
+        default: ''
         required: false
         type: string
 
@@ -52,4 +56,7 @@ jobs:
       - name: Run tests
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
-        run: tox -e run-interface-test-matrix -- --include ${{ inputs.interface }} --repo ${{ inputs.repo }} --branch ${{ inputs.branch }}
+          MATRIX_EVENT: ${{ inputs.event || 'no-event-input' }}
+        run: |
+          echo MATRIX_EVENT $MATRIX_EVENT
+          tox -e run-interface-test-matrix -- --include ${{ inputs.interface }} --repo ${{ inputs.repo || github.repository }} --branch ${{ inputs.branch || github.ref_name }}
