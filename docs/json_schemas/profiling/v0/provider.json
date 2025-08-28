@@ -1,0 +1,56 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ProviderAppSchema": {
+      "description": "Application databag schema for the provider side of the profiling interface.",
+      "properties": {
+        "otlp_grpc_endpoint_url": {
+          "description": "Grpc ingestion endpoint for profiles using otlp_grpc.",
+          "examples": [
+            "some.hostname:1234",
+            "10.64.140.43:42424"
+          ],
+          "title": "Otlp Grpc Endpoint Url",
+          "type": "string"
+        },
+        "insecure": {
+          "default": false,
+          "description": "Whether the ingestion endpoints should be accessed without TLS (insecure connection).",
+          "title": "Insecure",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "otlp_grpc_endpoint_url"
+      ],
+      "title": "ProviderAppSchema",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ProviderAppSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
