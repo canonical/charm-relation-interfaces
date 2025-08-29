@@ -1,0 +1,27 @@
+name: litmus_auth
+
+# `version` starts at `0` and increments with every breaking change in the interface specification.
+version: 0
+
+# `status` describes where the interface is in its lifecycle. Valid values are described in LEGEND.md.
+status: draft
+
+providers:
+  - name: litmus-auth-k8s
+    url: https://github.com/canonical/litmus-operators
+    test_setup:
+      charm_root: auth
+      location: tests/interface/conftest.py
+      identifier: litmus_auth_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+requirers:
+  - name: litmus-backend-k8s
+    url: https://github.com/canonical/litmus-operators
+    test_setup:
+      charm_root: backend
+      location: tests/interface/conftest.py
+      identifier: litmus_auth_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+maintainer: "observability"
