@@ -57,7 +57,6 @@ jobs:
         run: python -m pip install tox
       - name: Run tests
         run: tox -vve unit
-
   integration-test:
     runs-on: ubuntu-latest
     name: Integration Tests
@@ -74,3 +73,9 @@ jobs:
         run: python -m pip install tox
       - name: Run tests
         run: tox -vve integration
+  matrix-tests:
+    name: Matrix Tests
+    uses: ./.github/workflows/matrix-tests.yaml
+    with:
+      repo: ${{ github.event.pull_request.head.repo.html_url }}  # PR repo URL or empty string for other events
+      branch: ${{ github.event.pull_request.head.ref }}  # PR branch or empty string for other events
