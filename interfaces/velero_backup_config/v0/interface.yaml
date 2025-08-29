@@ -9,21 +9,21 @@ requirers:
 providers:
   - name: mlmd-operator
     url: https://github.com/canonical/mlmd-operator
-    branch: SOLENG-1376-velero-client
+    branch: main
     test_setup:
       pre_run: "poetry export --without-hashes --with unit --with charm --format=requirements.txt > requirements.txt"
       location: tests/interface_tests/conftest.py
       identifier: interface_tester
   - name: minio-operator
     url: https://github.com/canonical/minio-operator
-    branch: SOLENG-1376-velero-client
+    branch: main
     test_setup:
       pre_run: "poetry export --without-hashes --with unit --with charm --format=requirements.txt > requirements.txt"
       location: tests/interface_tests/conftest.py
       identifier: interface_tester
   - name: kubeflow-profiles-operator
     url: https://github.com/canonical/kubeflow-profiles-operator
-    branch: SOLENG-1376-velero-client
+    branch: main
     test_setup:
       pre_run: "poetry export --without-hashes --with unit --with charm --format=requirements.txt > requirements.txt"
       location: tests/interface_tests/conftest.py
