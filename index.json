@@ -160,6 +160,11 @@
     "status": "draft"
   },
   {
+    "name": "litmus_auth",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "login_ui_endpoints",
     "version": 0,
     "status": "draft"
@@ -291,6 +296,11 @@
   },
   {
     "name": "vault_kv",
+    "version": 0,
+    "status": "draft"
+  },
+  {
+    "name": "velero_backup_config",
     "version": 0,
     "status": "draft"
   },

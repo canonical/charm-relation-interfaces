@@ -1,0 +1,32 @@
+name: velero_backup_config
+version: 0
+status: draft
+
+requirers:
+  - name: velero-operator
+    url: https://www.github.com/canonical/velero-operator
+
+providers:
+  - name: mlmd-operator
+    url: https://github.com/canonical/mlmd-operator
+    branch: main
+    test_setup:
+      pre_run: "poetry export --without-hashes --with unit --with charm --format=requirements.txt > requirements.txt"
+      location: tests/interface_tests/conftest.py
+      identifier: interface_tester
+  - name: minio-operator
+    url: https://github.com/canonical/minio-operator
+    branch: main
+    test_setup:
+      pre_run: "poetry export --without-hashes --with unit --with charm --format=requirements.txt > requirements.txt"
+      location: tests/interface_tests/conftest.py
+      identifier: interface_tester
+  - name: kubeflow-profiles-operator
+    url: https://github.com/canonical/kubeflow-profiles-operator
+    branch: main
+    test_setup:
+      pre_run: "poetry export --without-hashes --with unit --with charm --format=requirements.txt > requirements.txt"
+      location: tests/interface_tests/conftest.py
+      identifier: interface_tester
+
+maintainer: data-platform
