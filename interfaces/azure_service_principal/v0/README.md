@@ -25,5 +25,41 @@ The provider is expected to share with all requirer charms the credentials requi
 ## Relation Data
 
 ### Provider
+[\[JSON Schema\]](../../../docs/json_schemas/azure_service_principal/v0/provider.json)
+
+The provider gives connection and authentication information:
+
+- **subscrption-id** (str): Identifier for an Azure subscription
+- **tenant-id** (str): Identifier of an Entra ID tenant
+- **client-id** (str): Client ID for the service principal
+- **client-secret** (str): Client secret for the service principal
+
+
+#### Example
+```yaml
+  relation-info:
+  - endpoint: azure_service_principal
+    related-endpoint: azure_service_principal
+    application-data:
+      subscription-id: 12345678-1234-1234-1234-1234567890ab
+      tenant-id: 87654321-4321-4321-4321-ba0987654321
+	  client-id: a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6
+	  client-secret: aBcDeFgHiJkLmNoPqRsTuVwXyZ123456-~7890_
+```
+
 
 ### Requirer
+[\[JSON Schema\]](../../../docs/json_schemas/azure_service_principal/v0/requirer.json)
+
+The requirer shares a list of the requested Juju secrets that should be shared by the provider charm:
+
+- **requested-secrets** (list): List of Juju secret string that the provider should share.
+
+#### Example
+```yaml
+  relation-info:
+  - endpoint: azure_service_principal
+    related-endpoint: azure_service_principal
+    application-data:
+	  requested-secrets: ["client-id", "client-secret"]
+```

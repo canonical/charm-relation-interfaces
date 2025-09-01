@@ -20,7 +20,7 @@ class AzureServicePrincipalProviderAppData(BaseModel):
     """Credentials for an Azure Service Principal."""
     
     subscription_id: str = Field(
-        description="The unique identifier for your Azure subscription.",
+        description="The unique identifier for an Azure subscription.",
         examples=["12345678-1234-1234-1234-1234567890ab"],
         title="Subscription ID",
     )
