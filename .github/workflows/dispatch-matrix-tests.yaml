@@ -52,7 +52,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install dependencies
-        run: pip install tox uv poetry
+        run: pip install tox uv poetry poetry-plugin-export
       - name: Run tests
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
