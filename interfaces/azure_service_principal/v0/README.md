@@ -33,10 +33,10 @@ To be considered compatible with the interface, the requirer and the provider ne
 
 The provider gives connection and authentication information:
 
-- **subscrption-id** (str): Identifier for an Azure subscription
-- **tenant-id** (str): Identifier of an Entra ID tenant
-- **client-id** (str): Client ID for the service principal
-- **client-secret** (str): Client secret for the service principal
+- **subscrption-id** (str): Identifier for an Azure subscription.
+- **tenant-id** (str): Identifier of an Entra ID tenant.
+- **client-id** (str): Client ID for the service principal.
+- **client-secret** (str): Client secret for the service principal.
 
 
 #### Example
@@ -57,7 +57,7 @@ The provider gives connection and authentication information:
 
 The requirer shares a list of the requested Juju secrets that should be shared by the provider charm:
 
-- **requested-secrets** (list): List of Juju secret string that the provider should share. Should include `client-id` and `client-secret`.
+- **requested-secrets** (list): List of Juju secret keys that the provider must share. Must include `client-id` and `client-secret`.
 
 #### Example
 ```yaml
