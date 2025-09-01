@@ -5,6 +5,11 @@
     "status": "draft"
   },
   {
+    "name": "azure_service_prinicpal",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "azure_storage",
     "version": 0,
     "status": "draft"

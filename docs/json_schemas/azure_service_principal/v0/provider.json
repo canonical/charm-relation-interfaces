@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "AzureServicePrincipalProviderAppData": {
+      "description": "Credentials for an Azure Service Principal.",
+      "properties": {
+        "subscription_id": {
+          "description": "The unique identifier for your Azure subscription.",
+          "examples": [
+            "12345678-1234-1234-1234-1234567890ab"
+          ],
+          "title": "Subscription ID",
+          "type": "string"
+        },
+        "tenant_id": {
+          "description": "The unique identifier of the Azure Active Directory (Entra ID) tenant.",
+          "examples": [
+            "87654321-4321-4321-4321-ba0987654321"
+          ],
+          "title": "Tenant ID",
+          "type": "string"
+        },
+        "client_id": {
+          "description": "The Application (client) ID for the service principal.",
+          "examples": [
+            "a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6"
+          ],
+          "title": "Client ID",
+          "type": "string"
+        },
+        "client_secret": {
+          "description": "The client secret for the service principal, used for authentication.",
+          "examples": [
+            "aBcDeFgHiJkLmNoPqRsTuVwXyZ123456-~7890_"
+          ],
+          "format": "password",
+          "title": "Client Secret",
+          "type": "string",
+          "writeOnly": true
+        }
+      },
+      "required": [
+        "subscription_id",
+        "tenant_id",
+        "client_id",
+        "client_secret"
+      ],
+      "title": "AzureServicePrincipalProviderAppData",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/AzureServicePrincipalProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
