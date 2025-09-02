@@ -5,16 +5,20 @@ status: published
 
 providers:
   - name: tempo-coordinator-k8s
-    url: https://github.com/canonical/tempo-coordinator-k8s-operator
+    url: https://github.com/canonical/tempo-operators
     test_setup:
+      charm_root: coordinator
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
       location: tests/interface/conftest.py
       identifier: tracing_tester
 
-# Grafana-agent-k8s is disabled at the moment as interface-tester doesn't allow for vroot definition
-# see https://github.com/canonical/pytest-interface-tester/issues/20 for updates on the issue
-#  - name: grafana-agent-k8s
-#    url: https://github.com/canonical/grafana-agent-k8s-operator
-
-requirers: []
+requirers:
+  - name: pyroscope-coordinator-k8s
+    url: https://github.com/canonical/pyroscope-operators
+    test_setup:
+      charm_root: coordinator
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+      location: tests/interface/conftest.py
+      identifier: tracing_tester
 
 maintainer: observability
