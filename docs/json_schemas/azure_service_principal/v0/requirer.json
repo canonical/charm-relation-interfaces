@@ -1,0 +1,54 @@
+{
+  "$defs": {
+    "AzureServicePrincipalRequirerAppData": {
+      "properties": {
+        "requested-secrets": {
+          "description": "Any provider field which should be transfered as a Juju secret",
+          "examples": [
+            [
+              "client-id",
+              "client-secret"
+            ]
+          ],
+          "items": {
+            "type": "string"
+          },
+          "title": "Requested secrets",
+          "type": "array"
+        }
+      },
+      "required": [
+        "requested-secrets"
+      ],
+      "title": "AzureServicePrincipalRequirerAppData",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/AzureServicePrincipalRequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
