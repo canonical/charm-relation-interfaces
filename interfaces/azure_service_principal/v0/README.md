@@ -33,7 +33,7 @@ To be considered compatible with the interface, the requirer and the provider ne
 
 The provider gives connection and authentication information:
 
-- **subscrption-id** (str): Identifier for an Azure subscription.
+- **subscription-id** (str): Identifier for an Azure subscription.
 - **tenant-id** (str): Identifier of an Entra ID tenant.
 - **client-id** (str): Client ID for the service principal.
 - **client-secret** (str): Client secret for the service principal.
