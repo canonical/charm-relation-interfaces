@@ -4,6 +4,18 @@
       "properties": {},
       "title": "BaseModel",
       "type": "object"
+    },
+    "CertificateTransferRequirerAppData": {
+      "properties": {
+        "version": {
+          "default": 1,
+          "description": "The version of the interface used by this requirer",
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "title": "CertificateTransferRequirerAppData",
+      "type": "object"
     }
   },
   "description": "Requirer schema for certificate_transfer.",
@@ -20,17 +32,12 @@
       "default": null
     },
     "app": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/BaseModel"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null
+      "$ref": "#/$defs/CertificateTransferRequirerAppData"
     }
   },
+  "required": [
+    "app"
+  ],
   "title": "RequirerSchema",
   "type": "object"
 }
