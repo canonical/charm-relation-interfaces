@@ -4,11 +4,7 @@ internal: true
 version: 0
 status: published
 
-providers:
-  - name: zookeeper
-    url: https://github.com/canonical/zookeeper-operator
-  - name: kafka
-    url: https://github.com/canonical/kafka-operator
+providers: []
 
 requirers:
   - name: grafana-agent
