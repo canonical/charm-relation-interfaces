@@ -175,6 +175,11 @@
     "status": "draft"
   },
   {
+    "name": "milter",
+    "version": 0,
+    "status": "published"
+  },
+  {
     "name": "mimir_cluster",
     "version": 0,
     "status": "draft"
@@ -263,11 +268,6 @@
     "name": "sdcore_management",
     "version": 0,
     "status": "draft"
-  },
-  {
-    "name": "smtp",
-    "version": 0,
-    "status": "published"
   },
   {
     "name": "smtp",

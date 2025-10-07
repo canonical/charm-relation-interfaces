@@ -1,6 +1,6 @@
 # Copyright 2023 Canonical
 # See LICENSE file for licensing details.
-"""This file defines the schema for the provider side of the smtp interface.
+"""This file defines the schema for the provider side of the milter interface.
 
 It exposes one interfaces.schema_base.DataBagSchema subclass called:
 - ProviderSchema
