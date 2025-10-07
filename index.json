@@ -270,6 +270,11 @@
     "status": "published"
   },
   {
+    "name": "smtp",
+    "version": 0,
+    "status": "published"
+  },
+  {
     "name": "spark_service_account",
     "version": 0,
     "status": "draft"

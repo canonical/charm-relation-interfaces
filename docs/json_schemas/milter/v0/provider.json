@@ -1,0 +1,51 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "MilterProviderData": {
+      "properties": {
+        "port": {
+          "description": "Milter port.",
+          "examples": [
+            8892,
+            8893
+          ],
+          "maximum": 65536,
+          "minimum": 1,
+          "title": "Port",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "port"
+      ],
+      "title": "MilterProviderData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for Milter.",
+  "properties": {
+    "unit": {
+      "$ref": "#/$defs/MilterProviderData"
+    },
+    "app": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "unit"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
