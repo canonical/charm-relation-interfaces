@@ -24,7 +24,7 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 
 ### Provider
 
-- Is expected to provide the Milter details so that the requirer can connect.
+- Is expected to provide the Milter port so that the requirer can connect.
 
 ### Requirer
 
