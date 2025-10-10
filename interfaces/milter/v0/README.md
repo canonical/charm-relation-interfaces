@@ -2,7 +2,7 @@
 
 ## Overview
 
-This relation interface specification describes the expected behavior of charms integrating over the `milter` Juju interface to provide or consume a Milter filter.
+This relation interface specification describes the expected behavior of charms integrating over the `milter` Juju interface to provide or consume a mail filter (milter).
 
 ## Usage
 
