@@ -8,11 +8,8 @@ It exposes one interfaces.schema_base.DataBagSchema subclass called:
 Examples:
     ProviderSchema:
         app: <empty>
-        unit: {"milter":
-                 {
-                    "port": "8892",
-                }
-             }
+        unit:
+          port: 8892
 """
 from interface_tester.schema_base import DataBagSchema
 from pydantic import BaseModel, Field
