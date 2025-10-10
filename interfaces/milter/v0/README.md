@@ -41,7 +41,7 @@ Provider publishes the Milter configuration. It should be placed in the **unit**
 #### Example
 
 ```yaml
-unit-data: {
-  "port": "8892"
-}
+# application_data: <empty>
+unit_data:
+  port: 8892
 ```
