@@ -29,6 +29,7 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 ### Requirer
 
 - Is not expected to publish anything
+- Is expected to combine the provided milter port with the provider's `ingress-address` to connect
 
 ## Relation Data
 
