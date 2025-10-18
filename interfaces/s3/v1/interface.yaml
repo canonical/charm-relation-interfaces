@@ -1,0 +1,23 @@
+name: s3
+version: 0
+status: draft
+
+providers:
+  - name: s3-integrator
+    url: https://www.github.com/canonical/s3-integrator
+
+requirers:
+  - name: mysql-operator
+    url: https://www.github.com/canonical/mysql-operator
+  - name: mysql-k8s-operator
+    url: https://www.github.com/canonical/mysql-k8s-operator
+  - name: postgresql-operator
+    url: https://www.github.com/canonical/postgresql-operator
+  - name: postgresql-k8s-operator
+    url: https://www.github.com/canonical/postgresql-k8s-operator
+  - name: mongodb-operator
+    url: https://www.github.com/canonical/mongodb-operator
+  - name: mongodb-k8s-operator
+    url: https://www.github.com/canonical/mongodb-k8s-operator
+
+maintainer: data-platform

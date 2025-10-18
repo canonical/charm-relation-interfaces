@@ -1,0 +1,150 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json",
+    "title": "`s3` provider schema",
+    "description": "The `s3` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "bucket",
+        "access-key",
+        "secret-key"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "bucket": {
+            "title": "Bucket name",
+            "description": "The bucket/container name delivered by the provider.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "minio"
+            ]
+        },
+        "access-key": {
+            "title": "Access Key ID",
+            "description": "Access Key ID (account) for connecting to the object storage.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "username"
+            ]
+        },
+        "secret-key": {
+            "title": "Access Secret Key ID",
+            "description": "Access Key Secret ID (password) for connecting to the object storage.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "alphanum-32byte-random"
+            ]
+        },
+        "path": {
+            "title": "Path",
+            "description": "The path inside the bucket/container to store objects.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "relation-24"
+            ]
+        },
+        "endpoint": {
+            "title": "Endpoint URL",
+            "description": "The endpoint used to connect to the object storage.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "https://minio-endpoint/"
+            ]
+        },
+        "region": {
+            "title": "Region",
+            "description": "The region used to connect to the object storage.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "us-east-1"
+            ]
+        },
+        "s3-uri-style": {
+            "title": "S3 URI Style",
+            "description": "The S3 protocol specific bucket path lookup type.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "path",
+                "host"
+            ]
+        },
+        "storage-class": {
+            "title": "Storage Class",
+            "description": "Storage Class for objects uploaded to the object storage.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "glacier"
+            ]
+        },
+        "tls-ca-chain": {
+            "title": "TLS CA Chain",
+            "description": "The complete CA chain, which can be used for HTTPS validation.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "examples": [
+                [
+                    "base64-encoded-ca-chain=="
+                ]
+            ]
+        },
+        "s3-api-version": {
+            "title": "S3 API signature",
+            "description": "S3 protocol specific API signature.",
+            "type": "integer",
+            "default": "",
+            "enum": [
+                2,
+                4
+            ],
+            "examples": [
+                2,
+                4
+            ]
+        },
+        "attributes": {
+            "title": "Custom metadata",
+            "description": "The custom metadata (HTTP headers).",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "examples": [
+                [
+                    "Cache-Control=max-age=90000,min-fresh=9000",
+                    "X-Amz-Server-Side-Encryption-Customer-Key=CuStoMerKey="
+                ]
+            ]
+        }
+    },
+    "examples": [
+        {
+            "bucket": "minio",
+            "access-key": "RANDOM",
+            "secret-key": "RANDOM",
+            "path": "relation-68",
+            "endpoint": "https://minio-endpoint/",
+            "region": "us-east-1",
+            "s3-uri-style": "path",
+            "storage-class": "glacier",
+            "tls-ca-chain": [
+                "base64-encoded-ca-chain=="
+            ],
+            "s3-api-version": 4,
+            "attributes": [
+                "Cache-Control=max-age=90000,min-fresh=9000",
+                "X-Amz-Server-Side-Encryption-Customer-Key=CuStoMerKey="
+            ]
+        }
+    ]
+}
