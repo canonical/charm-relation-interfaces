@@ -1,0 +1,15 @@
+name: milter
+
+version: 0
+status: published
+
+providers:
+  - name: opendkim
+    url: https://github.com/canonical/opendkim-operator
+
+requirers:
+  - name: postfix-relay
+    url: https://github.com/canonical/postfix-relay-operator
+
+
+maintainer: is-charms
