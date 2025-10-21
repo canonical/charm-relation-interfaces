@@ -10,7 +10,7 @@ providers:
       charm_root: coordinator
       location: tests/interface/conftest.py
       identifier: cluster_tester
-      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+      pre_run: uv export --frozen --format requirements.txt --output-file requirements.txt
 
 requirers:
   - name: pyroscope-worker-k8s
