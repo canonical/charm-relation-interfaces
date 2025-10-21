@@ -12,6 +12,7 @@ providers:
     test_setup:
       location: tests/interface/conftest.py
       identifier: grafana_datasource_tester
+      pre_run: uv export --frozen --format requirements.txt --output-file requirements.txt
 
 requirers:
   - name: grafana-k8s

@@ -8,7 +8,7 @@ providers:
     url: https://github.com/canonical/tempo-operators
     test_setup:
       charm_root: coordinator
-      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+      pre_run: uv export --frozen --format requirements.txt --output-file requirements.txt
       location: tests/interface/conftest.py
       identifier: tracing_tester
 
@@ -17,7 +17,7 @@ requirers:
     url: https://github.com/canonical/pyroscope-operators
     test_setup:
       charm_root: coordinator
-      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+      pre_run: uv export --frozen --format requirements.txt --output-file requirements.txt
       location: tests/interface/conftest.py
       identifier: tracing_tester
 

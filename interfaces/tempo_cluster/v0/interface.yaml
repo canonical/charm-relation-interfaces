@@ -9,6 +9,7 @@ providers:
     test_setup:
       location: tests/interface/conftest.py
       identifier: cluster_tester
+      pre_run: uv export --frozen --format requirements.txt --output-file requirements.txt
 
 requirers:
   - name: tempo-worker-k8s
