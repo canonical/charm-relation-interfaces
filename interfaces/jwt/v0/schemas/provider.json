@@ -91,7 +91,7 @@
             "roles-key": "roles",
             "jwt-header": "Authorization",
             "jwt-url-parameter": "jwt",
-            "subject-key": "user",
+            "subject-key": "userid",
             "required-audience": "opensearch",
             "required-issuer": "my-identity-provider",
             "jwt-clock-skew-tolerance": "60"
