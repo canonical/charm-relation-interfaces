@@ -10,6 +10,17 @@ The approach involves adding key information directly to the JWT header, which A
 
 Charms claiming to provide this interface must provide sensitive information (such as the signing key) via Juju secrets to the requirer.
 
+The secret is expected to have the following content:
+```
+cuni0uh34trs5tihuf9g:
+[...]
+  content:
+    signing-key: |2
+              -----BEGIN PUBLIC KEY-----
+              MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQK...
+              -----END PUBLIC KEY-----
+```
+
 ## Direction
 
 The `jwt` interface implements a provider/requirer pattern.
@@ -28,15 +39,16 @@ The requirer and the provider must adhere to a certain set of criteria to be con
 
 - Is expected to always provide its mandatory configuration options (`signing-key`, `roles-key`).
 - Is expected to provide its optional configuration options (`jwt-header`, `jwt-url-parameter`, `subject-key`, `required-audience`, `required-issuer`, `jwt-clock-skew-tolerance`) if a value has been set for them.
-- Is expected to provide all non-sensitive information in the relation databag.
 - Is expected to place the `signing-key` in a juju secret and provide the juju secret ID in the relation databag (`signing-key`).
+- Is expected to provide all non-sensitive information in the relation databag.
 
 As mentioned above the field `signing-key` holds the id of a Juju Secret, this means that the charms implementing the relation must be running on Juju >3 in order be able to use Juju secrets.
 
 ### Requirer
 
-- Is expected to Juju secrets.
-- Is not expected to provide anything.
+- Is expected to use all the JWT configuration provided.
+- Must support Juju secrets.
+- Is not expected to write anything to the databag.
 
 ## Relation Data
 
