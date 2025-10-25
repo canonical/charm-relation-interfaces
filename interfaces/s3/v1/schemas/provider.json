@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/schemas/provider.json",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/s3/v1/schemas/provider.json",
     "title": "`s3` provider schema",
     "description": "The `s3` root schema comprises the entire provider databag for this interface.",
     "type": "object",
     "default": {},
     "required": [
-        "bucket",
+        "secret-extra",
         "access-key",
         "secret-key"
     ],
@@ -21,22 +21,22 @@
                 "minio"
             ]
         },
-        "access-key": {
-            "title": "Access Key ID",
-            "description": "Access Key ID (account) for connecting to the object storage.",
+        "lib-version": {
+            "title": "S3 lib version",
+            "description": "The S3 lib version used by the provider charm.",
             "type": "string",
             "default": "",
             "examples": [
-                "username"
+                "1.10"
             ]
         },
-        "secret-key": {
-            "title": "Access Secret Key ID",
-            "description": "Access Key Secret ID (password) for connecting to the object storage.",
-            "type": "string",
+        "secret-extra": {
+            "title": "Credentials Secret ID",
+            "description": "A Juju Secret ID, that points to a secret containing access-key and secret-key for connecting to the object storage.",
+            "type": "secret",
             "default": "",
             "examples": [
-                "alphanum-32byte-random"
+                "Ka2aB1fxcD4zpAR+pZZzGuVhpxcoCqrts7eE/Rtm"
             ]
         },
         "path": {
@@ -45,7 +45,7 @@
             "type": "string",
             "default": "",
             "examples": [
-                "relation-24"
+                "my/path/"
             ]
         },
         "endpoint": {
@@ -130,9 +130,9 @@
     "examples": [
         {
             "bucket": "minio",
-            "access-key": "RANDOM",
-            "secret-key": "RANDOM",
-            "path": "relation-68",
+            "secret-extra": "Ka2aB1fxcD4zpAR+pZZzGuVhpxcoCqrts7eE/Rtm",
+            "lib-version": "1.10",
+            "path": "my/path",
             "endpoint": "https://minio-endpoint/",
             "region": "us-east-1",
             "s3-uri-style": "path",
