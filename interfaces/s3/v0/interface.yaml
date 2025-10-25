@@ -1,6 +1,6 @@
 name: s3
 version: 0
-status: published
+status: draft
 
 providers:
   - name: s3-integrator
