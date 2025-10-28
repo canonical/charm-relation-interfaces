@@ -1,0 +1,100 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://canonical.github.io/charm-relation-interfaces/interfaces/jwt/schemas/provider.json",
+    "title": "`jwt` provider schema",
+    "description": "The `jwt` root schema comprises the entire provider databag for this interface.",
+    "type": "object",
+    "default": {},
+    "required": [
+        "signing-key",
+        "roles-key"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "signing-key": {
+            "title": "Signing Key",
+            "description": "The signing key(s) used to verify the token, provided as a user secret.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "secret:cuni0uh34trs5tihuf9g"
+            ]
+        },
+        "roles-key": {
+            "title": "Roles Key",
+            "description": "The key in the JSON payload that stores the user’s roles.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "roles"
+            ]
+        },
+        "jwt-header": {
+            "title": "JWT header",
+            "description": "The HTTP header in which the token is transmitted (typically the Authorization header).",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "Authorization"
+            ]
+        },
+        "jwt-url-parameter": {
+            "title": "JWT URL parameter",
+            "description": "The HTTP URL parameter to use if not using the `jwt-header`.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "jwt"
+            ]
+        },
+        "subject-key": {
+            "title": "Subject Key",
+            "description": "The key in the JSON payload that stores the username.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "user"
+            ]
+        },
+        "required-audience": {
+            "title": "Required Audience",
+            "description": "The name of the audience that the JWT must specify. Corresponds to the `aud` claim of the JWT.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "opensearch",
+                "project-1"
+            ]
+        },
+        "required-issuer": {
+            "title": "Required Issuer",
+            "description": "The target issuer of JWT stored in the JSON payload. Corresponds to the `iss` claim of the JWT.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "my-identity-provider"
+            ]
+        },
+        "jwt-clock-skew-tolerance": {
+            "title": "JWT Clock Skew Tolerance",
+            "description": "Time in seconds that is tolerated as clock disparity between the authentication parties.",
+            "type": "string",
+            "default": "",
+            "examples": [
+                "30"
+            ]
+        }
+    },
+    "examples": [
+        {
+            "signing-key": "secret:cuni0uh34trs5tihuf9g",
+            "roles-key": "roles",
+            "jwt-header": "Authorization",
+            "jwt-url-parameter": "jwt",
+            "subject-key": "userid",
+            "required-audience": "opensearch",
+            "required-issuer": "my-identity-provider",
+            "jwt-clock-skew-tolerance": "60"
+        }
+    ]
+}
