@@ -135,6 +135,11 @@
     "status": "draft"
   },
   {
+    "name": "jwt",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "k8s-service",
     "version": 0,
     "status": "published"
