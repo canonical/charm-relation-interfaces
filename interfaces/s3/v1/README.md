@@ -19,7 +19,7 @@ flowchart TD
 ## What's different from `v0`?
 The `v1` of the `s3` interface is different from `v0` of the same interface in the following aspects:
 1) The `v1` shares the `secret-key` and `access-key` by encapsulating it into a Juju secret and sharing the secret URI in a field named `secret-extra` over the relation databag , as compared to `v0` sharing the `secret-key` and `access-key` as plaintext over the relation databag.
-2) Both provider and requirer side of the `v1` interface also share an extra field `lib-version`, which is of format `{LIBAPI}.{LIBPATCH}`. This is supposed to notify the other side of the interface what version of the lib this side is currently on -- which could help the other side implement different behavior based on the version of lib in this side, if necessary.
+2) Both provider and requirer sides of the `v1` interface also share an extra field `lib-version`, which is of format `{LIBAPI}.{LIBPATCH}`. This is supposed to notify the other side of the interface what version of the lib this side is currently on -- which could help the other side implement different behavior based on the version of lib in this side, if necessary.
 
 
 As with all Juju relations, the `s3` interface consists of two parties: a Provider (object storage charm) and a Requirer (application charm). The Provider will be expected to provide S3 credentials (along with `endpoint`, `container`, `prefix` and other fields), which can be used to access the actual object storage.
@@ -36,7 +36,7 @@ Both the Requirer and the Provider must adhere to criteria to be compatible with
 - It is expected to share an optional `region` field for Region.
 - It is expected to share an optional `s3-uri-style` field for (S3 protocol specific) bucket path lookup. The field can take only `host` and `path` values.
 - It is expected to share an optional `storage-class` field for the S3 storage class.
-- It is expected to share an optional `tls-ca-chain` field for TLS verification. The field can take a list of strings. Each string should be in base64 form and represent one certificate. All certificates together should represent a complete CA chain which can be used for HTTPS validation.
+- It is expected to share an optional `tls-ca-chain` field for TLS verification. This field is shared by the provider if the S3 cloud has enforced TLS with custom CA certificate and can take a list of strings. Each string should be in base64 form and represent one certificate. All certificates together should represent a complete CA chain which can be used for HTTPS validation.
 - It is expected to share an optional `s3-api-version` field for the (S3 protocol specific) API signature. The field can take only `2` and `4` values.
 - It is expected to share an optional `attributes` field for the custom metadata. The field can take a list of strings. Server-Side-Encryption headers should be passed into this field, if any.
 - It is expected to share the `lib-version` field containing the version of `s3` charm lib it is currently using.
@@ -64,10 +64,10 @@ The Provider provides credentials, endpoints, TLS info and database-specific fie
   - endpoint: object
     related-endpoint: object
     application-data:
-      bucket: minio
-      secret-extra: Ka2aB1fxcD4zpAR+pZZzGuVhpxcoCqrts7eE/Rtm
-      path: relation-68
-      endpoint: https://minio-endpoint/
+      bucket: mybucket
+      secret-extra: secret://91f805c5-5b49-47a3-8e7b-70befa766caf/d40rbhnmp25c76d6bdn0
+      path: my/path
+      endpoint: https://my-s3-endpoint/
       region: us-east-1
       s3-uri-style: path
       storage-class: glacier
@@ -77,7 +77,7 @@ The Provider provides credentials, endpoints, TLS info and database-specific fie
       lib-version: 1.10
 ```
 
-The field `secret-extra` contains a Juju secret ID, whose content looks like the follows:
+The field `secret-extra` contains a Juju secret URI, whose content looks like:
 ```yaml
 access-key: my-s3-access-key
 secret-key: my-s3-secret-key
