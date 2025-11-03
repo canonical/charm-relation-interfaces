@@ -44,6 +44,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to be respected or not, in case the charm is capable of such.
 - May require delays (via `subordinated`) to provide service on Requirer scale up. If so, it is expected to set unit level `state` data when it is `ready` to serve.
 - May respect the `entity-name` and `password` set in `requested-entity-secret`.
+- Is expected to populate `prefix-databases`, if a prefix was requested and any databases match the prefix.
 
 ### Requirer
 
@@ -60,6 +61,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to respect the `subordinated` flag when scaling up and start emitting events only once unit level `state` is `ready`.
 - May require external connectivity (via `external-node-connectivity`).
 - May request specific entity credentials inside a secret set as `requested-entity-secret` field. Expected values in the secret are `entity-name` and an optional `password`. The requirer must be able to handle the requested values for `entity-name` and `password` not being respected.
+- May request a prefix in the `database` field, ending in `*` and containing at least three additional characters, for the provider to match.
 
 ## Relation Data
 

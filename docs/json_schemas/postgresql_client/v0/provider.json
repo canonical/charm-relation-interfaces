@@ -200,6 +200,22 @@
             "alphanum-32byte-random"
           ],
           "title": "Entity password"
+        },
+        "prefix-databases": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Comma separated list of databases matching a requested prefix",
+          "examples": [
+            "database1,database2"
+          ],
+          "title": "Prefix databases"
         }
       },
       "required": [
