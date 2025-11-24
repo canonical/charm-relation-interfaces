@@ -68,7 +68,7 @@ The Provider shares credentials, endpoints, TLS info and database-specific field
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer shares bucket name. It should be placed in the **application** databag.
+The Requirer shares the bucket name. It should be placed in the **application** databag.
 
 #### Example
 
