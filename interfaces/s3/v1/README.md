@@ -24,6 +24,13 @@ The `v1` of the `s3` interface is different from `v0` of the same interface in t
 
 As with all Juju relations, the `s3` interface consists of two parties: a Provider (object storage charm) and a Requirer (application charm). The Provider will be expected to provide S3 credentials (along with `endpoint`, `container`, `prefix` and other fields), which can be used to access the actual object storage.
 
+
+## Migration Strategy
+To upgrade a charm that uses `v0` of this interface to `v1` interface is as simple as upgrading the interface charm-lib from `0.x` to `1.x`. The newer version of the lib still supports the charms using the `v0` interface; however the relation needs to be broken and created again to realize the changes in the interface in `v1`.
+
+As for the `s3-integrator` charm from `1/stable`, in-place charm refresh is not supported since the charm in `1/stable` is built on `22.04` base and the newer charm in `2/edge` is built on `24.04` base.
+
+
 ## Behaviour
 
 Both the Requirer and the Provider must adhere to criteria to be compatible with this interface.
