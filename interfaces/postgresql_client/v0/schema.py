@@ -113,6 +113,14 @@ class PostgreSQLProviderData(BaseModel):
         title="Entity password",
     )
 
+    prefix_databases: Optional[str] = Field(
+        None,
+        alias="prefix-databases",
+        description="Comma separated list of databases matching a requested prefix",
+        examples=["database1,database2"],
+        title="Prefix databases",
+    )
+
 
 class PostgreSQLRequirerData(BaseModel):
     """The databag for the requirer side of this interface."""
