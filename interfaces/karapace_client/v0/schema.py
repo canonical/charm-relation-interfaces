@@ -1,4 +1,4 @@
-"""This file defines the schemas for the provider and requirer sides of the kafka_client interface.
+"""This file defines the schemas for the provider and requirer sides of the karapace_client interface.
 
 It must expose two interfaces.schema_base.DataBagSchema subclasses called:
 - ProviderSchema
