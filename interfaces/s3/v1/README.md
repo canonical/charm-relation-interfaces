@@ -7,6 +7,12 @@ This relation interface should be used for all S3 protocol compatible providers,
 This interface will be accomplished using the provider library `s3`, although charm developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
 
 
+## What's different from `v0`?
+The `v1` of the `s3` interface is different from `v0` of the same interface in the following aspects:
+1) The `v1` shares the `secret-key` and `access-key` by encapsulating it into a Juju secret and sharing the secret URI in a field named `secret-extra` over the relation databag , as compared to `v0` sharing the `secret-key` and `access-key` as plaintext over the relation databag.
+2) Both provider and requirer sides of the `v1` interface also share an extra field `lib-version`, which is of format `{LIBAPI}.{LIBPATCH}`. This is supposed to notify the other side of the interface what version of the lib this side is currently on -- which could help the other side implement different behavior based on the version of lib in this side, if necessary.
+
+
 ## Direction
 
 ```mermaid
@@ -14,13 +20,6 @@ flowchart TD
     Requirer -- bucket, path, requested-secrets, lib-version --> Provider
     Provider -- bucket, path, secret-extra, lib-version, endpoint, region, etc. --> Requirer
 ```
-
-
-## What's different from `v0`?
-The `v1` of the `s3` interface is different from `v0` of the same interface in the following aspects:
-1) The `v1` shares the `secret-key` and `access-key` by encapsulating it into a Juju secret and sharing the secret URI in a field named `secret-extra` over the relation databag , as compared to `v0` sharing the `secret-key` and `access-key` as plaintext over the relation databag.
-2) Both provider and requirer sides of the `v1` interface also share an extra field `lib-version`, which is of format `{LIBAPI}.{LIBPATCH}`. This is supposed to notify the other side of the interface what version of the lib this side is currently on -- which could help the other side implement different behavior based on the version of lib in this side, if necessary.
-
 
 As with all Juju relations, the `s3` interface consists of two parties: a Provider (object storage charm) and a Requirer (application charm). The Provider will be expected to provide S3 credentials (along with `endpoint`, `container`, `prefix` and other fields), which can be used to access the actual object storage.
 
