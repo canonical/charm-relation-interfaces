@@ -155,6 +155,11 @@
     "status": "draft"
   },
   {
+    "name": "karapace_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "kratos_external_idp",
     "version": 0,
     "status": "draft"

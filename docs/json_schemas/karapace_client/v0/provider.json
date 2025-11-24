@@ -1,0 +1,108 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "KarapaceProviderData": {
+      "description": "The databag for the provider side of this interface.",
+      "properties": {
+        "subject": {
+          "description": "The subject that has been made available to the relation user. Name defined in the Requirer's subject field",
+          "examples": [
+            "subject-1"
+          ],
+          "title": "Subject name",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username for connecting to the Karapace service",
+          "examples": [
+            "relation-14"
+          ],
+          "title": "Karapace username",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password for connecting to the Karapace service",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Karapace password",
+          "type": "string"
+        },
+        "endpoints": {
+          "description": "A list of endpoints used to connect to the subject",
+          "examples": [
+            "10.141.78.155:8082,10.141.78.62:8082,10.141.78.186:8082"
+          ],
+          "title": "Karapace server endpoints",
+          "type": "string"
+        },
+        "entity-name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Name for the requested custom entity",
+          "examples": [
+            "custom-role"
+          ],
+          "title": "Entity name"
+        },
+        "entity-password": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Password for the requested custom entity",
+          "examples": [
+            "alphanum-32byte-random"
+          ],
+          "title": "Entity password"
+        }
+      },
+      "required": [
+        "subject",
+        "username",
+        "password",
+        "endpoints"
+      ],
+      "title": "KarapaceProviderData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KarapaceProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
