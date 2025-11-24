@@ -45,7 +45,7 @@ Both the Requirer and the Provider must adhere to criteria to be compatible with
 - Is expected to optionally share a bucket name in the `bucket` field and / or a path in the `path` field -- which is equivalent to the requirer requesting a particular bucket / path to the provider.
 - Is expected to tolerate that the Provider may ignore the `bucket` and `path` field in some cases (e.g. S3Proxy or S3 Integrator) and instead use the bucket name and path received. The provider may ignore the request from the requirer and share a different bucket and/or path instead.
 - Is expected to allow multiple different Juju applications to access the same bucket name.
-- Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple buckets. However, if the Provider choses to ignore the request for a bucket from requirer, the requirer is expected to have relation with different Provider per bucket to have access to multiple buckets.
+- Is expected to have different relations endpoints on Requirer with the same interface name if Requirer needs access to multiple buckets, if the provider is configured in a way that it heeds the request from the requirer. However, if the Provider choses to ignore the request for a bucket from requirer, the requirer is expected to have relation with different Provider instance per bucket to have access to multiple buckets, such that each of those buckets are configured and provided by each instance of the Provider instead.
 - It is expected to share the `lib-version` field containing the version of `s3` charm lib it is currently using.
 
 
