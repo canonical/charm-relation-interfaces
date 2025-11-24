@@ -28,11 +28,13 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 
 ### Provider
 - Is expected to create an application user inside the database cluster when the requirer provides the `database` field.
-- Is expected to provide credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `database` field.
+- Is expected to provide relation user credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `database` field, but not the `entity-type` one.
+- Is expected to provide custom entity credentials (`entity-name` and `entity-password`) in a Juju Secret whenever the Requirer supplies both the `database` and `entity-type` fields.
 - Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field with the address of Primary, which can be used for Read/Write queries.
 - Is expected to provide the `database` field with the database that was actually created.
 - Is expected to provide the `uris` field with the connection string, in libpq's URI format, which can be used for direct connection to the db.
+- Is expected to provide the `read-only-uris` field with the connection string when requested as a secret field, in libpq's URI format, which can be used for direct connection to a read only edpoint of a cluster.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 - Is expected to provide the `tls` field flag, indicating whether the provider has TLS enabled or not.
@@ -41,6 +43,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - If the Requirer asks for additional secrets (via `requested-secrets`, see below) other than those stored in the `user` and `tls` secrets, Provider is expected to define a `secret-extra` field holding the URI of the Juju Secret containing all additional secret fields.
 - Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to be respected or not, in case the charm is capable of such.
 - May require delays (via `subordinated`) to provide service on Requirer scale up. If so, it is expected to set unit level `state` data when it is `ready` to serve.
+- May respect the `entity-name` and `password` set in `requested-entity-secret`.
 
 ### Requirer
 
@@ -49,10 +52,14 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.
-- Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
+- Can optionally add any `extra-user-roles` provided by the Requirer to the requested user or relation user (e.g. `extra-user-roles=admin`).
+- Can optionally add any `extra-group-roles` provided by the Requirer to the requested group (e.g. `extra-group-roles=admin`).
+- Can optionally add field `entity-type` provided by the Requirer to the created a custom entity, instead of a database.
+- Can optionally add field `entity-permissions` provided by the Requirer to tweak custom entity permissions.
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the database name received.
 - Is expected to respect the `subordinated` flag when scaling up and start emitting events only once unit level `state` is `ready`.
 - May require external connectivity (via `external-node-connectivity`).
+- May request specific entity credentials inside a secret set as `requested-entity-secret` field. Expected values in the secret are `entity-name` and an optional `password`. The requirer must be able to handle the requested values for `entity-name` and `password` not being respected.
 
 ## Relation Data
 

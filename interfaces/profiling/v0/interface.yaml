@@ -1,0 +1,25 @@
+name: profiling
+
+# `version` starts at `0` and increments with every breaking change in the interface specification.
+version: 0
+
+# `status` describes where the interface is in its lifecycle. Valid values are described in LEGEND.md.
+status: draft
+
+providers:
+  - name: pyroscope-coordinator-k8s
+    url: https://github.com/canonical/pyroscope-operators
+    branch: feat/interface-tests-profiling
+    test_setup:
+      charm_root: coordinator
+      location: tests/interface/conftest.py
+      identifier: profiling_tester
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+requirers:
+  - name: opentelemetry-collector-k8s
+    url: https://github.com/canonical/opentelemetry-collector-k8s-operator
+    test_setup:
+      pre_run: uv pip compile pyproject.toml --quiet --output-file requirements.txt
+
+maintainer: "observability"

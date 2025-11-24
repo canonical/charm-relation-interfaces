@@ -1,0 +1,53 @@
+name: opencti_connector
+version: 0
+status: published
+
+providers:
+  - name: abseipdb_ipblacklist
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/abuseipdb_ipblacklist
+  - name: alienvault
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/alienvault
+  - name: cisa_kev
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/cisa_kev
+  - name: crowdstrike
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/crowdstrike
+  - name: cyber_campaign
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/cyber_campaign
+  - name: export_file_csv
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/export_file_csv
+  - name: export_file_txt
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/export_file_txt
+  - name: export_file_stix
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/export_file_stix
+  - name: import_document
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/import_document
+  - name: import_file_stix
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/import_file_stix
+  - name: ipinfo
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/ipinfo
+  - name: malwarebazaar
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/malwarebazaar
+  - name: misp_feed
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/misp_feed
+  - name: mitre
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/mitre
+  - name: sekoia
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/sekoia
+  - name: urlhaus
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/urlhaus
+  - name: urlscan
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/urlscan
+  - name: urlscan_enrichment
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/urlscan_enrichment
+  - name: virustotal_livehunt
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/virustotal_livehunt
+  - name: vxvault
+    url: https://github.com/canonical/opencti-operator/tree/main/connectors/vxvault
+
+requirers:
+  - name: opencti
+    url: https://www.github.com/canonical/opencti-operator
+
+
+maintainer: identity
+

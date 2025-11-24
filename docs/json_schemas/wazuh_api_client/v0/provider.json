@@ -1,0 +1,60 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "WazuhApiclientProviderData": {
+      "properties": {
+        "endpoint": {
+          "description": "Endpoint used to connect to the API.",
+          "examples": [
+            "https://10.180.162.200:55000"
+          ],
+          "format": "uri",
+          "minLength": 1,
+          "title": "Endpoint",
+          "type": "string"
+        },
+        "secret_user": {
+          "description": "The secret ID containing the user and password for the API.",
+          "examples": [
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"
+          ],
+          "minLength": 1,
+          "title": "User secret",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoint",
+        "secret_user"
+      ],
+      "title": "WazuhApiclientProviderData",
+      "type": "object"
+    }
+  },
+  "description": "Provider schema for Wazuh API client.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/WazuhApiclientProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}

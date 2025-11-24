@@ -24,23 +24,10 @@ jobs:
   main:
     name: ${{ matrix.interface }}
     needs: set-matrix
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         interface: ${{ fromJSON(needs.set-matrix.outputs.matrix_values) }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-      - name: Set up python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: pip install tox
-      - name: Run tests
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_WITH_TEAM }}
-        run: tox -e run-interface-test-matrix -- --include ${{ matrix.interface }}
+    uses: ./.github/workflows/dispatch-matrix-tests.yaml
+    with:
+      interface: ${{ matrix.interface }}

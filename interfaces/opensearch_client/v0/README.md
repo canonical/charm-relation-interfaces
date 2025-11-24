@@ -32,7 +32,8 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is not expected to create an index on relation creation.
   - Responsibility for managing an index rests with the requirer application, including creating and removing indices.
 - Is expected to provide the `index` field with the index that has been made available to the Requirer.
-- Is expected to provide credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `index` field.
+- Is expected to provide relation user credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `index` field, but not the `entity-type` one.
+- Is expected to provide custom entity credentials (`entity-name` and `entity-password`) in a Juju Secret whenever the Requirer supplies both the `index` and `entity-type` fields.
 - Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field containing all cluster endpoint addresses in a comma-separated list.
 - Is expected to provide the `version` field describing the installed version number of opensearch.
@@ -48,11 +49,14 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
   - Indices are not created on the provider application when the relation is created. The `index` field exists to grant the correct permissions for the relation user, which the requirer charm uses to control its index.
   - This index is NOT removed from the provider charm when the relation is removed.
 - Is expected to have different relations with the same interface name if Requirer needs access to multiple opensearch indices.
-- Is expected to provide user permissions in the `extra-user-roles` field. These permissions will be applied to the user created for the relation.
+- Can optionally provide user roles in the `extra-user-roles` field. These roles will be applied to the requested user or relation user.
   - This value can be empty, in which case a default will be applied, or it can be set to `admin`:
     - default: this has read-write permissions over the index that has been generated for this relation.
     - admin: this has control over the cluster, including creating new indices and setting cluster node roles.
-  - Specifics of how these permissions are implemented have been left to the provider charm developers, since they vary slightly between opensearch API-compliant applications.
+  - Specifics of how these roles are implemented have been left to the provider charm developers, since they vary slightly between opensearch API-compliant applications.
+- Can optionally provide group roles in the `extra-group-roles` field. These roles will be applied to the requested group.
+- Can optionally provide the `entity-type` field specifying the type of entity to request, instead of an index.
+- Can optionally provide the `entity-permissions` field specifying the permissions for the requested entity.
 - Is expected to tolerate that the Provider may ignore the `index` field in some cases and instead use the index name received.
 
 ## Relation Data

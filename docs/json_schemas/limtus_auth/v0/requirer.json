@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "AppSchema": {
+      "description": "Application databag schema for the provider & requrier side of the litmus_auth interface.",
+      "properties": {
+        "grpc_server_host": {
+          "description": "gRPC server hostname for the litmus auth/backend server.",
+          "examples": [
+            "some.hostname",
+            "10.64.140.43"
+          ],
+          "title": "Grpc Server Host",
+          "type": "string"
+        },
+        "grpc_server_port": {
+          "description": "gRPC server port for the litmus auth/backend server.",
+          "examples": [
+            1234,
+            42424
+          ],
+          "title": "Grpc Server Port",
+          "type": "integer"
+        },
+        "insecure": {
+          "default": false,
+          "description": "Whether the gRPC server endpoint should be accessed without TLS (insecure connection).",
+          "title": "Insecure",
+          "type": "boolean"
+        },
+        "version": {
+          "default": 0,
+          "description": "version of this data model.",
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "grpc_server_host",
+        "grpc_server_port"
+      ],
+      "title": "AppSchema",
+      "type": "object"
+    },
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/AppSchema"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

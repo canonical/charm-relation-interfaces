@@ -12,6 +12,11 @@
       <img src="https://img.shields.io/badge/Join%20us%20on%20Matrix-%23charmhub--integrations%3Aubuntu.com-blue" alt="Matrix badge" />
     </a>
   </p>
+  <h2>
+    This repository is archived
+  </h2>
+  <p>For up-to-date interface documentation, please refer to the <a href="https://documentation.ubuntu.com/charmlibs/" target="_blank" style="color: #155724; font-weight: bold;">charmlibs docs</a>.</p>
+  <p>Interface definitions and updates should be contributed to the <a href="https://github.com/canonical/charmlibs" target="_blank" style="color: #155724; font-weight: bold;">charmlibs monorepo</a>.</p>
 </div>
 
 ## Purpose
@@ -26,6 +31,6 @@ For the time being, to see available interfaces, their statuses, and schemas, br
 
 # Relation interface testers
 
-In order to automatically validate whether a charm satisfies a given relation interface, the relation interface maintainer(s) need to write one or more **relation interface tests**. A relation interface test is a [scenario-based test case](https://github.com/canonical/ops-scenario) which checks that, given an initial context, when a relation event is triggered, the charm will do what the interface specifies. For example, most interface testers will check that, on relation changed, the charm will write a certain value into its (app/unit) databag and that that value matches a certain (Pydantic) schema.
+In order to automatically validate whether a charm satisfies a given relation interface, the relation interface maintainer(s) need to write one or more **relation interface tests**. A relation interface test is a [scenario-based test case](https://documentation.ubuntu.com/ops/latest/howto/manage-interfaces/#write-tests-for-an-interface) which checks that, given an initial context, when a relation event is triggered, the charm will do what the interface specifies. For example, most interface testers will check that, on relation changed, the charm will write a certain value into its (app/unit) databag and that that value matches a certain (Pydantic) schema.
 
 See [the tester documentation](https://github.com/canonical/interface-tester-pytest) for more.

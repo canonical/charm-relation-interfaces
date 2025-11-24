@@ -1,0 +1,13 @@
+name: jwt
+version: 0
+status: draft
+
+providers:
+  - name: jwt-integrator
+    url: https://www.github.com/canonical/jwt-integrator
+
+requirers:
+  - name: opensearch-operator
+    url: https://www.github.com/canonical/opensearch-operator
+
+maintainer: data-platform

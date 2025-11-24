@@ -1,0 +1,13 @@
+name: azure_service_principal
+version: 0
+status: draft
+
+providers:
+  - name: azure-auth-integrator
+    url: https://github.com/canonical/azure-auth-integrator
+
+requirers:
+  - name: velero-operator
+    url: https://github.com/canonical/velero-operator
+
+maintainer: data-platform

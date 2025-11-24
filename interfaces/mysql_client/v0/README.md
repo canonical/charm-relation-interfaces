@@ -26,10 +26,13 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 
 ### Provider
 - Is expected to create an application user inside the database cluster when the requirer provides the `database` field.
-- Is expected to provide credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `database` field.
+- Is expected to provide relation user credentials (`username` and `password`) in a Juju Secret whenever the Requirer supplies the `database` field, but not the `entity-type` one.
+- Is expected to provide custom entity credentials (`entity-name` and `entity-password`) in a Juju Secret whenever the Requirer supplies both the `database` and `entity-type` fields.
 - Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field with the address of Primary, which can be used for Read/Write queries.
 - Is expected to provide the `database` field with the database that was actually created.
+- Is expected to provide the `uris` field with the connection string, in mysqlshell's URI format, which can be used for direct connection to the db.
+- Is expected to provide the `read-only-uris` field with the connection string when requested as a secret field, in mysqlshell's URI format, which can be used for direct connection to a read only edpoint of a cluster.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
 - Is expected to provide the `version` field whenever database charm wants to communicate its database version.
 - Is expected to provide the CA chain in the `tls-ca` field of a Juju Secret, whenever the provider has TLS enabled (such as using the [TLS Certificates Operator](https://github.com/canonical/tls-certificates-operator)).
@@ -43,7 +46,10 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.
-- Is expected to add any `extra-user-roles` provided by the Requirer to the created user (e.g. `extra-user-roles=admin`).
+- Can optionally add any `extra-user-roles` provided by the Requirer to the requested user or relation user (e.g. `extra-user-roles=admin`).
+- Can optionally add any `extra-group-roles` provided by the Requirer to the requested group (e.g. `extra-group-roles=admin`).
+- Can optionally add field `entity-type` provided by the Requirer to the created a custom entity, instead of a database.
+- Can optionally add field `entity-permissions` provided by the Requirer to tweak custom entity permissions.
 - Is expected to tolerate that the Provider may ignore the `database` field in some cases and instead use the database name received.
 
 ## Relation Data

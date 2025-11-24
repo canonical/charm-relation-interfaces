@@ -89,7 +89,9 @@ def _prepare_repo(
     repo_root_path = root / charm_config.name
 
     # multi-charm repos might have multiple charms in a single repo.
-    if charm_root_cfg := charm_config.test_setup.get("charm_root"):
+    if charm_config.test_setup and (
+        charm_root_cfg := charm_config.test_setup.get("charm_root")
+    ):
         charm_root_path = repo_root_path / charm_root_cfg
         if not charm_root_path.resolve().is_relative_to(repo_root_path):
             raise SetupError(
@@ -168,10 +170,9 @@ def _get_fixture(charm_config: "_CharmTestConfig", charm_path: Path) -> FixtureS
     fixture_path = charm_path / FIXTURE_PATH
     fixture_id = FIXTURE_IDENTIFIER
     if charm_config.test_setup:
-        if charm_config.test_setup["location"]:
-            fixture_path = charm_path / Path(charm_config.test_setup["location"])
-        if charm_config.test_setup["identifier"]:
-            fixture_id = charm_config.test_setup["identifier"]
+        if location := charm_config.test_setup.get("location"):
+            fixture_path = charm_path / Path(location)
+        fixture_id = charm_config.test_setup.get("identifier", fixture_id)
     return FixtureSpec(fixture_path, fixture_id)
 
 
@@ -182,6 +183,7 @@ def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
     timeout = 60  # seconds
     if pre_run_cfg := charm_config.test_setup.get("pre_run"):
         logging.info("Running custom pre_run script...")
+        logging.info(pre_run_cfg)
         try:
             output = subprocess.check_output(
                 pre_run_cfg,
@@ -189,7 +191,6 @@ def _pre_run(charm_config: "_CharmTestConfig", charm_path: Path):
                 shell=True,
                 timeout=timeout,
                 text=True,
-                check=True,
             )
         except subprocess.CalledProcessError as e:
             logging.error(
@@ -213,24 +214,27 @@ def _setup_venv(charm_path: Path) -> None:
     """Create the venv for a charm and return the path to its python."""
     logging.info(f"Preparing venv for {charm_path}")
 
-    original_wd = os.getcwd()
-    os.chdir(charm_path)
     # Create the venv and install the requirements
     try:
         subprocess.check_call(
-            f"{MKVENV_CMD} ./.interface-venv", shell=True, stdout=subprocess.DEVNULL
+            f"{MKVENV_CMD} ./.interface-venv",
+            shell=True,
+            stdout=subprocess.DEVNULL,
+            cwd=charm_path,
         )
         logging.info(f"Installing dependencies in venv for {charm_path}")
 
         subprocess.check_call(
             ".interface-venv/bin/python -m pip install setuptools pytest pytest-interface-tester",
             shell=True,
+            cwd=charm_path,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
         subprocess.check_call(
             ".interface-venv/bin/python -m pip install -r requirements.txt",
             shell=True,
+            cwd=charm_path,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
@@ -238,22 +242,19 @@ def _setup_venv(charm_path: Path) -> None:
 
     except subprocess.CalledProcessError as e:
         raise SetupError("venv setup failed") from e
-    os.chdir(original_wd)
 
 
 def _run_test_with_pytest(root: Path, test_path: Path):
     """Run a test file with pytest."""
     logging.info(f"Running tests for {root}")
-    original_wd = os.getcwd()
-    os.chdir(root)
     try:
         subprocess.check_call(
             f"PYTHONPATH=src:lib .interface-venv/bin/python -m pytest {test_path}",
+            cwd=root,
             shell=True,
         )
     except subprocess.CalledProcessError as e:
         raise InterfaceTestError from e
-    os.chdir(original_wd)
 
 
 def _test_charm(
