@@ -19,5 +19,9 @@ requirers:
     url: https://www.github.com/canonical/mongodb-operator
   - name: mongodb-k8s-operator
     url: https://www.github.com/canonical/mongodb-k8s-operator
+  - name: spark-integration-hub-k8s-operator
+    url: https://github.com/canonical/spark-integration-hub-k8s-operator
+  - name: spark-history-server-k8s-operator
+    url: https://github.com/canonical/spark-history-server-k8s-operator
 
 maintainer: data-platform

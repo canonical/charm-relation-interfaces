@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "S3RequirerAppData": {
+      "description": "Data expected on the requirer side for the s3 v1 interface.",
+      "properties": {
+        "bucket": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The name of the bucket/container requested by the requirer.",
+          "examples": [
+            "minio"
+          ],
+          "title": "Bucket"
+        },
+        "lib-version": {
+          "description": "The desired S3 lib version the requirer expects.",
+          "examples": [
+            "1.10"
+          ],
+          "title": "S3 lib version",
+          "type": "string"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The path inside the bucket/container to store objects.",
+          "examples": [
+            "my/path/"
+          ],
+          "title": "Path"
+        },
+        "requested-secrets": {
+          "description": "Any provider field which should be transferred as a Juju Secret.",
+          "examples": [
+            [
+              "access-key",
+              "secret-key"
+            ]
+          ],
+          "title": "Requested secrets",
+          "type": "string"
+        }
+      },
+      "required": [
+        "bucket",
+        "lib-version",
+        "path",
+        "requested-secrets"
+      ],
+      "title": "S3RequirerAppData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/S3RequirerAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}

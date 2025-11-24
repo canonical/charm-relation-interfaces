@@ -1,0 +1,231 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "S3APIVersion": {
+      "enum": [
+        2,
+        4
+      ],
+      "title": "S3APIVersion",
+      "type": "integer"
+    },
+    "S3ProviderAppData": {
+      "description": "Data expected on the provider side for the s3 v1 interface.",
+      "properties": {
+        "bucket": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The bucket/container name delivered by the provider.",
+          "examples": [
+            "minio"
+          ],
+          "title": "Bucket name"
+        },
+        "lib-version": {
+          "description": "The S3 lib version used by the provider charm.",
+          "examples": [
+            "1.10"
+          ],
+          "title": "S3 lib version",
+          "type": "string"
+        },
+        "secret-extra": {
+          "description": "A Juju Secret ID that points to a secret containing access-key and secret-key for connecting to the object storage.",
+          "examples": [
+            "secret://91f805c5-5b49-47a3-8e7b-70befa766caf/d40rbhnmp25c76d6bdn0"
+          ],
+          "title": "Credentials Secret ID",
+          "type": "string"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The path inside the bucket/container to store objects.",
+          "examples": [
+            "my/path/"
+          ],
+          "title": "Path"
+        },
+        "endpoint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The endpoint used to connect to the object storage.",
+          "examples": [
+            "https://minio-endpoint/"
+          ],
+          "title": "Endpoint URL"
+        },
+        "region": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The region used to connect to the object storage.",
+          "examples": [
+            "us-east-1"
+          ],
+          "title": "Region"
+        },
+        "s3-uri-style": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/S3URIStyleEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The S3 protocol specific bucket path lookup type.",
+          "examples": [
+            "path",
+            "host"
+          ],
+          "title": "S3 URI Style"
+        },
+        "storage-class": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Storage Class for objects uploaded to the object storage.",
+          "examples": [
+            "glacier"
+          ],
+          "title": "Storage Class"
+        },
+        "tls-ca-chain": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The complete CA chain, which can be used for HTTPS validation.",
+          "examples": [
+            [
+              "base64-encoded-ca-chain=="
+            ]
+          ],
+          "title": "TLS CA Chain"
+        },
+        "s3-api-version": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/S3APIVersion"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "S3 protocol specific API signature.",
+          "examples": [
+            2,
+            4
+          ],
+          "title": "S3 API signature"
+        },
+        "attributes": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The custom metadata (HTTP headers).",
+          "examples": [
+            [
+              "Cache-Control=max-age=90000,min-fresh=9000",
+              "X-Amz-Server-Side-Encryption-Customer-Key=CuStoMerKey="
+            ]
+          ],
+          "title": "Custom metadata"
+        }
+      },
+      "required": [
+        "bucket",
+        "lib-version",
+        "secret-extra",
+        "path",
+        "endpoint",
+        "region",
+        "s3-uri-style",
+        "storage-class",
+        "tls-ca-chain",
+        "s3-api-version",
+        "attributes"
+      ],
+      "title": "S3ProviderAppData",
+      "type": "object"
+    },
+    "S3URIStyleEnum": {
+      "enum": [
+        "path",
+        "host"
+      ],
+      "title": "S3URIStyleEnum",
+      "type": "string"
+    }
+  },
+  "description": "The schema for the provider side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/S3ProviderAppData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
