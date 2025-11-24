@@ -12,6 +12,11 @@
       <img src="https://img.shields.io/badge/Join%20us%20on%20Matrix-%23charmhub--integrations%3Aubuntu.com-blue" alt="Matrix badge" />
     </a>
   </p>
+  <h2>
+    This repository is archived
+  </h2>
+  <p>For up-to-date interface documentation, please refer to the <a href="https://documentation.ubuntu.com/charmlibs/" target="_blank" style="color: #155724; font-weight: bold;">charmlibs docs</a>.</p>
+  <p>Interface definitions and updates should be contributed to the <a href="https://github.com/canonical/charmlibs" target="_blank" style="color: #155724; font-weight: bold;">charmlibs monorepo</a>.</p>
 </div>
 
 ## Purpose
