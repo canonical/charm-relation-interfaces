@@ -27,6 +27,8 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 
 - Is expected to create an application `username` and `password` inside the Karapace service when the requirer relates to Karapace.
 - Is expected to delete an application `username` and `password` inside the Karapace service when the requirer removes the relation.
+- Is expected to provide a custom entity `entity-name` and `entity-password` inside the Karapace cluster when the requirer relates to the Karapace cluster when the `entity-type` field is supplied.
+- Is expected to delete a custom entity `entity-name` and `entity-password` from the Karapace cluster when the relation is removed.
 - Is expected to provide the `endpoints` field with a comma-seperated list of IP addresses or hostnames.
 - Is expected to provide the `subject` field with the subject to which the user should be granted access.
 - Should create and manage subjects and ACLs based on requirer requests
@@ -41,8 +43,11 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 
 ### Requirer
 
-- Is expected to request access to specific Karapace subjects
+- Is expected to request access to specific Karapace subjects by providing the `subject` field.
 - Can optionally specify `extra-user-roles` field, being either `admin` or `user`.
+- Can optionally provide the `entity-type` field specifying the type of entity to request, instead of a subject.
+- Can optionally provide the `entity-permissions` field specifying the permissions for the requested entity.
+- Can optionally provide the `extra-group-roles` field specifying a comma-separated list of roles for the requested group (e.g. `extra-group-roles=admin`).
 
 **Expected behavior:**
 - On relation changed with provider data, the requirer should:
@@ -55,12 +60,7 @@ Both the Requirer and the Provider need to adhere to the criteria, to be conside
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-Provider provides connection and authentication information:
-
-- **endpoints** (str): Karapace server endpoints (comma-separated if multiple)
-- **username** (str): Username for authentication
-- **password** (str): Password for authentication  
-- **tls** (str): TLS configuration ("enabled", "disabled", or certificate information)
+Provider provides credentials and endpoints. It should be placed in the **application** databag.
 
 
 #### Example
@@ -69,6 +69,7 @@ Provider provides connection and authentication information:
   - endpoint: karapace_client
     related-endpoint: karapace _client
     application-data:
+      subject: test-subject
       username: user123
       password: Dy0k2UTfyNt2B13cfe412K7YGs07S4U7
       endpoints: 10.141.78.155:8082
@@ -78,10 +79,8 @@ Provider provides connection and authentication information:
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer specifies the subject and access requirements:
+Requirer specifies the subject and access requirements. It should be placed in the **application** databag.
 
-- **subject** (str): The Karapace subject name to be created/accessed
-- **extra_user_roles** (str, optional): Additional roles for the user (comma-separated)
 
 #### Example
 
@@ -90,6 +89,6 @@ Requirer specifies the subject and access requirements:
   - endpoint: karapace_client
     related-endpoint: karapace_client
     application-data:
-        extra-user-roles: admin
         subject: test-subject
+        extra-user-roles: admin
 ```
