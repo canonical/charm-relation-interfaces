@@ -30,6 +30,11 @@
     "status": "draft"
   },
   {
+    "name": "connect_client",
+    "version": 0,
+    "status": "draft"
+  },
+  {
     "name": "cos_agent",
     "version": 0,
     "status": "published"

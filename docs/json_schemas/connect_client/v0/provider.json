@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "ConnectProviderData": {
+      "properties": {
+        "endpoints": {
+          "description": "A comma-separated list of Kafka Connect REST endpoint(s), including the protocol (either `http` or `https`)",
+          "examples": [
+            "http://10.1.1.100:8083,http://10.1.1.101:8083,http://10.1.1.102:8083"
+          ],
+          "title": "Kafka Connect Endpoints",
+          "type": "string"
+        },
+        "secret-user": {
+          "description": "The credentials to connect to Kafka Connect. The secret contains [username,password].",
+          "examples": [
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub6vubg2s77p3nio0"
+          ],
+          "title": "Credentials Secret Name",
+          "type": "string"
+        },
+        "secret-tls": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The name of the TLS secret to use. Leaving this empty will configure a client with TLS disabled. The secret contains [tls,tls-ca].",
+          "examples": [
+            "secret://59060ecc-0495-4a80-8006-5f1fc13fd783/cjqub7fubg2s77p3niog"
+          ],
+          "title": "TLS Secret Name"
+        }
+      },
+      "required": [
+        "endpoints",
+        "secret-user"
+      ],
+      "title": "ConnectProviderData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the provider side of the `connect_client` interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/ConnectProviderData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "ProviderSchema",
+  "type": "object"
+}
