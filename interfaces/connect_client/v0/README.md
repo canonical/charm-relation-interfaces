@@ -9,6 +9,8 @@ A Kafka Connect integrator will either require a specific `connector` library (w
 - In case it requires a connector library, it should provide the URL of this resource via `plugin-url` parameter on the requirer side. All the required files should be packaged into a single Tarball and served at the provided endpoint. The only requirement here is that the `plugin-url` should be accessible by the Kafka Connect provider.
 - In case a connector library is not required (e.g. the case of MirrorMaker integrator), the requirer should fill the `plugin-url` with the sentinel value: `NOT-REQUIRED`.
 
+This interface is implemented in the [`data_interfaces`](https://charmhub.io/data-platform-libs/libraries/data_interfaces) library of the `data_platform_libs`. Moreover, requirer charms can use the [`kafkacl`](https://github.com/canonical/kafkacl) library which provides reusable code for Kafka Connect integrator charms. Developers are free to provide alternative libraries as long as they fulfil the behavioural and schematic requirements described in this document.
+
 ## Direction
 
 ```mermaid
