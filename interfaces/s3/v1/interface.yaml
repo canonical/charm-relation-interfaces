@@ -1,0 +1,15 @@
+name: s3
+version: 1
+status: draft
+
+providers:
+  - name: s3-integrator
+    url: https://github.com/canonical/object-storage-integrators/tree/main/s3
+
+requirers:
+  # No requirers have yet implemented S3 v1 interface, so to supress the linter error,
+  # a dummy charm used in integration tests for s3-integrator is being added here.
+  - name: test-charm-s3
+    url: https://github.com/canonical/object-storage-integrators/tree/main/s3/tests/integration/test-charm-s3
+
+maintainer: data-platform

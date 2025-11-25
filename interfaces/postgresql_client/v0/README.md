@@ -32,7 +32,7 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to provide custom entity credentials (`entity-name` and `entity-password`) in a Juju Secret whenever the Requirer supplies both the `database` and `entity-type` fields.
 - Is expected to expose the Juju Secrets URI to the credentials through the `secret-user` field of the data bag.
 - Is expected to provide the `endpoints` field with the address of Primary, which can be used for Read/Write queries.
-- Is expected to provide the `database` field with the database that was actually created.
+- Is expected to provide the `database` field with the database that was actually created or the prefix requested by the requirer.
 - Is expected to provide the `uris` field with the connection string, in libpq's URI format, which can be used for direct connection to the db.
 - Is expected to provide the `read-only-uris` field with the connection string when requested as a secret field, in libpq's URI format, which can be used for direct connection to a read only edpoint of a cluster.
 - Is expected to provide optional `read-only-endpoints` field with a comma-separated list of hosts or one Kubernetes Service, which can be used for Read-only queries.
@@ -44,11 +44,12 @@ If any side, Provider or Requirer doesn't support Juju Secrets, sensitive inform
 - Is expected to express (via `external-node-connectivity`) whether external connectivity requests are to be respected or not, in case the charm is capable of such.
 - May require delays (via `subordinated`) to provide service on Requirer scale up. If so, it is expected to set unit level `state` data when it is `ready` to serve.
 - May respect the `entity-name` and `password` set in `requested-entity-secret`.
+- Is expected to populate `prefix-databases`, if a prefix was requested and any databases match the prefix.
 
 ### Requirer
 
 - Is expected to provide `requested-secrets`, which is a list of field names that are not to be exposed on the relation databag, but handled within Juju Secrets. It should be JSON parsable array of strings, and correspond to valid Juju Secret keys (i.e. alphanumerical characters with a potential '-' (dash) character). Secret fields must contain `username` and `password` (and `tls-ca` in case TLS is enabled).
-- Is expected to provide a database name in the `database` field.
+- Is expected to provide either a database name field or a prefix (ending in `*` and containing at least three additional characters) in the `database` field.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
 - Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple database charms.
 - Is expected to allow multiple different Juju applications to access the same database name.

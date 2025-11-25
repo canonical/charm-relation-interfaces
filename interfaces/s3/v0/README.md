@@ -20,21 +20,21 @@ As with all Juju relations, the `s3` interface consists of two parties: a Provid
 Both the Requirer and the Provider must adhere to criteria to be compatible with this interface.
 
 ### Provider
-- It is expected to create a bucket with application "credentials pair" inside the object storage when a relation joins. And provide `bucket`, `access-key` and `secret-key` fields accordingly.
-- It is expected to provide the `endpoint` field containing a URL.
-- It is expected to provide an optional `region` field for Region.
-- It is expected to provide an optional `s3-uri-style` field for (S3 protocol specific) bucket path lookup. The field can take only `host` and `path` values.
-- It is expected to provide an optional `storage-class` field for the S3 storage class.
-- It is expected to provide an optional `tls-ca-chain` field for TLS verification. The field can take a list of strings. Each string should be in base64 form and represent one certificate. All certificates together should represent a complete CA chain which can be used for HTTPS validation.
-- It is expected to provide an optional `s3-api-version` field for the (S3 protocol specific) API signature. The field can take only `2` and `4` values.
-- It is expected to provide an optional `attributes` field for the custom metadata. The field can take a list of strings. Server-Side-Encryption headers should be passed into this field, if any.
+- It is expected to share `bucket`, `access-key` and `secret-key` fields when the relation is joined.
+- It is expected to share an optional `endpoint` field containing a URL.
+- It is expected to share an optional `region` field for Region.
+- It is expected to share an optional `s3-uri-style` field for (S3 protocol specific) bucket path lookup. The field can take only `host` and `path` values.
+- It is expected to share an optional `storage-class` field for the S3 storage class.
+- It is expected to share an optional `tls-ca-chain` field for TLS verification. This field is shared by the provider if the S3 cloud has enforced TLS with custom CA certificate and can take a list of strings. Each string should be in base64 form and represent one certificate. All certificates together should represent a complete CA chain which can be used for HTTPS validation.
+- It is expected to share an optional `s3-api-version` field for the (S3 protocol specific) API signature. The field can take only `2` and `4` values.
+- It is expected to share an optional `attributes` field for the custom metadata. The field can take a list of strings. Server-Side-Encryption headers should be passed into this field, if any.
 
 ### Requirer
-- Is expected to provide a bucket name in the `bucket` field. Field value should be generated on Requirer side if no particular value set in Requirer juju config.
+- Is expected to share a bucket name in the `bucket` field. Field value should be generated on Requirer side if no particular value set in Requirer juju config.
 - Is expected to tolerate that the Provider may ignore the `bucket` field in some cases (e.g. S3Proxy or S3 Integrator) and instead use the bucket name received.
 - Is expected to allow multiple different Juju applications to access the same bucket name.
 - Is expected to have unique credentials for each relation. Therefore, different instances of the same Charm (juju applications) will have different relations with different credentials.
-- Is expected to have different relations names on Requirer with the same interface name if Requirer needs access to multiple buckets.
+- Is expected to have different relations with different instances of the Provider if the Requirer needs access to multiple buckets.
 
 ## Relation Data
 
@@ -42,7 +42,7 @@ Both the Requirer and the Provider must adhere to criteria to be compatible with
 
 [\[JSON Schema\]](./schemas/provider.json)
 
-The Provider provides credentials, endpoints, TLS info and database-specific fields. It should be placed in the **application** databag.
+The Provider shares credentials, endpoints, TLS info and database-specific fields. It should be placed in the **application** databag.
 
 
 #### Example
@@ -68,7 +68,7 @@ The Provider provides credentials, endpoints, TLS info and database-specific fie
 
 [\[JSON Schema\]](./schemas/requirer.json)
 
-Requirer provides bucket name. Should be placed in the **unit** databag in at least one unit of the Requirer.
+The Requirer shares the bucket name. It should be placed in the **application** databag.
 
 #### Example
 
@@ -76,10 +76,6 @@ Requirer provides bucket name. Should be placed in the **unit** databag in at le
   relation-info:
   - endpoint: object
     related-endpoint: object
-    application-data: {}
-    related-units:
-      worker-a/0:
-        in-scope: true
-        data:
-          bucket: myappA
+    application-data:
+      bucket: myappA
 ```

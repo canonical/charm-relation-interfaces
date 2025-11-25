@@ -265,6 +265,11 @@
     "status": "draft"
   },
   {
+    "name": "s3",
+    "version": 1,
+    "status": "draft"
+  },
+  {
     "name": "saml",
     "version": 0,
     "status": "published"
