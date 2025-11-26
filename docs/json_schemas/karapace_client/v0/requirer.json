@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "BaseModel": {
+      "properties": {},
+      "title": "BaseModel",
+      "type": "object"
+    },
+    "KarapaceRequirerData": {
+      "description": "The databag for the requirer side of this interface.",
+      "properties": {
+        "subject": {
+          "description": "The subject name access requested by the requirer",
+          "examples": [
+            "subject-1"
+          ],
+          "title": "Subject name",
+          "type": "string"
+        },
+        "extra-user-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "admin",
+          "description": "Any extra user roles requested by the requirer",
+          "examples": [
+            "admin",
+            "user"
+          ],
+          "title": "Extra user roles"
+        },
+        "extra-group-roles": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Any extra group roles requested by the requirer",
+          "examples": [
+            "charmed_read"
+          ],
+          "title": "Extra group roles"
+        },
+        "entity-type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Type of the requested entity (user / group)",
+          "examples": [
+            "USER",
+            "GROUP"
+          ],
+          "title": "Entity type"
+        },
+        "entity-permissions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "List of permissions to assign to the custom entity, in JSON format",
+          "examples": [
+            "[{\"resource_name\": \"schemas\", \"resource_type\": \"SUBJECT\", \"privileges\": [\"READ\"]}]"
+          ],
+          "title": "Entity permissions"
+        }
+      },
+      "required": [
+        "subject"
+      ],
+      "title": "KarapaceRequirerData",
+      "type": "object"
+    }
+  },
+  "description": "The schema for the requirer side of this interface.",
+  "properties": {
+    "unit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BaseModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "app": {
+      "$ref": "#/$defs/KarapaceRequirerData"
+    }
+  },
+  "required": [
+    "app"
+  ],
+  "title": "RequirerSchema",
+  "type": "object"
+}
