@@ -71,13 +71,10 @@ class KarapaceRequirerData(BaseModel):
     )
 
     extra_user_roles: Optional[str] = Field(
-        None,
+        default="admin",
         alias="extra-user-roles",
         description="Any extra user roles requested by the requirer",
-        examples=[
-            "admin",
-            "user"
-        ],
+        examples=["admin", "user"],
         title="Extra user roles",
     )
 
@@ -107,12 +104,11 @@ class KarapaceRequirerData(BaseModel):
 
     @field_validator("extra_user_roles", mode="before")
     @classmethod
-    def capitalize(cls, value: str) -> str:
-        extra_roles = value.split(",")
-
-        for role in extra_roles:
-            if role not in ExtraUserRole:
-                raise ValueError(f"Role {role} is not valid.")
+    def extra_user_roles_validator(cls, value: str) -> str:
+        try:
+            _role = ExtraUserRole(value)
+        except ValueError:
+            raise ValueError(f"Role {value} is not valid.")
 
         return value
 

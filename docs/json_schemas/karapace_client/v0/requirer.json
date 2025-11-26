@@ -25,7 +25,7 @@
               "type": "null"
             }
           ],
-          "default": null,
+          "default": "admin",
           "description": "Any extra user roles requested by the requirer",
           "examples": [
             "admin",
